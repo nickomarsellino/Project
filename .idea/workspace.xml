@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dda49f2f-32f2-4bcf-a033-cae85aee93d7" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactsrc/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactsrc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactsrc/src/components/HomePage/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/src/components/HomePage/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reactsrc/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/src/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -49,7 +42,7 @@
       <file leaf-file-name="Navigationbar.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="614">
+            <state relative-caret-position="89">
               <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -310,16 +303,15 @@
       <workItem from="1531103933987" duration="11829000" />
       <workItem from="1531189170560" duration="17563000" />
       <workItem from="1531276014127" duration="2292000" />
-      <workItem from="1531299978563" duration="895000" />
+      <workItem from="1531299978563" duration="2322000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144109000" />
+    <option name="totallyTimeSpent" value="145536000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -331,10 +323,10 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3286517" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.69101125" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49790794" visible="true" weight="0.21208054" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49790794" visible="true" weight="0.21208054" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" sideWeight="0.50209206" side_tool="true" weight="0.19597316" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -689,7 +681,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
+        <state relative-caret-position="89">
           <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
