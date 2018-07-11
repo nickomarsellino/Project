@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dda49f2f-32f2-4bcf-a033-cae85aee93d7" name="Default" comment="" />
+    <list default="true" id="dda49f2f-32f2-4bcf-a033-cae85aee93d7" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactsrc/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactsrc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactsrc/src/components/HomePage/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/src/components/HomePage/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactsrc/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/src/index.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,28 +20,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SignIn.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SignIn.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
+            <state relative-caret-position="278">
+              <caret line="105" column="37" lean-forward="true" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="37" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <element signature="n#!!block;n#constructor#0;n#SignIn#0" />
                 <element signature="n#!!block;n#handleInputChange#0;n#SignIn#0" />
-                <element signature="n#!!block;n#handleSubmit#0;n#SignIn#0" />
+                <element signature="n#!!block;n#componentDidMount#0;n#SignIn#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Register.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js">
+      <file leaf-file-name="Home.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reactsrc/src/components/HomePage/Home.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="77" column="20" selection-start-line="77" selection-start-column="20" selection-end-line="78" selection-end-column="48" />
+            <state relative-caret-position="214">
+              <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Navigationbar.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="614">
+              <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,13 +61,8 @@
       <file leaf-file-name="userRouter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/routes/userRouter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="112" column="72" selection-start-line="112" selection-start-column="72" selection-end-line="112" selection-end-column="72" />
-              <folding>
-                <element signature="e#258#447#0" />
-                <element signature="e#526#715#0" />
-                <element signature="e#865#1156#0" />
-              </folding>
+            <state relative-caret-position="2800">
+              <caret line="112" column="34" selection-start-line="112" selection-start-column="34" selection-end-line="112" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -58,6 +73,9 @@
     <findStrings>
       <find>cast</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -78,15 +96,16 @@
         <option value="$PROJECT_DIR$/reactsrc/src/components/App/App.css" />
         <option value="$PROJECT_DIR$/reactsrc/src/main.js" />
         <option value="$PROJECT_DIR$/reactsrc/src/components/App/App.js" />
-        <option value="$PROJECT_DIR$/reactsrc/src/index.js" />
         <option value="$PROJECT_DIR$/reactsrc/src/components/Footer/Footer_Bar.js" />
         <option value="$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.css" />
         <option value="$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.css" />
         <option value="$PROJECT_DIR$/reactsrc/public/index.html" />
         <option value="$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js" />
-        <option value="$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js" />
         <option value="$PROJECT_DIR$/server/routes/userRouter.js" />
+        <option value="$PROJECT_DIR$/reactsrc/src/index.js" />
         <option value="$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js" />
+        <option value="$PROJECT_DIR$/reactsrc/src/components/HomePage/Home.js" />
+        <option value="$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js" />
       </list>
     </option>
   </component>
@@ -117,71 +136,61 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="reactsrc" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
-              <item name="reactsrc" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="reactsrc" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="reactsrc" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Footer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="reactsrc" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Form_Register" type="462c0819:PsiDirectoryNode" />
+              <item name="HomePage" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="reactsrc" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Form_SignIn" type="462c0819:PsiDirectoryNode" />
+              <item name="Navbar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project-Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -190,12 +199,14 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/Workshop/3-1-gulp-website" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -299,11 +310,12 @@
       <workItem from="1531103933987" duration="11829000" />
       <workItem from="1531189170560" duration="17563000" />
       <workItem from="1531276014127" duration="2292000" />
+      <workItem from="1531299978563" duration="895000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143214000" />
+    <option name="totallyTimeSpent" value="144109000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
@@ -317,12 +329,12 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3286517" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49790794" visible="true" weight="0.20939597" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49790794" visible="true" weight="0.21208054" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" sideWeight="0.50209206" side_tool="true" weight="0.19597316" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -339,32 +351,32 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3286517" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1852349" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286517" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.3286517" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Capture Tool" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="right" id="Maven Projects" order="8" />
-      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1852349" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,13 +391,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/reactsrc/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" selection-start-line="12" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -583,27 +588,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reactsrc/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="17" column="34" lean-forward="true" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="40" />
-          <folding>
-            <element signature="e#277#335#0" expanded="true" />
-            <element signature="e#408#455#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/main.js" />
     <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-200">
@@ -632,13 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -662,12 +640,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/userRouter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="112" column="72" selection-start-line="112" selection-start-column="72" selection-end-line="112" selection-end-column="72" />
+        <state relative-caret-position="2800">
+          <caret line="112" column="34" selection-start-line="112" selection-start-column="34" selection-end-line="112" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
           <folding>
-            <element signature="e#258#447#0" />
-            <element signature="e#526#715#0" />
-            <element signature="e#865#1156#0" />
+            <element signature="e#277#335#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -684,13 +667,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
+        <state relative-caret-position="278">
+          <caret line="105" column="37" lean-forward="true" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="37" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="n#!!block;n#constructor#0;n#SignIn#0" />
             <element signature="n#!!block;n#handleInputChange#0;n#SignIn#0" />
-            <element signature="n#!!block;n#handleSubmit#0;n#SignIn#0" />
+            <element signature="n#!!block;n#componentDidMount#0;n#SignIn#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/HomePage/Home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="614">
+          <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>

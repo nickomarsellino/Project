@@ -17,8 +17,7 @@ class SignIn extends Component {
             password: "",
             token: "",
             formMessage: "",
-            formStatus: "",
-            success: false
+            formStatus: ""
         }
         this.handleInputChange = this.handleInputChange.bind(this)  ;
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,11 +69,8 @@ class SignIn extends Component {
             data: user
         })
             .then((response) => {
-                //transfer to home again
-                this.setState({
-                    success: true
-                });
-                this.props.history.push("/home");
+                //transfer to home
+                this.props.history.push("/Home_Page");
             })
             .catch((err) => {
                 if (err.response) {
@@ -107,7 +103,7 @@ class SignIn extends Component {
         return(
             <div>
                 <div id="navbar" >
-                    <Navbar success={this.state.success} />
+                    <Navbar isSuccess={false} />
                 </div>
             <Container className="col-md-4 col-md-offset-2">
                 <Card style={{ marginTop: "25%"}} >

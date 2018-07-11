@@ -13,7 +13,7 @@ class Home extends Component {
     return(
       <div>
         <div id="navbar">
-            <Navbar success={true}/>
+            <Navbar isSuccess={true}/>
         </div>
         <center>
           <img className="bgImage" src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/7t3l8uJ/social-media-platforms-with-their-logos-on-white-background_4yh1bl90__F0014.png" />
