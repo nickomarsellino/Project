@@ -1,2 +1,2 @@
 # Rae-Sremmurd
-Vamos de Skrips
+Vamos
