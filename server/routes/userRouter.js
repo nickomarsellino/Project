@@ -133,22 +133,27 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.put('/:id', (req, res) => {
-  User.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true, context: 'query' })
-    .then((oldResult) => {
-      User.findOne({ _id: req.params.id })
-        .then((newResult) => {
-          res.json({
-            success: true,
-            msg: `Successfully updated!`,
-            result: {
-              _id: newResult._id,
-              username: newResult.username,
-              email: newResult.email,
-              phone: newResult.phone,
-              password: newResult.password
-            }
-          });
-        })
+  const { body } = req;
+  const {
+    password
+  } = body;
+  User.findByIdAndUpdate({_id: req.params.id}, req.body).then( () => {
+    User.findOne({_id: req.params.id}).then( (user) => {
+      user.password = user.generateHash(password);
+      user.save()
+      .then((result) => {
+      res.json({
+        success: true,
+        msg: `Successfully edited..!`,
+        result: {
+          _id: result._id,
+          username: result.username,
+          email: result.email,
+          password: result.password,
+          phone: result.phone
+          }
+        });
+      })
         .catch((err) => {
           res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
           return;
@@ -176,6 +181,7 @@ router.put('/:id', (req, res) => {
               res.status(403).json({ success: false, msg: `Something went wrong. ${err}` });
           }
       });
+    });
 });
 
 module.exports = router;
