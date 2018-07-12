@@ -16,9 +16,7 @@ class Home extends Component {
         <div id="navbar">
             <Navbar success={true}/>
         </div>
-        <center>
-          <img className="bgImage" src={background} />
-        </center>
+
       </div>
     )
   }
