@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.bgImage{
+  width: 90%;
+  height: 100%;
+}

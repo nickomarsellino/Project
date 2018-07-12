@@ -1,0 +1,181 @@
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
+const User = require('../models/User.js');
+const UserSession = require('../models/User_Session');
+
+router.post('/register', (req, res) => {
+
+    //Create new to Database
+  User.create(req.body).then(function(result){
+    res.send(
+      {
+        success: true,
+        msg: `Successfully added!`,
+        result: {
+          _id: result._id,
+          username: result.username,
+          email: result.email,
+          password: result.password,
+          phone: result.phone
+        }
+      }
+    );
+  })
+  .catch((err) => {
+      if (err.errors) {
+        if (err.errors.username) {
+          res.status(403).json({ success: false, msg: err.errors.username.message });
+          return;
+        }
+        if (err.errors.email) {
+          res.status(403).json({ success: false, msg: err.errors.email.message });
+          return;
+        }
+        if (err.errors.password) {
+          res.status(403).json({ success: false, msg: err.errors.password.message });
+          return;
+        }
+        if (err.errors.phone) {
+          res.status(403).json({ success: false, msg: err.errors.phone.message });
+          return;
+        }
+        // Show failed if all else fails for some reasons
+        res.status(403).json({ success: false, msg: `Something went wrong. ${err}` });
+      }
+    });
+});
+
+router.post('/signin', (req, res) => {
+    const { body } = req;
+    const {
+        password
+    } = body;
+    let {
+        email
+    } = body;
+
+    console.log(email + password);
+    // email = email.toLowerCase();
+    // email = email.trim();
+    User.find({
+        email: email
+    }, (err, users) => {
+        if (err) {
+            console.log('err 2:', err);
+            return res.send({
+                success: false,
+                message: 'Error: server error'
+            });
+        }
+        if (users.length != 1) {
+            return res.send({
+                success: false,
+                message: 'Error: Invalid1'
+            });
+        }
+
+        const user = users[0];
+
+        if (!user.validPassword(password)) {
+            return res.send({
+                success: false,
+                message: 'Error: Invalid2'
+            });
+        }
+        // Otherwise correct user
+        const userSession = new UserSession();
+        userSession.userId = user._id;
+        userSession.timestamp =  Date.now();
+        userSession.save((err, doc) => {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: 'Error: server error'
+                });
+            }
+            return res.send({
+                success: true,
+                message: 'Valid sign in',
+                token: doc._id
+            });
+        });
+    });
+});
+
+router.get('/logout', (req, res, next) => {
+    // Get the token
+    const { query } = req;
+    const { token } = query;
+    // ?token=test
+    // Verify the token is one of a kind and it's not deleted.
+    UserSession.findOneAndUpdate({
+        _id: token,
+        isDeleted: false
+    }, {
+        $set: {
+            isDeleted:true
+        }
+    }, null, (err, sessions) => {
+        if (err) {
+            console.log(err);
+            return res.send({
+                success: false,
+                message: 'Error: Server error'
+            });
+        }
+        return res.send({
+            success: true,
+            message: 'Good'
+        });
+    });
+});
+
+router.put('/:id', (req, res) => {
+  User.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true, context: 'query' })
+    .then((oldResult) => {
+      User.findOne({ _id: req.params.id })
+        .then((newResult) => {
+          res.json({
+            success: true,
+            msg: `Successfully updated!`,
+            result: {
+              _id: newResult._id,
+              username: newResult.username,
+              email: newResult.email,
+              phone: newResult.phone,
+              password: newResult.password
+            }
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
+          return;
+        });
+    })
+      .catch((err) => {
+          if (err.errors) {
+              if (err.errors.username) {
+                  res.status(403).json({ success: false, msg: err.errors.username.message });
+                  return;
+              }
+              if (err.errors.email) {
+                  res.status(403).json({ success: false, msg: err.errors.email.message });
+                  return;
+              }
+              if (err.errors.phone) {
+                  res.status(403).json({ success: false, msg: err.errors.phone.message });
+                  return;
+              }
+              if (err.errors.password) {
+                  res.status(403).json({ success: false, msg: err.errors.password.message });
+                  return;
+              }
+              // Show failed if all else fails for some reasons
+              res.status(403).json({ success: false, msg: `Something went wrong. ${err}` });
+          }
+      });
+});
+
+module.exports = router;

@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+#footer{
+  position:absolute;
+  bottom:0;
+  width: 100%;
+}
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
