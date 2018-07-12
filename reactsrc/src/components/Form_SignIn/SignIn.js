@@ -76,6 +76,7 @@ class SignIn extends Component {
                 console.log(response.data.token);
                 setInStorage('bebas', {token:response.data.token})
                 this.props.history.push("/home");
+                console.log(response.data);
             })
             .catch((err) => {
                 if (err.response) {
