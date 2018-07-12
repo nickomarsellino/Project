@@ -8,7 +8,6 @@ import MessageValidation from '../MessageValidationBox/MessageValidation'
 import { Form } from 'semantic-ui-react';
 import axios from "axios/index";
 
-
 class SignIn extends Component {
     constructor(props) {
       super(props);
@@ -74,6 +73,8 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
+                console.log(response.data.token);
+                setInStorage('bebas', {token:response.data.token})
                 this.props.history.push("/home");
             })
             .catch((err) => {
