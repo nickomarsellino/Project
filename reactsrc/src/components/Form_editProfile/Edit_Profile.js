@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import Navbar from "../Navbar/Navigationbar";
 import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
-import { Form } from 'semantic-ui-react';
+import { Form, Image } from 'semantic-ui-react';
+import profile from '../../daniel.jpg';
+
 
 class Edit_Profile extends Component {
 
@@ -13,7 +15,6 @@ class Edit_Profile extends Component {
             username: "",
             email: "",
             password: "",
-            confirmPassword: "",
             phone: "",
             formMessage: "",
             formStatus: ""
@@ -43,9 +44,12 @@ class Edit_Profile extends Component {
               </div>
               <div>
                   <Container className="col-lg-4 col-lg-offset-2">
-                      <Card style={{ marginTop: "10%"}} >
+                      <Card style={{ marginTop: "10%", marginBottom:"10%"}} >
                           <CardBody>
-                              <center><h1>Profile</h1></center>
+                              <center>
+                                  <h1>Profile</h1>
+                                  <Image src={profile} size='medium' circular />
+                              </center>
                               <Row>
                                   <Col md="12">
                                       <Form onSubmit={this.handleSubmit}>
