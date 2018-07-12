@@ -6,7 +6,6 @@ const UserSession = require('../models/User_Session');
 
 router.post('/register', (req, res) => {
 
-    //Create new to Database
   User.create(req.body).then(function(result){
     res.send(
       {
@@ -184,4 +183,13 @@ router.put('/:id', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => { 
+  User.findById(req.params.id)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.status(404).json({ success: false, msg: `No such user.` });
+    });
+});
 module.exports = router;
