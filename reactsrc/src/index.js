@@ -18,10 +18,10 @@ import 'mdbreact/dist/css/mdb.css';
 ReactDOM.render(
     <Router>
         <div>
-            <Route exact path='/'   component={App} />
-            <Route path='/register' component={Register} />
-            <Route path='/signin'   component={SignIn} />
-            <Route path='/home'     component={Home} />
+            <Route exact path='/'    component={App} />
+            <Route path='/register'  component={Register} />
+            <Route path='/signin'    component={SignIn} />
+            <Route path='/home_page' component={Home} />
         </div>
     </Router>,
     document.getElementById('root')

@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="dda49f2f-32f2-4bcf-a033-cae85aee93d7" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactsrc/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactsrc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/reactsrc/package.json" afterDir="false" />
+    </list>
+=======
     <list default="true" id="dda49f2f-32f2-4bcf-a033-cae85aee93d7" name="Default" comment="" />
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,6 +18,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
+    <leaf />
+=======
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="SignIn.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js">
@@ -53,6 +64,7 @@
         </entry>
       </file>
     </leaf>
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -112,12 +124,16 @@
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
+=======
       <pane id="Scope" />
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -127,6 +143,15 @@
               <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
+<<<<<<< HEAD
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="Project-Akhir" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+=======
               <item name="Projek Akhir" type="b2602c69:ProjectViewProjectNode" />
               <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="reactsrc" type="462c0819:PsiDirectoryNode" />
@@ -184,11 +209,16 @@
               <item name="Projek Akhir" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
+      <pane id="Scope" />
+=======
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -299,11 +329,20 @@
       <workItem from="1531103933987" duration="11829000" />
       <workItem from="1531189170560" duration="17563000" />
       <workItem from="1531276014127" duration="2292000" />
+<<<<<<< HEAD
+      <workItem from="1531299978563" duration="2322000" />
+      <workItem from="1531365137609" duration="650000" />
+=======
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="146273000" />
+=======
     <option name="totallyTimeSpent" value="143214000" />
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
@@ -319,10 +358,17 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
+<<<<<<< HEAD
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.2977528" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Designer" order="2" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49790794" visible="true" weight="0.17315437" />
+=======
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3286517" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49790794" visible="true" weight="0.20939597" />
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" sideWeight="0.50209206" side_tool="true" weight="0.19597316" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -379,6 +425,25 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/public/index.html" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/public/index.html" />
+    <entry file="file://$PROJECT_DIR$/server/models/User.js" />
+    <entry file="file://$PROJECT_DIR$/server/routes/userRouter.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js" />
+    <entry file="file://$PROJECT_DIR$/server/server.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.css" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js" />
+=======
     <entry file="file://$PROJECT_DIR$/reactsrc/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -501,47 +566,43 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
     <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Modal/Modal_Container.js" />
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="875">
-          <caret line="35" column="39" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="7" column="16" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1000">
-          <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1025">
-          <caret line="41" column="46" selection-start-line="41" selection-start-column="46" selection-end-line="41" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.js" />
+    <entry file="file://$PROJECT_DIR$/server/server.js" />
     <entry file="file://$PROJECT_DIR$/react-src/src/App.js" />
     <entry file="file://$PROJECT_DIR$/react-src/src/index.js" />
     <entry file="file://$PROJECT_DIR$/react-src/src/App.js" />
-    <entry file="file://$PROJECT_DIR$/server/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2175" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/server/package-lock.json" />
     <entry file="file://$PROJECT_DIR$/react-src/package.json" />
     <entry file="file://$PROJECT_DIR$/react-src/src/index.js" />
     <entry file="file://$PROJECT_DIR$/reactsrc/src/components/button.js" />
     <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Modal/Modal_Container.js" />
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/server/package.json" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/package.json" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/MessageValidationBox/MessageValidation.js" />
+    <entry file="file://$PROJECT_DIR$/server/models/User_Session.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Navbar/Navbar.css" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.css" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.css" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/main.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/App/App.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.css" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/public/index.html" />
+    <entry file="file://$PROJECT_DIR$/server/server.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.css" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Footer/Footer_Bar.js" />
+    <entry file="file://$PROJECT_DIR$/server/models/User.js" />
+    <entry file="file://$PROJECT_DIR$/server/routes/userRouter.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/index.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_Register/Register.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Form_SignIn/SignIn.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/HomePage/Home.js" />
+    <entry file="file://$PROJECT_DIR$/reactsrc/src/components/Navbar/Navigationbar.js" />
+=======
     <entry file="file://$PROJECT_DIR$/server/package.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -695,5 +756,6 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 92d7739df83d5b3cefff302d6a10744a6d8bb151
   </component>
 </project>

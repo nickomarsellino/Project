@@ -74,7 +74,7 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
-                this.props.history.push("/home");
+                this.props.history.push("/home_page");
             })
             .catch((err) => {
                 if (err.response) {
