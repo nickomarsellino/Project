@@ -55,7 +55,6 @@ router.post('/signin', (req, res) => {
         email
     } = body;
 
-    console.log(email + password);
     // email = email.toLowerCase();
     // email = email.trim();
     User.find({
