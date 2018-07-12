@@ -75,6 +75,7 @@ class SignIn extends Component {
                     success: true
                 });
                 this.props.history.push("/home");
+                console.log(response.data);
             })
             .catch((err) => {
                 if (err.response) {
