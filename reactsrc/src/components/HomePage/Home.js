@@ -6,6 +6,7 @@ import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import { Form } from 'semantic-ui-react';
 import axios from "axios/index";
+import background from '../../01ft-01.jpg';
 import './Home.css';
 
 class Home extends Component {
@@ -16,7 +17,7 @@ class Home extends Component {
             <Navbar success={true}/>
         </div>
         <center>
-          <img className="bgImage" src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/7t3l8uJ/social-media-platforms-with-their-logos-on-white-background_4yh1bl90__F0014.png" />
+          <img className="bgImage" src={background} />
         </center>
       </div>
     )
