@@ -76,7 +76,9 @@ UserSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-
+UserSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
 // Use the unique validator plugin
 UserSchema.plugin(unique, { message: 'That {PATH} is already taken.' });
