@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import axios from 'axios';
 import ReactDOM from 'react-dom';
-import './Register.css'
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
 import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
