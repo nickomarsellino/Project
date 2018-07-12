@@ -4,6 +4,7 @@ export function getFromStorage(key) {
   }
   try {
     const valueStr = localStorage.getItem(key);
+    console.log(localStorage);
     if (valueStr) {
       return JSON.parse(valueStr);
     }
