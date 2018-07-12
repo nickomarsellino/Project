@@ -74,7 +74,7 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
-                this.props.history.push("/home_page");
+                this.props.history.push("/home");
             })
             .catch((err) => {
                 if (err.response) {
@@ -97,8 +97,6 @@ class SignIn extends Component {
                     formMessage = {this.state.formMessage}
                 />, document.getElementById('messageValidation'));
             });
-
-        console.log("Isi Eror nya: "+this.state.formMessage);
     }
 
     render(){
