@@ -9,7 +9,6 @@ import {getFromStorage} from "../../utils/storage";
 
 class Home extends Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -36,7 +35,8 @@ class Home extends Component {
     return(
       <div>
         <div id="navbar">
-            <Navbar success={true} userId={this.state.userId}/>
+            <Navbar success={true}
+            userId={this.state.userId} />
         </div>
 
           <Route path={this.props.match.url+'/profile'} component={coba}/>

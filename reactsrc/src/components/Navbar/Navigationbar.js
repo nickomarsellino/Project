@@ -25,14 +25,13 @@ class Navigationbar extends Component {
     }
 
     getData(){
-      console.log(this.props.userId);
+      // console.log(this.props.userId);
         axios.get('/api/users/'+this.props.userId)
             .then(res => {
                 this.setState({
-                    userName: res.data.username ,
-                    userId: res.data._id
+                    userName: res.data.username
                 });
-                console.log(this.state);
+                console.log("state ",this.state);
             });
     }
 
