@@ -87,9 +87,10 @@ router.post('/signin', (req, res) => {
                 return;
             }
             return res.send({
-                success: true,
-                message: 'Valid sign in',
-                token: user._id
+                success : true,
+                message : 'Valid sign in',
+                token   : doc._id,
+                userId  : user._id
             });
         });
     });
@@ -175,7 +176,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => { 
+router.get('/:id', (req, res) => {
   User.findById(req.params.id)
     .then((result) => {
       res.json(result);
