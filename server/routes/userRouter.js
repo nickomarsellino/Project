@@ -89,7 +89,7 @@ router.post('/signin', (req, res) => {
             return res.send({
                 success: true,
                 message: 'Valid sign in',
-                token: doc._id
+                token: user._id
             });
         });
     });
