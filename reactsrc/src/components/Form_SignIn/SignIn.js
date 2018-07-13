@@ -34,7 +34,8 @@ class SignIn extends Component {
       if (obj && obj.token) {
         const { token } = obj;
         // Verify token
-        fetch('/api/account/verify?token=' + token)
+
+        fetch('/api/users/verify?token=' + token)
           .then(res => res.json())
           .then(json => {
             if (json.success) {
