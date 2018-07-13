@@ -1,14 +1,16 @@
 import React, {Component} from "react";
 import ReactDOM from 'react-dom';
-import Navbar from "../Navbar/Navigationbar";
 
 import { Route } from 'react-router-dom';
 import axios from "axios/index";
 import './Home.css';
 import {getFromStorage} from "../../utils/storage";
 
-class Home extends Component {
+//load another component
+import Navbar from "../Navbar/Navigationbar";
+import Profile from '../Form_editProfile/Edit_Profile'
 
+class Home extends Component {
 
     constructor(props) {
         super(props);
@@ -22,15 +24,12 @@ class Home extends Component {
         this.setState({
             userId: obj.userId
         });
-        console.log("obj ",obj);
     }
 
   render(){
-        const coba = ({match}) => (
-            <div>
-                <h1>INI UNTUK EDIT PROFILE</h1>
-                {console.log(match)}
-                </div>
+
+        const editProfile = () => (
+            <Profile userId={this.state.userId}/>
         );
 
     return(
@@ -38,8 +37,9 @@ class Home extends Component {
         <div id="navbar">
             <Navbar success={true} userId={this.state.userId}/>
         </div>
-
-          <Route path={this.props.match.url+'/profile'} component={coba}/>
+        <div>
+            <Route path={this.props.match.url+'/profile'} component={editProfile}/>
+        </div>
       </div>
     )
   }
