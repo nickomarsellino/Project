@@ -4,6 +4,7 @@ import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import { Form, Image } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
+import ReactDOM from "react-dom";
 
 
 class Edit_Profile extends Component {
@@ -12,6 +13,7 @@ class Edit_Profile extends Component {
         super(props);
 
         this.state = {
+            userId:"",
             username: "",
             email: "",
             password: "",
@@ -24,6 +26,23 @@ class Edit_Profile extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    getData(){
+        axios.get('/api/users/'+this.props.userId)
+            .then(res => {
+                this.setState({
+                    userId: res.data._id,
+                    username: res.data.username,
+                    email: res.data.email,
+                    password: res.data.password,
+                    phone: res.data.phone
+                });
+            });
+    }
+
+    componentDidMount() {
+        this.getData();
+    }
+
     handleInputChange(e) {
         const target = e.target;
         const name = target.name;
@@ -33,24 +52,50 @@ class Edit_Profile extends Component {
 
     handleSubmit(e){
         e.preventDefault();
-    }
 
-    getData(){
-        axios.get('/api/users/'+this.props.userId)
-            .then(res => {
+        const user = {
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password,
+            phone: this.state.phone
+        }
+
+        console.log(user);
+
+        axios({
+            method: 'put',
+            responseType: 'json',
+            url: `http://localhost:3000/api/users/`+this.state.userId,
+            data: user
+        })
+            .then((response) => {
                 this.setState({
-                    username: res.data.username,
-                    email: res.data.email,
-                    password: res.data.password,
-                    phone: res.data.phone
+                    formStatus: 'Success',
+                    formMessage: response.data.msg
                 });
-                console.log(this.state);
+            })
+            .catch((err) => {
+                if (err.response) {
+                    this.setState({
+                        formStatus: 'Error',
+                        formMessage: err.response.data.msg
+                    });
+                }
+                else {
+                    this.setState({
+                        formStatus: 'Error',
+                        formMessage: 'Something went wrong. ' + err
+                    });
+                }
+
+                //Render Validation box message
+                ReactDOM.render(<MessageValidation
+                    formStatus = {this.state.formStatus}
+                    formMessage = {this.state.formMessage}
+                />, document.getElementById('messageValidation'));
             });
     }
 
-    componentDidMount() {
-        this.getData();
-    }
 
 
     render(){
