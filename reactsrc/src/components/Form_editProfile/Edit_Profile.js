@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Navbar from "../Navbar/Navigationbar";
+import axios from "axios/index";
 import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import { Form, Image } from 'semantic-ui-react';
@@ -12,6 +12,7 @@ class Edit_Profile extends Component {
         super(props);
 
         this.state = {
+            users: [],
             username: "",
             email: "",
             password: "",
@@ -36,12 +37,26 @@ class Edit_Profile extends Component {
         e.preventDefault();
     }
 
+    getData(){
+        axios.get('/api/users/'+this.props.userId)
+            .then(res => {
+                this.setState({
+                    username: res.data.username,
+                    email: res.data.email,
+                    password: res.data.password,
+                    phone: res.data.phone
+                });
+                console.log(this.state);
+            });
+    }
+
+    componentDidMount() {
+        this.getData();
+    }
+
+
     render(){
         return(
-          <div>
-              <div id="navbar" >
-                  <Navbar success={true} />
-              </div>
               <div>
                   <Container className="col-lg-4 col-lg-offset-2">
                       <Card style={{ marginTop: "10%", marginBottom:"10%"}} >
@@ -54,14 +69,14 @@ class Edit_Profile extends Component {
                                   <Col md="12">
                                       <Form onSubmit={this.handleSubmit}>
                                           <Form.Input required type="text" fluid label='Username'
-                                                      placeholder='Username'
+                                                      placeholder={this.state.username}
                                                       className={this.state.formStatus}
                                                       onChange={this.handleInputChange}
                                                       name="username"
                                           />
 
                                           <Form.Input required type="email" fluid label='Email'
-                                                      placeholder='Email'
+                                                      placeholder={this.state.email}
                                                       className={this.state.formStatus}
                                                       onChange={this.handleInputChange}
                                                       name="email"
@@ -75,7 +90,7 @@ class Edit_Profile extends Component {
                                           />
 
                                           <Form.Input required type="number" fluid label='Phone Number'
-                                                      placeholder='Phone Number'
+                                                      placeholder={this.state.phone}
                                                       className={this.state.formStatus}
                                                       onChange={this.handleInputChange}
                                                       name="phone"
@@ -91,7 +106,6 @@ class Edit_Profile extends Component {
                       </Card>
                   </Container>
               </div>
-          </div>
         );
     }
 }

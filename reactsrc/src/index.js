@@ -23,7 +23,6 @@ ReactDOM.render(
             <Route path='/register'         component={Register} />
             <Route path='/signin'           component={SignIn} />
             <Route path='/home'             component={Home} />
-            <Route path='/profile/:id'      component={Profile} />
         </div>
     </Router>,
     document.getElementById('root')
