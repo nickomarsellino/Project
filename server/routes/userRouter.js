@@ -185,4 +185,5 @@ router.get('/:id', (req, res) => {
       res.status(404).json({ success: false, msg: `No such user.` });
     });
 });
+
 module.exports = router;
