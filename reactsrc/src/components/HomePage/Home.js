@@ -35,7 +35,8 @@ class Home extends Component {
     return(
       <div>
         <div id="navbar">
-            <Navbar success={true} userId={this.state.userId}/>
+            <Navbar success={true}
+            userId={this.state.userId} />
         </div>
         <div>
             <Route path={this.props.match.url+'/profile'} component={editProfile}/>
