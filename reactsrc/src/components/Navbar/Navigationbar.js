@@ -25,7 +25,6 @@ class Navigationbar extends Component {
     }
 
     getData(){
-      console.log(this.props.userId);
         axios.get('/api/users/'+this.props.userId)
             .then(res => {
                 this.setState({
