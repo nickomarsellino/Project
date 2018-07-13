@@ -39,7 +39,6 @@ class Navigationbar extends Component {
         this.getData();
     }
 
-
     onClick(){
         this.setState({
             collapse: !this.state.collapse,
@@ -68,8 +67,18 @@ class Navigationbar extends Component {
                                 <span>{this.state.userName}</span>
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem href="#">Edit Profile</DropdownItem>
-                                <DropdownItem href="#">Log Out</DropdownItem>
+
+                                    <DropdownItem>
+                                        <Link to={'/home/profile'}>
+                                        Edit Profile
+                                        </Link>
+                                    </DropdownItem>
+
+                                <DropdownItem>
+                                    <Link to={'/signin'}>
+                                        Log Out
+                                    </Link>
+                                </DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </NavItem>
@@ -78,6 +87,7 @@ class Navigationbar extends Component {
             </Navbar>
         );
       }
+
       else{
         return(
             <Navbar light color="teal lighten-2" dark="true" expand="md" scrolling>
@@ -104,7 +114,6 @@ class Navigationbar extends Component {
             </Navbar>
         );
       }
-
     }
 }
 
