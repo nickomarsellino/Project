@@ -54,7 +54,6 @@ router.post('/signin', (req, res) => {
         email
     } = body;
 
-    console.log(email + password);
     // email = email.toLowerCase();
     // email = email.trim();
     User.find({
@@ -68,19 +67,15 @@ router.post('/signin', (req, res) => {
             });
         }
         if (users.length != 1) {
-            return res.send({
-                success: false,
-                message: 'Error: Invalid1'
-            });
+            res.status(403).json({ success: false, msg: 'Email and Password Invalid' });
+            return;
         }
 
         const user = users[0];
 
         if (!user.validPassword(password)) {
-            return res.send({
-                success: false,
-                message: 'Error: Invalid2'
-            });
+            res.status(403).json({ success: false, msg: 'Email and Password Invalid' });
+            return;
         }
         // Otherwise correct user
         const userSession = new UserSession();
@@ -88,16 +83,14 @@ router.post('/signin', (req, res) => {
         userSession.timestamp =  Date.now();
         userSession.save((err, doc) => {
             if (err) {
-                console.log(err);
-                return res.send({
-                    success: false,
-                    message: 'Error: server error'
-                });
+                res.status(403).json({ success: false, msg: 'Server Eror' });
+                return;
             }
             return res.send({
-                success: true,
-                message: 'Valid sign in',
-                token: doc._id
+                success : true,
+                message : 'Valid sign in',
+                token   : doc._id,
+                userId  : user._id
             });
         });
     });
@@ -183,7 +176,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => { 
+router.get('/:id', (req, res) => {
   User.findById(req.params.id)
     .then((result) => {
       res.json(result);

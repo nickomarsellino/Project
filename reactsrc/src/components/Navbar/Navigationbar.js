@@ -14,6 +14,8 @@ class Navigationbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userName: "",
+            userId: "",
             collapse: false,
             isWideEnough: false,
             dropdownOpen: false
@@ -21,6 +23,22 @@ class Navigationbar extends Component {
         this.onClick = this.onClick.bind(this);
         this.toggle = this.toggle.bind(this);
     }
+
+    getData(){
+        axios.get('/api/users/'+this.props.isToken)
+            .then(res => {
+                this.setState({
+                    userName: res.data.username ,
+                    userId: res.data._id
+                });
+                console.log(this.state);
+            });
+    }
+
+    componentDidMount() {
+        this.getData();
+    }
+
 
     onClick(){
         this.setState({
@@ -37,7 +55,7 @@ class Navigationbar extends Component {
     render() {
       if(this.props.success){
         return(
-            <Navbar light color="teal lighten-2" dark expand="md" scrolling>
+            <Navbar light color="teal lighten-2" dark="true" expand="md" scrolling>
                 <NavbarBrand href="/">
                     <img src={logo} height="30px"/> Friend Zone ?
                 </NavbarBrand>
@@ -47,7 +65,7 @@ class Navigationbar extends Component {
                         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle nav caret>
                                 <Image src={profile} avatar />
-                                <span>Lil Uzi Vert</span>
+                                <span>{this.state.userName}</span>
                             </DropdownToggle>
                             <DropdownMenu>
                                 <DropdownItem href="#">Edit Profile</DropdownItem>
@@ -62,7 +80,7 @@ class Navigationbar extends Component {
       }
       else{
         return(
-            <Navbar light color="teal lighten-2" dark expand="md" scrolling>
+            <Navbar light color="teal lighten-2" dark="true" expand="md" scrolling>
                 <NavbarBrand href="/">
                     <img src={logo} height="40px"/> Friend Zone ?
                 </NavbarBrand>

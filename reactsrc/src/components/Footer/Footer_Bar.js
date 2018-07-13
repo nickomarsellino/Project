@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, Row, Footer } from 'mdbreact';
+import { Container, Footer } from 'mdbreact';
 import './footer.css';
 
 class Footer_Bar extends React.Component {

@@ -34,8 +34,7 @@ class SignIn extends Component {
       if (obj && obj.token) {
         const { token } = obj;
         // Verify token
-
-        fetch('/api/users/verify?token=' + token)
+        fetch('/api/account/verify?token=' + token)
           .then(res => res.json())
           .then(json => {
             if (json.success) {
@@ -74,7 +73,7 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
-                console.log(response.data.token);
+
                 setInStorage('bebas', {token:response.data.token})
                 this.props.history.push("/home");
             })
