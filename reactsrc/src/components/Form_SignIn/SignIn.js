@@ -73,8 +73,9 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
-
-                setInStorage('bebas', {token:response.data.token})
+                console.log("respponnya ", response);
+                setInStorage('bebas', {token:response.data.token ,
+                 userId:response.data.userId})
                 this.props.history.push("/home");
             })
             .catch((err) => {
