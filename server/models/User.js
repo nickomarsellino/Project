@@ -60,7 +60,7 @@ UserSchema.pre('save', function (next) {
     })
 });
 
-UserSchema.pre('update', function (next) {
+UserSchema.pre('findByIdAndUpdate', function (next) {
     var user = this;
     bcrypt.hash(user.password, 10, function (err, hash) {
         if (err) {

@@ -131,7 +131,6 @@ router.put('/:id', (req, res) => {
   } = body;
   User.findByIdAndUpdate({_id: req.params.id}, req.body).then( () => {
     User.findOne({_id: req.params.id}).then( (user) => {
-      user.password = user.generateHash(password);
       user.save()
       .then((result) => {
       res.json({
