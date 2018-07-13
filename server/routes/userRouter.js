@@ -73,6 +73,7 @@ router.post('/signin', (req, res) => {
 
         const user = users[0];
 
+        console.log("SEBELUM MASUK IF: "+password);
         if (!user.validPassword(password)) {
             res.status(403).json({ success: false, msg: 'Email and Password Invalid' });
             return;
