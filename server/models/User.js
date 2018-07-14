@@ -73,6 +73,7 @@ UserSchema.pre('findByIdAndUpdate', function (next) {
 
 
 UserSchema.methods.validPassword = function(password) {
+    console.log("SESUDAH MASUK IF: "+password);
     return bcrypt.compareSync(password, this.password);
 };
 
