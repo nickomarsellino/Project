@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
 import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
-import { getFromStorage, setInStorage } from '../../utils/storage';
+import { setInStorage } from '../../utils/storage';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import { Form } from 'semantic-ui-react';
 import axios from "axios/index";
@@ -27,32 +27,6 @@ class SignIn extends Component {
         const target = e.target;
         const name = target.name;
         this.setState({ [name]: target.value });
-    }
-
-    componentDidMount() {
-      const obj = getFromStorage('bebas');
-      if (obj && obj.token) {
-        const { token } = obj;
-        // Verify token
-        fetch('/api/account/verify?token=' + token)
-          .then(res => res.json())
-          .then(json => {
-            if (json.success) {
-              this.setState({
-                token,
-                isLoading: false
-              });
-            } else {
-              this.setState({
-                isLoading: false,
-              });
-            }
-          });
-      } else {
-        this.setState({
-          isLoading: false,
-        });
-      }
     }
 
     handleSubmit(e){

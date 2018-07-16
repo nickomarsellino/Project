@@ -186,4 +186,33 @@ router.get('/:id', (req, res) => {
     });
 });
 
+router.get('/verify', (req, res, next) => {
+    // Get the token
+    const { query } = req;
+    const { token } = query;
+    // ?token=test
+    // Verify the token is one of a kind and it's not deleted.
+    UserSession.find({
+      _id: token,
+      isDeleted: false
+    }, (err, sessions) => {
+      if (err) {
+        console.log(err);
+        return res.send({
+          success: false,
+          message: 'Error: Server error'
+        });
+      }
+      if (sessions.length != 1) {
+        return res.send({
+          success: false,
+          message: 'Error: Invalid'
+        });
+      } else {
+        res.status(403).json({ success: true, msg: 'CEK MASIH LOGIN ' });
+        return;
+      }
+    });
+  });
+
 module.exports = router;

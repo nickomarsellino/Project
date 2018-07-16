@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarNav,
     NavbarToggler, Collapse, NavItem ,DropdownItem
     , Dropdown, DropdownToggle, DropdownMenu } from 'mdbreact';
-
+import { getFromStorage } from '../../utils/storage';
 import profile from '../../daniel.jpg';
 import { Button, Image } from 'semantic-ui-react'
 
@@ -22,6 +22,7 @@ class Navigationbar extends Component {
         };
         this.onClick = this.onClick.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     getData(){
@@ -35,7 +36,7 @@ class Navigationbar extends Component {
             });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.getData();
     }
 
@@ -51,12 +52,43 @@ class Navigationbar extends Component {
         });
     }
 
+    logout() {
+      this.setState({
+        isLoading: true,
+      });
+      const obj = getFromStorage('bebas');
+      if (obj && obj.token) {
+        const { token } = obj;
+        // Verify token
+        console.log("token local storage ", obj.token);
+        fetch('/api/users/logout?token=' + token)
+          .then(res => res.json())
+          .then(json => {
+            if (json.success) {
+              this.setState({
+                token: '',
+                isLoading: false
+              });
+            } else {
+              this.setState({
+                isLoading: false,
+              });
+            }
+          });
+      } else {
+        this.setState({
+          isLoading: false,
+        });
+      }
+    }
+
     render() {
       if(this.props.success){
         return(
-            <Navbar light color="teal lighten-2" dark="true" expand="md" scrolling>
+            <Navbar light color="teal lighten-2"
+            expand="md" scrolling>
                 <NavbarBrand href="/">
-                    <img src={logo} height="30px"/> Friend Zone ?
+                    <img src={logo} alt="" height="30px"/> Friend Zone ?
                 </NavbarBrand>
                 { !this.state.isWideEnough &&
                 <NavbarNav right>
@@ -74,8 +106,8 @@ class Navigationbar extends Component {
                                         </Link>
                                     </DropdownItem>
 
-                                <DropdownItem>
-                                    <Link to={'/signin'}>
+                                <DropdownItem onClick={this.logout}>
+                                    <Link to={'/'}>
                                         Log Out
                                     </Link>
                                 </DropdownItem>
@@ -92,7 +124,7 @@ class Navigationbar extends Component {
         return(
             <Navbar light color="teal lighten-2" dark="true" expand="md" scrolling>
                 <NavbarBrand href="/">
-                    <img src={logo} height="40px"/> Friend Zone ?
+                    <img src={logo} alt="" height="40px"/> Friend Zone ?
                 </NavbarBrand>
                 { !this.state.isWideEnough && <NavbarToggler dark onClick = { this.onClick } />}
                 <Collapse isOpen = { this.state.collapse } navbar>

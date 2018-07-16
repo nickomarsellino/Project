@@ -73,6 +73,7 @@ class Edit_Profile extends Component {
                     formStatus: 'Success',
                     formMessage: response.data.msg
                 });
+                console.log("respon edit prof :",response);
             })
             .catch((err) => {
                 if (err.response) {
@@ -127,7 +128,7 @@ class Edit_Profile extends Component {
                                                       name="email"
                                           />
 
-                                          <Form.Input required type="password" fluid label='Password'
+                                          <Form.Input required type="password" fluid label='Entar aja masih bingung Password'
                                                           placeholder='Password'
                                                           className={this.state.formStatus}
                                                           onChange={this.handleInputChange}

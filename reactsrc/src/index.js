@@ -9,7 +9,6 @@ import registerServiceWorker from './registerServiceWorker';
 import Register from './components/Form_Register/Register'
 import SignIn from './components/Form_SignIn/SignIn'
 import Home from './components/HomePage/Home'
-import Profile from './components/Form_editProfile/Edit_Profile'
 
 //import css data
 import 'font-awesome/css/font-awesome.min.css';
