@@ -71,12 +71,13 @@ class Edit_Profile extends Component {
         })
             .then((response) => {
                 this.setState({
-                    formStatus: 'Success',
+                    formStatus: 'success',
                     formMessage: response.data.msg
                 });
 
                 //Render Validation box message
                 ReactDOM.render(<MessageValidation
+                    form = "success"
                     formStatus = {this.state.formStatus}
                     formMessage = {this.state.formMessage}
                 />, document.getElementById('messageValidation'));
@@ -97,6 +98,7 @@ class Edit_Profile extends Component {
 
                 //Render Validation box message
                 ReactDOM.render(<MessageValidation
+                    form = "danger"
                     formStatus = {this.state.formStatus}
                     formMessage = {this.state.formMessage}
                 />, document.getElementById('messageValidation'));
@@ -135,19 +137,19 @@ class Edit_Profile extends Component {
                                                       name="email"
                                           />
 
-                                          <Form.Input required type="password" fluid label='Password'
-                                                          placeholder='Password'
-                                                          className={this.state.formStatus}
-                                                          onChange={this.handleInputChange}
-                                                          name="password"
-                                          />
-
                                           <Form.Input required type="number" fluid label='Phone Number'
                                                       placeholder={this.state.phone}
                                                       value={this.state.phone}
                                                       className={this.state.formStatus}
                                                       onChange={this.handleInputChange}
                                                       name="phone"
+                                          />
+
+                                          <Form.Input required type="password" fluid label='Password'
+                                                      placeholder='Password'
+                                                      className={this.state.formStatus}
+                                                      onChange={this.handleInputChange}
+                                                      name="password"
                                           />
 
                                           <div id="messageValidation"></div>
