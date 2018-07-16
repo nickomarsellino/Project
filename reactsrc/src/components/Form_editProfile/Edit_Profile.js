@@ -3,6 +3,7 @@ import axios from "axios/index";
 import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import { Form, Image } from 'semantic-ui-react';
+import FadeIn from 'react-fade-in';
 import profile from '../../daniel.jpg';
 import ReactDOM from "react-dom";
 
@@ -70,10 +71,17 @@ class Edit_Profile extends Component {
         })
             .then((response) => {
                 this.setState({
-                    formStatus: 'Success',
+                    formStatus: 'success',
                     formMessage: response.data.msg
                 });
-                console.log("respon edit prof :",response);
+
+                //Render Validation box message
+                ReactDOM.render(<MessageValidation
+                    form = "success"
+                    formStatus = {this.state.formStatus}
+                    formMessage = {this.state.formMessage}
+                />, document.getElementById('messageValidation'));
+
             })
             .catch((err) => {
                 if (err.response) {
@@ -91,6 +99,7 @@ class Edit_Profile extends Component {
 
                 //Render Validation box message
                 ReactDOM.render(<MessageValidation
+                    form = "danger"
                     formStatus = {this.state.formStatus}
                     formMessage = {this.state.formMessage}
                 />, document.getElementById('messageValidation'));
@@ -101,6 +110,7 @@ class Edit_Profile extends Component {
 
     render(){
         return(
+            <FadeIn>
               <div>
                   <Container className="col-lg-4 col-lg-offset-2">
                       <Card style={{ marginTop: "10%", marginBottom:"10%"}} >
@@ -128,19 +138,19 @@ class Edit_Profile extends Component {
                                                       name="email"
                                           />
 
-                                          <Form.Input required type="password" fluid label='Entar aja masih bingung Password'
-                                                          placeholder='Password'
-                                                          className={this.state.formStatus}
-                                                          onChange={this.handleInputChange}
-                                                          name="password"
-                                          />
-
                                           <Form.Input required type="number" fluid label='Phone Number'
                                                       placeholder={this.state.phone}
                                                       value={this.state.phone}
                                                       className={this.state.formStatus}
                                                       onChange={this.handleInputChange}
                                                       name="phone"
+                                          />
+
+                                          <Form.Input required type="password" fluid label='Password'
+                                                      placeholder='Password'
+                                                      className={this.state.formStatus}
+                                                      onChange={this.handleInputChange}
+                                                      name="password"
                                           />
 
                                           <div id="messageValidation"></div>
@@ -153,6 +163,7 @@ class Edit_Profile extends Component {
                       </Card>
                   </Container>
               </div>
+            </FadeIn>
         );
     }
 }

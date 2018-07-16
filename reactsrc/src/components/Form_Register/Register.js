@@ -3,12 +3,11 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
-import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
-
-
+import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
+import FadeIn from 'react-fade-in';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 
-import { Form } from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 
 
 class Register extends Component {
@@ -35,11 +34,11 @@ class Register extends Component {
         const target = e.target;
         const name = target.name;
 
-        this.setState({ [name]: target.value });
+        this.setState({[name]: target.value});
 
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
 
         e.preventDefault();
 
@@ -47,12 +46,13 @@ class Register extends Component {
         if (this.state.password !== this.state.confirmPassword) {
             //Render Validation box message
             ReactDOM.render(<MessageValidation
-                formStatus = "Error"
-                formMessage = "Passwords don't match"
+                form = "danger"
+                formStatus="Error"
+                formMessage="Passwords don't match"
             />, document.getElementById('messageValidation'));
         }
 
-        else{
+        else {
             const user = {
                 username: this.state.username,
                 email: this.state.email,
@@ -93,8 +93,9 @@ class Register extends Component {
 
                     //Render Validation box message
                     ReactDOM.render(<MessageValidation
-                        formStatus = {this.state.formStatus}
-                        formMessage = {this.state.formMessage}
+                        form = "danger"
+                        formStatus={this.state.formStatus}
+                        formMessage={this.state.formMessage}
                     />, document.getElementById('messageValidation'));
                 });
         }
@@ -102,69 +103,71 @@ class Register extends Component {
 
 
     render() {
-        return(
-
+        return (
             <div>
                 <div id="navbar">
-                    <Navbar />
+                    <Navbar/>
                 </div>
-            <Container className="col-lg-4 col-lg-offset-2">
-            <Card style={{ marginTop: "10%"}} >
-                <CardBody>
-                    <center><h1>Register</h1></center>
-                        <Row>
-                            <Col md="12">
-                                <Form onSubmit={this.handleSubmit}>
-                                    <Form.Input required type="text" fluid label='Username'
-                                                placeholder='Username'
-                                                className={this.state.formStatus}
-                                                onChange={this.handleInputChange}
-                                                name="username"
-                                    />
+                <FadeIn transitionDuration="500">
+                    <Container className="col-lg-4 col-lg-offset-2">
+                        <Card style={{marginTop: "10%"}}>
+                            <CardBody>
+                                <center><h1>Register</h1></center>
+                                <Row>
+                                    <Col md="12">
+                                        <Form onSubmit={this.handleSubmit}>
+                                            <Form.Input required type="text" fluid label='Username'
+                                                        placeholder='Username'
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                                        name="username"
+                                            />
 
-                                    <Form.Input required type="email" fluid label='Email'
-                                                placeholder='Email'
-                                                className={this.state.formStatus}
-                                                onChange={this.handleInputChange}
-                                                name="email"
-                                    />
+                                            <Form.Input required type="email" fluid label='Email'
+                                                        placeholder='Email'
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                                        name="email"
+                                            />
 
-                                    <Form.Group unstackable widths={2}>
-                                        <Form.Input required type="password" fluid label='Password'
-                                                    placeholder='Password'
-                                                    className={this.state.formStatus}
-                                                    onChange={this.handleInputChange}
-                                                    name="password"
-                                        />
+                                            <Form.Group unstackable widths={2}>
+                                                <Form.Input required type="password" fluid label='Password'
+                                                            placeholder='Password'
+                                                            className={this.state.formStatus}
+                                                            onChange={this.handleInputChange}
+                                                            name="password"
+                                                />
 
-                                        <Form.Input required type="password" fluid label='Confirm Password'
-                                                    placeholder='Confirm Password'
-                                                    className={this.state.formStatus}
-                                                    onChange={this.handleInputChange}
-                                                    name="confirmPassword"
-                                        />
-                                    </Form.Group>
-
-
-                                    <Form.Input required type="number" fluid label='Phone Number'
-                                                placeholder='Phone Number'
-                                                className={this.state.formStatus}
-                                                onChange={this.handleInputChange}
-                                                name="phone"
-                                    />
+                                                <Form.Input required type="password" fluid label='Confirm Password'
+                                                            placeholder='Confirm Password'
+                                                            className={this.state.formStatus}
+                                                            onChange={this.handleInputChange}
+                                                            name="confirmPassword"
+                                                />
+                                            </Form.Group>
 
 
-                                    <Form.Checkbox label='I agree to the Terms and Conditions' />
+                                            <Form.Input required type="number" fluid label='Phone Number'
+                                                        placeholder='Phone Number'
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                                        name="phone"
+                                            />
 
-                                    <div id="messageValidation"></div>
-                                    <Button block size="lg" style={{ marginTop: "3%" }} type="submit">Register</Button>
-                                </Form>
 
-                             </Col>
-                        </Row>
-                </CardBody>
-            </Card>
-            </Container>
+                                            <Form.Checkbox label='I agree to the Terms and Conditions'/>
+
+                                            <div id="messageValidation"></div>
+                                            <Button block size="lg" style={{marginTop: "3%"}}
+                                                    type="submit">Register</Button>
+                                        </Form>
+
+                                    </Col>
+                                </Row>
+                            </CardBody>
+                        </Card>
+                    </Container>
+                </FadeIn>
                 <div id="footer">
                     <Footer/>
                 </div>
