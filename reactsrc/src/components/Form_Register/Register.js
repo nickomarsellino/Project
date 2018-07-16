@@ -46,7 +46,7 @@ class Register extends Component {
         if (this.state.password !== this.state.confirmPassword) {
             //Render Validation box message
             ReactDOM.render(<MessageValidation
-                form = "danger"
+                form="danger"
                 formStatus="Error"
                 formMessage="Passwords don't match"
             />, document.getElementById('messageValidation'));
@@ -93,7 +93,7 @@ class Register extends Component {
 
                     //Render Validation box message
                     ReactDOM.render(<MessageValidation
-                        form = "danger"
+                        form="danger"
                         formStatus={this.state.formStatus}
                         formMessage={this.state.formMessage}
                     />, document.getElementById('messageValidation'));
