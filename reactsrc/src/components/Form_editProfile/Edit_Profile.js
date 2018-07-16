@@ -3,6 +3,7 @@ import axios from "axios/index";
 import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import { Form, Image } from 'semantic-ui-react';
+import FadeIn from 'react-fade-in';
 import profile from '../../daniel.jpg';
 import ReactDOM from "react-dom";
 
@@ -73,6 +74,12 @@ class Edit_Profile extends Component {
                     formStatus: 'Success',
                     formMessage: response.data.msg
                 });
+
+                //Render Validation box message
+                ReactDOM.render(<MessageValidation
+                    formStatus = {this.state.formStatus}
+                    formMessage = {this.state.formMessage}
+                />, document.getElementById('messageValidation'));
             })
             .catch((err) => {
                 if (err.response) {
@@ -100,6 +107,7 @@ class Edit_Profile extends Component {
 
     render(){
         return(
+            <FadeIn>
               <div>
                   <Container className="col-lg-4 col-lg-offset-2">
                       <Card style={{ marginTop: "10%", marginBottom:"10%"}} >
@@ -152,6 +160,7 @@ class Edit_Profile extends Component {
                       </Card>
                   </Container>
               </div>
+            </FadeIn>
         );
     }
 }

@@ -6,6 +6,7 @@ import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
 import { getFromStorage, setInStorage } from '../../utils/storage';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import { Form } from 'semantic-ui-react';
+import FadeIn from 'react-fade-in';
 import axios from "axios/index";
 
 class SignIn extends Component {
@@ -109,6 +110,7 @@ class SignIn extends Component {
                 <div id="navbar" >
                     <Navbar success={this.state.success} />
                 </div>
+                <FadeIn>
             <Container className="col-md-4 col-md-offset-2">
                 <Card style={{ marginTop: "25%"}} >
                     <CardBody>
@@ -139,7 +141,7 @@ class SignIn extends Component {
                     </CardBody>
                 </Card>
             </Container>
-
+                </FadeIn>
                 <div id="footer">
                     <Footer/>
                 </div>

@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom';
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
 import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
-
-
+import FadeIn from 'react-fade-in';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 
 import { Form } from 'semantic-ui-react';
@@ -103,11 +102,11 @@ class Register extends Component {
 
     render() {
         return(
-
             <div>
                 <div id="navbar">
                     <Navbar />
                 </div>
+                <FadeIn>
             <Container className="col-lg-4 col-lg-offset-2">
             <Card style={{ marginTop: "10%"}} >
                 <CardBody>
@@ -165,6 +164,7 @@ class Register extends Component {
                 </CardBody>
             </Card>
             </Container>
+                </FadeIn>
                 <div id="footer">
                     <Footer/>
                 </div>
