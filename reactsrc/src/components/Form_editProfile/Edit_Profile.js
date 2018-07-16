@@ -81,6 +81,7 @@ class Edit_Profile extends Component {
                     formStatus = {this.state.formStatus}
                     formMessage = {this.state.formMessage}
                 />, document.getElementById('messageValidation'));
+
             })
             .catch((err) => {
                 if (err.response) {

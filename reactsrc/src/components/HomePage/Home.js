@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { Route } from 'react-router-dom';
 import FadeIn from 'react-fade-in';
+
 import './Home.css';
 import {getFromStorage} from "../../utils/storage";
 

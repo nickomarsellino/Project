@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import {getFromStorage, setInStorage} from '../../utils/storage';
+
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
@@ -57,6 +58,7 @@ class SignIn extends Component {
     }
 
     handleSubmit(e) {
+
         e.preventDefault();
         const user = {
             email: this.state.email,
