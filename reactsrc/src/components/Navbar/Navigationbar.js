@@ -15,7 +15,6 @@ class Navigationbar extends Component {
         super(props);
         this.state = {
             userName: "",
-            userId: "",
             collapse: false,
             isWideEnough: false,
             dropdownOpen: false
@@ -86,7 +85,7 @@ class Navigationbar extends Component {
       if(this.props.success){
         return(
             <Navbar light color="teal lighten-2"
-            expand="md" scrolling>
+            expand="md" dark="true" scrolling>
                 <NavbarBrand href="/">
                     <img src={logo} alt="" height="30px"/> Friend Zone ?
                 </NavbarBrand>
