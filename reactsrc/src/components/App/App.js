@@ -5,16 +5,13 @@ import { getFromStorage } from '../../utils/storage';
 import axios from 'axios';
 
 class App extends Component {
-    componentDidMount() {
-      const obj = getFromStorage('bebas');
-      if (obj && obj.token) {
-        const { token } = obj;
-      axios.get('/api/users/verify?token='+ token)
-          .then(res => {
-              console.log("ressponya message ", res.data.msg);
-          });
-        }
+
+    componentWillMount(){
+        const obj = getFromStorage('bebas');
+
+        console.log("SESUDAH MENCET LOG OUT: ",obj.token);
     }
+
 
 
     render() {

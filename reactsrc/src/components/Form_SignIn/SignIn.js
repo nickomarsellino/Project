@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
-import {getFromStorage, setInStorage} from '../../utils/storage';
+import {setInStorage} from '../../utils/storage';
 
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import {Form} from 'semantic-ui-react';
@@ -31,31 +31,6 @@ class SignIn extends Component {
         this.setState({[name]: target.value});
     }
 
-    componentDidMount() {
-        const obj = getFromStorage('bebas');
-        if (obj && obj.token) {
-            const {token} = obj;
-            // Verify token
-            fetch('/api/account/verify?token=' + token)
-                .then(res => res.json())
-                .then(json => {
-                    if (json.success) {
-                        this.setState({
-                            token,
-                            isLoading: false
-                        });
-                    } else {
-                        this.setState({
-                            isLoading: false,
-                        });
-                    }
-                });
-        } else {
-            this.setState({
-                isLoading: false,
-            });
-        }
-    }
 
     handleSubmit(e) {
 
@@ -80,7 +55,7 @@ class SignIn extends Component {
                 setInStorage('bebas', {
                     token: response.data.token,
                     userId: response.data.userId
-                })
+                });
                 this.props.history.push("/home");
             })
             .catch((err) => {
@@ -100,7 +75,7 @@ class SignIn extends Component {
 
                 //Render Validation box message
                 ReactDOM.render(<MessageValidation
-                    form = "danger"
+                    form="danger"
                     formStatus={this.state.formStatus}
                     formMessage={this.state.formMessage}
                 />, document.getElementById('messageValidation'));
@@ -108,52 +83,49 @@ class SignIn extends Component {
     }
 
     render() {
-        const {token} = this.state;
-        if (!token) {
-            return (
-                <div>
-                    <div id="navbar">
-                        <Navbar success={this.state.success}/>
-                    </div>
-                    <FadeIn transitionDuration="500">
-                        <Container className="col-md-4 col-md-offset-2">
-                            <Card style={{marginTop: "25%"}}>
-                                <CardBody>
-                                    <center><h1>Sign In</h1></center>
-                                    <Row>
-                                        <Col md="12">
-                                            <Form onSubmit={this.handleSubmit}>
-                                                <Form.Input required type="email" fluid label='Email'
-                                                            placeholder='Email'
-                                                            name="email"
-                                                            className={this.state.formStatus}
-                                                            onChange={this.handleInputChange}
-                                                />
-
-                                                <Form.Input required type="password" fluid label='Password'
-                                                            placeholder='Password'
-                                                            name="password"
-                                                            className={this.state.formStatus}
-                                                            onChange={this.handleInputChange}
-                                                />
-
-                                                <div id="messageValidation"></div>
-                                                <Button block size="lg" style={{marginTop: "3%"}} type="submit">Sign
-                                                    In</Button>
-                                            </Form>
-
-                                        </Col>
-                                    </Row>
-                                </CardBody>
-                            </Card>
-                        </Container>
-                    </FadeIn>
-                    <div id="footer">
-                        <Footer/>
-                    </div>
+        return (
+            <div>
+                <div id="navbar">
+                    <Navbar success={this.state.success}/>
                 </div>
-            );
-        }
+                <FadeIn transitionDuration="500">
+                    <Container className="col-md-4 col-md-offset-2">
+                        <Card style={{marginTop: "25%"}}>
+                            <CardBody>
+                                <center><h1>Sign In</h1></center>
+                                <Row>
+                                    <Col md="12">
+                                        <Form onSubmit={this.handleSubmit}>
+                                            <Form.Input required type="email" fluid label='Email'
+                                                        placeholder='Email'
+                                                        name="email"
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                            />
+
+                                            <Form.Input required type="password" fluid label='Password'
+                                                        placeholder='Password'
+                                                        name="password"
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                            />
+
+                                            <div id="messageValidation"></div>
+                                            <Button block size="lg" style={{marginTop: "3%"}} type="submit">Sign
+                                                In</Button>
+                                        </Form>
+
+                                    </Col>
+                                </Row>
+                            </CardBody>
+                        </Card>
+                    </Container>
+                </FadeIn>
+                <div id="footer">
+                    <Footer/>
+                </div>
+            </div>
+        );
     }
 }
 

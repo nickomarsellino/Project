@@ -73,7 +73,6 @@ router.post('/signin', (req, res) => {
 
         const user = users[0];
 
-        console.log("SEBELUM MASUK IF: "+password);
         if (!user.validPassword(password)) {
             res.status(403).json({ success: false, msg: 'Email and Password Invalid' });
             return;
@@ -112,15 +111,12 @@ router.get('/logout', (req, res, next) => {
         }
     }, null, (err, sessions) => {
         if (err) {
-            console.log(err);
-            return res.send({
-                success: false,
-                message: 'Error: Server error'
-            });
+            res.status(403).json({ success: false, msg: 'Server Eror' });
+            return;
         }
         return res.send({
-            success: true,
-            message: 'Good'
+            success : true,
+            message : token
         });
     });
 });
