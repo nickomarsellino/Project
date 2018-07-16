@@ -1,8 +1,5 @@
 import React, {Component} from "react";
-import ReactDOM from 'react-dom';
-
 import { Route } from 'react-router-dom';
-import axios from "axios/index";
 import './Home.css';
 import {getFromStorage} from "../../utils/storage";
 
