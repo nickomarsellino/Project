@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Route } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import FadeIn from 'react-fade-in';
 
 import './Home.css';
@@ -18,33 +18,33 @@ class Home extends Component {
         };
     }
 
-    componentWillMount(){
+    componentWillMount() {
         const obj = getFromStorage('bebas');
         this.setState({
             userId: obj.userId
         });
     }
 
-  render(){
+    render() {
 
         const editProfile = () => (
             <Profile userId={this.state.userId}/>
         );
 
-    return(
-      <div>
-          <FadeIn>
-            <div id="navbar">
-                <Navbar success={true}
-                userId={this.state.userId} />
-            </div>
+        return (
             <div>
-                <Route path={this.props.match.url+'/profile'} component={editProfile}/>
+                <FadeIn>
+                    <div id="navbar">
+                        <Navbar success={true}
+                                userId={this.state.userId}/>
+                    </div>
+                    <div>
+                        <Route path={this.props.match.url + '/profile'} component={editProfile}/>
+                    </div>
+                </FadeIn>
             </div>
-          </FadeIn>
-      </div>
-    )
-  }
+        )
+    }
 }
 
 

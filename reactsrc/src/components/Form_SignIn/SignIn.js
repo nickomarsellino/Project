@@ -51,7 +51,6 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
-                console.log("respponnya ", response);
                 setInStorage('bebas', {
                     token: response.data.token,
                     userId: response.data.userId

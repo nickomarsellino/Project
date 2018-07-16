@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
-import { getFromStorage } from '../../utils/storage';
+import {getFromStorage} from '../../utils/storage';
 import axios from 'axios';
 
 class App extends Component {
 
-    componentWillMount(){
+    componentWillMount() {
         const obj = getFromStorage('bebas');
 
-        console.log("SESUDAH MENCET LOG OUT: ",obj.token);
+        if(obj.token.length > 5 ){
+            this.props.history.push("/home");
+        }
     }
 
 
-
     render() {
-        return(
+        return (
             <div>
                 <div id="navbar">
                     <Navbar/>

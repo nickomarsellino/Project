@@ -92,7 +92,7 @@ class Navigationbar extends Component {
                                     </DropdownItem>
 
                                     <DropdownItem onClick={this.logout}>
-                                        <Link to={'/'}>
+                                        <Link to={'/signin'}>
                                             Log Out
                                         </Link>
                                     </DropdownItem>
