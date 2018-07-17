@@ -22,11 +22,13 @@ class Register extends Component {
             confirmPassword: "",
             phone: "",
             formMessage: "",
-            formStatus: ""
+            formStatus: "",
+            isChecked: false
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.isClicked = this.isClicked.bind(this);
     }
 
 
@@ -36,6 +38,20 @@ class Register extends Component {
 
         this.setState({[name]: target.value});
 
+    }
+
+    isClicked(){
+
+        if(this.state.isChecked){
+            this.setState({
+                isChecked: false
+            });
+        }
+        else{
+            this.setState({
+                isChecked: true
+            });
+        }
     }
 
     handleSubmit(e) {
@@ -49,6 +65,15 @@ class Register extends Component {
                 form="danger"
                 formStatus="Error"
                 formMessage="Passwords don't match"
+            />, document.getElementById('messageValidation'));
+        }
+
+        if(!this.state.isChecked){
+            //Render Validation box message
+            ReactDOM.render(<MessageValidation
+                form="danger"
+                formStatus=" "
+                formMessage="Please CheckList Bor."
             />, document.getElementById('messageValidation'));
         }
 
@@ -155,7 +180,9 @@ class Register extends Component {
                                             />
 
 
-                                            <Form.Checkbox label='I agree to the Terms and Conditions'/>
+                                            <Form.Checkbox label='I agree to the Terms and Conditions'
+                                                           onClick={this.isClicked}
+                                                           checked={this.state.isChecked}/>
 
                                             <div id="messageValidation"></div>
                                             <Button block size="lg" style={{marginTop: "3%"}}

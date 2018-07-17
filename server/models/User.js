@@ -78,12 +78,10 @@ const UserSchema = new mongoose.Schema({
 
 
 UserSchema.methods.validPassword = function (password) {
-    console.log("SESUDAH MASUK IF: " + password);
     return bcrypt.compareSync(password, this.password);
 };
 
 UserSchema.methods.generateHash = function (password) {
-    console.log("JALAN: " + password);
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
