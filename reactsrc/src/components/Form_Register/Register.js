@@ -58,7 +58,7 @@ class Register extends Component {
                 email: this.state.email,
                 password: this.state.password,
                 phone: this.state.phone
-            }
+            };
 
             const method = 'post';
 

@@ -6,7 +6,16 @@ const UserSession = require('../models/User_Session');
 
 router.post('/register', (req, res) => {
 
-    User.create(req.body).then(function (result) {
+    const user = new User();
+
+    const users = {
+        username: req.body.username,
+        email: req.body.email,
+        password: user.generateHash(req.body.password),
+        phone: req.body.phone
+    };
+
+    User.create(users).then(function (result) {
         res.send(
             {
                 success: true,
@@ -128,6 +137,7 @@ router.put('/:id', (req, res) => {
     } = body;
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
         User.findOne({_id: req.params.id}).then((user) => {
+
             user.save()
                 .then((result) => {
                     res.json({
