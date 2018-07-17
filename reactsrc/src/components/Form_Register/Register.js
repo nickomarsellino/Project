@@ -75,7 +75,7 @@ class Register extends Component {
                     });
 
                     //transfer to home again
-                    this.props.history.push("/")
+                    this.props.history.push("/signin")
                 })
                 .catch((err) => {
                     if (err.response) {
