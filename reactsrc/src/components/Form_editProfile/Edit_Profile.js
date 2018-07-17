@@ -56,6 +56,8 @@ class Edit_Profile extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
+        console.log("Update Data: "+this.state.password +" And "+this.state.newPassword);
+
         const user = {
             username: this.state.username,
             email: this.state.email,
@@ -127,7 +129,7 @@ class Edit_Profile extends Component {
                             <CardBody>
                                 <center>
                                     <h1>Profile</h1>
-                                    <Image src={profile} size='medium' circular/>
+                                    <Image src={profile} size='small' circular/>
                                 </center>
                                 <Row>
                                     <Col md="12">
@@ -166,15 +168,21 @@ class Edit_Profile extends Component {
                                             <Form.Group widths='equal' hidden={this.state.isHidden}>
                                                 <Form.Input
                                                     fluid
-                                                    id='form-subcomponent-shorthand-input-first-name'
+                                                    type="password"
+                                                    name="password"
                                                     label='Old Password'
                                                     placeholder='Old Password'
+                                                    className={this.state.formStatus}
+                                                    onChange={this.handleInputChange}
                                                 />
                                                 <Form.Input
                                                     fluid
-                                                    id='form-subcomponent-shorthand-input-last-name'
+                                                    type="password"
+                                                    name="newPassword"
                                                     label='New Password'
                                                     placeholder='New Password'
+                                                    className={this.state.formStatus}
+                                                    onChange={this.handleInputChange}
                                                 />
                                             </Form.Group>
 
