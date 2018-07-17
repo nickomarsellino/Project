@@ -14,17 +14,20 @@ class Edit_Profile extends Component {
         super(props);
 
         this.state = {
+            isHidden: true,
             userId: "",
             username: "",
             email: "",
-            password: "",
             phone: "",
+            password: "",
+            newPassword: "",
             formMessage: "",
             formStatus: ""
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.changePasswordForm = this.changePasswordForm.bind(this);
     }
 
     getData() {
@@ -34,7 +37,6 @@ class Edit_Profile extends Component {
                     userId: res.data._id,
                     username: res.data.username,
                     email: res.data.email,
-                    password: res.data.password,
                     phone: res.data.phone
                 });
             });
@@ -57,11 +59,8 @@ class Edit_Profile extends Component {
         const user = {
             username: this.state.username,
             email: this.state.email,
-            password: this.state.password,
             phone: this.state.phone
         }
-
-        console.log(user);
 
         axios({
             method: 'put',
@@ -106,6 +105,18 @@ class Edit_Profile extends Component {
             });
     }
 
+    changePasswordForm() {
+        if(this.state.isHidden){
+            this.setState({
+                isHidden: false
+            });
+        }
+        else{
+            this.setState({
+                isHidden: true
+            });
+        }
+    }
 
     render() {
         return (
@@ -145,18 +156,33 @@ class Edit_Profile extends Component {
                                                         name="phone"
                                             />
 
-                                            <Form.Input required type="password" fluid label='Password'
-                                                        placeholder='Password'
-                                                        className={this.state.formStatus}
-                                                        onChange={this.handleInputChange}
-                                                        name="password"
-                                            />
+                                            <Form.Field>
+                                                <label>Change Password</label>
+                                                <Button size="sm" outline color="elegant"
+                                                        onClick={this.changePasswordForm}>Change Password</Button>
+                                                <div id="changePasswordForm"></div>
+                                            </Form.Field>
+
+                                            <Form.Group widths='equal' hidden={this.state.isHidden}>
+                                                <Form.Input
+                                                    fluid
+                                                    id='form-subcomponent-shorthand-input-first-name'
+                                                    label='Old Password'
+                                                    placeholder='Old Password'
+                                                />
+                                                <Form.Input
+                                                    fluid
+                                                    id='form-subcomponent-shorthand-input-last-name'
+                                                    label='New Password'
+                                                    placeholder='New Password'
+                                                />
+                                            </Form.Group>
+
 
                                             <div id="messageValidation"></div>
                                             <Button block size="lg" style={{marginTop: "3%"}} type="submit">Update
                                                 Profile</Button>
                                         </Form>
-
                                     </Col>
                                 </Row>
                             </CardBody>
