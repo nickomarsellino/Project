@@ -58,7 +58,7 @@ class Register extends Component {
                 email: this.state.email,
                 password: this.state.password,
                 phone: this.state.phone
-            }
+            };
 
             const method = 'post';
 
@@ -75,7 +75,7 @@ class Register extends Component {
                     });
 
                     //transfer to home again
-                    this.props.history.push("/")
+                    this.props.history.push("/signin")
                 })
                 .catch((err) => {
                     if (err.response) {

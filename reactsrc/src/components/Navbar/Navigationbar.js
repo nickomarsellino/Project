@@ -62,8 +62,6 @@ class Navigationbar extends Component {
                     token: " ",
                     userId: " "
                 });
-
-                console.log(res.data)
             });
     }
 
