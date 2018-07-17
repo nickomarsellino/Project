@@ -7,6 +7,7 @@ import {
     NavbarToggler, Collapse, NavItem, DropdownItem
     , Dropdown, DropdownToggle, DropdownMenu
 } from 'mdbreact';
+import Search_Bar from "../Search_Bar/Search_Bar";
 import {getFromStorage, setInStorage} from '../../utils/storage';
 import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
@@ -75,6 +76,9 @@ class Navigationbar extends Component {
                     </NavbarBrand>
                     {!this.state.isWideEnough &&
                     <NavbarNav right>
+                        <NavItem>
+                            <Search_Bar/>
+                        </NavItem>
                         <NavItem>
                             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                 <DropdownToggle nav caret>

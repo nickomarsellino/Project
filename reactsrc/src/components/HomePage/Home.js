@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Route} from 'react-router-dom';
 import FadeIn from 'react-fade-in';
-
 import './Home.css';
 import {getFromStorage} from "../../utils/storage";
 
@@ -38,6 +37,7 @@ class Home extends Component {
                         <Navbar success={true}
                                 userId={this.state.userId}/>
                     </div>
+
                     <div>
                         <Route path={this.props.match.url + '/profile'} component={editProfile}/>
                     </div>
