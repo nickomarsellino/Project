@@ -3,18 +3,36 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
+const Tweet = require('../models/Tweet');
+
+router.post('/tweet/:id', (req, res, next) => {
+  const{body}=req;
+  const{
+    tweetText
+  }=body
+  const data = new Tweet();
+  data.tweetText=tweetText;
+  data.timestamp=Date.now();
+
+  Tweet.create(data).then(function(result){
+        return res.send({
+            success   : true,
+            userId    : '',
+            tweetText : result.tweetText,
+            timestamp : new Date(),
+            message   : 'Tweet posted successfully..!',
+        });
+    });
+});
+
+router.delete('/tweet/:id', (req, res, next) => {
+  console.log(req.params.id);
+  Tweet.findByIdAndRemove({_id: req.params.id}).then( (result) => {
+    res.send(result);
+  });
+});
 
 router.post('/register', (req, res) => {
-
-    const user = new User();
-
-    const users = {
-        username: req.body.username,
-        email: req.body.email,
-        password: user.generateHash(req.body.password),
-        phone: req.body.phone
-    };
-
     User.create(users).then(function (result) {
         res.send(
             {

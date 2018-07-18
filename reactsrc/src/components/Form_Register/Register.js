@@ -80,10 +80,11 @@ class Register extends Component {
         else {
             const user = {
                 username: this.state.username,
-                email: this.state.email,
+                email   : this.state.email,
                 password: this.state.password,
-                phone: this.state.phone
-            };
+                phone   : this.state.phone
+            }
+          };
 
             const method = 'post';
 

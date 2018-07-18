@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const unique = require('mongoose-unique-validator');
 const validate = require('mongoose-validator');
 const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
 
 const usernameValidator = [
     validate({
