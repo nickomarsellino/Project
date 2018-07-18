@@ -3,23 +3,34 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
+const Tweet = require('../models/Tweet');
+
+router.post('/tweet/:id', (req, res) => {
+  Tweet.create(req.body).then(function(result){
+    res.send({
+        success   : true,
+        userId    : result.userId,
+        tweet     : result.tweet,
+        timestamp : result.timestamp,
+        message   : 'Tweet posted successfully..!',
+    });
+  });
+});
 
 router.post('/register', (req, res) => {
-
   User.create(req.body).then(function(result){
     res.send(
       {
-        success: true,
-        msg: `Successfully added!`,
-        result: {
-          _id: result._id,
+        success : true,
+        msg     : `Successfully added!`,
+        result  : {
+          _id     : result._id,
           username: result.username,
-          email: result.email,
+          email   : result.email,
           password: result.password,
-          phone: result.phone
+          phone   : result.phone
         }
-      }
-    );
+      });
   })
   .catch((err) => {
       if (err.errors) {
@@ -73,7 +84,6 @@ router.post('/signin', (req, res) => {
 
         const user = users[0];
 
-        console.log("SEBELUM MASUK IF: "+password);
         if (!user.validPassword(password)) {
             res.status(403).json({ success: false, msg: 'Email and Password Invalid' });
             return;

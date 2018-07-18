@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const unique = require('mongoose-unique-validator');
 const validate = require('mongoose-validator');
 const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
 
 const usernameValidator = [
   validate({
@@ -23,25 +24,25 @@ const emailValidator = [
   })
 ];
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   username: {
-    type: String,
+    type    : String,
     required: [true, 'Username is required.'],
-    unique: true,
+    unique  : true,
     validate: usernameValidator
   },
   email: {
-    type: String,
+    type    : String,
     required: [true, 'Email is required.'],
-    unique: true,
+    unique  : true,
     validate: emailValidator
   },
-    password: {
-    type: String,
+  password: {
+    type        : String,
         required: [true, 'Password is required.']
   },
   phone: {
-    type: Number,
+    type    : Number,
     required: [true, 'Phone Number is required.']
   }
 });
