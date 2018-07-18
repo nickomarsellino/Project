@@ -84,7 +84,6 @@ class Register extends Component {
                 password: this.state.password,
                 phone   : this.state.phone
             }
-          };
 
             const method = 'post';
 
@@ -124,9 +123,8 @@ class Register extends Component {
                         formMessage={this.state.formMessage}
                     />, document.getElementById('messageValidation'));
                 });
+          };
         }
-    }
-
 
     render() {
         return (

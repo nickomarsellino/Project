@@ -35,7 +35,7 @@ class Home extends Component {
         );
 
         return (
-            <div style={{marginTop: "8%"}}>
+            <div>
                 <FadeIn>
                     <div id="navbar">
                         <Navbar success={true}
