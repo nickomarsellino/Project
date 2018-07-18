@@ -6,13 +6,17 @@ const TweetSchema = new Schema({
       type    : String,
       default : ''
   },
-  tweet: {
+  tweetText: {
     type    : String,
     require : [true, 'Tweet cannot be empty.']
   },
   timestamp: {
     type    : Date,
     default : Date.now()
+  },
+  isDeleted: {
+      type    : Boolean,
+      default : false
   }
 });
 

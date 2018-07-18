@@ -5,15 +5,47 @@ const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
 
-router.post('/tweet/:id', (req, res) => {
-  Tweet.create(req.body).then(function(result){
-    res.send({
-        success   : true,
-        userId    : result.userId,
-        tweet     : result.tweet,
-        timestamp : result.timestamp,
-        message   : 'Tweet posted successfully..!',
+router.post('/tweet/:id', (req, res, next) => {
+  // const userSession = new Tweet();
+  // userSession.userId = tweetz._id;
+  // userSession.tweetText = tweet.tweetText;
+  // userSession.timestamp =  Date.now();
+  // userSession.save((err, doc) => {
+  //     if (err) {
+  //         res.status(403).json({ success: false, msg: 'Server Eror' });
+  //         return;
+  //     }
+  //     return res.send({
+  //                 success   : true,
+  //                 userId    : '',
+  //                 tweetText : result.tweetText,
+  //                 timestamp : result.timestamp,
+  //                 message   : 'Tweet posted successfully..!',
+  //     });
+  // });
+  const{body}=req;
+  const{
+    tweetText
+  }=body
+  const data = new Tweet();
+  data.tweetText=tweetText;
+  data.timestamp=Date.now();
+
+  Tweet.create(data).then(function(result){
+        return res.send({
+            success   : true,
+            userId    : '',
+            tweetText : result.tweetText,
+            timestamp : new Date(),
+            message   : 'Tweet posted successfully..!',
+        });
     });
+});
+
+router.delete('/tweet/:id', (req, res, next) => {
+  console.log(req.params.id);
+  Tweet.findByIdAndRemove({_id: req.params.id}).then( (result) => {
+    res.send(result);
   });
 });
 
