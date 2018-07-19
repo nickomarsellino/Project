@@ -3,6 +3,7 @@ import {Card, CardBody, Button} from "mdbreact"
 import { Feed } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
+import './Twiit_Container.css';
 
 class Twitt_Container extends Component {
 
@@ -38,7 +39,10 @@ class Twitt_Container extends Component {
                             <Feed.Event>
                                 <Feed.Label image={profile} style={{width: "10%",  padding: "5px 0"}}/>
                                 <Feed.Content>
-                                    <Feed.Summary content={tweet._id} />
+                                    <div className="asdf" >
+                                        <Feed.Summary content={tweet.username} />
+                                    </div>
+                                    <img className="asdf" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
                                     <Feed.Extra text content={tweet.tweetText} /> <br />
                                     <Feed.Date content={tweet.timestamp} />
                                 </Feed.Content>

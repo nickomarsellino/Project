@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import './Twitt_Box.css';
 import {Card, CardBody, Button} from "mdbreact"
 import { Form,  TextArea, Image } from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
