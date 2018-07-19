@@ -4,7 +4,9 @@ import {Card, CardBody, Button} from "mdbreact"
 import { Form,  TextArea, Image } from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 
+
 class Twitt_Box extends Component {
+
     render() {
         return (
             <div style={{marginTop: "8%", marginBottom: "2%"}}>

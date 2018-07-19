@@ -32,6 +32,12 @@ router.delete('/tweet/:id', (req, res, next) => {
   });
 });
 
+router.get('/tweets', (req, res, next) => {
+  Tweet.find({}).then((result) => {
+    res.send(result);
+  });
+});
+
 router.post('/register', (req, res) => {
     User.create(users).then(function (result) {
         res.send(
@@ -80,7 +86,6 @@ router.post('/signin', (req, res) => {
     let {
         email
     } = body;
-
     // email = email.toLowerCase();
     // email = email.trim();
     User.find({
