@@ -1,0 +1,9 @@
+.asdf{
+    display : inline-block;
+}
+
+#recycleIcon{
+  float: right;
+  cursor: pointer;
+  opacity: 0.5;
+}

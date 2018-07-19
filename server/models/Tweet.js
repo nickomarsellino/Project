@@ -6,6 +6,9 @@ const TweetSchema = new Schema({
       type    : String,
       default : ''
   },
+  username:{
+    type    : String
+  },
   tweetText: {
     type    : String
   },
@@ -14,8 +17,8 @@ const TweetSchema = new Schema({
     default : Date.now()
   },
   isDeleted: {
-      type    : Boolean,
-      default : false
+    type    : Boolean,
+    default : false
   }
 });
 

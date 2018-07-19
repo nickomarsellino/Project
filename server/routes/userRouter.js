@@ -8,19 +8,21 @@ const Tweet = require('../models/Tweet');
 router.post('/tweet/:id', (req, res, next) => {
     const {body} = req;
     const {
-        tweetText
+        tweetText , username
     } = body
     const data = new Tweet();
+    data.username  = username;
     data.tweetText = tweetText;
     data.timestamp = Date.now();
 
     Tweet.create(data).then(function (result) {
         return res.send({
-            success: true,
-            userId: '',
-            tweetText: result.tweetText,
-            timestamp: new Date(),
-            message: 'Tweet posted successfully..!',
+            success   : true,
+            userId    : '',
+            username  : result.username,
+            tweetText : result.tweetText,
+            timestamp : new Date(),
+            message   : 'Tweet posted successfully..!',
         });
     });
 });
