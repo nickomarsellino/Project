@@ -1,26 +1,83 @@
 import React, {Component} from "react";
-import ReactDOM from 'react-dom';
-import Footer from '../Footer/Footer_Bar';
-import Navbar from "../Navbar/Navigationbar";
-import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
-import MessageValidation from '../MessageValidationBox/MessageValidation'
-import { Form } from 'semantic-ui-react';
-import axios from "axios/index";
+import {Route} from 'react-router-dom';
+import FadeIn from 'react-fade-in';
 import './Home.css';
+import {getFromStorage} from "../../utils/storage";
+import {Container} from "mdbreact"
+
+//load another component
+import Navbar from "../Navbar/Navigationbar";
+import Profile from '../Form_editProfile/Edit_Profile'
+import Twitt_Box from "../Twitt_Box/Twitt_Box";
+import Twitt_Container from "../Twitt_Container/Twitt_Container";
+import axios from "axios/index";
+
 
 class Home extends Component {
-  render(){
-    return(
-      <div>
-        <div id="navbar">
-            <Navbar success={true}/>
-        </div>
-        <center>
-          <img className="bgImage" src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/7t3l8uJ/social-media-platforms-with-their-logos-on-white-background_4yh1bl90__F0014.png" />
-        </center>
-      </div>
-    )
-  }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            userId: '',
+            userName: ''
+        };
+    }
+
+    getData() {
+        // console.log(this.props.userId);
+        axios.get('/api/users/' + this.state.userId)
+            .then(res => {
+                this.setState({
+                    userName: res.data.username
+                });
+            });
+    }
+
+    componentWillMount() {
+        const obj = getFromStorage('bebas');
+        this.setState({
+            userId: obj.userId
+        });
+    }
+
+    componentDidMount() {
+        this.getData();
+    }
+
+    render() {
+
+        const editProfile = () => (
+            <Profile userId={this.state.userId}/>
+        );
+
+        const home = () => (
+            <Container className="col-lg-6 col-lg-offset-2" >
+                <div>
+                    <Twitt_Box userName={this.state.userName}
+                    userId={this.state.userId}
+                    />
+                </div>
+                <div>
+                    <Twitt_Container/>
+                </div>
+            </Container>
+        );
+
+        return (
+            <div>
+                <FadeIn>
+                    <div id="navbar">
+                        <Navbar success={true} userId={this.state.userId}/>
+                    </div>
+
+                    <div>
+                        <Route path={this.props.match.url} component={home}/>
+                        <Route path={this.props.match.url + '/profile'} component={editProfile}/>
+                    </div>
+                </FadeIn>
+            </div>
+        )
+    }
 }
 
 
