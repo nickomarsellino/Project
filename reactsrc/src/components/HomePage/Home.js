@@ -10,6 +10,7 @@ import Navbar from "../Navbar/Navigationbar";
 import Profile from '../Form_editProfile/Edit_Profile'
 import Twitt_Box from "../Twitt_Box/Twitt_Box";
 import Twitt_Container from "../Twitt_Container/Twitt_Container";
+import axios from "axios/index";
 
 
 class Home extends Component {
@@ -18,7 +19,18 @@ class Home extends Component {
         super(props);
         this.state = {
             userId: '',
+            userName: ''
         };
+    }
+
+    getData() {
+        // console.log(this.props.userId);
+        axios.get('/api/users/' + this.state.userId)
+            .then(res => {
+                this.setState({
+                    userName: res.data.username
+                });
+            });
     }
 
     componentWillMount() {
@@ -26,6 +38,10 @@ class Home extends Component {
         this.setState({
             userId: obj.userId
         });
+    }
+
+    componentDidMount() {
+        this.getData();
     }
 
     render() {
@@ -37,7 +53,9 @@ class Home extends Component {
         const home = () => (
             <Container className="col-lg-6 col-lg-offset-2" >
                 <div>
-                    <Twitt_Box/>
+                    <Twitt_Box userName={this.state.userName}
+                    userId={this.state.userId}
+                    />
                 </div>
                 <div>
                     <Twitt_Container/>
@@ -49,8 +67,7 @@ class Home extends Component {
             <div>
                 <FadeIn>
                     <div id="navbar">
-                        <Navbar success={true}
-                                userId={this.state.userId}/>
+                        <Navbar success={true} userId={this.state.userId}/>
                     </div>
 
                     <div>
