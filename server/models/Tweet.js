@@ -7,8 +7,7 @@ const TweetSchema = new Schema({
       default : ''
   },
   tweetText: {
-    type    : String,
-    require : [true, 'Tweet cannot be empty.']
+    type    : String
   },
   timestamp: {
     type    : Date,

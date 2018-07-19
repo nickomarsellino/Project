@@ -4,24 +4,8 @@ import {Card, CardBody, Button} from "mdbreact"
 import { Form,  TextArea, Image } from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 
+
 class Twitt_Box extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            tweetText: "",
-            userId: "",
-            isDisabled: false
-        }
-        this.handleInputChange = this.handleInputChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleInputChange(e) {
-        const target = e.target;
-        const name = target.name;
-        this.setState({[name]: target.value});
-    }
 
     render() {
         return (
