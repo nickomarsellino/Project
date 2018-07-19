@@ -38,7 +38,8 @@ class SignIn extends Component {
         const user = {
             email: this.state.email,
             password: this.state.password
-        }
+        };
+
         const method = 'post';
         axios({
             method: method,

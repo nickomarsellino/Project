@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import {Card, CardBody, Button} from "mdbreact"
 import { Form,  TextArea, Image } from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
-import {getFromStorage} from "../../utils/storage";
+import './Twiit_Box.css'
+import axios from "axios/index";
+import {setInStorage} from "../../utils/storage";
 
 
 class Twitt_Box extends Component {
@@ -11,19 +13,54 @@ class Twitt_Box extends Component {
         super(props);
         this.state = {
             userId: '',
-            userName: ''
+            username: '',
+            userTweet: ''
         };
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentWillMount() {
         const userId = this.props.userId;
-        const userName = this.props.userName;
+        const username = this.props.username;
 
         this.setState({
             userId: userId,
-            userName: userName
+            username: username
         });
     }
+
+
+    handleInputChange(e) {
+        const target = e.target;
+        const name = target.name;
+        this.setState({[name]: target.value});
+
+    }
+
+
+    handleSubmit(e) {
+
+        e.preventDefault();
+
+        const tweet = {
+            tweetText: this.state.userTweet,
+            username: this.state.username,
+            userId: this.state.userId
+        };
+
+        const method = 'post';
+        axios({
+            method: method,
+            responseType: 'json',
+            url: `http://localhost:3000/api/users/tweet/`+this.state.userId,
+            data: tweet
+        })
+            .then(() => {
+                window.location.reload();
+            });
+    }
+
 
     render() {
         return (
@@ -32,15 +69,17 @@ class Twitt_Box extends Component {
                     <CardBody>
                         <div>
                             <Image src={profile} avatar/>
-                            <span>{this.state.userName}</span>
+                            <span>{this.state.username}</span>
                         </div>
-                        <Form style={{marginTop: "1%"}}>
+                        <Form id="Form_Container" onSubmit={this.handleSubmit}>
                             <Form.Field
                                 id='form-textarea-control-opinion'
+                                type="text"
                                 control={TextArea}
-                                placeholder={"Wassup bro "+this.state.userName}
+                                placeholder={"Wassup bro "+this.state.username}
                                 style={{maxHeight: "100px"}}
-                                name="tweetText"
+                                name="userTweet"
+                                onChange={this.handleInputChange}
                             />
                             <Button color="default"
                                     size="md"
