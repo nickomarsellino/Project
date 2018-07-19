@@ -4,19 +4,28 @@ import { Feed } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
+import {getFromStorage} from "../../utils/storage";
+import TimeAgo from 'javascript-time-ago'
 
 class Twitt_Container extends Component {
 
   constructor(){
           super();
           this.state = {
-              tweetData : []
+              tweetData : [],
+              userName: ''
           }
           this.getData = this.getData.bind(this)
       }
 
       componentWillMount() {
           this.getData();
+
+          const userName = this.props.userName;
+
+          this.setState({
+              userName: userName
+          });
       }
 
       getData() {
@@ -25,6 +34,7 @@ class Twitt_Container extends Component {
                 this.setState({
                     tweetData : res.data
                 });
+                console.log("tweetData ", this.state.tweetData);
             });
       }
 
@@ -39,7 +49,7 @@ class Twitt_Container extends Component {
                                 <Feed.Label image={profile} style={{width: "10%",  padding: "5px 0"}}/>
                                 <Feed.Content>
                                     <div className="asdf" >
-                                        <Feed.Summary content={tweet.username} />
+                                      <Feed.Summary content={tweet.username} />
                                     </div>
                                     <img className="asdf" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
                                     <Feed.Extra text content={tweet.tweetText} /> <br />
