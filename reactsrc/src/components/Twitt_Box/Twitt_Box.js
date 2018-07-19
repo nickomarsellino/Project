@@ -3,6 +3,8 @@ import {Card, CardBody, Button} from "mdbreact"
 import { Form,  TextArea, Image } from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Twiit_Box.css'
+import axios from "axios/index";
+import {setInStorage} from "../../utils/storage";
 
 
 class Twitt_Box extends Component {
@@ -40,7 +42,23 @@ class Twitt_Box extends Component {
     handleSubmit(e) {
 
         e.preventDefault();
-        console.log(this.state.userTweet);
+
+        const tweet = {
+            tweetText: this.state.userTweet,
+            username: this.state.username,
+            userId: this.state.userId
+        };
+
+        const method = 'post';
+        axios({
+            method: method,
+            responseType: 'json',
+            url: `http://localhost:3000/api/users/tweet/`+this.state.userId,
+            data: tweet
+        })
+            .then(() => {
+                window.location.reload();
+            });
     }
 
 
