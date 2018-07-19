@@ -3,9 +3,28 @@ import './Twitt_Box.css';
 import {Card, CardBody, Button} from "mdbreact"
 import { Form,  TextArea, Image } from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
+import {getFromStorage} from "../../utils/storage";
 
 
 class Twitt_Box extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            userId: '',
+            userName: ''
+        };
+    }
+
+    componentWillMount() {
+        const userId = this.props.userId;
+        const userName = this.props.userName;
+
+        this.setState({
+            userId: userId,
+            userName: userName
+        });
+    }
 
     render() {
         return (
@@ -14,13 +33,13 @@ class Twitt_Box extends Component {
                     <CardBody>
                         <div>
                             <Image src={profile} avatar/>
-                            <span>Lil Uzi Vert</span>
+                            <span>{this.state.userName}</span>
                         </div>
                         <Form style={{marginTop: "1%"}}>
                             <Form.Field
                                 id='form-textarea-control-opinion'
                                 control={TextArea}
-                                placeholder='Wassup Bor ?'
+                                placeholder={"Wassup bro "+this.state.userName}
                                 style={{maxHeight: "100px"}}
                                 name="tweetText"
                             />

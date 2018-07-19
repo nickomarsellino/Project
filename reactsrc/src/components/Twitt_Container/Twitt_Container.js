@@ -24,7 +24,6 @@ class Twitt_Container extends Component {
                 this.setState({
                     tweetData : res.data
                 });
-                console.log("respon GET req ", this.state.tweetData);
             });
       }
 
