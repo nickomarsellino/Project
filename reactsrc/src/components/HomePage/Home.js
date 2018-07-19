@@ -34,6 +34,17 @@ class Home extends Component {
             <Profile userId={this.state.userId}/>
         );
 
+        const home = () => (
+            <Container className="col-lg-6 col-lg-offset-2" >
+                <div>
+                    <Twitt_Box/>
+                </div>
+                <div>
+                    <Twitt_Container/>
+                </div>
+            </Container>
+        );
+
         return (
             <div>
                 <FadeIn>
@@ -42,17 +53,8 @@ class Home extends Component {
                                 userId={this.state.userId}/>
                     </div>
 
-                    <Container className="col-lg-6 col-lg-offset-2" >
-                        <div>
-                            <Twitt_Box/>
-                        </div>
-                        <div>
-                            <Twitt_Container/>
-                        </div>
-                    </Container>
-
-
                     <div>
+                        <Route path={this.props.match.url} component={home}/>
                         <Route path={this.props.match.url + '/profile'} component={editProfile}/>
                     </div>
                 </FadeIn>

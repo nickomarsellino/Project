@@ -26,37 +26,6 @@ class Twitt_Container extends Component {
                         </Feed>
                     </CardBody>
                 </Card>
-
-                <Card style={{marginTop: "3px"}}>
-                    <CardBody style={{padding: "10px"}}>
-                        <Feed>
-                            <Feed.Event>
-                                <Feed.Label image={profile} style={{width: "10%",  padding: "5px 0"}}/>
-                                <Feed.Content>
-                                    <Feed.Summary content={summary} />
-                                    <Feed.Date content={date} />
-                                    <Feed.Extra text content={extraText} />
-                                </Feed.Content>
-                            </Feed.Event>
-                        </Feed>
-                    </CardBody>
-                </Card>
-
-                <Card style={{marginTop: "3px"}}>
-                    <CardBody style={{padding: "10px"}}>
-                        <Feed>
-                            <Feed.Event>
-                                <Feed.Label image={profile} style={{width: "10%",  padding: "5px 0"}}/>
-                                <Feed.Content>
-                                    <Feed.Summary content={summary} />
-                                    <Feed.Date content={date} />
-                                    <Feed.Extra text content={extraText} />
-                                </Feed.Content>
-                            </Feed.Event>
-                        </Feed>
-                    </CardBody>
-                </Card>
-
             </div>
         );
     }
