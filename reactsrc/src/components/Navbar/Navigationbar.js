@@ -84,7 +84,7 @@ class Navigationbar extends Component {
                                 <DropdownMenu>
 
                                     <DropdownItem>
-                                        <Link to={'/home/profile'}>
+                                        <Link to={'/home/profile/'+this.state.userName}>
                                             Edit Profile
                                         </Link>
                                     </DropdownItem>

@@ -5,6 +5,24 @@ import { Form,  TextArea, Image } from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 
 class Twitt_Box extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            tweetText: "",
+            userId: "",
+            isDisabled: false
+        }
+        this.handleInputChange = this.handleInputChange.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleInputChange(e) {
+        const target = e.target;
+        const name = target.name;
+        this.setState({[name]: target.value});
+    }
+
     render() {
         return (
             <div style={{marginTop: "8%", marginBottom: "2%"}}>
@@ -20,9 +38,11 @@ class Twitt_Box extends Component {
                                 control={TextArea}
                                 placeholder='Wassup Bor ?'
                                 style={{maxHeight: "100px"}}
+                                name="tweetText"
                             />
                             <Button color="default"
                                     size="md"
+                                    disabled={this.state.isDisabled}
                                     type="submit"
                                     style={{borderRadius: "100px"}}
                             >Post</Button>
