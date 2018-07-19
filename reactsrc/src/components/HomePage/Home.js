@@ -19,7 +19,7 @@ class Home extends Component {
         super(props);
         this.state = {
             userId: '',
-            userName: ''
+            username: ''
         };
     }
 
@@ -28,7 +28,7 @@ class Home extends Component {
         axios.get('/api/users/' + this.state.userId)
             .then(res => {
                 this.setState({
-                    userName: res.data.username
+                    username: res.data.username
                 });
             });
     }
@@ -51,9 +51,9 @@ class Home extends Component {
         );
 
         const home = () => (
-            <Container className="col-lg-6 col-lg-offset-2" >
+            <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
                 <div>
-                    <Twitt_Box userName={this.state.userName}
+                    <Twitt_Box username={this.state.username}
                     userId={this.state.userId}
                     />
                 </div>

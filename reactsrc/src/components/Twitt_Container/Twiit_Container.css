@@ -1,5 +1,14 @@
-.asdf{
-    display : inline-block;
+
+.Tweet_Container{
+  margin-top: 3px;
+}
+
+.Tweet{
+  padding: 10px;
+}
+
+.Tweet-Content{
+  display : inline-block;
 }
 
 #recycleIcon{
