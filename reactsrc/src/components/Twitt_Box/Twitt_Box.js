@@ -22,9 +22,11 @@ class Twitt_Box extends Component {
                                 control={TextArea}
                                 placeholder='Wassup Bor ?'
                                 style={{maxHeight: "100px"}}
+                                name="tweetText"
                             />
                             <Button color="default"
                                     size="md"
+                                    disabled={this.state.isDisabled}
                                     type="submit"
                                     style={{borderRadius: "100px"}}
                             >Post</Button>

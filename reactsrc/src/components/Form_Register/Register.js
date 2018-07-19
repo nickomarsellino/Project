@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from 'axios';
+import './Register.css'
 import ReactDOM from 'react-dom';
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
@@ -83,7 +84,7 @@ class Register extends Component {
                 email   : this.state.email,
                 password: this.state.password,
                 phone   : this.state.phone
-            }
+            };
 
             const method = 'post';
 
@@ -134,7 +135,7 @@ class Register extends Component {
                 </div>
                 <FadeIn transitionDuration="500">
                     <Container className="col-lg-4 col-lg-offset-2">
-                        <Card style={{marginTop: "10%"}}>
+                        <Card className="Card_Container">
                             <CardBody>
                                 <center><h1>Register</h1></center>
                                 <Row>
@@ -184,8 +185,8 @@ class Register extends Component {
                                                            checked={this.state.isChecked}/>
 
                                             <div id="messageValidation"></div>
-                                            <Button block size="lg" style={{marginTop: "3%"}}
-                                                    type="submit">Register</Button>
+
+                                            <Button id="Submit_Button" block size="lg" type="submit">Register</Button>
                                         </Form>
 
                                     </Col>

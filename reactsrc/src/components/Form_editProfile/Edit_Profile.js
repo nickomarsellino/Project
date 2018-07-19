@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios/index";
+import './Edit_Profile.css';
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import {Form, Image} from 'semantic-ui-react';
@@ -125,7 +126,7 @@ class Edit_Profile extends Component {
             <FadeIn>
                 <div>
                     <Container className="col-lg-4 col-lg-offset-2">
-                        <Card style={{marginTop: "10%", marginBottom: "10%"}}>
+                        <Card className="Card_Container">
                             <CardBody>
                                 <center>
                                     <h1>Profile</h1>
@@ -188,7 +189,7 @@ class Edit_Profile extends Component {
 
 
                                             <div id="messageValidation"></div>
-                                            <Button block size="lg" style={{marginTop: "3%"}} type="submit">Update
+                                            <Button id="Submit_Button" block size="lg" type="submit">Update
                                                 Profile</Button>
                                         </Form>
                                     </Col>
