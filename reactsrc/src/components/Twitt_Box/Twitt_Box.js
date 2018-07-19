@@ -26,7 +26,6 @@ class Twitt_Box extends Component {
                             />
                             <Button color="default"
                                     size="md"
-                                    disabled={this.state.isDisabled}
                                     type="submit"
                                     style={{borderRadius: "100px"}}
                             >Post</Button>
