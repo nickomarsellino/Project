@@ -64,7 +64,7 @@ class Twitt_Box extends Component {
 
     render() {
         return (
-            <div style={{marginTop: "8%", marginBottom: "2%"}}>
+            <div className="Tweet_Box">
                 <Card>
                     <CardBody>
                         <div>
