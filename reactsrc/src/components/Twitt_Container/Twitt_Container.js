@@ -1,11 +1,12 @@
 import React, {Component} from "react";
-import {Card, CardBody, Button} from "mdbreact"
+import {Card, CardBody} from "mdbreact"
 import { Feed } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
 import {getFromStorage} from "../../utils/storage";
 import TimeAgo from 'javascript-time-ago'
+import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 
 class Twitt_Container extends Component {
 
@@ -31,6 +32,8 @@ class Twitt_Container extends Component {
             });
     }
 
+
+
     render() {
         return (
             <div>
@@ -44,7 +47,30 @@ class Twitt_Container extends Component {
                                         <div className="Tweet-Content" >
                                             <Feed.Summary content={tweet.username} />
                                         </div>
-                                        <img className="Tweet-Content" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
+
+                                        <img  className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" className="Tweet-Content" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
+
+                                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                                        <div class="modal fade" id="myModal" role="dialog">
+              <div class="modal-dialog">
+
+
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+                </div>
+                  </div>
+
+
                                         <Feed.Extra text content={tweet.tweetText} /> <br />
                                         <Feed.Date content={tweet.timestamp} />
                                     </Feed.Content>

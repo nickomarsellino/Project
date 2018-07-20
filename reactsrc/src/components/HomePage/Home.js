@@ -71,7 +71,7 @@ class Home extends Component {
                     </div>
 
                     <div>
-                        <Route path={this.props.match.url} component={home}/>
+                        <Route exact path={this.props.match.url} component={home}/>
                         <Route path={this.props.match.url + '/profile'} component={editProfile}/>
                     </div>
                 </FadeIn>
