@@ -33,7 +33,6 @@ class Navigationbar extends Component {
                 this.setState({
                     userName: res.data.username
                 });
-                console.log("state ", this.state);
             });
     }
 

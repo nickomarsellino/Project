@@ -45,7 +45,6 @@ class Twitt_Box extends Component {
 
         const tweet = {
             tweetText: this.state.userTweet,
-            username: this.state.username,
             userId: this.state.userId
         };
 

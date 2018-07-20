@@ -59,7 +59,7 @@ class Home extends Component {
                 </div>
                 <div>
                     <FadeIn>
-                    <Twitt_Container/>
+                        <Twitt_Container/>
                     </FadeIn>
                 </div>
             </Container>
