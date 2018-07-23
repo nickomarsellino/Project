@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import axios from "axios/index";
-import './Edit_Profile.css';
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import {Form, Image} from 'semantic-ui-react';
@@ -15,20 +14,17 @@ class Edit_Profile extends Component {
         super(props);
 
         this.state = {
-            isHidden: true,
             userId: "",
             username: "",
             email: "",
-            phone: "",
             password: "",
-            newPassword: "",
+            phone: "",
             formMessage: "",
             formStatus: ""
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.changePasswordForm = this.changePasswordForm.bind(this);
     }
 
     getData() {
@@ -38,6 +34,7 @@ class Edit_Profile extends Component {
                     userId: res.data._id,
                     username: res.data.username,
                     email: res.data.email,
+                    password: res.data.password,
                     phone: res.data.phone
                 });
             });
@@ -57,13 +54,14 @@ class Edit_Profile extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        console.log("Update Data: "+this.state.password +" And "+this.state.newPassword);
-
         const user = {
             username: this.state.username,
             email: this.state.email,
+            password: this.state.password,
             phone: this.state.phone
         }
+
+        console.log(user);
 
         axios({
             method: 'put',
@@ -108,29 +106,17 @@ class Edit_Profile extends Component {
             });
     }
 
-    changePasswordForm() {
-        if(this.state.isHidden){
-            this.setState({
-                isHidden: false
-            });
-        }
-        else{
-            this.setState({
-                isHidden: true
-            });
-        }
-    }
 
     render() {
         return (
             <FadeIn>
                 <div>
                     <Container className="col-lg-4 col-lg-offset-2">
-                        <Card className="Card_Container">
+                        <Card style={{marginTop: "10%", marginBottom: "10%"}}>
                             <CardBody>
                                 <center>
                                     <h1>Profile</h1>
-                                    <Image src={profile} size='small' circular/>
+                                    <Image src={profile} size='medium' circular/>
                                 </center>
                                 <Row>
                                     <Col md="12">
@@ -159,39 +145,18 @@ class Edit_Profile extends Component {
                                                         name="phone"
                                             />
 
-                                            <Form.Field>
-                                                <label>Change Password</label>
-                                                <Button size="sm" outline color="elegant"
-                                                        onClick={this.changePasswordForm}>Change Password</Button>
-                                                <div id="changePasswordForm"></div>
-                                            </Form.Field>
-
-                                            <Form.Group widths='equal' hidden={this.state.isHidden}>
-                                                <Form.Input
-                                                    fluid
-                                                    type="password"
-                                                    name="password"
-                                                    label='Old Password'
-                                                    placeholder='Old Password'
-                                                    className={this.state.formStatus}
-                                                    onChange={this.handleInputChange}
-                                                />
-                                                <Form.Input
-                                                    fluid
-                                                    type="password"
-                                                    name="newPassword"
-                                                    label='New Password'
-                                                    placeholder='New Password'
-                                                    className={this.state.formStatus}
-                                                    onChange={this.handleInputChange}
-                                                />
-                                            </Form.Group>
-
+                                            <Form.Input required type="password" fluid label='Password'
+                                                        placeholder='Password'
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                                        name="password"
+                                            />
 
                                             <div id="messageValidation"></div>
-                                            <Button id="Submit_Button" block size="lg" type="submit">Update
+                                            <Button block size="lg" style={{marginTop: "3%"}} type="submit">Update
                                                 Profile</Button>
                                         </Form>
+
                                     </Col>
                                 </Row>
                             </CardBody>

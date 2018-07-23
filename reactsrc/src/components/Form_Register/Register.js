@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import axios from 'axios';
-import './Register.css'
 import ReactDOM from 'react-dom';
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
@@ -23,13 +22,11 @@ class Register extends Component {
             confirmPassword: "",
             phone: "",
             formMessage: "",
-            formStatus: "",
-            isChecked: false
+            formStatus: ""
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.isClicked = this.isClicked.bind(this);
     }
 
 
@@ -39,20 +36,6 @@ class Register extends Component {
 
         this.setState({[name]: target.value});
 
-    }
-
-    isClicked(){
-
-        if(this.state.isChecked){
-            this.setState({
-                isChecked: false
-            });
-        }
-        else{
-            this.setState({
-                isChecked: true
-            });
-        }
     }
 
     handleSubmit(e) {
@@ -69,22 +52,13 @@ class Register extends Component {
             />, document.getElementById('messageValidation'));
         }
 
-        if(!this.state.isChecked){
-            //Render Validation box message
-            ReactDOM.render(<MessageValidation
-                form="danger"
-                formStatus=" "
-                formMessage="Please CheckList Bor."
-            />, document.getElementById('messageValidation'));
-        }
-
         else {
             const user = {
                 username: this.state.username,
-                email   : this.state.email,
+                email: this.state.email,
                 password: this.state.password,
-                phone   : this.state.phone
-            };
+                phone: this.state.phone
+            }
 
             const method = 'post';
 
@@ -101,7 +75,7 @@ class Register extends Component {
                     });
 
                     //transfer to home again
-                    this.props.history.push("/signin")
+                    this.props.history.push("/")
                 })
                 .catch((err) => {
                     if (err.response) {
@@ -124,8 +98,9 @@ class Register extends Component {
                         formMessage={this.state.formMessage}
                     />, document.getElementById('messageValidation'));
                 });
-          };
         }
+    }
+
 
     render() {
         return (
@@ -135,7 +110,7 @@ class Register extends Component {
                 </div>
                 <FadeIn transitionDuration="500">
                     <Container className="col-lg-4 col-lg-offset-2">
-                        <Card className="Card_Container">
+                        <Card style={{marginTop: "10%"}}>
                             <CardBody>
                                 <center><h1>Register</h1></center>
                                 <Row>
@@ -180,13 +155,11 @@ class Register extends Component {
                                             />
 
 
-                                            <Form.Checkbox label='I agree to the Terms and Conditions'
-                                                           onClick={this.isClicked}
-                                                           checked={this.state.isChecked}/>
+                                            <Form.Checkbox label='I agree to the Terms and Conditions'/>
 
                                             <div id="messageValidation"></div>
-
-                                            <Button id="Submit_Button" block size="lg" type="submit">Register</Button>
+                                            <Button block size="lg" style={{marginTop: "3%"}}
+                                                    type="submit">Register</Button>
                                         </Form>
 
                                     </Col>

@@ -33,6 +33,7 @@ class Navigationbar extends Component {
                 this.setState({
                     userName: res.data.username
                 });
+                console.log("state ", this.state);
             });
     }
 
@@ -61,6 +62,8 @@ class Navigationbar extends Component {
                     token: " ",
                     userId: " "
                 });
+
+                console.log(res.data)
             });
     }
 
@@ -83,9 +86,9 @@ class Navigationbar extends Component {
                                 <DropdownMenu>
 
                                     <DropdownItem>
-                                        <Link to={'/home/profile/'+this.state.userName}>
+                                        <Link to={'/home/profile'}>
                                             Edit Profile
-                                        </Link> 
+                                        </Link>
                                     </DropdownItem>
 
                                     <DropdownItem onClick={this.logout}>

@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import ReactDOM from 'react-dom';
-import './SignIn.css'
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import {setInStorage} from '../../utils/storage';
+
 import MessageValidation from '../MessageValidationBox/MessageValidation'
 import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
@@ -38,8 +38,7 @@ class SignIn extends Component {
         const user = {
             email: this.state.email,
             password: this.state.password
-        };
-
+        }
         const method = 'post';
         axios({
             method: method,
@@ -90,7 +89,7 @@ class SignIn extends Component {
                 </div>
                 <FadeIn transitionDuration="500">
                     <Container className="col-md-4 col-md-offset-2">
-                        <Card className="Card_container">
+                        <Card style={{marginTop: "25%"}}>
                             <CardBody>
                                 <center><h1>Sign In</h1></center>
                                 <Row>
@@ -111,8 +110,7 @@ class SignIn extends Component {
                                             />
 
                                             <div id="messageValidation"></div>
-
-                                            <Button id="Submit_Button" block size="lg" type="submit">Sign
+                                            <Button block size="lg" style={{marginTop: "3%"}} type="submit">Sign
                                                 In</Button>
                                         </Form>
 
