@@ -4,13 +4,6 @@ const validate = require('mongoose-validator');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
-const usernameValidator = [
-    validate({
-        validator: 'isLength',
-        arguments: [0, 40],
-        message: 'Name must not exceed {ARGS[1]} characters.'
-    })
-];
 
 const emailValidator = [
     validate({
@@ -29,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Username is required.'],
         unique: true,
-        validate: usernameValidator
+        minlength: 5
     },
     email: {
         type: String,

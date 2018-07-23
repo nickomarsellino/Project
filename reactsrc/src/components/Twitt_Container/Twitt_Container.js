@@ -1,9 +1,13 @@
 import React, {Component} from "react";
-import {Card, CardBody, Button} from "mdbreact"
+import {Card, CardBody} from "mdbreact"
 import { Feed } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
+import {getFromStorage} from "../../utils/storage";
+import TimeAgo from 'javascript-time-ago'
+import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+const Timestamp = require('react-timestamp');
 
 class Twitt_Container extends Component {
 
@@ -25,8 +29,11 @@ class Twitt_Container extends Component {
                 this.setState({
                     tweetData : res.data
                 });
+                console.log("tweetData ", this.state.tweetData);
             });
     }
+
+
 
     render() {
         return (
@@ -41,9 +48,9 @@ class Twitt_Container extends Component {
                                         <div className="Tweet-Content" >
                                             <Feed.Summary content={tweet.username} />
                                         </div>
-                                        <img className="Tweet-Content" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
+                                        <img  className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" className="Tweet-Content" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
                                         <Feed.Extra text content={tweet.tweetText} /> <br />
-                                        <Feed.Date content={tweet.timestamp} />
+                                        <Timestamp time={tweet.timestamp} precision={1} />
                                     </Feed.Content>
                                 </Feed.Event>
                             </Feed>
