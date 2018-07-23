@@ -6,6 +6,9 @@ const TweetSchema = new Schema({
       type    : String,
       default : ''
   },
+  username:{
+    type    : String
+  },
   tweetText: {
     type    : String
   },

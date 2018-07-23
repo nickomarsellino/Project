@@ -38,13 +38,13 @@ class Twitt_Box extends Component {
 
     }
 
-
     handleSubmit(e) {
 
         e.preventDefault();
 
         const tweet = {
             tweetText: this.state.userTweet,
+            username: this.state.username,
             userId: this.state.userId
         };
 
@@ -63,7 +63,7 @@ class Twitt_Box extends Component {
 
     render() {
         return (
-            <div className="Tweet_Box">
+            <div style={{marginTop: "8%", marginBottom: "2%"}}>
                 <Card>
                     <CardBody>
                         <div>
@@ -75,7 +75,7 @@ class Twitt_Box extends Component {
                                 id='form-textarea-control-opinion'
                                 type="text"
                                 control={TextArea}
-                                placeholder={"Wassup bro "+this.state.username}
+                                placeholder={"Have a nice day "+this.state.username}
                                 style={{maxHeight: "100px"}}
                                 name="userTweet"
                                 onChange={this.handleInputChange}
