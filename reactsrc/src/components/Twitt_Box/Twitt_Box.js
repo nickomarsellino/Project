@@ -38,7 +38,6 @@ class Twitt_Box extends Component {
 
     }
 
-
     handleSubmit(e) {
 
         e.preventDefault();
@@ -76,7 +75,7 @@ class Twitt_Box extends Component {
                                 id='form-textarea-control-opinion'
                                 type="text"
                                 control={TextArea}
-                                placeholder={"Wassup bro "+this.state.username}
+                                placeholder={"Have a nice day "+this.state.username}
                                 style={{maxHeight: "100px"}}
                                 name="userTweet"
                                 onChange={this.handleInputChange}
