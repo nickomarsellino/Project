@@ -50,7 +50,7 @@ class Twitt_Container extends Component {
                                         </div>
                                         <img  className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" className="Tweet-Content" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
                                         <Feed.Extra text content={tweet.tweetText} /> <br />
-                                        <Timestamp time={tweet.timestamp} precision={1} />
+                                        <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1} />} />
                                     </Feed.Content>
                                 </Feed.Event>
                             </Feed>
