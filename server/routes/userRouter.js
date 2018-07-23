@@ -6,16 +6,15 @@ const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
 
 router.post('/tweet/:id', (req, res, next) => {
-    const {body} = req;
-    const {
-        tweetText , username
-    } = body
-    const data = new Tweet();
-    data.username  = username;
-    data.tweetText = tweetText;
-    data.timestamp = Date.now();
 
-    Tweet.create(data).then(function (result) {
+    const tweet = {
+        username: req.body.username,
+        tweetText: req.body.tweetText,
+        userId: req.body.userId,
+        timestamp: Date.now()
+    };
+
+    Tweet.create(tweet).then(function (result) {
         return res.send({
             success   : true,
             userId    : '',
