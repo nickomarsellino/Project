@@ -68,7 +68,7 @@ class Twitt_Box extends Component {
                     <CardBody>
                         <div>
                             <Image src={profile} avatar/>
-                            <span>{this.state.username}</span>
+                            <span><h5>{this.state.username}</h5></span>
                         </div>
                         <Form id="Form_Container" onSubmit={this.handleSubmit}>
                             <Form.Field
