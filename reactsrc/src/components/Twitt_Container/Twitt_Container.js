@@ -11,14 +11,14 @@ class Twitt_Container extends Component {
         super();
         this.state = {
             tweetData : [],
-            userId: [],
-            username: []
+            user: [],
         }
         this.getData = this.getData.bind(this)
     }
 
     componentWillMount() {
         this.getData();
+        // this.getUserData();
     }
 
     getData() {
@@ -27,7 +27,9 @@ class Twitt_Container extends Component {
                 this.setState({
                     tweetData : res.data
                 });
-                this.getUserData(res.data)
+
+                //get userdata from tweetData
+                this.getUserData();
             });
     }
 
@@ -35,10 +37,18 @@ class Twitt_Container extends Component {
 
 
         {this.state.tweetData.map(tweet =>
-            this.setState({ userId: this.state.userId.concat(tweet.userId) })
+            this.setState({ user: this.state.user.concat(tweet.userId) })
         )}
 
-        console.log(this.state.userId);
+        console.log(this.state.user);
+
+
+        //VAMOS HAMPIR BISA YANG INI
+        // {this.state.tweetData.map(tweet =>
+        //     this.setState({ userId: this.state.userId.concat(tweet.userId) })
+        // )}
+        //
+        // console.log(this.state.userId);
 
 
         // console.log("Ini User Id: ",userId);
@@ -59,6 +69,7 @@ class Twitt_Container extends Component {
         return (
             <div>
                 {this.state.tweetData.map(tweet =>
+
                     <Card className="Tweet_Container">
                         <CardBody className="Tweet">
                             <Feed>

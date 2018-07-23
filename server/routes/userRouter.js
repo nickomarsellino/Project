@@ -32,9 +32,9 @@ router.delete('/tweet/:id', (req, res, next) => {
 });
 
 router.get('/tweets', (req, res, next) => {
-  Tweet.find({}).then((result) => {
-    res.send(result);
-  });
+    Tweet.find({}).then((result) => {
+        res.send(result);
+    });
 });
 
 router.post('/register', (req, res) => {
