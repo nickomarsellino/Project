@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
-import { Feed } from 'semantic-ui-react';
+import { Feed,  Icon } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
@@ -75,7 +75,7 @@ class Twitt_Container extends Component {
                                         <div className="Tweet-Content" >
                                             <Feed.Summary content={tweet.username} />
                                         </div>
-                                        <img  className="Tweet-Content" data-toggle="modal" data-target="#exampleModal" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
+                                        <Icon className="Tweet-Content" size='large' name='trash' id="recycleIcon"/>
                                         <Feed.Extra text content={tweet.tweetText} /> <br />
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1} />} />
                                     </Feed.Content>

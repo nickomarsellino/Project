@@ -57,13 +57,11 @@ class Edit_Profile extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        console.log("Update Data: "+this.state.password +" And "+this.state.newPassword);
-
         const user = {
             username: this.state.username,
             email: this.state.email,
             phone: this.state.phone
-        }
+        };
 
         axios({
             method: 'put',

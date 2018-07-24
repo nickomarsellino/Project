@@ -186,7 +186,6 @@ router.put('/:id', (req, res) => {
     } = body;
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
         User.findOne({_id: req.params.id}).then((user) => {
-
             user.save()
                 .then((result) => {
                     res.json({
@@ -218,10 +217,6 @@ router.put('/:id', (req, res) => {
                     }
                     if (err.errors.phone) {
                         res.status(403).json({success: false, msg: err.errors.phone.message});
-                        return;
-                    }
-                    if (err.errors.password) {
-                        res.status(403).json({success: false, msg: err.errors.password.message});
                         return;
                     }
                     // Show failed if all else fails for some reasons
