@@ -3,6 +3,7 @@ import {Card, CardBody} from "mdbreact"
 import { Feed,  Icon } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
+import {getFromStorage} from "../../utils/storage";
 import './Twiit_Container.css';
 //load another component
 import Modal_Twitt from '../Modal_Detail_Twitt/Modal_Twitt';
@@ -25,11 +26,13 @@ class Twitt_Container extends Component {
         this.getData = this.getData.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.buttonDelete = this.buttonDelete.bind(this);
     }
 
     componentWillMount() {
         this.getData();
     }
+
 
     getData() {
         axios.get('/api/users/tweets')
@@ -61,6 +64,16 @@ class Twitt_Container extends Component {
         }
     }
 
+    buttonDelete(userId){
+        if(userId == this.props.userId){
+            return (
+                <Icon className="Tweet-Content"
+                      size='large' name='trash'
+                      id="recycleIcon"/>
+            );
+        }
+    }
+
     render() {
         return (
             <div>
@@ -75,7 +88,9 @@ class Twitt_Container extends Component {
                                         <div className="Tweet-Content" >
                                             <Feed.Summary content={tweet.username} />
                                         </div>
-                                        <Icon className="Tweet-Content" size='large' name='trash' id="recycleIcon"/>
+
+                                        {this.buttonDelete(tweet.userId)}
+
                                         <Feed.Extra text content={tweet.tweetText} /> <br />
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1} />} />
                                     </Feed.Content>
