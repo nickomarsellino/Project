@@ -29,10 +29,10 @@ class Modal_Delete extends Component {
     render() {
         return (
             <Container>
-                <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
-                    <ModalHeader toggle={this.openModal}>{this.state.tweet.username}</ModalHeader>
+                <Modal isOpen={this.props.isOpen} toggle={this.openModal} centered>
+                    <ModalHeader style={{backgroundColor: "#ff6b6b", color: "white"}} toggle={this.openModal}>Delete Post ?</ModalHeader>
                     <ModalBody>
-                        {this.state.tweet.tweetText}
+                        Are you sure want to delete tweet from {this.state.tweet.username}
                     </ModalBody>
                 </Modal>
             </Container>
