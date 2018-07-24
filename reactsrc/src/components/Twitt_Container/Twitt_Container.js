@@ -61,6 +61,16 @@ class Twitt_Container extends Component {
         }
     }
 
+    buttonDelete(userId){
+        if(userId == this.props.userId){
+            return (
+                <Icon className="Tweet-Content"
+                      size='large' name='trash'
+                      id="recycleIcon"/>
+            );
+        }
+    }
+
     render() {
         return (
             <div>
@@ -75,7 +85,7 @@ class Twitt_Container extends Component {
                                         <div className="Tweet-Content" >
                                             <Feed.Summary content={tweet.username} />
                                         </div>
-                                        <Icon className="Tweet-Content" size='large' name='trash' id="recycleIcon"/>
+                                        {this.buttonDelete(tweet.userId)}
                                         <Feed.Extra text content={tweet.tweetText} /> <br />
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1} />} />
                                     </Feed.Content>

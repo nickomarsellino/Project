@@ -58,7 +58,7 @@ class Home extends Component {
                     />
                 </div>
                 <div>
-                    <Twitt_Container/>
+                    <Twitt_Container userId={this.state.userId}/>
                 </div>
             </Container>
         );
