@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { Container, Button, Modal, ModalBody, ModalHeader} from 'mdbreact';
 import axios from "axios/index";
+const Timestamp = require('react-timestamp');
 
 class Modal_Twitt extends Component {
 
@@ -34,6 +35,9 @@ class Modal_Twitt extends Component {
                     <ModalHeader toggle={this.openModal}>{this.state.tweet.username}</ModalHeader>
                     <ModalBody>
                         {this.state.tweet.tweetText}
+                    </ModalBody>
+                    <ModalBody>
+                        <Timestamp time={this.state.tweet.timestamp} format='full' includeDay />
                     </ModalBody>
                 </Modal>
             </Container>
