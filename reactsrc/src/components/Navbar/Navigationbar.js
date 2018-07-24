@@ -88,7 +88,11 @@ class Navigationbar extends Component {
                                             Edit Profile
                                         </Link>
                                     </DropdownItem>
-
+                                    <DropdownItem>
+                                        <Link to={'/home/changePassword/'+this.state.userName}>
+                                            Change Password
+                                        </Link>
+                                    </DropdownItem>
                                     <DropdownItem onClick={this.logout}>
                                         <Link to={'/signin'}>
                                             Log Out
