@@ -1,28 +1,24 @@
 import React, {Component} from "react";
 import { Container, Button, Modal, ModalBody, ModalHeader} from 'mdbreact';
+import axios from "axios/index";
 
 class Modal_Twitt extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            tweetId: ''
+            tweet: []
         };
         this.openModal = this.openModal.bind(this);
-        this.getData = this.getData.bind(this);
     }
 
-
-    getData(tweetId) {
-
-    }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.tweetId !== this.props.tweetId) {
-            this.setState({ tweetId: nextProps.tweetId });
+        if (nextProps.tweet !== this.props.tweet) {
+            this.setState({
+                tweet : nextProps.tweet
+            });
         }
-
-
     }
 
     openModal(){
@@ -32,14 +28,12 @@ class Modal_Twitt extends Component {
 
 
     render() {
-        this.getData(this.props.tweetId);
-
         return (
             <Container>
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
-                    <ModalHeader toggle={this.openModal}>{this.state.tweetId}</ModalHeader>
+                    <ModalHeader toggle={this.openModal}>{this.state.tweet.username}</ModalHeader>
                     <ModalBody>
-                        (...)
+                        {this.state.tweet.tweetText}
                     </ModalBody>
                 </Modal>
             </Container>

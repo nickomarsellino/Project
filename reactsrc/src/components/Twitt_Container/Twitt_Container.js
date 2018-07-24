@@ -18,7 +18,7 @@ class Twitt_Container extends Component {
         super();
         this.state = {
             tweetData : [],
-            tweetId : '',
+            tweet : [],
             modalOpen: false
         };
 
@@ -42,10 +42,13 @@ class Twitt_Container extends Component {
     }
 
     openModal(tweetId){
-        this.setState({
-            tweetId : tweetId,
-            modalOpen: true
-        });
+        axios.get('http://localhost:3000/api/users/tweet/'+tweetId)
+            .then(res => {
+                this.setState({
+                    tweet : res.data,
+                    modalOpen: true
+                });
+            });
     }
 
     closeModal(isOpen) {
@@ -84,7 +87,7 @@ class Twitt_Container extends Component {
 
                 <Modal_Twitt
                 isOpen = {this.state.modalOpen}
-                tweetId = {this.state.tweetId}
+                tweet = {this.state.tweet}
                 isClose = {this.closeModal}
                 />
 

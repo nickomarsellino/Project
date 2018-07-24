@@ -39,6 +39,22 @@ router.get('/tweets', (req, res, next) => {
   });
 });
 
+
+router.get('/tweet/:id', (req, res) => {
+    Tweet.findById(req.params.id)
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((err) => {
+            res.status(404).json({success: false, msg: `No such tweets.`});
+        });
+});
+
+
+
+
+
+
 router.post('/register', (req, res) => {
 
     const user = new User();
