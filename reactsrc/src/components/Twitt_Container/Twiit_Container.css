@@ -20,5 +20,9 @@
   cursor: pointer;
   opacity: 0.5;
   width: 4%;
+}
+
+#recycleIcon:hover{
   color: #f70010;
 }
+

@@ -4,6 +4,7 @@ import { Feed,  Icon } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
+
 //load another component
 import Modal_Twitt from '../Modal_Detail_Twitt/Modal_Twitt';
 import ReactDOM from "react-dom";
@@ -66,7 +67,8 @@ class Twitt_Container extends Component {
             return (
                 <Icon className="Tweet-Content"
                       size='large' name='trash'
-                      id="recycleIcon"/>
+                      id="recycleIcon"
+                />
             );
         }
     }
@@ -85,7 +87,9 @@ class Twitt_Container extends Component {
                                         <div className="Tweet-Content" >
                                             <Feed.Summary content={tweet.username} />
                                         </div>
+
                                         {this.buttonDelete(tweet.userId)}
+
                                         <Feed.Extra text content={tweet.tweetText} /> <br />
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1} />} />
                                     </Feed.Content>
