@@ -1,11 +1,24 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 const cors = require('cors');
+const socketIo = require('socket.io');
+const http = require('http');
+const users = require('./routes/userRouter');
+const app = express();
 
-var users = require('./routes/userRouter');
-var app = express();
+// const server = http.createServer(app);
+// const io = socketIo(server);
+//
+// io.on('connection', (socket) => {
+//     console.log(socket.id);
+//
+//     socket.on('SEND_MESSAGE', function(data){
+//         io.emit('RECEIVE_MESSAGE', data);
+//     })
+// });
+
 
 app.use(logger('dev'));
 app.use(cors());
@@ -14,12 +27,12 @@ app.use(bodyParser.urlencoded({'extended': 'false'}));
 app.use(express.static(path.join(__dirname, 'build')));
 
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/project')
     .then(() => console.log('connection succesful'))
     .catch((err) => console.error(err));
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 
 app.use('/api/users', users);
@@ -27,7 +40,7 @@ app.use('/api/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
