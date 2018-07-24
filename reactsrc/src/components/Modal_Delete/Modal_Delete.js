@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Container, Button, Modal, ModalBody, ModalHeader} from 'mdbreact';
 
-class Modal_Twitt extends Component {
+class Modal_Delete extends Component {
 
     constructor(props) {
         super(props);
@@ -41,4 +41,4 @@ class Modal_Twitt extends Component {
 }
 
 
-export default Modal_Twitt;
+export default Modal_Delete;

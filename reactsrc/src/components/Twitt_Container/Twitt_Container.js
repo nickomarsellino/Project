@@ -3,8 +3,8 @@ import {Card, CardBody} from "mdbreact"
 import { Feed,  Icon } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
-import {getFromStorage} from "../../utils/storage";
 import './Twiit_Container.css';
+
 //load another component
 import Modal_Twitt from '../Modal_Detail_Twitt/Modal_Twitt';
 import ReactDOM from "react-dom";
@@ -26,13 +26,11 @@ class Twitt_Container extends Component {
         this.getData = this.getData.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.buttonDelete = this.buttonDelete.bind(this);
     }
 
     componentWillMount() {
         this.getData();
     }
-
 
     getData() {
         axios.get('/api/users/tweets')
@@ -69,7 +67,8 @@ class Twitt_Container extends Component {
             return (
                 <Icon className="Tweet-Content"
                       size='large' name='trash'
-                      id="recycleIcon"/>
+                      id="recycleIcon"
+                />
             );
         }
     }
