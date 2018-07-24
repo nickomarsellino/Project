@@ -20,15 +20,12 @@ class Edit_Profile extends Component {
             username: "",
             email: "",
             phone: "",
-            password: "",
-            newPassword: "",
             formMessage: "",
             formStatus: ""
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.changePasswordForm = this.changePasswordForm.bind(this);
     }
 
     getData() {
@@ -56,7 +53,6 @@ class Edit_Profile extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
         const user = {
             username: this.state.username,
             email: this.state.email,
@@ -106,19 +102,6 @@ class Edit_Profile extends Component {
             });
     }
 
-    changePasswordForm() {
-        if(this.state.isHidden){
-            this.setState({
-                isHidden: false
-            });
-        }
-        else{
-            this.setState({
-                isHidden: true
-            });
-        }
-    }
-
     render() {
         return (
             <FadeIn>
@@ -156,36 +139,6 @@ class Edit_Profile extends Component {
                                                         onChange={this.handleInputChange}
                                                         name="phone"
                                             />
-
-                                            <Form.Field>
-                                                <label>Change Password</label>
-                                                <Button size="sm" outline color="elegant"
-                                                        onClick={this.changePasswordForm}>Change Password</Button>
-                                                <div id="changePasswordForm"></div>
-                                            </Form.Field>
-
-                                            <Form.Group widths='equal' hidden={this.state.isHidden}>
-                                                <Form.Input
-                                                    fluid
-                                                    type="password"
-                                                    name="password"
-                                                    label='Old Password'
-                                                    placeholder='Old Password'
-                                                    className={this.state.formStatus}
-                                                    onChange={this.handleInputChange}
-                                                />
-                                                <Form.Input
-                                                    fluid
-                                                    type="password"
-                                                    name="newPassword"
-                                                    label='New Password'
-                                                    placeholder='New Password'
-                                                    className={this.state.formStatus}
-                                                    onChange={this.handleInputChange}
-                                                />
-                                            </Form.Group>
-
-
                                             <div id="messageValidation"></div>
                                             <Button id="Submit_Button" block size="lg" type="submit">Update
                                                 Profile</Button>
