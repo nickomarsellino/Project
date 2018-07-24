@@ -57,7 +57,7 @@ class Edit_Profile extends Component {
             username: this.state.username,
             email: this.state.email,
             phone: this.state.phone
-        }
+        };
 
         axios({
             method: 'put',

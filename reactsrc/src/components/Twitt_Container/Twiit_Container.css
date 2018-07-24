@@ -19,4 +19,6 @@
   float: right;
   cursor: pointer;
   opacity: 0.5;
+  width: 4%;
+  color: #f70010;
 }
