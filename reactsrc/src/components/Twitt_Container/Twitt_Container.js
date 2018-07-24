@@ -56,7 +56,6 @@ class Twitt_Container extends Component {
                 })
             }
         }
-
     }
 
     render() {
