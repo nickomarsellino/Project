@@ -4,19 +4,27 @@ import { Feed } from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
-import {getFromStorage} from "../../utils/storage";
-import TimeAgo from 'javascript-time-ago'
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+//load another component
+import Modal_Twitt from '../Modal_Detail_Twitt/Modal_Twitt';
+import ReactDOM from "react-dom";
+
 const Timestamp = require('react-timestamp');
+
+
 
 class Twitt_Container extends Component {
 
     constructor(){
         super();
         this.state = {
-            tweetData : []
-        }
-        this.getData = this.getData.bind(this)
+            tweetData : [],
+            tweetId : '',
+            modalOpen: false
+        };
+
+        this.getData = this.getData.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentWillMount() {
@@ -33,13 +41,30 @@ class Twitt_Container extends Component {
             });
     }
 
+    openModal(tweetId){
+        this.setState({
+            tweetId : tweetId,
+            modalOpen: true
+        });
+    }
 
+    closeModal(isOpen) {
+        if(isOpen){
+            {
+                this.setState({
+                    modalOpen: false
+                })
+            }
+        }
+
+    }
 
     render() {
         return (
             <div>
                 {this.state.tweetData.map(tweet =>
-                    <Card className="Tweet_Container">
+                    <Card className="Tweet_Container"
+                          onClick={() => this.openModal(tweet._id)}>
                         <CardBody className="Tweet">
                             <Feed>
                                 <Feed.Event>
@@ -48,7 +73,7 @@ class Twitt_Container extends Component {
                                         <div className="Tweet-Content" >
                                             <Feed.Summary content={tweet.username} />
                                         </div>
-                                        <img  className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" className="Tweet-Content" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
+                                        <img  className="Tweet-Content" data-toggle="modal" data-target="#exampleModal" id="recycleIcon" style={{width: "3%"}} src="https://cdn1.iconfinder.com/data/icons/squared/64/trash-bin-512.png"/>
                                         <Feed.Extra text content={tweet.tweetText} /> <br />
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1} />} />
                                     </Feed.Content>
@@ -57,6 +82,13 @@ class Twitt_Container extends Component {
                         </CardBody>
                     </Card>
                 )}
+
+                <Modal_Twitt
+                isOpen = {this.state.modalOpen}
+                tweetId = {this.state.tweetId}
+                isClose = {this.closeModal}
+                />
+
             </div>
         );
     }
