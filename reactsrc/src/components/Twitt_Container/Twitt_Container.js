@@ -7,7 +7,7 @@ import './Twiit_Container.css';
 
 //load another component
 import Modal_Twitt from '../Modal_Detail_Twitt/Modal_Twitt';
-import ReactDOM from "react-dom";
+import Modal_Delete from '../Modal_Delete/Modal_Delete';
 
 const Timestamp = require('react-timestamp');
 
@@ -20,7 +20,8 @@ class Twitt_Container extends Component {
         this.state = {
             tweetData : [],
             tweet : [],
-            modalOpen: false
+            modalTwiit: false,
+            modalDelete: false
         };
 
         this.getData = this.getData.bind(this);
@@ -47,7 +48,7 @@ class Twitt_Container extends Component {
             .then(res => {
                 this.setState({
                     tweet : res.data,
-                    modalOpen: true
+                    modalTwiit: true
                 });
             });
     }
@@ -56,7 +57,7 @@ class Twitt_Container extends Component {
         if(isOpen){
             {
                 this.setState({
-                    modalOpen: false
+                    modalTwiit: false
                 })
             }
         }
@@ -100,9 +101,15 @@ class Twitt_Container extends Component {
                 )}
 
                 <Modal_Twitt
-                isOpen = {this.state.modalOpen}
+                isOpen = {this.state.modalTwiit}
                 tweet = {this.state.tweet}
                 isClose = {this.closeModal}
+                />
+
+                <Modal_Delete
+                    isOpen = {this.state.modalOpen}
+                    tweet = {this.state.tweet}
+                    isClose = {this.closeModal}
                 />
 
             </div>
