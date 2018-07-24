@@ -1,17 +1,18 @@
 import React, {Component} from "react";
 import ReactDOM from 'react-dom';
+import './SignIn.css'
 import Footer from '../Footer/Footer_Bar';
 import Navbar from "../Navbar/Navigationbar";
-import { Container ,Row, Col, Card, CardBody, Button} from 'mdbreact';
-import { getFromStorage, setInStorage } from '../../utils/storage';
+import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
+import {setInStorage} from '../../utils/storage';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
-import { Form } from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
+import FadeIn from 'react-fade-in';
 import axios from "axios/index";
-
 
 class SignIn extends Component {
     constructor(props) {
-      super(props);
+        super(props);
         this.state = {
             email: "",
             password: "",
@@ -20,48 +21,25 @@ class SignIn extends Component {
             formStatus: "",
             success: false
         }
-        this.handleInputChange = this.handleInputChange.bind(this)  ;
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(e) {
         const target = e.target;
         const name = target.name;
-        this.setState({ [name]: target.value });
+        this.setState({[name]: target.value});
     }
 
-    componentDidMount() {
-      const obj = getFromStorage('bebas');
-      if (obj && obj.token) {
-        const { token } = obj;
-        // Verify token
-        fetch('/api/account/verify?token=' + token)
-          .then(res => res.json())
-          .then(json => {
-            if (json.success) {
-              this.setState({
-                token,
-                isLoading: false
-              });
-            } else {
-              this.setState({
-                isLoading: false,
-              });
-            }
-          });
-      } else {
-        this.setState({
-          isLoading: false,
-        });
-      }
-    }
 
-    handleSubmit(e){
+    handleSubmit(e) {
+
         e.preventDefault();
         const user = {
             email: this.state.email,
             password: this.state.password
-        }
+        };
+
         const method = 'post';
         axios({
             method: method,
@@ -74,15 +52,19 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
+                setInStorage('bebas', {
+                    token: response.data.token,
+                    userId: response.data.userId
+                });
                 this.props.history.push("/home");
             })
             .catch((err) => {
                 if (err.response) {
 
-                  this.setState({
-                      formStatus: 'Error',
-                      formMessage: err.response.data.msg
-                  });
+                    this.setState({
+                        formStatus: 'Error',
+                        formMessage: err.response.data.msg
+                    });
                 }
                 else {
                     this.setState({
@@ -93,59 +75,58 @@ class SignIn extends Component {
 
                 //Render Validation box message
                 ReactDOM.render(<MessageValidation
-                    formStatus = {this.state.formStatus}
-                    formMessage = {this.state.formMessage}
+                    form="danger"
+                    formStatus={this.state.formStatus}
+                    formMessage={this.state.formMessage}
                 />, document.getElementById('messageValidation'));
             });
-
-        console.log("Isi Eror nya: "+this.state.formMessage);
     }
 
-    render(){
-      const {token} = this.state;
-      if(!token){
-        return(
+    render() {
+        return (
             <div>
-                <div id="navbar" >
-                    <Navbar success={this.state.success} />
+                <div id="navbar">
+                    <Navbar success={this.state.success}/>
                 </div>
-            <Container className="col-md-4 col-md-offset-2">
-                <Card style={{ marginTop: "25%"}} >
-                    <CardBody>
-                        <center><h1>Sign In</h1></center>
-                        <Row>
-                            <Col md="12">
-                                <Form onSubmit={this.handleSubmit}>
-                                    <Form.Input required type="email" fluid label='Email'
-                                                placeholder='Email'
-                                                name="email"
-                                                className={this.state.formStatus}
-                                                onChange={this.handleInputChange}
-                                    />
+                <FadeIn transitionDuration="500">
+                    <Container className="col-md-4 col-md-offset-2">
+                        <Card className="Card_container">
+                            <CardBody>
+                                <center><h1>Sign In</h1></center>
+                                <Row>
+                                    <Col md="12">
+                                        <Form onSubmit={this.handleSubmit}>
+                                            <Form.Input required type="email" fluid label='Email'
+                                                        placeholder='Email'
+                                                        name="email"
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                            />
 
-                                    <Form.Input required type="password" fluid label='Password'
-                                                placeholder='Password'
-                                                name="password"
-                                                className={this.state.formStatus}
-                                                onChange={this.handleInputChange}
-                                    />
+                                            <Form.Input required type="password" fluid label='Password'
+                                                        placeholder='Password'
+                                                        name="password"
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                            />
 
-                                    <div id="messageValidation"></div>
-                                    <Button block size="lg" style={{ marginTop: "3%" }} type="submit">Sign In</Button>
-                                </Form>
+                                            <div id="messageValidation"></div>
 
-                            </Col>
-                        </Row>
-                    </CardBody>
-                </Card>
-            </Container>
+                                            <Button id="Submit_Button" block size="lg" type="submit">Sign
+                                                In</Button>
+                                        </Form>
 
+                                    </Col>
+                                </Row>
+                            </CardBody>
+                        </Card>
+                    </Container>
+                </FadeIn>
                 <div id="footer">
                     <Footer/>
                 </div>
             </div>
         );
-      }
     }
 }
 
