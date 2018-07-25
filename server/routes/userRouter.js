@@ -188,6 +188,9 @@ router.put('/:id', (req, res) => {
         User.findOne({_id: req.params.id}).then((user) => {
             user.save()
                 .then((result) => {
+
+                    Tweet.updateMany({userId: req.params.id}, { $set: { username: req.body.username }}).exec();
+
                     res.json({
                         success: true,
                         msg: `Successfully edited..!`,
