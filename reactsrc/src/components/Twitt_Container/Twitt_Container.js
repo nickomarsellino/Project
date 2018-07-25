@@ -54,10 +54,14 @@ class Twitt_Container extends Component {
             });
     }
 
-    openModalDelete() {
-        this.setState({
-            modalDelete: true
-        });
+    openModalDelete(tweetId) {
+        axios.get('http://localhost:3000/api/users/tweet/' + tweetId)
+            .then(res => {
+                this.setState({
+                    tweet: res.data,
+                    modalDelete: true
+                });
+            });
     }
 
     closeModalTweet(isOpen) {
@@ -80,13 +84,13 @@ class Twitt_Container extends Component {
         }
     }
 
-    buttonDelete(userId) {
+    buttonDelete(userId,tweetId) {
         if (userId == this.props.userId) {
             return (
                 <Icon className="Tweet-Content"
                       size='large' name='trash'
                       id="recycleIcon"
-                      onClick={this.openModalDelete}
+                      onClick={() => this.openModalDelete(tweetId)}
                 />
             );
         }
@@ -106,7 +110,7 @@ class Twitt_Container extends Component {
                                             <Feed.Summary content={tweet.username}/>
                                         </div>
 
-                                        {this.buttonDelete(tweet.userId)}
+                                        {this.buttonDelete(tweet.userId, tweet._id)}
 
                                         <Feed.Extra text content={tweet.tweetText}/> <br/>
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
