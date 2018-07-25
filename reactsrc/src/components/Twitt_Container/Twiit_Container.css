@@ -3,6 +3,10 @@
   margin-top: 3px;
 }
 
+.Tweet-Delete{
+  padding: 2px;
+}
+
 .Tweet_Container:hover{
   background: rgba(255, 255, 255, 0.7);
 }
@@ -16,10 +20,8 @@
 }
 
 #recycleIcon{
-  float: right;
   cursor: pointer;
   opacity: 0.5;
-  width: 4%;
 }
 
 #recycleIcon:hover{

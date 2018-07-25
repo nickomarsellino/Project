@@ -87,11 +87,11 @@ class Twitt_Container extends Component {
     buttonDelete(userId,tweetId) {
         if (userId == this.props.userId) {
             return (
-                <Icon className="Tweet-Content"
-                      size='large' name='trash'
-                      id="recycleIcon"
-                      onClick={() => this.openModalDelete(tweetId)}
-                />
+                    <Icon
+                          size='large' name='trash'
+                          id="recycleIcon"
+                          onClick={() => this.openModalDelete(tweetId)}
+                    />
             );
         }
     }
@@ -103,18 +103,18 @@ class Twitt_Container extends Component {
                     <Card className="Tweet_Container">
                         <CardBody className="Tweet">
                             <Feed>
-                                <Feed.Event onClick={() => this.openModalTweet(tweet._id)}>
+                                <Feed.Event>
                                     <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
-                                    <Feed.Content>
+                                    <Feed.Content onClick={() => this.openModalTweet(tweet._id)}>
                                         <div className="Tweet-Content">
                                             <Feed.Summary content={tweet.username}/>
                                         </div>
-
-                                        {this.buttonDelete(tweet.userId, tweet._id)}
-
                                         <Feed.Extra text content={tweet.tweetText}/> <br/>
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
                                     </Feed.Content>
+                                    <Feed.Label  className="Tweet-Delete">
+                                        {this.buttonDelete(tweet.userId, tweet._id)}
+                                    </Feed.Label>
                                 </Feed.Event>
                             </Feed>
                         </CardBody>
