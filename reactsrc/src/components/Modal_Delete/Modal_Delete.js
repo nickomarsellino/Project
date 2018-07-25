@@ -31,7 +31,6 @@ class Modal_Delete extends Component {
     deleteTweet(tweetId){
         axios.delete('/api/users/tweet/'+tweetId)
             .then(() => {
-                this.openModal();
                 window.location.reload();
             });
     }
@@ -40,9 +39,9 @@ class Modal_Delete extends Component {
         return (
             <Container>
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal} centered>
-                    <ModalHeader style={{backgroundColor: "#ff6b6b", color: "white"}} toggle={this.openModal}>Delete Post ?</ModalHeader>
+                    <ModalHeader className="modalHeader" toggle={this.openModal}>Delete Post ?</ModalHeader>
                     <ModalBody>
-                        Are you sure want to delete tweet from {this.state.tweet.username}
+                        Are you sure want to delete this tweet
 
                         <br/>
                         <div className={"buttonModal"}>

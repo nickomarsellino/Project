@@ -1,3 +1,11 @@
+
+.modalHeader{
+    background-color: #ff6b6b;
+    color: white;
+}
+
+
+
 #myButtonNo {
     -moz-box-shadow: 0px 0px 0px -1px #d6d6d6;
     -webkit-box-shadow: 0px 0px 0px -1px #d6d6d6;
