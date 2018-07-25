@@ -84,14 +84,14 @@ class Twitt_Container extends Component {
         }
     }
 
-    buttonDelete(userId,tweetId) {
+    buttonDelete(userId, tweetId) {
         if (userId == this.props.userId) {
             return (
-                    <Icon
-                          size='large' name='trash'
-                          id="recycleIcon"
-                          onClick={() => this.openModalDelete(tweetId)}
-                    />
+                <Icon
+                    size='large' name='trash'
+                    id="recycleIcon"
+                    onClick={() => this.openModalDelete(tweetId)}
+                />
             );
         }
     }
@@ -112,9 +112,11 @@ class Twitt_Container extends Component {
                                         <Feed.Extra text content={tweet.tweetText}/> <br/>
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
                                     </Feed.Content>
-                                    <Feed.Label  className="Tweet-Delete">
+
+                                    <Feed.Label className="Tweet-Delete">
                                         {this.buttonDelete(tweet.userId, tweet._id)}
                                     </Feed.Label>
+
                                 </Feed.Event>
                             </Feed>
                         </CardBody>

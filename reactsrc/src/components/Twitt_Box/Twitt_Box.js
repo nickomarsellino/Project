@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody, Button} from "mdbreact"
-import { Form,  TextArea, Image } from 'semantic-ui-react'
+import {Form, TextArea, Image} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
@@ -52,7 +52,7 @@ class Twitt_Box extends Component {
         axios({
             method: method,
             responseType: 'json',
-            url: `http://localhost:3000/api/users/tweet/`+this.state.userId,
+            url: `http://localhost:3000/api/users/tweet/` + this.state.userId,
             data: tweet
         })
             .then(() => {
@@ -75,7 +75,7 @@ class Twitt_Box extends Component {
                                 id='form-textarea-control-opinion'
                                 type="text"
                                 control={TextArea}
-                                placeholder={"Have a nice day "+this.state.username}
+                                placeholder={"Have a nice day " + this.state.username}
                                 style={{maxHeight: "100px"}}
                                 name="userTweet"
                                 onChange={this.handleInputChange}

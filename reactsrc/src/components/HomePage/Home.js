@@ -55,7 +55,7 @@ class Home extends Component {
             <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
                 <div>
                     <Twitt_Box username={this.state.username}
-                    userId={this.state.userId}
+                               userId={this.state.userId}
                     />
                 </div>
                 <div>
