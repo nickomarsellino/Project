@@ -8,6 +8,7 @@ import {Container} from "mdbreact"
 //load another component
 import Navbar from "../Navbar/Navigationbar";
 import Profile from '../Form_editProfile/Edit_Profile'
+import ChangePassword from '../Change_Password/Change_Password'
 import Twitt_Box from "../Twitt_Box/Twitt_Box";
 import Twitt_Container from "../Twitt_Container/Twitt_Container";
 import axios from "axios/index";
@@ -72,7 +73,11 @@ class Home extends Component {
 
                     <div>
                         <Route exact path={this.props.match.url} component={home}/>
+
                         <Route path={this.props.match.url + '/editProfile'} component={editProfile}/>
+
+                        <Route path={this.props.match.url + '/changePassword'} component={ChangePassword}/>
+
                     </div>
                 </FadeIn>
             </div>

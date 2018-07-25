@@ -40,37 +40,6 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-
-// //hashing a password before saving it to the database
-// UserSchema.pre('save', function (next) {
-//
-//     console.log("JALAN BRO PAS SAVE");
-//
-//     var user = this;
-//     bcrypt.hash(user.password, 10, function (err, hash) {
-//         if (err) {
-//             return next(err);
-//         }
-//         user.password = hash;
-//         next();
-//     })
-// });
-//
-// UserSchema.pre('findByIdAndUpdate', function (next) {
-//
-//     console.log("JALAN BRO PAS UPDATE");
-//
-//     var user = this;
-//     bcrypt.hash(user.password, 10, function (err, hash) {
-//         if (err) {
-//             return next(err);
-//         }
-//         user.password = hash;
-//         next();
-//     })
-// });
-
-
 UserSchema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
