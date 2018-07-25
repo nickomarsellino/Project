@@ -39,7 +39,6 @@ router.get('/tweets', (req, res, next) => {
   });
 });
 
-
 router.get('/tweet/:id', (req, res) => {
     Tweet.findById(req.params.id)
         .then((result) => {
