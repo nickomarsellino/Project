@@ -14,8 +14,9 @@ class Change_Password extends Component {
 
         this.state = {
             isHidden: true,
-            inputPassword: "",
+            currentPassword: "",
             newPassword: "",
+            newPasswordConfirmation: "",
             formMessage: "",
             formStatus: ""
         }
@@ -24,81 +25,83 @@ class Change_Password extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    getData() {
-        axios.get('/api/users/' + this.props.userId)
-            .then(res => {
-                this.setState({
-                    userId: res.data._id,
-                    username: res.data.username,
-                    email: res.data.email,
-                    phone: res.data.phone
-                });
-            });
-    }
-
-    componentDidMount() {
-        this.getData();
-    }
-
     handleInputChange(e) {
-        const target = e.target;
-        const name = target.name;
+        const name = e.target.name;
 
-        this.setState({[name]: target.value});
+        this.setState({[name]: e.target.value});
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        const user = {
-            username: this.state.username,
-            email: this.state.email,
-            phone: this.state.phone
-        };
 
-        axios({
-            method: 'put',
-            responseType: 'json',
-            url: `http://localhost:3000/api/users/` + this.state.userId,
-            data: user
-        })
-            .then((response) => {
-                this.setState({
-                    formStatus: 'success',
-                    formMessage: response.data.msg
-                });
+        if (this.state.newPassword !== this.state.newPasswordConfirmation) {
+            //Render Validation box message
+            ReactDOM.render(<MessageValidation
+                form="danger"
+                formStatus="Error"
+                formMessage="New Password doesn't match....!"
+            />, document.getElementById('messageValidation'));
+        }
+        //
+        // else if (this.state.currentPassword !== this.state.password) {
+        //     //Render Validation box message
+        //     ReactDOM.render(<MessageValidation
+        //         form="danger"
+        //         formStatus="Error"
+        //         formMessage="Failed to change Password......!"
+        //     />, document.getElementById('messageValidation'));
+        // }
+        else{
+          const password = {
+              currentPassword: this.state.currentPassword,
+              newPassword: this.state.newPassword,
+              newPasswordConfirmation: this.state.newPasswordConfirmation
+          };
 
-                //Render Validation box message
-                ReactDOM.render(<MessageValidation
-                    form="success"
-                    formStatus={this.state.formStatus}
-                    formMessage={this.state.formMessage}
-                />, document.getElementById('messageValidation'));
+          axios({
+              method: 'put',
+              responseType: 'json',
+              url: 'http://localhost:3000/api/users/changePassword/' + this.props.userId,
+              data: password
+          })
+              .then((response) => {
+                  this.setState({
+                      formStatus: 'Success',
+                      formMessage: response.data.msg
+                  });
+                  ReactDOM.render(<MessageValidation
+                      form="Success"
+                      formStatus={this.state.formStatus}
+                      formMessage={this.state.formMessage}
+                  />, document.getElementById('messageValidation'));
 
-            })
-            .catch((err) => {
-                if (err.response) {
-                    this.setState({
-                        formStatus: 'Error',
-                        formMessage: err.response.data.msg
-                    });
-                }
-                else {
-                    this.setState({
-                        formStatus: 'Error',
-                        formMessage: 'Something went wrong. ' + err
-                    });
-                }
+              })
+              .catch((err) => {
+                  if (err.response) {
+                      this.setState({
+                          formStatus: 'Error',
+                          formMessage: err.response.data.msg
+                      });
+                  }
+                  else {
+                      this.setState({
+                          formStatus: 'Error',
+                          formMessage: 'Something went wrong. ' + err
+                      });
+                  }
 
-                //Render Validation box message
-                ReactDOM.render(<MessageValidation
-                    form="danger"
-                    formStatus={this.state.formStatus}
-                    formMessage={this.state.formMessage}
-                />, document.getElementById('messageValidation'));
-            });
+                  //Render Validation box message
+                  ReactDOM.render(<MessageValidation
+                      form="danger"
+                      formStatus={this.state.formStatus}
+                      formMessage={this.state.formMessage}
+                  />, document.getElementById('messageValidation'));
+              });
+        }
     }
 
     render() {
+        console.log("userId(ChangePW): ", this.props.userId);
         return (
             <FadeIn>
                 <div>
@@ -112,28 +115,25 @@ class Change_Password extends Component {
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
-                                            <Form.Input required type="text" fluid label='Current Password'
-                                                        placeholder={this.state.username}
-                                                        value={this.state.username}
+                                            <Form.Input required type="password" fluid label='Current Password'
+                                                        placeholder="Enter your current password.."
                                                         className={this.state.formStatus}
                                                         onChange={this.handleInputChange}
-                                                        name="username"
+                                                        name="currentPassword"
                                             />
                                             <br/><br/>
-                                            <Form.Input required type="text" fluid label='New Password'
-                                                        placeholder={this.state.email}
-                                                        value={this.state.email}
+                                            <Form.Input required type="password" fluid label='New Password'
+                                                        placeholder="Enter your new Password.."
                                                         className={this.state.formStatus}
                                                         onChange={this.handleInputChange}
-                                                        name="email"
+                                                        name="newPassword"
                                             />
 
-                                            <Form.Input required type="text" fluid label='Verify Password'
-                                                        placeholder={this.state.phone}
-                                                        value={this.state.phone}
+                                            <Form.Input required type="password" fluid label='Verify Password'
+                                                        placeholder="Verify your new password.."
                                                         className={this.state.formStatus}
                                                         onChange={this.handleInputChange}
-                                                        name="phone"
+                                                        name="newPasswordConfirmation"
                                             />
                                             <div id="messageValidation"></div>
                                             <Button id="Submit_Button" block size="lg" type="submit">Save
