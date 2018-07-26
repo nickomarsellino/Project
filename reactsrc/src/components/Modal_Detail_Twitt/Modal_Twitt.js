@@ -1,9 +1,11 @@
 import React, {Component} from "react";
-import { Container, Button, Modal, ModalBody, ModalHeader} from 'mdbreact';
+import {Container, Button, Modal, ModalBody, ModalHeader} from 'mdbreact';
 import axios from "axios/index";
 
-class Modal_Twitt extends Component {
+const Timestamp = require('react-timestamp');
 
+class Modal_Twitt extends Component {
+  
     constructor(props) {
         super(props);
         this.state = {
@@ -16,12 +18,12 @@ class Modal_Twitt extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.tweet !== this.props.tweet) {
             this.setState({
-                tweet : nextProps.tweet
+                tweet: nextProps.tweet
             });
         }
     }
 
-    openModal(){
+    openModal() {
         //Akses Fungsi yang di Twitt_Container.js
         this.props.isClose(this.props.isOpen);
     }
@@ -35,11 +37,34 @@ class Modal_Twitt extends Component {
                     <ModalBody>
                         {this.state.tweet.tweetText}
                     </ModalBody>
+                    <ModalBody>
+                        <Timestamp time={this.state.tweet.timestamp} format='full' includeDay/>
+                    </ModalBody>
                 </Modal>
             </Container>
         );
-    }
-}
 
+    }
+  }
+
+  openModal() {
+    //Akses Fungsi yang di Twitt_Container.js
+    this.props.isClose(this.props.isOpen);
+  }
+
+  render() {
+    return (<Container>
+      <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
+        <ModalHeader toggle={this.openModal}>{this.state.tweet.username}</ModalHeader>
+        <ModalBody>
+          {this.state.tweet.tweetText}
+        </ModalBody>
+        <ModalBody>
+          <Timestamp time={this.state.tweet.timestamp} format='full' includeDay="includeDay"/>
+        </ModalBody>
+      </Modal>
+    </Container>);
+  }
+}
 
 export default Modal_Twitt;
