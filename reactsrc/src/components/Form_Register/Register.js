@@ -135,8 +135,8 @@ class Register extends Component {
                     <Navbar/>
                 </div>
                 <FadeIn transitionDuration="500">
-                    <Container className="col-lg-4 col-lg-offset-2">
-                        <Card className="Card_Container">
+                    <Container className="col-lg-4 col-lg-offset-2" id="Card_Container">
+                        <Card >
                             <CardBody>
                                 <center><h1>Register</h1></center>
                                 <Row>
