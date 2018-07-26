@@ -103,7 +103,6 @@ class Edit_Profile extends Component {
     }
 
     render() {
-      console.log("userid ", this.props.userId);
         return (
             <FadeIn>
                 <div>

@@ -39,60 +39,69 @@ class Change_Password extends Component {
             ReactDOM.render(<MessageValidation
                 form="danger"
                 formStatus="Error"
-                formMessage="New Passwords doesn't match......!"
+                formMessage="New Password doesn't match....!"
             />, document.getElementById('messageValidation'));
         }
+        //
+        // else if (this.state.currentPassword !== this.state.password) {
+        //     //Render Validation box message
+        //     ReactDOM.render(<MessageValidation
+        //         form="danger"
+        //         formStatus="Error"
+        //         formMessage="Failed to change Password......!"
+        //     />, document.getElementById('messageValidation'));
+        // }
+        else{
+          const password = {
+              currentPassword: this.state.currentPassword,
+              newPassword: this.state.newPassword,
+              newPasswordConfirmation: this.state.newPasswordConfirmation
+          };
 
-        const password = {
-            currentPassword: this.state.currentPassword,
-            newPassword: this.state.newPassword,
-            newPasswordConfirmation: this.state.newPasswordConfirmation
-        };
+          axios({
+              method: 'put',
+              responseType: 'json',
+              url: 'http://localhost:3000/api/users/changePassword/' + this.props.userId,
+              data: password
+          })
+              .then((response) => {
+                  this.setState({
+                      formStatus: 'Success',
+                      formMessage: response.data.msg
+                  });
+                  ReactDOM.render(<MessageValidation
+                      form="Success"
+                      formStatus={this.state.formStatus}
+                      formMessage={this.state.formMessage}
+                  />, document.getElementById('messageValidation'));
 
-        axios({
-            method: 'put',
-            responseType: 'json',
-            url: `http://localhost:3000/api/users/changePassword` + this.state.userId,
-            data: password
-        })
-            .then((response) => {
-                this.setState({
-                    formStatus: 'success',
-                    formMessage: response.data.msg
-                });
+              })
+              .catch((err) => {
+                  if (err.response) {
+                      this.setState({
+                          formStatus: 'Error',
+                          formMessage: err.response.data.msg
+                      });
+                  }
+                  else {
+                      this.setState({
+                          formStatus: 'Error',
+                          formMessage: 'Something went wrong. ' + err
+                      });
+                  }
 
-                //Render Validation box message
-                ReactDOM.render(<MessageValidation
-                    form="success"
-                    formStatus={this.state.formStatus}
-                    formMessage={this.state.formMessage}
-                />, document.getElementById('messageValidation'));
-
-            })
-            .catch((err) => {
-                if (err.response) {
-                    this.setState({
-                        formStatus: 'Error',
-                        formMessage: err.response.data.msg
-                    });
-                }
-                else {
-                    this.setState({
-                        formStatus: 'Error',
-                        formMessage: 'Something went wrong. ' + err
-                    });
-                }
-
-                //Render Validation box message
-                ReactDOM.render(<MessageValidation
-                    form="danger"
-                    formStatus={this.state.formStatus}
-                    formMessage={this.state.formMessage}
-                />, document.getElementById('messageValidation'));
-            });
+                  //Render Validation box message
+                  ReactDOM.render(<MessageValidation
+                      form="danger"
+                      formStatus={this.state.formStatus}
+                      formMessage={this.state.formMessage}
+                  />, document.getElementById('messageValidation'));
+              });
+        }
     }
 
     render() {
+        console.log("userId(ChangePW): ", this.props.userId);
         return (
             <FadeIn>
                 <div>
