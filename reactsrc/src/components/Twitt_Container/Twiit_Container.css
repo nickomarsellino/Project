@@ -1,23 +1,29 @@
 
-.Tweet_Container{
-  margin-top: 3px;
+.Tweet_Container {
+    margin-top: 3px;
 }
 
-.Tweet_Container:hover{
-  background: rgba(255, 255, 255, 0.7);
+.Tweet-Delete {
+    margin-bottom: 20px;
+    margin-left: 10px;
 }
 
-.Tweet{
-  padding: 10px;
+.Tweet_Container:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+.Tweet {
+    padding: 10px;
 }
 
-#recycleIcon{
-  float: right;
-  cursor: pointer;
-  opacity: 0.5;
-  width: 4%;
+.Tweet-Content {
+    display: inline-block;
 }
 
-#recycleIcon:hover{
-  color: #f70010;
+#recycleIcon {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#recycleIcon:hover {
+    color: #f70010;
 }

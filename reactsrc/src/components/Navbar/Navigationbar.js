@@ -84,12 +84,12 @@ class Navigationbar extends Component {
                                 <DropdownMenu>
 
                                     <DropdownItem>
-                                        <Link to={'/home/editProfile/'+this.state.userName}>
+                                        <Link to={'/home/editProfile/' + this.state.userName}>
                                             Edit Profile
                                         </Link>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <Link to={'/home/changePassword/'+this.state.userName}>
+                                        <Link to={'/home/changePassword/' + this.state.userName}>
                                             Change Password
                                         </Link>
                                     </DropdownItem>

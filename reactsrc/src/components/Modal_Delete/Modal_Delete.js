@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Container, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
+import {Container, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
 import './Modal_Delete.css'
 import axios from "axios/index";
 
@@ -17,19 +17,19 @@ class Modal_Delete extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.tweet !== this.props.tweet) {
             this.setState({
-                tweet : nextProps.tweet
+                tweet: nextProps.tweet
             });
         }
     }
 
-    openModal(){
+    openModal() {
         //Akses Fungsi yang di Twitt_Container.js
         this.props.isClose(this.props.isOpen);
     }
 
 
-    deleteTweet(tweetId){
-        axios.delete('/api/users/tweet/'+tweetId)
+    deleteTweet(tweetId) {
+        axios.delete('/api/users/tweet/' + tweetId)
             .then(() => {
                 window.location.reload();
             });
