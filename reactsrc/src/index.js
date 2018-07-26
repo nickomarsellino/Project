@@ -6,8 +6,8 @@ import App from './components/App/App';
 import registerServiceWorker from './registerServiceWorker';
 
 //load another component
-import Register from './components/Form_Register/Register'
-import SignIn from './components/Form_SignIn/SignIn'
+import Register from './components/Authentication/Form_Register/Register'
+import SignIn from './components/Authentication/Form_SignIn/SignIn'
 import Home from './components/HomePage/Home'
 
 //import css data

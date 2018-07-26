@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import axios from 'axios';
 import './Register.css'
 import ReactDOM from 'react-dom';
-import Footer from '../Footer/Footer_Bar';
-import Navbar from "../Navbar/Navigationbar";
+import Footer from '../../Footer/Footer_Bar';
+import Navbar from "../../Navbar/Navigationbar";
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import FadeIn from 'react-fade-in';
-import MessageValidation from '../MessageValidationBox/MessageValidation'
+import MessageValidation from '../../MessageValidationBox/MessageValidation'
 
 import {Form} from 'semantic-ui-react';
 

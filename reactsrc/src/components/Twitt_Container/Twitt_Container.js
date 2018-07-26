@@ -6,8 +6,8 @@ import axios from 'axios';
 import './Twiit_Container.css';
 
 //load another component
-import Modal_Twitt from '../Modal_Detail_Twitt/Modal_Twitt';
-import Modal_Delete from '../Modal_Delete/Modal_Delete';
+import Modal_Twitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
+import Modal_Delete from '../Modal/Modal_Delete/Modal_Delete';
 
 const Timestamp = require('react-timestamp');
 

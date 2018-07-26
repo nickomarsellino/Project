@@ -66,9 +66,9 @@ class Twitt_Box extends Component {
             <div style={{marginTop: "8%", marginBottom: "2%"}}>
                 <Card>
                     <CardBody>
-                        <div>
-                            <Image src={profile} avatar/>
-                            <span><h5>{this.state.username}</h5></span>
+                        <div className="profileBox">
+                            <Image src={profile} avatar id="avatarBox"/>
+                            <span><h5 id="nameBox">{this.state.username}</h5></span>
                         </div>
                         <Form id="Form_Container" onSubmit={this.handleSubmit}>
                             <Form.Field
@@ -80,11 +80,13 @@ class Twitt_Box extends Component {
                                 name="userTweet"
                                 onChange={this.handleInputChange}
                             />
-                            <Button color="default"
-                                    size="md"
-                                    type="submit"
-                                    style={{borderRadius: "100px"}}
-                            >Post</Button>
+                            <div id="buttonBox">
+                                <Button color="default"
+                                        size="md"
+                                        type="submit"
+                                        style={{borderRadius: "100px"}}
+                                >Post</Button>
+                            </div>
                         </Form>
                     </CardBody>
                 </Card>

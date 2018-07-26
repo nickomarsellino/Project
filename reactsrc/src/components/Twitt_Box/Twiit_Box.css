@@ -5,3 +5,21 @@
 #Form_Container {
     margin-top: 1%;
 }
+
+.profileBox{
+    display: inline-block;
+}
+
+#avatarBox{
+    display: inline-block;
+    width: 6%;
+    height: 6%;
+}
+
+#nameBox{
+    display: inline-block;
+}
+
+#buttonBox{
+    text-align: right;
+}
