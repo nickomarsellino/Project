@@ -50,6 +50,10 @@ class Home extends Component {
         const editProfile = () => (
             <Profile userId={this.state.userId}/>
         );
+        // get the local storage
+        const parentChangePw = () => (
+            <ChangePassword userId={this.state.userId} />
+        );
 
         const home = () => (
             <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
@@ -76,7 +80,7 @@ class Home extends Component {
 
                         <Route path={this.props.match.url + '/editProfile'} component={editProfile}/>
 
-                        <Route path={this.props.match.url + '/changePassword'} component={ChangePassword}/>
+                        <Route path={this.props.match.url + '/changePassword'} component={parentChangePw}/>
 
                     </div>
                 </FadeIn>
