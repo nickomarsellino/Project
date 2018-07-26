@@ -11,10 +11,6 @@
   padding: 10px;
 }
 
-.Tweet-Content{
-  display : inline-block;
-}
-
 #recycleIcon{
   float: right;
   cursor: pointer;
@@ -25,4 +21,3 @@
 #recycleIcon:hover{
   color: #f70010;
 }
-
