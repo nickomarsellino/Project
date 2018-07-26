@@ -201,11 +201,11 @@ router.put('/:id', (req, res) => {
 router.put('/changePassword/:id', (req, res) => {
     const user = new User();
     // Dari inputan
-    const inputCurrentPassword = req.body.inputCurrentPassword;
+    const currentPassword = req.body.currentPassword;
 
     User.findById(req.params.id).then((result) => {
         // Cek current sama di db sama gak
-        if (bcrypt.compareSync(inputCurrentPassword, result.password)) {
+        if (bcrypt.compareSync(currentPassword, result.password)) {
 
             // ganti newpassword
             User.updateMany({_id: req.params.id}, {$set: {password: user.generateHash(req.body.newPassword)}}).exec();
