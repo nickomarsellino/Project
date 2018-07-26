@@ -35,7 +35,6 @@ class Twitt_Box extends Component {
         const target = e.target;
         const name = target.name;
         this.setState({[name]: target.value});
-
     }
 
     handleSubmit(e) {
@@ -85,6 +84,7 @@ class Twitt_Box extends Component {
                                         size="md"
                                         type="submit"
                                         style={{borderRadius: "100px"}}
+                                        disabled={!this.state.userTweet}
                                 >Post</Button>
                             </div>
                         </Form>
