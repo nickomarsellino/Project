@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody, Button} from "mdbreact"
-import {Form, TextArea, Image} from 'semantic-ui-react'
+import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
@@ -35,7 +35,6 @@ class Twitt_Box extends Component {
         const target = e.target;
         const name = target.name;
         this.setState({[name]: target.value});
-
     }
 
     handleSubmit(e) {
@@ -63,7 +62,7 @@ class Twitt_Box extends Component {
 
     render() {
         return (
-            <div style={{marginTop: "8%", marginBottom: "2%"}}>
+            <div className="Tweet-Container">
                 <Card>
                     <CardBody>
                         <div className="profileBox">
@@ -80,11 +79,19 @@ class Twitt_Box extends Component {
                                 name="userTweet"
                                 onChange={this.handleInputChange}
                             />
-                            <div id="buttonBox">
+                            <div className="buttonBox">
+                                <div>
+                                    <Icon.Group  size='large' id="addImageButton">
+                                        <Icon name='images' />
+                                        <Icon corner name='add' />
+                                    </Icon.Group>
+                                </div>
                                 <Button color="default"
                                         size="md"
+                                        id="postButton"
                                         type="submit"
                                         style={{borderRadius: "100px"}}
+                                        disabled={!this.state.userTweet}
                                 >Post</Button>
                             </div>
                         </Form>
