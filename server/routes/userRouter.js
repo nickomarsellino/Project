@@ -209,8 +209,9 @@ router.put('/changePassword/:id', (req, res) => {
 
             // ganti newpassword
             User.updateMany({_id: req.params.id}, {$set: {password: user.generateHash(req.body.newPassword)}}).exec();
-
+          
             res.send({success: true, msg: 'Password has been changed...!'});
+
         }
         else {
             res.status(404).json({success: false, msg: 'Password salah...!'});
