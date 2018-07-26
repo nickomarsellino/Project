@@ -107,7 +107,8 @@ class Change_Password extends Component {
                             <CardBody>
                                 <center>
                                     <h1>Change Password</h1>
-                                </center> <br />
+                                </center>
+                                <br/>
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
@@ -118,7 +119,7 @@ class Change_Password extends Component {
                                                         onChange={this.handleInputChange}
                                                         name="username"
                                             />
-                                            <br /><br />
+                                            <br/><br/>
                                             <Form.Input required type="text" fluid label='New Password'
                                                         placeholder={this.state.email}
                                                         value={this.state.email}
@@ -135,7 +136,8 @@ class Change_Password extends Component {
                                                         name="phone"
                                             />
                                             <div id="messageValidation"></div>
-                                            <Button id="Submit_Button" block size="lg" type="submit">Save Changes</Button>
+                                            <Button id="Submit_Button" block size="lg" type="submit">Save
+                                                Changes</Button>
                                         </Form>
                                     </Col>
                                 </Row>

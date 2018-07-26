@@ -60,17 +60,60 @@ class Twitt_Container extends Component {
     }
   }
 
-  closeModalDelete(isOpen) {
-    if (isOpen) {
-      {
-        this.setState({modalDelete: false})
-      }
+    buttonDelete(userId, tweetId) {
+        if (userId == this.props.userId) {
+            return (
+                <Icon
+                    size='large' name='trash'
+                    id="recycleIcon"
+                    onClick={() => this.openModalDelete(tweetId)}
+                />
+            );
+        }
     }
   }
 
-  buttonDelete(userId, tweetId) {
-    if (userId == this.props.userId) {
-      return (<Icon className="Tweet-Content" size='large' name='trash' id="recycleIcon" onClick={() => this.openModalDelete(tweetId)}/>);
+    render() {
+        return (
+            <div>
+                {this.state.tweetData.map(tweet =>
+                    <Card className="Tweet_Container">
+                        <CardBody className="Tweet">
+                            <Feed>
+                                <Feed.Event>
+                                    <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
+                                    <Feed.Content onClick={() => this.openModalTweet(tweet._id)}>
+                                        <div className="Tweet-Content">
+                                            <Feed.Summary content={tweet.username}/>
+                                        </div>
+                                        <Feed.Extra text content={tweet.tweetText}/> <br/>
+                                        <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+                                    </Feed.Content>
+
+                                    <Feed.Label className="Tweet-Delete">
+                                        {this.buttonDelete(tweet.userId, tweet._id)}
+                                    </Feed.Label>
+
+                                </Feed.Event>
+                            </Feed>
+                        </CardBody>
+                    </Card>
+                )}
+
+                <Modal_Twitt
+                    isOpen={this.state.modalTweet}
+                    tweet={this.state.tweet}
+                    isClose={this.closeModalTweet}
+                />
+
+                <Modal_Delete
+                    isOpen={this.state.modalDelete}
+                    tweet={this.state.tweet}
+                    isClose={this.closeModalDelete}
+                />
+
+            </div>
+        );
     }
   }
 

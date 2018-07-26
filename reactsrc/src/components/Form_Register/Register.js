@@ -41,14 +41,14 @@ class Register extends Component {
 
     }
 
-    isClicked(){
+    isClicked() {
 
-        if(this.state.isChecked){
+        if (this.state.isChecked) {
             this.setState({
                 isChecked: false
             });
         }
-        else{
+        else {
             this.setState({
                 isChecked: true
             });
@@ -69,7 +69,7 @@ class Register extends Component {
             />, document.getElementById('messageValidation'));
         }
 
-        if(!this.state.isChecked){
+        if (!this.state.isChecked) {
             //Render Validation box message
             ReactDOM.render(<MessageValidation
                 form="danger"
@@ -81,9 +81,9 @@ class Register extends Component {
         else {
             const user = {
                 username: this.state.username,
-                email   : this.state.email,
+                email: this.state.email,
                 password: this.state.password,
-                phone   : this.state.phone
+                phone: this.state.phone
             };
 
             const method = 'post';
@@ -124,8 +124,9 @@ class Register extends Component {
                         formMessage={this.state.formMessage}
                     />, document.getElementById('messageValidation'));
                 });
-          };
         }
+        ;
+    }
 
     render() {
         return (

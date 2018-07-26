@@ -9,7 +9,7 @@ class App extends Component {
     componentWillMount() {
         const obj = getFromStorage('bebas');
 
-        if(obj.token.length > 5 ){
+        if (obj.token.length > 5) {
             this.props.history.push("/home");
         }
     }
