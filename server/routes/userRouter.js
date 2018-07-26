@@ -26,7 +26,6 @@ router.post('/tweet/:id', (req, res, next) => {
         });
     });
   });
-});
 
 router.delete('/tweet/:id', (req, res, next) => {
   console.log(req.params.id);
@@ -158,27 +157,11 @@ router.get('/logout', (req, res, next) => {
 
 // Edit Profile
 router.put('/:id', (req, res) => {
-<<<<<<< HEAD
-  User.findByIdAndUpdate({
-    _id: req.params.id
-  }, req.body).then(() => {
-    User.findOne({_id: req.params.id}).then((user) => {
-      user.save().then((result) => {
-        Tweet.updateMany({
-          userId: req.params.id
-        }, {
-          $set: {
-            username: req.body.username
-          }
-        }).exec();
-=======
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
         User.findOne({_id: req.params.id}).then((user) => {
             user.save()
                 .then((result) => {
                     Tweet.updateMany({userId: req.params.id}, {$set: {username: req.body.username}}).exec();
->>>>>>> 7a2ae1dc1424c11d73e4f0b2945bd2d18ef3e461
-
         res.json({
           success: true,
           msg: `Successfully edited..!`,
@@ -216,29 +199,6 @@ router.put('/:id', (req, res) => {
 });
 
 router.put('/changePassword/:id', (req, res) => {
-<<<<<<< HEAD
-  const user = new User();
-  // Dari inputan
-  const inputCurrentPassword = req.body.inputCurrentPassword;
-
-  User.findById(req.params.id).then((result) => {
-    // Cek current sama di db sama gak
-    if (bcrypt.compareSync(inputCurrentPassword, result.password)) {
-      // ganti newpassword
-      User.findByIdAndUpdate({
-        _id: req.params.id
-      }, {
-        password: user.generateHash(req.body.newPassword)
-      })
-      console.log("pass baru", req.body.newPassword);
-      res.status(404).json({success: false, msg: ' Password telah Cocok...!'});
-      user.save();
-    } else {
-      res.status(404).json({success: false, msg: 'Wrong Password...!'});
-    }
-  })
-=======
-
     const user = new User();
     // Dari inputan
     const inputCurrentPassword = req.body.inputCurrentPassword;
@@ -256,7 +216,6 @@ router.put('/changePassword/:id', (req, res) => {
             res.status(404).json({success: false, msg: 'Wrong Password...!'});
         }
     })
->>>>>>> 7a2ae1dc1424c11d73e4f0b2945bd2d18ef3e461
 });
 
 // Get data for update profile
@@ -290,5 +249,4 @@ router.get('/verify', (req, res, next) => {
     }
   });
 });
-
 module.exports = router;

@@ -4,6 +4,7 @@ import axios from "axios/index";
 
 const Timestamp = require('react-timestamp');
 
+
 class Modal_Twitt extends Component {
 
     constructor(props) {
@@ -44,26 +45,7 @@ class Modal_Twitt extends Component {
             </Container>
         );
     }
-  }
-
-  openModal() {
-    //Akses Fungsi yang di Twitt_Container.js
-    this.props.isClose(this.props.isOpen);
-  }
-
-  render() {
-    return (<Container>
-      <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
-        <ModalHeader toggle={this.openModal}>{this.state.tweet.username}</ModalHeader>
-        <ModalBody>
-          {this.state.tweet.tweetText}
-        </ModalBody>
-        <ModalBody>
-          <Timestamp time={this.state.tweet.timestamp} format='full' includeDay="includeDay"/>
-        </ModalBody>
-      </Modal>
-    </Container>);
-  }
 }
+
 
 export default Modal_Twitt;
