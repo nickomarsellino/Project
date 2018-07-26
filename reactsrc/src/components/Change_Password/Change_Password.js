@@ -51,52 +51,52 @@ class Change_Password extends Component {
         //         formMessage="Failed to change Password......!"
         //     />, document.getElementById('messageValidation'));
         // }
-        else{
-          const password = {
-              currentPassword: this.state.currentPassword,
-              newPassword: this.state.newPassword,
-              newPasswordConfirmation: this.state.newPasswordConfirmation
-          };
+        else {
+            const password = {
+                currentPassword: this.state.currentPassword,
+                newPassword: this.state.newPassword,
+                newPasswordConfirmation: this.state.newPasswordConfirmation
+            };
 
-          axios({
-              method: 'put',
-              responseType: 'json',
-              url: 'http://localhost:3000/api/users/changePassword/' + this.props.userId,
-              data: password
-          })
-              .then((response) => {
-                  this.setState({
-                      formStatus: 'Success',
-                      formMessage: response.data.msg
-                  });
-                  ReactDOM.render(<MessageValidation
-                      form="Success"
-                      formStatus={this.state.formStatus}
-                      formMessage={this.state.formMessage}
-                  />, document.getElementById('messageValidation'));
+            axios({
+                method: 'put',
+                responseType: 'json',
+                url: 'http://localhost:3000/api/users/changePassword/' + this.props.userId,
+                data: password
+            })
+                .then((response) => {
+                    this.setState({
+                        formStatus: 'Success',
+                        formMessage: response.data.msg
+                    });
+                    ReactDOM.render(<MessageValidation
+                        form="Success"
+                        formStatus={this.state.formStatus}
+                        formMessage={this.state.formMessage}
+                    />, document.getElementById('messageValidation'));
 
-              })
-              .catch((err) => {
-                  if (err.response) {
-                      this.setState({
-                          formStatus: 'Error',
-                          formMessage: err.response.data.msg
-                      });
-                  }
-                  else {
-                      this.setState({
-                          formStatus: 'Error',
-                          formMessage: 'Something went wrong. ' + err
-                      });
-                  }
+                })
+                .catch((err) => {
+                    if (err.response) {
+                        this.setState({
+                            formStatus: 'Error',
+                            formMessage: err.response.data.msg
+                        });
+                    }
+                    else {
+                        this.setState({
+                            formStatus: 'Error',
+                            formMessage: 'Something went wrong. ' + err
+                        });
+                    }
 
-                  //Render Validation box message
-                  ReactDOM.render(<MessageValidation
-                      form="danger"
-                      formStatus={this.state.formStatus}
-                      formMessage={this.state.formMessage}
-                  />, document.getElementById('messageValidation'));
-              });
+                    //Render Validation box message
+                    ReactDOM.render(<MessageValidation
+                        form="danger"
+                        formStatus={this.state.formStatus}
+                        formMessage={this.state.formMessage}
+                    />, document.getElementById('messageValidation'));
+                });
         }
     }
 

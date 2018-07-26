@@ -52,7 +52,7 @@ class Home extends Component {
         );
         // get the local storage
         const parentChangePw = () => (
-            <ChangePassword userId={this.state.userId} />
+            <ChangePassword userId={this.state.userId}/>
         );
 
         const home = () => (
