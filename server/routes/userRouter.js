@@ -26,7 +26,6 @@ router.post('/tweet/:id', (req, res, next) => {
         });
     });
   });
-});
 
 router.delete('/tweet/:id', (req, res, next) => {
   console.log(req.params.id);
@@ -211,7 +210,10 @@ router.put('/changePassword/:id', (req, res) => {
             // ganti newpassword
             User.updateMany({_id: req.params.id}, {$set: {password: user.generateHash(req.body.newPassword)}}).exec();
 
-            res.status(404).json({success: false, msg: ' Password telah Cocok...!'});
+            res.send({
+                success: true,
+                msg: `Successfully added!`,
+            });
         }
         else {
             res.status(404).json({success: false, msg: 'Wrong Password...!'});
@@ -250,5 +252,4 @@ router.get('/verify', (req, res, next) => {
     }
   });
 });
-
 module.exports = router;
