@@ -12,6 +12,7 @@ import ChangePassword from '../Form_Change_Password/Change_Password'
 import Twitt_Box from "../Twitt_Box/Twitt_Box";
 import Twitt_Container from "../Twitt_Container/Twitt_Container";
 import axios from "axios/index";
+import ProfilePage from '../Profile_Page/Profile_Page'
 
 
 class Home extends Component {
@@ -68,6 +69,10 @@ class Home extends Component {
             </Container>
         );
 
+        const profile = () => (
+            <ProfilePage userId={this.state.userId}/>
+        );
+
         return (
             <div>
                 <FadeIn>
@@ -81,6 +86,8 @@ class Home extends Component {
                         <Route path={this.props.match.url + '/editProfile'} component={editProfile}/>
 
                         <Route path={this.props.match.url + '/changePassword'} component={parentChangePw}/>
+
+                        <Route path={this.props.match.url +'/profile'} component={profile}/>
 
                     </div>
                 </FadeIn>

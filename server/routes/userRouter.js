@@ -35,7 +35,7 @@ router.delete('/tweet/:id', (req, res, next) => {
 });
 
 router.get('/tweets', (req, res, next) => {
-    Tweet.find({}).sort({timestamp: 'descending'}).then((result) => {
+    Tweet.find({}).sort({timestamp: 'descending'}).then( (result) => {
         res.send(result);
     });
 });
@@ -57,7 +57,8 @@ router.post('/register', (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: user.generateHash(req.body.password),
-    phone: req.body.phone
+    phone: req.body.phone,
+    timestamp: Date.now()
   };
   User.create(users).then(function(result) {
     res.send({
@@ -68,7 +69,8 @@ router.post('/register', (req, res) => {
         username: result.username,
         email: result.email,
         password: result.password,
-        phone: result.phone
+        phone: result.phone,
+        timestamp: new Date()
       }
     });
   }).catch((err) => {
