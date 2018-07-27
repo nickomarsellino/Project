@@ -37,6 +37,10 @@ const UserSchema = new mongoose.Schema({
     phone: {
         type: Number,
         required: [true, 'Phone Number is required.']
+    },
+    timestamp: {
+        type    : Date,
+        default : Date.now()
     }
 });
 

@@ -86,10 +86,8 @@ class Register extends Component {
                 phone: this.state.phone
             };
 
-            const method = 'post';
-
             axios({
-                method: method,
+                method: 'post',
                 responseType: 'json',
                 url: `http://localhost:3000/api/users/register`,
                 data: user

@@ -110,7 +110,7 @@ class Twitt_Container extends Component {
                                             <Feed.Summary content={tweet.username}/>
                                         </div>
                                         <Feed.Extra text content={tweet.tweetText}/> <br/>
-                                        <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+                                        <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>} />
                                     </Feed.Content>
 
                                     <Feed.Label className="Tweet-Delete">
