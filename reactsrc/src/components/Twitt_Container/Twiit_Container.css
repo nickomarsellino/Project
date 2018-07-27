@@ -20,11 +20,11 @@
     display: inline-block;
 }
 
-.buttonTweetBox{
+.buttonTweetBox {
     text-align: left;
 }
 
-#commentIcon{
+#commentIcon {
     display: inline-block;
     cursor: pointer;
     opacity: 0.5;
@@ -38,4 +38,9 @@
 
 #recycleIcon:hover {
     color: #f70010;
+}
+
+#recycleIcon:active {
+    position: relative;
+    top: 1px;
 }

@@ -136,7 +136,7 @@ class Register extends Component {
                 </div>
                 <FadeIn transitionDuration="500">
                     <Container className="col-lg-4 col-lg-offset-2" id="Card_Container">
-                        <Card >
+                        <Card>
                             <CardBody>
                                 <center><h1>Register</h1></center>
                                 <Row>
