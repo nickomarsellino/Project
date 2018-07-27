@@ -85,9 +85,9 @@ class Twitt_Box extends Component {
                             />
                             <div className="buttonBox">
                                 <div>
-                                    <Icon.Group  size='large' id="addImageButton" onClick={this.handleClick.bind(this)}>
-                                        <Icon name='images' />
-                                        <Icon corner name='add' />
+                                    <Icon.Group size='large' id="addImageButton" onClick={this.handleClick.bind(this)}>
+                                        <Icon name='images'/>
+                                        <Icon corner name='add'/>
                                     </Icon.Group>
                                 </div>
                                 <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>

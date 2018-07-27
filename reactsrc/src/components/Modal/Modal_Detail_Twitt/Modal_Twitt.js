@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {Container, Button, Modal, ModalBody, ModalHeader} from 'mdbreact';
+import {Image} from 'semantic-ui-react'
+import profile from '../../../daniel.jpg';
 import axios from "axios/index";
 
 const Timestamp = require('react-timestamp');
@@ -34,10 +36,17 @@ class Modal_Twitt extends Component {
         return (
             <Container>
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
-                    <ModalHeader toggle={this.openModal}>{this.state.tweet.username}</ModalHeader>
+                    <ModalHeader toggle={this.openModal}>
+                        <div className="profileBox">
+                            <Image src={profile} avatar id="avatarBox"/>
+                            <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
+                        </div>
+                    </ModalHeader>
+
                     <ModalBody>
-                        {this.state.tweet.tweetText}
+                        <h5>{this.state.tweet.tweetText}</h5>
                     </ModalBody>
+
                     <ModalBody>
                         <Timestamp time={this.state.tweet.timestamp} format='full' includeDay/>
                     </ModalBody>
