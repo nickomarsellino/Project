@@ -18,6 +18,7 @@ class Twitt_Box extends Component {
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentWillMount() {
@@ -59,6 +60,9 @@ class Twitt_Box extends Component {
             });
     }
 
+    handleClick(e) {
+        this.refs.fileUploader.click();
+    }
 
     render() {
         return (
@@ -81,11 +85,14 @@ class Twitt_Box extends Component {
                             />
                             <div className="buttonBox">
                                 <div>
-                                    <Icon.Group  size='large' id="addImageButton">
+                                    <Icon.Group  size='large' id="addImageButton" onClick={this.handleClick.bind(this)}>
                                         <Icon name='images' />
                                         <Icon corner name='add' />
                                     </Icon.Group>
                                 </div>
+                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
+
+
                                 <Button color="default"
                                         size="md"
                                         id="postButton"
