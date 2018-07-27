@@ -10,6 +10,7 @@ import {
 import {getFromStorage, setInStorage} from '../../utils/storage';
 import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
+import './Navbar.css'
 
 class Navigationbar extends Component {
 
@@ -75,11 +76,12 @@ class Navigationbar extends Component {
                     </NavbarBrand>
                     {!this.state.isWideEnough &&
                     <NavbarNav right>
-                        <NavItem>
-                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <NavItem >
+                        <Image className="navProfile" src={profile} avatar/>
+                        <span className="navProfile">{this.state.userName}</span>
+                            <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                 <DropdownToggle nav caret>
-                                    <Image src={profile} avatar/>
-                                    <span>{this.state.userName}</span>
+
                                 </DropdownToggle>
                                 <DropdownMenu>
 

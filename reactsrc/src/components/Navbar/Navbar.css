@@ -1,3 +1,7 @@
+.navProfile{
+    display: inline-block;
+}
+
 .App {
     text-align: center;
 }
