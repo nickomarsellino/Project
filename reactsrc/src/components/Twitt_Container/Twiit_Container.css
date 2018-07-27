@@ -20,6 +20,17 @@
     display: inline-block;
 }
 
+.buttonTweetBox{
+    text-align: left;
+}
+
+#commentIcon{
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.5;
+    margin-right: 50px;
+}
+
 #recycleIcon {
     cursor: pointer;
     opacity: 0.5;
