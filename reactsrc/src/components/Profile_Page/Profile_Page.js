@@ -56,9 +56,9 @@ class Edit_Profile extends Component {
             </div>
           </div>
           <div className="tweetFollwingFollwers">
-            <div className="border">
+            <div>
               <div id="navDetail" class="ui three item menu">
-                <a class="item"><b>Tweets</b></a>
+                <a class="item">Tweets</a>
                 <a class="item">Following</a>
                 <a class="item">Followers</a>
               </div>
