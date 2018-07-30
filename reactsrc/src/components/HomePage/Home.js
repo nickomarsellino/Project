@@ -51,6 +51,7 @@ class Home extends Component {
         const editProfile = () => (
             <Profile userId={this.state.userId}/>
         );
+
         // get the local storage
         const parentChangePw = () => (
             <ChangePassword userId={this.state.userId}/>
@@ -76,8 +77,8 @@ class Home extends Component {
         return (
             <div>
                 <FadeIn>
-                    <div id="navbar">
-                        <Navbar success={true} userId={this.state.userId}/>
+                    <div>
+                        <Navbar className="navbarFixed" success={true} userId={this.state.userId}/>
                     </div>
 
                     <div>

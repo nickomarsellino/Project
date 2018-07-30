@@ -3,6 +3,8 @@ import axios from "axios/index";
 import profile from '../../daniel.jpg';
 import ReactDOM from "react-dom";
 import './Profile_Page.css';
+import {Card, CardBody} from "mdbreact"
+import {Feed, Icon} from 'semantic-ui-react';
 const Timestamp = require('react-timestamp');
 
 class Edit_Profile extends Component {
@@ -13,15 +15,17 @@ class Edit_Profile extends Component {
           username: '',
           timestamp: '',
           email   : '',
-          phone   : ''
+          phone   : '',
+          tweetData: []
       };
   }
 
   componentWillMount() {
-      this.getData();
+      this.getProfileData();
+      this.getTweetData();
   }
 
-  getData() {
+  getProfileData() {
     // console.log(this.props.userId);
     axios.get('/api/users/' + this.props.userId).then(res => {
       this.setState({
@@ -33,6 +37,28 @@ class Edit_Profile extends Component {
       console.log("responseprofilpagedata: ", res.data);
       console.log("statenya: ", this.state);
     });
+  }
+
+  buttonDelete(userId, tweetId) {
+      if (userId == this.props.userId) {
+          return (
+              <Icon
+                  size='large' name='trash'
+                  id="recycleIcon"
+                  onClick={() => this.openModalDelete(tweetId)}
+              />
+          );
+      }
+  }
+
+  getTweetData() {
+      axios.get('/api/users/profiletweet/'+this.props.userId)
+          .then(res => {
+              this.setState({
+                  tweetData: res.data
+              });
+              console.log("tweetData ", this.state.tweetData);
+          });
   }
 
   render() {
@@ -48,23 +74,50 @@ class Edit_Profile extends Component {
                 <i class="calendar icon"></i>Joined on <Timestamp time={this.state.timestamp} format="date" />
               </div>
               <div className="description">
-                <i class="envelope outline icon"></i>{this.state.email}
+                <i class="envelope outline icon"></i>
+                <a className="emailProfile" href="mailto:this.state.email">{this.state.email}</a>
               </div>
               <div className="description">
                 <i class="phone icon"></i>{this.state.phone}
               </div>
             </div>
           </div>
-          <div className="tweetFollwingFollwers">
-            <div>
-              <div id="navDetail" class="ui three item menu">
-                <a class="item">Tweets</a>
-                <a class="item">Following</a>
-                <a class="item">Followers</a>
+
+              <div id="navDetail" className="ui three item menu">
+                  <a class="item">Tweets</a>
+                  <a class="item">Following</a>
+                  <a class="item">Followers</a>
               </div>
-            </div>
+
+              <div className="userTweet">
+                  {this.state.tweetData.map(tweet =>
+                      <Card className="Tweet_Container">
+                          <CardBody className="Tweet">
+                              <Feed>
+                                  <Feed.Event>
+                                      <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
+                                      <Feed.Content>
+                                          <div className="Tweet-Content">
+                                              <Feed.Summary content={tweet.username}/>
+                                          </div>
+                                          <Feed.Extra text content={tweet.tweetText}/> <br/>
+                                          <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>} />
+                                      </Feed.Content>
+
+                                      <Feed.Label className="Tweet-Delete">
+                                          {this.buttonDelete(tweet.userId, tweet._id)}
+                                      </Feed.Label>
+
+                                  </Feed.Event>
+                              </Feed>
+                          </CardBody>
+                      </Card>
+                  )}
+              </div>
+
+
           </div>
-      </div>
+
     );
   }
 }
