@@ -34,12 +34,14 @@ router.delete('/tweet/:id', (req, res, next) => {
   });
 });
 
+// get all tweets
 router.get('/tweets', (req, res, next) => {
     Tweet.find({}).sort({timestamp: 'descending'}).then( (result) => {
         res.send(result);
     });
 });
 
+// get one tweet only for modal, id nya Tweets id nya
 router.get('/tweet/:id', (req, res) => {
   Tweet.findById(req.params.id).then((result) => {
     res.json(result);
@@ -48,6 +50,14 @@ router.get('/tweet/:id', (req, res) => {
   });
 });
 
+// get tweet yang di post user nya aja, id si user
+router.get('/profiletweet/:id', (req, res) => {
+  Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'}).then((result) => {
+    res.json(result);
+  }).catch((err) => {
+    res.status(404).json({success: false, msg: `No such tweets.`});
+  });
+});
 
 router.post('/register', (req, res) => {
 
