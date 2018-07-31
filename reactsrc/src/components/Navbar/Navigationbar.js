@@ -71,7 +71,8 @@ class Navigationbar extends Component {
 
   render() {
     if (this.props.success) {
-      return (<Navbar light="light" color="teal lighten-2" expand="md" dark="true" scrolling="scrolling">
+      return (
+        <Navbar light="light" color="teal lighten-2" expand="md" dark="true" scrolling="scrolling">
         <NavbarBrand href="/">
           <img src={logo} alt="" height="30px"/>
           Friend Zone ?
@@ -109,7 +110,8 @@ class Navigationbar extends Component {
             </NavbarNav>
         }
       </Navbar>);
-    } else {
+    }
+     else {
       return (<Navbar light="light" color="teal lighten-2" dark="true" expand="md" scrolling="scrolling">
         <NavbarBrand href="/">
           <img src={logo} alt="" height="40px"/>

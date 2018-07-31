@@ -23,7 +23,8 @@ class Twitt_Container extends Component {
             modalDelete: false
         };
 
-        this.getData = this.getData.bind(this);
+        this.getTweetData = this.getTweetData.bind(this);
+        this.getTweetUser = this.getTweetUser.bind(this);
         this.openModalTweet = this.openModalTweet.bind(this);
         this.openModalDelete = this.openModalDelete.bind(this);
         this.closeModalTweet = this.closeModalTweet.bind(this);
@@ -31,10 +32,25 @@ class Twitt_Container extends Component {
     }
 
     componentWillMount() {
-        this.getData();
+
+        if(this.props.TweetUserId){
+            this.getTweetUser();
+        }
+        else {
+            this.getTweetData();
+        }
     }
 
-    getData() {
+    getTweetUser() {
+        axios.get('/api/users/profiletweet/'+this.props.TweetUserId)
+            .then(res => {
+                this.setState({
+                    tweetData: res.data
+                });
+            });
+    }
+
+    getTweetData() {
         axios.get('/api/users/tweets')
             .then(res => {
                 this.setState({
