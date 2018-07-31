@@ -3,7 +3,7 @@ import axios from "axios/index";
 import profile from '../../daniel.jpg';
 import ReactDOM from "react-dom";
 import './Profile_Page.css';
-import {Card, CardBody} from "mdbreact"
+import Twitt_Container from "../Twitt_Container/Twitt_Container";
 import {Feed, Icon} from 'semantic-ui-react';
 const Timestamp = require('react-timestamp');
 
@@ -22,7 +22,6 @@ class Edit_Profile extends Component {
 
   componentWillMount() {
       this.getProfileData();
-      this.getTweetData();
   }
 
   getProfileData() {
@@ -51,15 +50,6 @@ class Edit_Profile extends Component {
       }
   }
 
-  getTweetData() {
-      axios.get('/api/users/profiletweet/'+this.props.userId)
-          .then(res => {
-              this.setState({
-                  tweetData: res.data
-              });
-              console.log("tweetData ", this.state.tweetData);
-          });
-  }
 
   render() {
     return (
@@ -90,29 +80,7 @@ class Edit_Profile extends Component {
               </div>
 
               <div className="userTweet">
-                  {this.state.tweetData.map(tweet =>
-                      <Card className="Tweet_Container">
-                          <CardBody className="Tweet">
-                              <Feed>
-                                  <Feed.Event>
-                                      <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
-                                      <Feed.Content>
-                                          <div className="Tweet-Content">
-                                              <Feed.Summary content={tweet.username}/>
-                                          </div>
-                                          <Feed.Extra text content={tweet.tweetText}/> <br/>
-                                          <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>} />
-                                      </Feed.Content>
-
-                                      <Feed.Label className="Tweet-Delete">
-                                          {this.buttonDelete(tweet.userId, tweet._id)}
-                                      </Feed.Label>
-
-                                  </Feed.Event>
-                              </Feed>
-                          </CardBody>
-                      </Card>
-                  )}
+                  <Twitt_Container TweetUserId={this.props.userId} userId={this.props.userId}/>
               </div>
 
 
