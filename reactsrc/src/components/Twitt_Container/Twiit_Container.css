@@ -1,24 +1,46 @@
 
-.Tweet_Container{
-  margin-top: 3px;
+.Tweet_Container {
+    margin-top: 3px;
 }
 
-.Tweet_Container:hover{
-  background: rgba(255, 255, 255, 0.7);
+.Tweet-Delete {
+    margin-bottom: 20px;
+    margin-left: 10px;
 }
 
-.Tweet{
-  padding: 10px;
+.Tweet_Container:hover {
+    background: rgba(255, 255, 255, 0.7);
 }
 
-.Tweet-Content{
-  display : inline-block;
+.Tweet {
+    padding: 10px;
 }
 
-#recycleIcon{
-  float: right;
-  cursor: pointer;
-  opacity: 0.5;
-  width: 4%;
-  color: #f70010;
+.Tweet-Content {
+    display: inline-block;
+}
+
+.buttonTweetBox {
+    text-align: left;
+}
+
+#commentIcon {
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.5;
+    margin-right: 50px;
+}
+
+#recycleIcon {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#recycleIcon:hover {
+    color: #f70010;
+}
+
+#recycleIcon:active {
+    position: relative;
+    top: 1px;
 }

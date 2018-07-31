@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody, Button} from "mdbreact"
-import { Form,  TextArea, Image } from 'semantic-ui-react'
+import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
@@ -18,6 +18,7 @@ class Twitt_Box extends Component {
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentWillMount() {
@@ -35,7 +36,6 @@ class Twitt_Box extends Component {
         const target = e.target;
         const name = target.name;
         this.setState({[name]: target.value});
-
     }
 
     handleSubmit(e) {
@@ -52,7 +52,7 @@ class Twitt_Box extends Component {
         axios({
             method: method,
             responseType: 'json',
-            url: `http://localhost:3000/api/users/tweet/`+this.state.userId,
+            url: `http://localhost:3000/api/users/tweet/` + this.state.userId,
             data: tweet
         })
             .then(() => {
@@ -60,31 +60,47 @@ class Twitt_Box extends Component {
             });
     }
 
+    handleClick(e) {
+        this.refs.fileUploader.click();
+    }
 
     render() {
         return (
-            <div style={{marginTop: "8%", marginBottom: "2%"}}>
+            <div className="Tweet-Container">
                 <Card>
                     <CardBody>
-                        <div>
-                            <Image src={profile} avatar/>
-                            <span><h5>{this.state.username}</h5></span>
+                        <div className="profileBox">
+                            <Image src={profile} avatar id="avatarBox"/>
+                            <span><h5 id="nameBox">{this.state.username}</h5></span>
                         </div>
                         <Form id="Form_Container" onSubmit={this.handleSubmit}>
                             <Form.Field
                                 id='form-textarea-control-opinion'
                                 type="text"
                                 control={TextArea}
-                                placeholder={"Have a nice day "+this.state.username}
+                                placeholder={"Have a nice day " + this.state.username}
                                 style={{maxHeight: "100px"}}
                                 name="userTweet"
                                 onChange={this.handleInputChange}
                             />
-                            <Button color="default"
-                                    size="md"
-                                    type="submit"
-                                    style={{borderRadius: "100px"}}
-                            >Post</Button>
+                            <div className="buttonBox">
+                                <div>
+                                    <Icon.Group size='large' id="addImageButton" onClick={this.handleClick.bind(this)}>
+                                        <Icon name='images'/>
+                                        <Icon corner name='add'/>
+                                    </Icon.Group>
+                                </div>
+                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
+
+
+                                <Button color="default"
+                                        size="md"
+                                        id="postButton"
+                                        type="submit"
+                                        style={{borderRadius: "100px"}}
+                                        disabled={!this.state.userTweet}
+                                >Post</Button>
+                            </div>
                         </Form>
                     </CardBody>
                 </Card>
