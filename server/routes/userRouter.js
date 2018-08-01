@@ -6,8 +6,8 @@ const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
 const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
-
-
+const btoa = require('btoa');
+const cookie = require('react-cookies');
 
 router.post('/tweet/:id', (req, res, next) => {
 
@@ -62,7 +62,6 @@ router.get('/profiletweet/:id', (req, res) => {
     });
 });
 
-
 router.post('/register', (req, res) => {
 
     const user = new User();
@@ -111,6 +110,7 @@ router.post('/register', (req, res) => {
     });
 });
 
+
 router.post('/signin', (req, res) => {
     const {body} = req;
     const {password} = body;
@@ -158,21 +158,18 @@ router.post('/signin', (req, res) => {
 
 
             // Encrypt
-            var ciphertext = CryptoJS.AES.encrypt(auth, 'kunci-rahasia');
-            console.log("Ini ciphertext: ",ciphertext);
+            const ciphertext = CryptoJS.AES.encrypt(auth, 'kunci-rahasia');
+            const token = btoa(ciphertext);
 
+            res.cookie('token', token, { expires:  doc.expiredTime});
 
-            // // Decrypt
-            // var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), 'kunci-rahasia');
-            // console.log("Ini bytes: ",bytes);
-            //
-            // var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-            // console.log(plaintext);
-
-            return res.send({success: true, message: 'Valid sign in', token: doc._id, userId: user._id});
+            res.send(
+                {success: true, message: 'Valid sign in', token: doc._id, userId: user._id, auth: token}
+                );
         });
     });
 });
+
 
 router.get('/logout', (req, res, next) => {
     // Get the token
@@ -291,4 +288,6 @@ router.get('/verify', (req, res, next) => {
         }
     });
 });
+
+
 module.exports = router;

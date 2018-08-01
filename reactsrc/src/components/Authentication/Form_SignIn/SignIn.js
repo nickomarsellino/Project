@@ -9,6 +9,7 @@ import MessageValidation from '../../MessageValidationBox/MessageValidation'
 import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import axios from "axios/index";
+import cookie from 'react-cookies'
 
 class SignIn extends Component {
     constructor(props) {
@@ -52,6 +53,12 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
+
+
+                // cookie.save('token', response.data.auth, {httpOnly: true});
+                //
+
+
                 setInStorage('bebas', {
                     token: response.data.token,
                     userId: response.data.userId
