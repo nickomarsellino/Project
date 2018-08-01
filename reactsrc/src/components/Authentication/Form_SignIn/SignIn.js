@@ -52,11 +52,15 @@ class SignIn extends Component {
                 this.setState({
                     success: true
                 });
-                setInStorage('bebas', {
-                    token: response.data.token,
-                    userId: response.data.userId
-                });
-                this.props.history.push("/home");
+
+                // setInStorage('bebas', {
+                //     token: response.data.token,
+                //     userId: response.data.userId
+                // });
+
+
+                //BErenti Dulu Bor.
+                // this.props.history.push("/home");
             })
             .catch((err) => {
                 if (err.response) {

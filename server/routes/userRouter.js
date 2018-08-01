@@ -59,6 +59,10 @@ router.get('/profiletweet/:id', (req, res) => {
   });
 });
 
+
+
+
+
 router.post('/register', (req, res) => {
 
   const user = new User();
@@ -132,10 +136,13 @@ router.post('/signin', (req, res) => {
       res.status(403).json({success: false, msg: 'Email and Password Invalid'});
       return;
     }
+
+    console.log(Date.now()+2);
+
     // Otherwise correct user
     const userSession = new UserSession();
     userSession.userId = user._id;
-    userSession.timestamp = Date.now();
+    userSession.timestamp = Date.now()+2;
     userSession.save((err, doc) => {
       if (err) {
         res.status(403).json({success: false, msg: 'Server Eror'});
