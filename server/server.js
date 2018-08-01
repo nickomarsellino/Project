@@ -4,22 +4,11 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
-const socketIo = require('socket.io');
 const http = require('http');
+const cookieParser = require('cookie-parser');
 const users = require('./routes/userRouter');
 const app = express();
-
-// const server = http.createServer(app);
-// const io = socketIo(server);
-//
-// io.on('connection', (socket) => {
-//     console.log(socket.id);
-//
-//     socket.on('SEND_MESSAGE', function(data){
-//         io.emit('RECEIVE_MESSAGE', data);
-//     })
-// });
-
+app.use(cookieParser());
 app.use(helmet());
 app.use(logger('dev'));
 app.use(cors());

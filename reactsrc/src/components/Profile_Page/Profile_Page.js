@@ -83,7 +83,6 @@ class Edit_Profile extends Component {
                   <Twitt_Container TweetUserId={this.props.userId} userId={this.props.userId}/>
               </div>
 
-
           </div>
 
     );
