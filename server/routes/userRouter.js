@@ -133,8 +133,12 @@ router.post('/signin', (req, res) => {
     }
     // Otherwise correct user
     const userSession = new UserSession();
+    userSession.email  = user.email;
     userSession.userId = user._id;
-    userSession.timestamp = Date.now();
+    // One day after login
+    userSession.expiredTime = Date.now()+1*24*60*60*1000;
+    userSession.password = user.password;
+
     userSession.save((err, doc) => {
       if (err) {
         res.status(403).json({success: false, msg: 'Server Eror'});
