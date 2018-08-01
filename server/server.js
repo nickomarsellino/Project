@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 const socketIo = require('socket.io');
 const http = require('http');
 const users = require('./routes/userRouter');
@@ -19,6 +20,7 @@ const app = express();
 //     })
 // });
 
+app.use(helmet());
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
