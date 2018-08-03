@@ -40,10 +40,8 @@ class SignIn extends Component {
             password: this.state.password
         };
 
-        const method = 'post';
         axios({
-            method: method,
-            credentials:'include',
+            method: 'post',
             responseType: 'json',
             url: `http://localhost:3000/api/users/signin`,
             data: user

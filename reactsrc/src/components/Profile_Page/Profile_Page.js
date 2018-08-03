@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import axios from "axios/index";
 import profile from '../../daniel.jpg';
 import './Profile_Page.css';
-import Twitt_Container from "../Twitt_Container/Twitt_Container";
+import TwittContainer from "../Twitt_Container/Twitt_Container";
 import {Icon} from 'semantic-ui-react';
 const Timestamp = require('react-timestamp');
 
@@ -79,7 +79,7 @@ class Edit_Profile extends Component {
               </div>
 
               <div className="userTweet">
-                  <Twitt_Container TweetUserId={this.props.userId} userId={this.props.userId}/>
+                  <TwittContainer TweetUserId={this.props.userId} userId={this.props.userId}/>
               </div>
 
           </div>

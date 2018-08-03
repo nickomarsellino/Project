@@ -9,8 +9,8 @@ import {Container} from "mdbreact"
 import Navbar from "../Navbar/Navigationbar";
 import Profile from '../Form_editProfile/Edit_Profile'
 import ChangePassword from '../Form_Change_Password/Change_Password'
-import Twitt_Box from "../Twitt_Box/Twitt_Box";
-import Twitt_Container from "../Twitt_Container/Twitt_Container";
+import TwittBox from "../Twitt_Box/Twitt_Box";
+import TwittContainer from "../Twitt_Container/Twitt_Container";
 import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
 
@@ -63,12 +63,12 @@ class Home extends Component {
         const home = () => (
             <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
                 <div>
-                    <Twitt_Box username={this.state.username}
+                    <TwittBox username={this.state.username}
                                userId={this.state.userId}
                     />
                 </div>
                 <div>
-                    <Twitt_Container userId={this.state.userId}/>
+                    <TwittContainer userId={this.state.userId}/>
                 </div>
             </Container>
         );

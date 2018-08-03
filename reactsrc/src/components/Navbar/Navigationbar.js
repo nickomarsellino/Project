@@ -72,21 +72,21 @@ class Navigationbar extends Component {
   render() {
     if (this.props.success) {
       return (
-        <Navbar light="light" color="teal lighten-2" expand="md" dark="true" scrolling="scrolling">
+        <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
         <NavbarBrand href="/">
           <img src={logo} alt="" height="30px"/>
           Friend Zone ?
         </NavbarBrand>
         {
-          !this.state.isWideEnough && <NavbarNav right="right">
+          !this.state.isWideEnough && <NavbarNav right={true}>
               <NavItem >
                 <Link to={'/home/profile/' + this.state.userName}>
-                    <Image className="navProfile" src={profile} avatar="avatar"/>
+                    <Image className="navProfile" src={profile} avatar={true}/>
                     <span className="navProfile">{this.state.userName}</span>
                 </Link>
 
                 <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                  <DropdownToggle nav="nav" caret="caret"></DropdownToggle>
+                  <DropdownToggle nav={true} caret={true}></DropdownToggle>
                   <DropdownMenu>
 
                     <DropdownItem>

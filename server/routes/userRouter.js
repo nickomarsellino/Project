@@ -7,6 +7,10 @@ const Tweet = require('../models/Tweet');
 const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
 const btoa = require('btoa');
+const cookie = require('cookie');
+
+const cookieParser = require('cookie-parser');
+router.use(cookieParser());
 
 router.post('/tweet/:id', (req, res, next) => {
 
@@ -120,6 +124,7 @@ router.post('/signin', (req, res) => {
     let {email} = body;
     // email = email.toLowerCase();
     // email = email.trim();
+
     User.find({
         email: email
     }, (err, users) => {
@@ -171,7 +176,13 @@ router.post('/signin', (req, res) => {
                 httpOnly: true
                 // secure: true
             };
-            res.cookie('tokenId', token, cookieOpts);
+
+            res.setHeader('Set-Cookie', cookie.serialize('tokenId', token, {
+              expires: doc.expiredTime,
+              path: "/",
+            }));
+
+          //  res.cookie('tokenId', token, cookieOpts);
 
             res.send(
                 {success: true, message: 'Valid sign in', userId: user._id}

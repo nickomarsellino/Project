@@ -6,8 +6,8 @@ import axios from 'axios';
 import './Twiit_Container.css';
 
 //load another component
-import Modal_Twitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
-import Modal_Delete from '../Modal/Modal_Delete/Modal_Delete';
+import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
+import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
 
 const Timestamp = require('react-timestamp');
 
@@ -97,7 +97,7 @@ class Twitt_Container extends Component {
     }
 
     buttonDelete(userId, tweetId) {
-        if (userId == this.props.userId) {
+        if (userId === this.props.userId) {
             return (
                 <Icon
                     size='large' name='trash'
@@ -135,13 +135,13 @@ class Twitt_Container extends Component {
                     </Card>
                 )}
 
-                <Modal_Twitt
+                <ModalTwitt
                     isOpen={this.state.modalTweet}
                     tweet={this.state.tweet}
                     isClose={this.closeModalTweet}
                 />
 
-                <Modal_Delete
+                <ModalDelete
                     isOpen={this.state.modalDelete}
                     tweet={this.state.tweet}
                     isClose={this.closeModalDelete}

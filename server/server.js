@@ -5,11 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const http = require('http');
-const cookieParser = require('cookie-parser');
 const users = require('./routes/userRouter');
 const app = express();
-app.use(cookieParser());
-app.use(helmet());
+
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
