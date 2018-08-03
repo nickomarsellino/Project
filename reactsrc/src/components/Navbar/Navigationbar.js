@@ -112,14 +112,14 @@ class Navigationbar extends Component {
       </Navbar>);
     }
      else {
-      return (<Navbar light="light" color="teal lighten-2" dark="true" expand="md" scrolling="scrolling">
+      return (<Navbar light={true} color="teal lighten-2" dark={true} expand="md" scrolling={true}>
         <NavbarBrand href="/">
           <img src={logo} alt="" height="40px"/>
           Friend Zone ?
         </NavbarBrand>
         {!this.state.isWideEnough && <NavbarToggler dark="dark" onClick={this.onClick}/>}
-        <Collapse isOpen={this.state.collapse} navbar="navbar">
-          <NavbarNav right="right">
+        <Collapse isOpen={this.state.collapse} navbar={true}>
+          <NavbarNav right={true}>
             <center>
               <NavItem>
                 <Link to={'/signin'}>
