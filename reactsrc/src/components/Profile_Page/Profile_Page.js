@@ -1,10 +1,9 @@
 import React, {Component} from "react";
 import axios from "axios/index";
 import profile from '../../daniel.jpg';
-import ReactDOM from "react-dom";
 import './Profile_Page.css';
 import Twitt_Container from "../Twitt_Container/Twitt_Container";
-import {Feed, Icon} from 'semantic-ui-react';
+import {Icon} from 'semantic-ui-react';
 const Timestamp = require('react-timestamp');
 
 class Edit_Profile extends Component {
@@ -39,7 +38,7 @@ class Edit_Profile extends Component {
   }
 
   buttonDelete(userId, tweetId) {
-      if (userId == this.props.userId) {
+      if (userId === this.props.userId) {
           return (
               <Icon
                   size='large' name='trash'
@@ -56,7 +55,7 @@ class Edit_Profile extends Component {
       <div className="profile">
           <div id="detailProfile" className="ui card">
             <div className="image">
-              <img className="profilePic" src={profile}/>
+              <img className="profilePic" src={profile} alt=""/>
             </div>
             <div className="content">
               <a className="header"><i class="user icon"></i>{this.state.username}</a>

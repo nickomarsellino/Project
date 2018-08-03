@@ -82,21 +82,17 @@ class Twitt_Container extends Component {
 
     closeModalTweet(isOpen) {
         if (isOpen) {
-            {
-                this.setState({
-                    modalTweet: false
-                })
-            }
+              this.setState({
+                  modalTweet: false
+              })
         }
     }
 
     closeModalDelete(isOpen) {
         if (isOpen) {
-            {
-                this.setState({
-                    modalDelete: false
-                })
-            }
+              this.setState({
+                  modalDelete: false
+              })
         }
     }
 

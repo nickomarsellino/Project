@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {Container, Button, Modal, ModalBody, ModalHeader} from 'mdbreact';
+import {Container, Modal, ModalBody, ModalHeader} from 'mdbreact';
 import {Image} from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
-import axios from "axios/index";
+import './Modal_Twitt.css'
 
 const Timestamp = require('react-timestamp');
 
@@ -43,7 +43,7 @@ class Modal_Twitt extends Component {
                         </div>
                     </ModalHeader>
 
-                    <ModalBody>
+                    <ModalBody className="text-warp">
                         <h5>{this.state.tweet.tweetText}</h5>
                     </ModalBody>
 

@@ -27,7 +27,10 @@ class Home extends Component {
 
     getData() {
         // console.log(this.props.userId);
-        axios.get('/api/users/' + this.state.userId)
+        axios.get('/api/users/' + this.state.userId,{
+            credentials:'include',
+            withCredentials: true
+        })
             .then(res => {
                 this.setState({
                     username: res.data.username

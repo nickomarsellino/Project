@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import axios from "axios/index";
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
-import {Form, Image} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
 

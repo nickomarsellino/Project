@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Container, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
+import {Container, Modal, ModalBody, ModalHeader} from 'mdbreact';
 import './Modal_Delete.css'
 import axios from "axios/index";
 

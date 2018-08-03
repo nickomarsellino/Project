@@ -7,7 +7,6 @@ const Tweet = require('../models/Tweet');
 const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
 const btoa = require('btoa');
-const cookie = require('react-cookies');
 
 router.post('/tweet/:id', (req, res, next) => {
 
@@ -61,6 +60,10 @@ router.get('/profiletweet/:id', (req, res) => {
         res.status(404).json({success: false, msg: `No such tweets.`});
     });
 });
+
+
+
+
 
 router.post('/register', (req, res) => {
 
@@ -161,11 +164,18 @@ router.post('/signin', (req, res) => {
             const ciphertext = CryptoJS.AES.encrypt(auth, 'kunci-rahasia');
             const token = btoa(ciphertext);
 
-            res.cookie('token', token, { expires:  doc.expiredTime});
+
+            let cookieOpts = {
+                expires: doc.expiredTime,
+                path: "/",
+                httpOnly: true
+                // secure: true
+            };
+            res.cookie('tokenId', token, cookieOpts);
 
             res.send(
-                {success: true, message: 'Valid sign in', token: doc._id, userId: user._id, auth: token}
-                );
+                {success: true, message: 'Valid sign in', userId: user._id}
+            );
         });
     });
 });
@@ -259,6 +269,7 @@ router.put('/changePassword/:id', (req, res) => {
 
 // Get data for update profile
 router.get('/:id', (req, res) => {
+    console.log(req.headers)
     User.findById(req.params.id).then((result) => {
         res.json(result);
     }).catch((err) => {

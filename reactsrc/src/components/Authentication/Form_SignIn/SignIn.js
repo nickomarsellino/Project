@@ -9,7 +9,6 @@ import MessageValidation from '../../MessageValidationBox/MessageValidation'
 import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import axios from "axios/index";
-import cookie from 'react-cookies'
 
 class SignIn extends Component {
     constructor(props) {
@@ -44,6 +43,7 @@ class SignIn extends Component {
         const method = 'post';
         axios({
             method: method,
+            credentials:'include',
             responseType: 'json',
             url: `http://localhost:3000/api/users/signin`,
             data: user
@@ -55,18 +55,14 @@ class SignIn extends Component {
                 });
 
 
-                // cookie.save('token', response.data.auth, {httpOnly: true});
+                // setInStorage('bebas', {
+                //     token: response.data.token,
+                //     userId: response.data.userId
+                // });
                 //
-
-
-                setInStorage('bebas', {
-                    token: response.data.token,
-                    userId: response.data.userId
-                });
-
-
-                //BErenti Dulu Bor.
-                this.props.history.push("/home");
+                //
+                // //BErenti Dulu Bor.
+                // this.props.history.push("/home");
             })
             .catch((err) => {
                 if (err.response) {
