@@ -10,6 +10,7 @@ import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import axios from "axios/index";
 
+
 class SignIn extends Component {
     constructor(props) {
         super(props);
@@ -43,7 +44,7 @@ class SignIn extends Component {
         axios({
             method: 'post',
             responseType: 'json',
-            url: `http://localhost:3000/api/users/signin`,
+            url: `/api/users/signin`,
             data: user
         })
             .then((response) => {
