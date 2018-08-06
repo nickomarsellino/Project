@@ -34,9 +34,8 @@ class Home extends Component {
             .then(res => {
                 this.setState({
                     username: res.data.username,
-                    userId: res.data.userId
+                    userId: res.data._id
                 });
-                console.log("Ini Data User: ",res.data.username,res.data._id);
             });
     }
 
@@ -77,7 +76,7 @@ class Home extends Component {
             <div>
                 <FadeIn>
                     <div>
-                        <Navbar className="navbarFixed" success={true} userId={this.state.userId}/>
+                        <Navbar className="navbarFixed" success={true}/>
                     </div>
 
                     <div>
