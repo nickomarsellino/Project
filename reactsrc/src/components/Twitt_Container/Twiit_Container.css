@@ -3,6 +3,10 @@
     margin-top: 3px;
 }
 
+.text-warp{
+    word-wrap: break-word;
+}
+
 .Tweet-Delete {
     margin-bottom: 20px;
     margin-left: 10px;

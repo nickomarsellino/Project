@@ -4,7 +4,6 @@ import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
-import {setInStorage} from "../../utils/storage";
 
 
 class Twitt_Box extends Component {

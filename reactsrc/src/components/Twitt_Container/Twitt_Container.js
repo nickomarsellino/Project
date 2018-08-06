@@ -112,7 +112,7 @@ class Twitt_Container extends Component {
         return (
             <div>
                 {this.state.tweetData.map(tweet =>
-                    <Card className="Tweet_Container">
+                    <Card className="Tweet_Container text-warp">
                         <CardBody className="Tweet">
                             <Feed>
                                 <Feed.Event>

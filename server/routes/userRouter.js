@@ -317,26 +317,36 @@ router.get('/', (req, res) => {
 });
 
 router.get('/verify', (req, res, next) => {
-    // Get the token
-    const {query} = req;
-    const {token} = query;
-    // ?token=test
-    // Verify the token is one of a kind and it's not deleted.
-    UserSession.find({
-        _id: token,
-        isDeleted: false
-    }, (err, sessions) => {
-        if (err) {
-            console.log(err);
-            return res.send({success: false, message: 'Error: Server error'});
-        }
-        if (sessions.length != 1) {
-            return res.send({success: false, message: 'Error: Invalid'});
-        } else {
-            res.status(403).json({success: true, msg: 'CEK MASIH LOGIN '});
-            return;
-        }
-    });
+
+
+    if(req.headers.cookie){
+        const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+        const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+        const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+        const userData = JSON.parse(plaintext);
+
+        // Verify the token is one of a kind and it's not deleted.
+        UserSession.find({
+            _id: userData.tokenId
+        }, (err, sessions) => {
+            if (err) {
+                console.log(err);
+                return res.send({success: false, message: 'Error: Server error'});
+            }
+            if (sessions.length != 1) {
+                return res.send({success: false, message: 'Error: Invalid'});
+            }
+            else {
+                return res.send({success: true, message: 'Already Login'});
+                return;
+            }
+        });
+    }
+
+    else{
+        return res.send({success: false, message: 'Belum Login & Belum ada Login'});
+    }
+
 });
 
 

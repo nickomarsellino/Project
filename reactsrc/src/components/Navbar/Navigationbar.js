@@ -14,7 +14,6 @@ import {
     DropdownToggle,
     DropdownMenu
 } from 'mdbreact';
-import {getFromStorage, setInStorage} from '../../utils/storage';
 import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
 import './Navbar.css'
@@ -77,8 +76,6 @@ class Navigationbar extends Component {
     }
 
     render() {
-
-        console.log(this.state.userName+" "+this.state.userId);
         if (this.props.success) {
             return (
                 <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
