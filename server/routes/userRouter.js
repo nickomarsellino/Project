@@ -158,11 +158,13 @@ router.post('/signin', (req, res) => {
 
         // Otherwise correct user
         const userSession = new UserSession();
-        userSession.email = user.email;
         userSession.userId = user._id;
+        userSession.username = user.username;
+        userSession.password = user.password;
         // One day after login
         userSession.expiredTime = Date.now() + 1 * 24 * 60 * 60 * 1000;
-        userSession.password = user.password;
+
+
         userSession.save((err, doc) => {
             if (err) {
                 res.status(403).json({success: false, msg: 'Server Eror'});
@@ -172,9 +174,10 @@ router.post('/signin', (req, res) => {
             const auth = JSON.stringify({
                 tokenId: doc._id,
                 userId: doc.userId,
+                username: doc.username,
+                password: doc.password,
                 expiredTime: doc.expiredTime,
             });
-
 
             // Encrypt
             const ciphertext = CryptoJS.AES.encrypt(auth, secretKey);
@@ -337,8 +340,32 @@ router.get('/verify', (req, res, next) => {
                 return res.send({success: false, message: 'Error: Invalid'});
             }
             else {
-                return res.send({success: true, message: 'Already Login'});
-                return;
+                const session = sessions[0];
+
+                //Validasi Data yang ada di table session dengan yang ada di dalam token
+                if(session.userId === userData.userId){
+                    if(session.username === userData.username
+                        && session.password === userData.password){
+
+                        if(session.isLogout){
+                            return res.send({success: false, message: 'Error: Invalid'});
+                        }
+                        else{
+                            if(session.expiredTime > new Date(Date.now())){
+                                return res.send({success: true, message: 'Already Login'});
+                            }
+                            else{
+                                return res.send({success: false, message: 'Error: Invalid'});
+                            }
+                        }
+                    }
+                    else{
+                        return res.send({success: false, message: 'Error: Invalid'});
+                    }
+                }
+                else{
+                    return res.send({success: false, message: 'Error: Invalid'});
+                }
             }
         });
     }
