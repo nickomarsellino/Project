@@ -27,23 +27,19 @@ class Home extends Component {
 
     getData() {
         // console.log(this.props.userId);
-        axios.get('/api/users/' + this.state.userId,{
+        axios.get('/api/users',{
             credentials:'include',
             withCredentials: true
         })
             .then(res => {
                 this.setState({
-                    username: res.data.username
+                    username: res.data.username,
+                    userId: res.data.userId
                 });
+                console.log("Ini Data User: ",res.data.username,res.data._id);
             });
     }
 
-    componentWillMount() {
-        const obj = getFromStorage('bebas');
-        this.setState({
-            userId: obj.userId
-        });
-    }
 
     componentDidMount() {
         this.getData();

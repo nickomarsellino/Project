@@ -68,9 +68,6 @@ router.get('/profiletweet/:id', (req, res) => {
 });
 
 
-
-
-
 router.post('/register', (req, res) => {
 
     const user = new User();
@@ -172,22 +169,15 @@ router.post('/signin', (req, res) => {
             const token = btoa(ciphertext);
 
 
-            let cookieOpts = {
+            res.setHeader('Set-Cookie', cookie.serialize('tokenId', token, {
                 expires: doc.expiredTime,
                 path: "/",
                 httpOnly: true
                 // secure: true
-            };
-
-            res.setHeader('Set-Cookie', cookie.serialize('tokenId', token, {
-              expires: doc.expiredTime,
-              path: "/",
             }));
 
-          //  res.cookie('tokenId', token, cookieOpts);
-
             res.send(
-                {success: true, message: 'Valid sign in', userId: user._id}
+                {success: true, message: 'Valid sign in'}
             );
         });
     });
@@ -281,17 +271,17 @@ router.put('/changePassword/:id', (req, res) => {
 });
 
 // Get data for update profile
-router.get('/:id', (req, res) => {
+router.get('/', (req, res) => {
 
-    const tokenId = atob(req.headers.cookie.replace('tokenId=',''));
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
 
 
-    const bytes  = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
 
-    console.log(JSON.parse(plaintext));
 
-    User.findById(req.params.id).then((result) => {
+    User.findById(userData.userId).then((result) => {
         res.json(result);
     }).catch((err) => {
         res.status(404).json({success: false, msg: `No such user.`});

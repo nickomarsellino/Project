@@ -21,7 +21,7 @@ class SignIn extends Component {
             formMessage: "",
             formStatus: "",
             success: false
-        }
+        };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -53,14 +53,6 @@ class SignIn extends Component {
                     success: true
                 });
 
-
-                // setInStorage('bebas', {
-                //     token: response.data.token,
-                //     userId: response.data.userId
-                // });
-                //
-                //
-                //BErenti Dulu Bor.
                 this.props.history.push("/home");
             })
             .catch((err) => {
