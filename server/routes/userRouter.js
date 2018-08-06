@@ -207,12 +207,20 @@ router.get('/logout', (req, res, next) => {
 });
 
 // Edit Profile
-router.put('/:id', (req, res) => {
-    User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
-        User.findOne({_id: req.params.id}).then((user) => {
+router.put('/', (req, res) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+
+
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    User.findByIdAndUpdate({_id: userData.userId}, req.body).then(() => {
+        User.findOne({_id: userData.userId}).then((user) => {
             user.save()
                 .then((result) => {
-                    Tweet.updateMany({userId: req.params.id}, {$set: {username: req.body.username}}).exec();
+                    Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
                     res.json({
                         success: true,
                         msg: `Successfully edited..!`,

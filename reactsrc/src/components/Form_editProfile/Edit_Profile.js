@@ -29,7 +29,7 @@ class Edit_Profile extends Component {
     }
 
     getData() {
-        axios.get('/api/users/' + this.props.userId)
+        axios.get('/api/users')
             .then(res => {
                 this.setState({
                     userId: res.data._id,
@@ -62,7 +62,7 @@ class Edit_Profile extends Component {
         axios({
             method: 'put',
             responseType: 'json',
-            url: `http://localhost:3000/api/users/` + this.state.userId,
+            url: `/api/users`,
             data: user
         })
             .then((response) => {
