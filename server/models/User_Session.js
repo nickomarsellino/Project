@@ -2,17 +2,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSessionSchema = new Schema({
+    email:{
+        type    : String,
+        default : ''
+    },
     userId: {
         type    : String,
         default : ''
     },
-    timestamp: {
+    expiredTime: {
         type    : Date,
-        default : Date.now()
+        default : ''
     },
-    isDeleted: {
-        type    : Boolean,
-        default : false
+    password: {
+        type    : String,
+        default : ''
     }
 });
 

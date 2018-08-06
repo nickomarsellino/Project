@@ -1,0 +1,30 @@
+.profilePic{
+  padding: 10%;
+  border-radius: 100px;
+}
+
+.profile{
+  margin: 3%;
+}
+
+#detailProfile{
+  width: 20%;
+  position: fixed;
+  font-size: 15px;
+}
+
+#navDetail{
+  width: 75%;
+  margin: 0;
+  float: right;
+}
+
+.userTweet{
+  float: right;
+  width: 75%;
+  margin-bottom: 20px;
+}
+
+.emailProfile{
+  color: black;
+}
