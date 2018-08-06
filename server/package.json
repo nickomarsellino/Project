@@ -10,20 +10,31 @@
   "author": "Lil Uzi Vert",
   "license": "ISC",
   "dependencies": {
+    "atob": "^2.1.1",
     "bcrypt": "^2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
+    "browser-cookies": "^1.2.0",
+    "btoa": "^1.2.1",
     "connect-mongo": "^2.0.1",
+    "cookie": "^0.3.1",
+    "cookies": "^0.7.1",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "helmet": "^3.13.0",
+    "http": "0.0.0",
     "javascript-time-ago": "^1.0.31",
+    "js-cookie": "^2.2.0",
     "mongoose": "^5.1.7",
     "mongoose-unique-validator": "^2.0.1",
     "mongoose-validator": "^2.0.2",
     "morgan": "^1.9.0",
     "node-time-ago": "^1.0.0",
+    "react-cookies": "^0.1.0",
     "semantic-ui-react": "^0.82.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "set-cookie": "0.0.4",
+    "socket.io": "^2.1.1"
   }
 }

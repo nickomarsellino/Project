@@ -1,6 +1,12 @@
 .App {
     text-align: center;
 }
+#navbar{
+    overflow: hidden;
+    background-color: grey;
+    position: fixed;
+    top: 0;
+}
 
 #footer {
     position: fixed;
@@ -27,4 +33,3 @@
 .App-intro {
     font-size: large;
 }
-

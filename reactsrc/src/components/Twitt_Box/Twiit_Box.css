@@ -1,4 +1,42 @@
+.card-body {
+    border-radius: 24px;
+}
 
-#Form_Container{
-  margin-top: 1%;
+.Tweet-Container {
+    margin-top: 8%;
+    margin-bottom: 2%;
+}
+
+#Form_Container {
+    margin-top: 1%;
+}
+
+.profileBox {
+    display: inline-block;
+}
+
+#addImageButton {
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#postButton {
+    position: absolute;
+    top: 85%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+#avatarBox {
+    width: 40px;
+    height: 40px;
+}
+
+#nameBox {
+    display: inline-block;
+}
+
+.buttonBox {
+
 }
