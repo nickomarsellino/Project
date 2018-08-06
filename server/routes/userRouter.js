@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
 const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
 const btoa = require('btoa');
+const atob = require('atob');
 const cookie = require('cookie');
+const secretKey = 'Lil-Uzi-Vert=XO-Tour-LIF3'
+
 
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
@@ -159,14 +161,14 @@ router.post('/signin', (req, res) => {
             }
 
             const auth = JSON.stringify({
-                token: doc._id,
+                tokenId: doc._id,
                 userId: doc.userId,
                 expiredTime: doc.expiredTime,
             });
 
 
             // Encrypt
-            const ciphertext = CryptoJS.AES.encrypt(auth, 'kunci-rahasia');
+            const ciphertext = CryptoJS.AES.encrypt(auth, secretKey);
             const token = btoa(ciphertext);
 
 
@@ -280,7 +282,15 @@ router.put('/changePassword/:id', (req, res) => {
 
 // Get data for update profile
 router.get('/:id', (req, res) => {
-    console.log(req.headers)
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=',''));
+
+
+    const bytes  = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+    console.log(JSON.parse(plaintext));
+
     User.findById(req.params.id).then((result) => {
         res.json(result);
     }).catch((err) => {

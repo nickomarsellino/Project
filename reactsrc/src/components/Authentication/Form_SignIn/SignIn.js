@@ -60,8 +60,8 @@ class SignIn extends Component {
                 // });
                 //
                 //
-                // //BErenti Dulu Bor.
-                // this.props.history.push("/home");
+                //BErenti Dulu Bor.
+                this.props.history.push("/home");
             })
             .catch((err) => {
                 if (err.response) {
