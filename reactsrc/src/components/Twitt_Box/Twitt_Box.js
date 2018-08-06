@@ -52,7 +52,7 @@ class Twitt_Box extends Component {
         axios({
             method: method,
             responseType: 'json',
-            url: `http://localhost:3000/api/users/tweet/` + this.state.userId,
+            url: `api/users/tweet`,
             data: tweet
         })
             .then(() => {

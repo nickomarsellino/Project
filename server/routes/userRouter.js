@@ -14,12 +14,19 @@ const secretKey = 'Lil-Uzi-Vert=XO-Tour-LIF3'
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
-router.post('/tweet/:id', (req, res, next) => {
+router.post('/tweet', (req, res, next) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+
+
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
 
     const tweet = {
         username: req.body.username,
         tweetText: req.body.tweetText,
-        userId: req.body.userId,
+        userId: userData.userId,
         timestamp: Date.now()
     };
 
@@ -66,6 +73,11 @@ router.get('/profiletweet/:id', (req, res) => {
         res.status(404).json({success: false, msg: `No such tweets.`});
     });
 });
+
+
+
+
+
 
 
 router.post('/register', (req, res) => {

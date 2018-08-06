@@ -61,7 +61,7 @@ class Twitt_Container extends Component {
     }
 
     openModalTweet(tweetId) {
-        axios.get('http://localhost:3000/api/users/tweet/' + tweetId)
+        axios.get('/api/users/tweet/' + tweetId)
             .then(res => {
                 this.setState({
                     tweet: res.data,
@@ -71,7 +71,7 @@ class Twitt_Container extends Component {
     }
 
     openModalDelete(tweetId) {
-        axios.get('http://localhost:3000/api/users/tweet/' + tweetId)
+        axios.get('/api/users/tweet/' + tweetId)
             .then(res => {
                 this.setState({
                     tweet: res.data,
