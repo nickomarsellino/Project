@@ -257,23 +257,31 @@ router.put('/', (req, res) => {
     });
 });
 
-router.put('/changePassword/:id', (req, res) => {
+router.put('/changePassword', (req, res) => {
     const user = new User();
+
     // Dari inputan
     const currentPassword = req.body.currentPassword;
 
-    User.findById(req.params.id).then((result) => {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+
+
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    User.findById(userData.userId).then((result) => {
         // Cek current sama di db sama gak
         if (bcrypt.compareSync(currentPassword, result.password)) {
 
             // ganti newpassword
-            User.updateMany({_id: req.params.id}, {$set: {password: user.generateHash(req.body.newPassword)}}).exec();
+            User.updateMany({_id: userData.userId}, {$set: {password: user.generateHash(req.body.newPassword)}}).exec();
 
             res.send({success: true, msg: 'Password has been changed...!'});
 
         }
         else {
-            res.status(404).json({success: false, msg: 'Password salah...!'});
+            res.status(404).json({success: false, msg: 'Invalid Password...!'});
         }
     })
 });

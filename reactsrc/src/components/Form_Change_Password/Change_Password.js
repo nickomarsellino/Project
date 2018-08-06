@@ -19,7 +19,7 @@ class Change_Password extends Component {
             newPasswordConfirmation: "",
             formMessage: "",
             formStatus: ""
-        }
+        };
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,7 +61,7 @@ class Change_Password extends Component {
             axios({
                 method: 'put',
                 responseType: 'json',
-                url: 'http://localhost:3000/api/users/changePassword/' + this.props.userId,
+                url: '/api/users/changePassword',
                 data: password
             })
                 .then((response) => {
