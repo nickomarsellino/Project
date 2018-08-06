@@ -25,15 +25,13 @@ class Edit_Profile extends Component {
 
   getProfileData() {
     // console.log(this.props.userId);
-    axios.get('/api/users/' + this.props.userId).then(res => {
+    axios.get('/api/users/').then(res => {
       this.setState({
           username: res.data.username,
           timestamp: res.data.timestamp,
           email   : res.data.email,
           phone   : res.data.phone
       });
-      console.log("responseprofilpagedata: ", res.data);
-      console.log("statenya: ", this.state);
     });
   }
 
