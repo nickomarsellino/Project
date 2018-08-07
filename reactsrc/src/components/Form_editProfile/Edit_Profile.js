@@ -63,7 +63,9 @@ class Edit_Profile extends Component {
             method: 'put',
             responseType: 'json',
             url: `/api/users`,
-            data: user
+            data: user,
+            credentials:'include',
+            withCredentials: true
         })
             .then((response) => {
                 this.setState({
@@ -82,13 +84,13 @@ class Edit_Profile extends Component {
             .catch((err) => {
                 if (err.response) {
                     this.setState({
-                        formStatus: 'Error',
+                        formStatus: 'error',
                         formMessage: err.response.data.msg
                     });
                 }
                 else {
                     this.setState({
-                        formStatus: 'Error',
+                        formStatus: 'error',
                         formMessage: 'Something went wrong. ' + err
                     });
                 }
