@@ -188,8 +188,7 @@ router.post('/signin', (req, res) => {
             res.setHeader('Set-Cookie', cookie.serialize('tokenId', token, {
                 expires: doc.expiredTime,
                 path: "/",
-                httpOnly: true,
-                secure: true
+                httpOnly: true
             }));
 
             res.send(
