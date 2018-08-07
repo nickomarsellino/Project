@@ -2,11 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSessionSchema = new Schema({
-    email:{
+    userId: {
         type    : String,
         default : ''
     },
-    userId: {
+    username:{
+        type    : String,
+        default : ''
+    },
+    password: {
         type    : String,
         default : ''
     },
@@ -14,9 +18,9 @@ const UserSessionSchema = new Schema({
         type    : Date,
         default : ''
     },
-    password: {
-        type    : String,
-        default : ''
+    isLogout: {
+        type    : Boolean,
+        default : false
     }
 });
 

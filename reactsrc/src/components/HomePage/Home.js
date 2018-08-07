@@ -38,6 +38,27 @@ class Home extends Component {
     }
 
 
+
+    verify(){
+        axios.get('/api/users/verify',{
+            credentials:'include',
+            withCredentials: true
+        })
+            .then(res => {
+                console.log(res.data);
+                if(res.data.success){
+                    this.props.history.push("/home");
+                }
+                else{
+                    this.props.history.push("/signin");
+                }
+            });
+    }
+
+    componentWillMount() {
+        this.verify();
+    }
+
     componentDidMount() {
         this.getData();
     }

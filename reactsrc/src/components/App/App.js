@@ -12,6 +12,12 @@ class App extends Component {
         })
             .then(res => {
                 console.log(res.data);
+                if(res.data.success){
+                    this.props.history.push("/home");
+                }
+                else{
+                    this.props.history.push("/signin");
+                }
             });
     }
 
