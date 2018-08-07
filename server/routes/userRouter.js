@@ -79,7 +79,6 @@ router.get('/profiletweet/:id', (req, res) => {
 
 
 
-
 router.post('/register', (req, res) => {
 
     const user = new User();
@@ -164,6 +163,8 @@ router.post('/signin', (req, res) => {
         // One day after login
         userSession.expiredTime = Date.now() + 1 * 24 * 60 * 60 * 1000;
 
+        //set 1 day
+        //set 30 second + 30 * 1000;
 
         userSession.save((err, doc) => {
             if (err) {
@@ -187,8 +188,8 @@ router.post('/signin', (req, res) => {
             res.setHeader('Set-Cookie', cookie.serialize('tokenId', token, {
                 expires: doc.expiredTime,
                 path: "/",
-                httpOnly: true
-                // secure: true
+                httpOnly: true,
+                secure: true
             }));
 
             res.send(
@@ -322,7 +323,7 @@ router.get('/', (req, res) => {
 router.get('/verify', (req, res, next) => {
 
 
-    if(req.headers.cookie){
+    if (req.headers.cookie) {
         const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
         const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
         const plaintext = bytes.toString(CryptoJS.enc.Utf8);
@@ -343,34 +344,27 @@ router.get('/verify', (req, res, next) => {
                 const session = sessions[0];
 
                 //Validasi Data yang ada di table session dengan yang ada di dalam token
-                if(session.userId === userData.userId){
-                    if(session.username === userData.username
-                        && session.password === userData.password){
-
-                        if(session.isLogout){
-                            return res.send({success: false, message: 'Error: Invalid'});
-                        }
-                        else{
-                            if(session.expiredTime > new Date(Date.now())){
-                                return res.send({success: true, message: 'Already Login'});
-                            }
-                            else{
-                                return res.send({success: false, message: 'Error: Invalid'});
-                            }
-                        }
-                    }
-                    else{
+                if (session.userId === userData.userId) {
+                    if (session.isLogout) {
                         return res.send({success: false, message: 'Error: Invalid'});
                     }
+                    else {
+                        if (session.expiredTime > new Date(Date.now())) {
+                            return res.send({success: true, message: 'Already Login'});
+                        }
+                        else {
+                            return res.send({success: false, message: 'Error: Invalid'});
+                        }
+                    }
                 }
-                else{
+                else {
                     return res.send({success: false, message: 'Error: Invalid'});
                 }
             }
         });
     }
 
-    else{
+    else {
         return res.send({success: false, message: 'Belum Login & Belum ada Login'});
     }
 

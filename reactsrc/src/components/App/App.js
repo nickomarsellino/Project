@@ -16,7 +16,7 @@ class App extends Component {
                     this.props.history.push("/home");
                 }
                 else{
-                    this.props.history.push("/");
+                    this.props.history.push("/signin");
                 }
             });
     }
