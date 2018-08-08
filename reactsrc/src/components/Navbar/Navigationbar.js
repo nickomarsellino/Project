@@ -65,14 +65,7 @@ class Navigationbar extends Component {
     }
 
     logout() {
-        // const obj = getFromStorage('bebas');
-        //
-        // axios.get('/api/users/logout?token=' + obj.token).then(res => {
-        //     setInStorage('bebas', {
-        //         token: " ",
-        //         userId: " "
-        //     });
-        // });
+        axios.get('/api/users/logout');
     }
 
     render() {

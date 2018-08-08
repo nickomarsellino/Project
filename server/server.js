@@ -10,7 +10,7 @@ const app = express();
 
 app.use(logger('dev'));
 app.use(helmet());
-app.use(cors({origin:'http://localhost:3000'}));
+app.use(cors({origin:'http://localhost:3000', methods:['GET', 'PUT', 'POST']}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended': 'false'}));
 app.use(express.static(path.join(__dirname, 'build')));
