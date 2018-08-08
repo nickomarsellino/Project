@@ -207,6 +207,8 @@ router.get('/logout', (req, res, next) => {
 
     UserSession.updateMany({userId: userData.userId}, {$set: {isLogout: true}}).exec();
 
+    res.clearCookie('tokenId');
+
     res.send(
         {success: true, message: 'Valid sign out'}
     );
