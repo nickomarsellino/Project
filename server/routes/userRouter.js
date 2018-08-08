@@ -1,4 +1,4 @@
-const express = require('express');
+    const express = require('express');
 const router = express.Router();
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
@@ -200,25 +200,16 @@ router.post('/signin', (req, res) => {
 
 
 router.get('/logout', (req, res, next) => {
-    // Get the token
-    const {query} = req;
-    const {token} = query;
-    // ?token=test
-    // Verify the token is one of a kind and it's not deleted.
-    UserSession.findOneAndUpdate({
-        _id: token,
-        isDeleted: false
-    }, {
-        $set: {
-            isDeleted: true
-        }
-    }, null, (err, sessions) => {
-        if (err) {
-            res.status(403).json({success: false, msg: 'Server Eror'});
-            return;
-        }
-        return res.send({success: true, message: token});
-    });
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    UserSession.updateMany({userId: userData.userId}, {$set: {isLogout: true}}).exec();
+
+    res.send(
+        {success: true, message: 'Valid sign out'}
+    );
 });
 
 // Edit Profile
