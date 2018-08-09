@@ -11,6 +11,7 @@ class Twitt_Box extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            charCounter: 160,
             userId: '',
             username: '',
             userTweet: ''
@@ -32,9 +33,16 @@ class Twitt_Box extends Component {
 
 
     handleInputChange(e) {
-        const target = e.target;
-        const name = target.name;
-        this.setState({[name]: target.value});
+        this.setState({
+            [e.target.name]: e.target.value,
+            charCounter: 160 - e.target.value.length
+        });
+
+        if(this.state.charCounter < 0){
+            this.setState({
+                userTweet: ''
+            });
+        }
     }
 
     handleSubmit(e) {
@@ -78,7 +86,7 @@ class Twitt_Box extends Component {
                                 type="text"
                                 control={TextArea}
                                 placeholder={"Have a nice day " + this.state.username}
-                                style={{maxHeight: "100px"}}
+                                style={{maxHeight: "100px", minHeight:"90px"}}
                                 name="userTweet"
                                 onChange={this.handleInputChange}
                             />
@@ -89,8 +97,8 @@ class Twitt_Box extends Component {
                                         <Icon corner name='add'/>
                                     </Icon.Group>
                                 </div>
-                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
 
+                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
 
                                 <Button color="default"
                                         size="md"
@@ -99,6 +107,11 @@ class Twitt_Box extends Component {
                                         style={{borderRadius: "100px"}}
                                         disabled={!this.state.userTweet}
                                 >Post</Button>
+
+                                <p id="limiter-Tweet">
+                                    {this.state.charCounter} / 160
+                                </p>
+
                             </div>
                         </Form>
                     </CardBody>
