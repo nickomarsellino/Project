@@ -8,21 +8,11 @@ const http = require('http');
 const users = require('./routes/userRouter');
 const app = express();
 
-// const server = http.createServer(app);
-// const io = socketIo(server);
-//
-// io.on('connection', (socket) => {
-//     console.log(socket.id);
-//
-//     socket.on('SEND_MESSAGE', function(data){
-//         io.emit('RECEIVE_MESSAGE', data);
-//     })
-// });
-
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({'extended': 'false'}));
+app.use('/uploads', express.static('uploads'));
+app.use(bodyParser.urlencoded({'extended': false}));
 app.use(express.static(path.join(__dirname, 'build')));
 
 const mongoose = require('mongoose');

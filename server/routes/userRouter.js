@@ -5,22 +5,51 @@ const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
 
-router.post('/tweet/:id', (req, res, next) => {
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+  }
+});
 
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 10
+  },
+  fileFilter: fileFilter
+});
+
+// id disini maksudnya userId yang tweet
+router.post('/tweet/:id', upload.single('imageUpload'), (req, res, next) => {
   const tweet = {
     username: req.body.username,
     tweetText: req.body.tweetText,
     userId: req.body.userId,
+    tweetImage : req.path.file,
     timestamp: Date.now()
   };
 
     Tweet.create(tweet).then(function (result) {
         return res.send({
             success: true,
-            userId: '',
+            userId: result.userId,
             username: result.username,
             tweetText: result.tweetText,
+            tweetImage : req.path.file,
             timestamp: new Date(),
             message: 'Tweet posted successfully..!',
         });

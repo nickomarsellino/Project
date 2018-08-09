@@ -46,6 +46,7 @@ class Twitt_Box extends Component {
             tweetText: this.state.userTweet,
             username: this.state.username,
             userId: this.state.userId
+
         };
 
         const method = 'post';
@@ -62,6 +63,10 @@ class Twitt_Box extends Component {
 
     handleClick(e) {
         this.refs.fileUploader.click();
+    }
+
+    fileSelectedHandler = event => {
+        console.log(event.target.files[0]);
     }
 
     render() {
@@ -90,7 +95,7 @@ class Twitt_Box extends Component {
                                         <Icon corner name='add'/>
                                     </Icon.Group>
                                 </div>
-                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
+                                <input type="file" id="imageUpload" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
 
 
                                 <Button color="default"

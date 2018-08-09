@@ -61,7 +61,7 @@ class Edit_Profile extends Component {
             <div className="content">
               <a className="header"><i class="user icon"></i>{this.state.username}</a>
               <div className="description">
-                <i class="calendar icon"></i>Joined on <Timestamp time={this.state.timestamp} format="date" />
+                <i class="calendar icon"></i>Joined on <Timestamp time={this.state.timestamp}/>
               </div>
               <div className="description">
                 <i class="envelope outline icon"></i>

@@ -16,6 +16,9 @@ const TweetSchema = new Schema({
     type    : Date,
     default : Date.now()
   },
+  tweetImage: {
+    type: Buffer
+  },
   isDeleted: {
     type    : Boolean,
     default : false
