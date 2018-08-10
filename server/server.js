@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const http = require('http');
-const users = require('./routes/userRouter');
+const users = require('./api/routes/userRouter');
 const app = express();
 
 app.use(logger('dev'));
@@ -14,6 +14,7 @@ app.use(cors({origin:'http://localhost:3000', methods:['GET', 'PUT', 'POST']}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended': 'false'}));
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/uploads', express.static('uploads'));
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
