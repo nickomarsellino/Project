@@ -40,11 +40,25 @@ class Twitt_Box extends Component {
             [e.target.name]: e.target.value,
             charCounter: 160 - e.target.value.length
         });
-
-        if(this.state.charCounter < 0){
+        if (this.state.charCounter > 70) {
+            this.setState({
+                tweetStatus: '#4db6ac'
+            });
+        }
+        if (this.state.charCounter < 70) {
+            this.setState({
+                tweetStatus: '#ffbe76'
+            });
+        }
+        if (this.state.charCounter < 30) {
+            this.setState({
+                tweetStatus: '#ff7675'
+            });
+        }
+        if (this.state.charCounter === 160) {
             this.setState({
                 userTweet: '',
-                tweetStatus: '#ff7675'
+                tweetStatus: '#4db6ac'
             });
         }
     }
@@ -90,7 +104,7 @@ class Twitt_Box extends Component {
                                 type="text"
                                 control={TextArea}
                                 placeholder={"Have a nice day " + this.state.username}
-                                style={{maxHeight: "100px", minHeight:"90px"}}
+                                style={{maxHeight: "100px", minHeight: "90px"}}
                                 name="userTweet"
                                 onChange={this.handleInputChange}
                             />
@@ -117,16 +131,21 @@ class Twitt_Box extends Component {
                                 </p>
 
                                 <span>
-                                    <div  id='limiter-Tweet-Circular'>
+                                    <div id='limiter-Tweet-Circular'>
                                         <CircularProgressbar
-                                            percentage={30}
+                                            percentage={this.state.charCounter}
+                                            background
+                                            backgroundPadding={1}
                                             strokeWidth={50}
                                             styles={{
+                                                background: {
+                                                    fill: this.state.tweetStatus
+                                                },
                                                 path: {
-                                                    stroke: this.state.tweetStatus,
-                                                    transform: "rotate(90deg)",
-                                                    transformOrigin: "center center"
-                                                }
+                                                    strokeLinecap: "butt",
+                                                    stroke: "#ffff"
+                                                },
+                                                trail: {stroke: "transparent"}
                                             }}
                                         />
                                     </div>
