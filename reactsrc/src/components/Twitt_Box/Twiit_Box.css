@@ -31,10 +31,20 @@
 #limiter-Tweet{
     position: absolute;
     top: 60%;
-    right: 3%;
+    right: 6%;
     transform: translateY(-55%);
     font-family: "Roboto", sans-serif;
 }
+
+#limiter-Tweet-Circular{
+    width: 22px;
+    position: absolute;
+    top: 62%;
+    right: 2%;
+    transform: translateY(-55%);
+    font-family: "Roboto", sans-serif;
+}
+
 
 #avatarBox {
     width: 40px;

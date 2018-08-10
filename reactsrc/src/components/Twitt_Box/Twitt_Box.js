@@ -4,6 +4,8 @@ import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
+import CircularProgressbar from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 
 class Twitt_Box extends Component {
@@ -11,7 +13,7 @@ class Twitt_Box extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tweetStatus: 'black',
+            tweetStatus: '#4db6ac',
             charCounter: 160,
             userId: '',
             username: '',
@@ -42,7 +44,7 @@ class Twitt_Box extends Component {
         if(this.state.charCounter < 0){
             this.setState({
                 userTweet: '',
-                tweetStatus: 'red'
+                tweetStatus: '#ff7675'
             });
         }
     }
@@ -113,6 +115,22 @@ class Twitt_Box extends Component {
                                 <p id="limiter-Tweet" style={{color: this.state.tweetStatus}}>
                                     {this.state.charCounter}
                                 </p>
+
+                                <span>
+                                    <div  id='limiter-Tweet-Circular'>
+                                        <CircularProgressbar
+                                            percentage={30}
+                                            strokeWidth={50}
+                                            styles={{
+                                                path: {
+                                                    stroke: this.state.tweetStatus,
+                                                    transform: "rotate(90deg)",
+                                                    transformOrigin: "center center"
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                </span>
 
                             </div>
                         </Form>
