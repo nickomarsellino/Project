@@ -11,6 +11,7 @@ class Twitt_Box extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            tweetStatus: 'black',
             charCounter: 160,
             userId: '',
             username: '',
@@ -40,7 +41,8 @@ class Twitt_Box extends Component {
 
         if(this.state.charCounter < 0){
             this.setState({
-                userTweet: ''
+                userTweet: '',
+                tweetStatus: 'red'
             });
         }
     }
@@ -108,8 +110,8 @@ class Twitt_Box extends Component {
                                         disabled={!this.state.userTweet}
                                 >Post</Button>
 
-                                <p id="limiter-Tweet">
-                                    {this.state.charCounter} / 160
+                                <p id="limiter-Tweet" style={{color: this.state.tweetStatus}}>
+                                    {this.state.charCounter}
                                 </p>
 
                             </div>

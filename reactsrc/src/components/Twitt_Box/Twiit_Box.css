@@ -30,8 +30,8 @@
 
 #limiter-Tweet{
     position: absolute;
-    top: 90%;
-    right: 14%;
+    top: 60%;
+    right: 3%;
     transform: translateY(-55%);
     font-family: "Roboto", sans-serif;
 }
