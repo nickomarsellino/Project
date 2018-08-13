@@ -32,7 +32,6 @@ class Twitt_Container extends Component {
     }
 
     componentWillMount() {
-
         if(this.props.TweetUserId){
             this.getTweetUser();
         }
@@ -47,6 +46,7 @@ class Twitt_Container extends Component {
                 this.setState({
                     tweetData: res.data
                 });
+                this.props.tweetCounter(res.data.length)
             });
     }
 
@@ -56,7 +56,6 @@ class Twitt_Container extends Component {
                 this.setState({
                     tweetData: res.data
                 });
-                console.log("tweetData ", this.state.tweetData);
             });
     }
 
@@ -112,7 +111,7 @@ class Twitt_Container extends Component {
         return (
             <div>
                 {this.state.tweetData.map(tweet =>
-                    <Card className="Tweet_Container text-warp">
+                    <Card className="Tweet_Container text-warp" key={tweet._id}>
                         <CardBody className="Tweet">
                             <Feed>
                                 <Feed.Event>

@@ -40,6 +40,7 @@ class Twitt_Box extends Component {
             [e.target.name]: e.target.value,
             charCounter: 160 - e.target.value.length
         });
+
         if (this.state.charCounter > 70) {
             this.setState({
                 tweetStatus: '#4db6ac'
@@ -59,6 +60,12 @@ class Twitt_Box extends Component {
             this.setState({
                 userTweet: '',
                 tweetStatus: '#4db6ac'
+            });
+        }
+        if (e.target.value.length > 160 ) {
+            this.setState({
+                userTweet: '',
+                tweetStatus: '#ff7675'
             });
         }
     }
@@ -81,7 +88,7 @@ class Twitt_Box extends Component {
             data: tweet
         })
             .then(() => {
-                window.location.reload();
+               window.location.reload();
             });
     }
 
@@ -133,7 +140,9 @@ class Twitt_Box extends Component {
                                 <span>
                                     <div id='limiter-Tweet-Circular'>
                                         <CircularProgressbar
-                                            percentage={this.state.charCounter}
+                                            percentage={
+                                                this.state.charCounter
+                                            }
                                             background
                                             backgroundPadding={1}
                                             strokeWidth={50}

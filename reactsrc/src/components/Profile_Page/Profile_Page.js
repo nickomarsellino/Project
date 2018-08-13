@@ -17,12 +17,18 @@ class Edit_Profile extends Component {
             timestamp: '',
             email: '',
             phone: '',
-            tweetData: []
+            tweetCount: ''
         };
+
+        this.getTweetCounter = this.getTweetCounter.bind(this);
     }
 
     componentWillMount() {
         this.getProfileData();
+    }
+
+    getTweetCounter(tweet){
+        this.setState({tweetCount: tweet});
     }
 
     getProfileData() {
@@ -37,18 +43,6 @@ class Edit_Profile extends Component {
         });
     }
 
-    buttonDelete(userId, tweetId) {
-        if (userId === this.props.userId) {
-            return (
-                <Icon
-                    size='large' name='trash'
-                    id="recycleIcon"
-                    onClick={() => this.openModalDelete(tweetId)}
-                />
-            );
-        }
-    }
-
 
     render() {
         return (
@@ -59,29 +53,32 @@ class Edit_Profile extends Component {
                             <img className="profilePic" src={profile} alt=""/>
                         </div>
                         <div className="content">
-                            <a className="header"><i class="user icon"></i>{this.state.username}</a>
+                            <a className="header"><i className="user icon"/>{this.state.username}</a>
                             <div className="description">
-                                <i class="calendar icon"></i>Joined on <Timestamp time={this.state.timestamp}
+                                <i className="calendar icon"/>Joined on <Timestamp time={this.state.timestamp}
                                                                                   format="date"/>
                             </div>
                             <div className="description">
-                                <i class="envelope outline icon"></i>
+                                <i className="envelope outline icon"/>
                                 <a className="emailProfile" href="mailto:this.state.email">{this.state.email}</a>
                             </div>
                             <div className="description">
-                                <i class="phone icon"></i>{this.state.phone}
+                                <i className="phone icon"/>{this.state.phone}
                             </div>
                         </div>
                     </div>
 
                     <div id="navDetail" className="ui three item menu">
-                        <a class="item">Tweets</a>
-                        <a class="item">Following</a>
-                        <a class="item">Followers</a>
+                        <a className="item">Tweets <br/><br/>{this.state.tweetCount}</a>
+                        <a className="item">Following <br/><br/>15</a>
+                        <a className="item">Followers <br/><br/>15</a>
                     </div>
 
                     <div className="userTweet">
-                        <TwittContainer TweetUserId={this.props.userId} userId={this.props.userId}/>
+                        <TwittContainer TweetUserId={this.props.userId}
+                                        userId={this.props.userId}
+                                        tweetCounter={this.getTweetCounter}
+                        />
                     </div>
 
                 </div>

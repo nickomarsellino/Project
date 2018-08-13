@@ -6,6 +6,9 @@
 .profile{
   margin: 3%;
 }
+.item{
+  font-size: 15px;
+}
 
 #detailProfile{
   width: 20%;
