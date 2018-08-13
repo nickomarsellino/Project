@@ -111,16 +111,16 @@ class Twitt_Container extends Component {
         return (
             <div>
                 {this.state.tweetData.map(tweet =>
-                    <Card className="Tweet_Container text-warp" key={tweet._id}>
+                    <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
                         <CardBody className="Tweet">
                             <Feed>
                                 <Feed.Event>
                                     <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
-                                    <Feed.Content onClick={() => this.openModalTweet(tweet._id)}>
-                                        <div className="Tweet-Content">
+                                    <Feed.Content className="Tweet-Content" onClick={() => this.openModalTweet(tweet._id)}>
+                                        <div>
                                             <Feed.Summary content={tweet.username}/>
                                         </div>
-                                        <Feed.Extra text content={tweet.tweetText}/> <br/>
+                                        <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>} />
                                     </Feed.Content>
 

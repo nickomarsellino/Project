@@ -3,8 +3,13 @@
     margin-top: 3px;
 }
 
-.text-warp{
+#text-warp{
     word-wrap: break-word;
+}
+
+#tweetText {
+    word-wrap: break-word;
+    max-width: 840px;
 }
 
 .Tweet-Delete {
@@ -22,6 +27,8 @@
 
 .Tweet-Content {
     display: inline-block;
+    word-wrap: break-word;
+    width: 72%;
 }
 
 .buttonTweetBox {
