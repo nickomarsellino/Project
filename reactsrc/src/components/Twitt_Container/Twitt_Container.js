@@ -4,6 +4,7 @@ import {Feed, Icon} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
+import FadeIn from 'react-fade-in';
 
 //load another component
 import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
@@ -109,6 +110,7 @@ class Twitt_Container extends Component {
 
     render() {
         return (
+            <FadeIn>
             <div>
                 {this.state.tweetData.map(tweet =>
                     <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
@@ -147,6 +149,7 @@ class Twitt_Container extends Component {
                 />
 
             </div>
+            </FadeIn>
         );
     }
 }

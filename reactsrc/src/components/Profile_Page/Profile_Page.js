@@ -3,6 +3,7 @@ import axios from "axios/index";
 import profile from '../../daniel.jpg';
 import './Profile_Page.css';
 import TwittContainer from "../Twitt_Container/Twitt_Container";
+import UserAccountContainer from '../UserAccountContainer/UserAccountContainer'
 import {Icon} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
@@ -55,13 +56,13 @@ class Edit_Profile extends Component {
         if(item === "Follower"){
             //Render Validation box message
             ReactDOM.render(<FadeIn>
-                <p>Follower</p>
+                <UserAccountContainer/>
             </FadeIn>, document.getElementById('profileInfo'));
         }
         else if(item === "Following"){
             //Render Validation box message
             ReactDOM.render(<FadeIn>
-                <p>Following</p>
+                <UserAccountContainer/>
             </FadeIn>, document.getElementById('profileInfo'));
         }
         else if(item === "Tweets"){
