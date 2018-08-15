@@ -79,7 +79,7 @@ class Navigationbar extends Component {
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>
-                                <Link to={'/home/profile/' + this.state.userName}>
+                                <Link to={'/home/myProfile/' + this.state.userName}>
                                     <Image className="navProfile" src={profile} avatar={true}/>
                                     <span className="navProfile">{this.state.userName}</span>
                                 </Link>

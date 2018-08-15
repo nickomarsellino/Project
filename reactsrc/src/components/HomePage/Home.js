@@ -88,6 +88,10 @@ class Home extends Component {
         );
 
         const profile = () => (
+            <ProfilePage usrId={this.props.location.state}/>
+        );
+
+        const myProfile = () => (
             <ProfilePage userId={this.state.userId}/>
         );
 
@@ -105,8 +109,9 @@ class Home extends Component {
 
                         <Route path={this.props.match.url + '/changePassword'} component={parentChangePw}/>
 
-                        <Route path={this.props.match.url +'/profile'} component={profile}/>
+                        <Route path={this.props.match.url +'/myProfile'} component={myProfile}/>
 
+                        <Route path={this.props.match.url +'/profile'} component={profile}/>
                     </div>
                 </FadeIn>
             </div>

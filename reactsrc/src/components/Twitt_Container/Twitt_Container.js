@@ -5,6 +5,8 @@ import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
 import FadeIn from 'react-fade-in';
+import {Link} from 'react-router-dom';
+
 
 //load another component
 import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
@@ -117,12 +119,22 @@ class Twitt_Container extends Component {
                         <CardBody className="Tweet">
                             <Feed>
                                 <Feed.Event>
-                                    <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
+                                    <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}} href={'home/profile/Lil%20Uzi%20Vert'}/>
                                     <Feed.Content className="Tweet-Content" onClick={() => this.openModalTweet(tweet._id)}>
-                                        <div>
-                                            <Feed.Summary content={tweet.username}/>
-                                        </div>
+
+                                        <Link to={{
+                                            pathname: `/home/profile/${tweet.username}`,
+                                            state: {
+                                                userId: tweet.userId
+                                            }
+                                        }}>
+                                            <div>
+                                                <Feed.Summary content={tweet.username}/>
+                                            </div>
+                                        </Link>
+
                                         <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
+
                                         <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>} />
                                     </Feed.Content>
 

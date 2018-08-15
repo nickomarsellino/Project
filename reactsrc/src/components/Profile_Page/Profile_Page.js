@@ -15,6 +15,7 @@ class Edit_Profile extends Component {
     constructor() {
         super();
         this.state = {
+            userId: '',
             username: '',
             timestamp: '',
             email: '',
@@ -30,46 +31,54 @@ class Edit_Profile extends Component {
     }
 
     componentWillMount() {
+        // console.log(this.props.usrId.userId)
         this.getProfileData();
     }
 
-    getTweetCounter(tweet){
+    getTweetCounter(tweet) {
         this.setState({tweetCount: tweet});
     }
 
     getProfileData() {
-        // console.log(this.props.userId);
+
+        if (this.props.userId) {
+            this.setState({userId: this.props.userId})
+        }
+        else if (this.props.usrId.userId) {
+            this.setState({userId: this.props.usrId.userId})
+        }
+
         axios.get('/api/users/').then(res => {
             this.setState({
                 username: res.data.username,
                 timestamp: res.data.timestamp,
                 email: res.data.email,
-                phone: res.data.phone
+                phone: res.data.phone,
             });
         });
     }
 
-    handleItemClicked(item){
+    handleItemClicked(item) {
 
         console.log(item);
 
-        if(item === "Follower"){
+        if (item === "Follower") {
             //Render Validation box message
             ReactDOM.render(<FadeIn>
                 <UserAccountContainer/>
             </FadeIn>, document.getElementById('profileInfo'));
         }
-        else if(item === "Following"){
+        else if (item === "Following") {
             //Render Validation box message
             ReactDOM.render(<FadeIn>
                 <UserAccountContainer/>
             </FadeIn>, document.getElementById('profileInfo'));
         }
-        else if(item === "Tweets"){
+        else if (item === "Tweets") {
             //Render Validation box message
             ReactDOM.render(<FadeIn><TwittContainer TweetUserId={this.props.userId}
-                                               userId={this.props.userId}
-                                               tweetCounter={this.getTweetCounter}
+                                                    userId={this.props.userId}
+                                                    tweetCounter={this.getTweetCounter}
             /></FadeIn>, document.getElementById('profileInfo'));
         }
     }
@@ -86,7 +95,7 @@ class Edit_Profile extends Component {
                             <a className="header"><i className="user icon"/>{this.state.username}</a>
                             <div className="description">
                                 <i className="calendar icon"/>Joined on <Timestamp time={this.state.timestamp}
-                                                                                  format="date"/>
+                                                                                   format="date"/>
                             </div>
                             <div className="description">
                                 <i className="envelope outline icon"/>
@@ -99,17 +108,23 @@ class Edit_Profile extends Component {
                     </div>
 
                     <div id="navDetail" className="ui three item menu">
-                        <a className="item" onClick={() => this.handleItemClicked("Tweets")}> Tweets <br/><br/>{this.state.tweetCount}</a>
-                        <a className="item" onClick={() => this.handleItemClicked("Following")}>Following <br/><br/>15</a>
-                        <a className="item" onClick={() => this.handleItemClicked("Follower")}>Followers <br/><br/>15</a>
+                        <a className="item"
+                           onClick={() => this.handleItemClicked("Tweets")}> Tweets <br/><br/>{this.state.tweetCount}
+                        </a>
+                        <a className="item"
+                           onClick={() => this.handleItemClicked("Following")}>Following <br/><br/>15</a>
+                        <a className="item"
+                           onClick={() => this.handleItemClicked("Follower")}>Followers <br/><br/>15</a>
                     </div>
 
-                    <div className="userProfile" id="profileInfo">
-                        <TwittContainer TweetUserId={this.props.userId}
-                                        userId={this.props.userId}
-                                        tweetCounter={this.getTweetCounter}
-                        />
-                    </div>
+                    <FadeIn>
+                        <div className="userProfile" id="profileInfo">
+                            <TwittContainer TweetUserId={this.state.userId}
+                                            userId={this.state.userId}
+                                            tweetCounter={this.getTweetCounter}
+                            />
+                        </div>
+                    </FadeIn>
                 </div>
             </FadeIn>
 
