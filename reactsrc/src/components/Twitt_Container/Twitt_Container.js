@@ -35,7 +35,7 @@ class Twitt_Container extends Component {
     }
 
     componentWillMount() {
-        if(this.props.TweetUserId){
+        if (this.props.TweetUserId) {
             this.getTweetUser();
         }
         else {
@@ -43,8 +43,38 @@ class Twitt_Container extends Component {
         }
     }
 
+    componentDidMount() {
+
+    }
+
+
+    viewUserProfile(username, userId) {
+        if (this.props.located === "home") {
+            return (
+                <Link to={{
+                    pathname: `/home/profile/${username}`,
+                    state: {
+                        userId: userId
+                    }
+                }}>
+                    <div>
+                        <Feed.Summary content={username}/>
+                    </div>
+                </Link>
+            );
+        }
+
+        else if (this.props.located === "profile") {
+            return (
+                    <div>
+                        <Feed.Summary content={username}/>
+                    </div>
+            );
+        }
+    }
+
     getTweetUser() {
-        axios.get('/api/users/profiletweet/'+this.props.TweetUserId)
+        axios.get('/api/users/profiletweet/' + this.props.TweetUserId)
             .then(res => {
                 this.setState({
                     tweetData: res.data
@@ -84,17 +114,17 @@ class Twitt_Container extends Component {
 
     closeModalTweet(isOpen) {
         if (isOpen) {
-              this.setState({
-                  modalTweet: false
-              })
+            this.setState({
+                modalTweet: false
+            })
         }
     }
 
     closeModalDelete(isOpen) {
         if (isOpen) {
-              this.setState({
-                  modalDelete: false
-              })
+            this.setState({
+                modalDelete: false
+            })
         }
     }
 
@@ -113,54 +143,46 @@ class Twitt_Container extends Component {
     render() {
         return (
             <FadeIn>
-            <div>
-                {this.state.tweetData.map(tweet =>
-                    <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
-                        <CardBody className="Tweet">
-                            <Feed>
-                                <Feed.Event>
-                                    <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}} href={'home/profile/Lil%20Uzi%20Vert'}/>
-                                    <Feed.Content className="Tweet-Content" onClick={() => this.openModalTweet(tweet._id)}>
+                <div>
+                    {this.state.tweetData.map(tweet =>
+                        <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
+                            <CardBody className="Tweet">
+                                <Feed>
+                                    <Feed.Event>
+                                        <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
+                                        <Feed.Content className="Tweet-Content"
+                                                      onClick={() => this.openModalTweet(tweet._id)}>
 
-                                        <Link to={{
-                                            pathname: `/home/profile/${tweet.username}`,
-                                            state: {
-                                                userId: tweet.userId
-                                            }
-                                        }}>
-                                            <div>
-                                                <Feed.Summary content={tweet.username}/>
-                                            </div>
-                                        </Link>
+                                            {this.viewUserProfile(tweet.username, tweet.userId)}
 
-                                        <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
+                                            <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
 
-                                        <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>} />
-                                    </Feed.Content>
+                                            <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+                                        </Feed.Content>
 
-                                    <Feed.Label className="Tweet-Delete">
-                                        {this.buttonDelete(tweet.userId, tweet._id)}
-                                    </Feed.Label>
+                                        <Feed.Label className="Tweet-Delete">
+                                            {this.buttonDelete(tweet.userId, tweet._id)}
+                                        </Feed.Label>
 
-                                </Feed.Event>
-                            </Feed>
-                        </CardBody>
-                    </Card>
-                )}
+                                    </Feed.Event>
+                                </Feed>
+                            </CardBody>
+                        </Card>
+                    )}
 
-                <ModalTwitt
-                    isOpen={this.state.modalTweet}
-                    tweet={this.state.tweet}
-                    isClose={this.closeModalTweet}
-                />
+                    <ModalTwitt
+                        isOpen={this.state.modalTweet}
+                        tweet={this.state.tweet}
+                        isClose={this.closeModalTweet}
+                    />
 
-                <ModalDelete
-                    isOpen={this.state.modalDelete}
-                    tweet={this.state.tweet}
-                    isClose={this.closeModalDelete}
-                />
+                    <ModalDelete
+                        isOpen={this.state.modalDelete}
+                        tweet={this.state.tweet}
+                        isClose={this.closeModalDelete}
+                    />
 
-            </div>
+                </div>
             </FadeIn>
         );
     }

@@ -43,7 +43,6 @@ router.post('/tweet', (req, res, next) => {
 });
 
 router.delete('/tweet/:id', (req, res, next) => {
-    console.log(req.params.id);
     Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
         res.send(result);
     });
@@ -294,7 +293,7 @@ router.put('/changePassword', (req, res) => {
     })
 });
 
-// Get data for update profile
+// Get data for update profile & to View User Data
 router.get('/', (req, res) => {
 
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
@@ -311,6 +310,15 @@ router.get('/', (req, res) => {
         res.status(404).json({success: false, msg: `No such user.`});
     });
 });
+
+// Get data for profile page
+router.get('/profile/:id', (req, res) => {
+        User.find({_id: req.params.id}).then((result) => {
+            res.json(result);
+        }).catch((err) => {
+            res.status(404).json({success: false, msg: `No such user.`});
+        });
+    });
 
 router.get('/verify', (req, res, next) => {
 

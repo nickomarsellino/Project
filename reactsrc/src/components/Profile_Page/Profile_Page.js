@@ -42,25 +42,32 @@ class Edit_Profile extends Component {
     getProfileData() {
 
         if (this.props.userId) {
+            axios.get('/api/users/profile/'+ this.props.userId).then(res => {
+                const user = res.data[0];
+                this.setState({
+                    username: user.username,
+                    timestamp: user.timestamp,
+                    email: user.email,
+                    phone: user.phone
+                });
+            });
             this.setState({userId: this.props.userId})
         }
-        else if (this.props.usrId.userId) {
-            this.setState({userId: this.props.usrId.userId})
-        }
-
-        axios.get('/api/users/').then(res => {
-            this.setState({
-                username: res.data.username,
-                timestamp: res.data.timestamp,
-                email: res.data.email,
-                phone: res.data.phone,
+        else if (this.props.userIdProfile.userId) {
+            axios.get('/api/users/profile/'+ this.props.userIdProfile.userId).then(res => {
+                const user = res.data[0];
+                this.setState({
+                    username: user.username,
+                    timestamp: user.timestamp,
+                    email: user.email,
+                    phone: user.phone
+                });
             });
-        });
+            this.setState({userId: this.props.userIdProfile.userId})
+        }
     }
 
     handleItemClicked(item) {
-
-        console.log(item);
 
         if (item === "Follower") {
             //Render Validation box message
@@ -76,9 +83,10 @@ class Edit_Profile extends Component {
         }
         else if (item === "Tweets") {
             //Render Validation box message
-            ReactDOM.render(<FadeIn><TwittContainer TweetUserId={this.props.userId}
+            ReactDOM.render(<FadeIn><TwittContainer TweetUserId={this.state.userId}
                                                     userId={this.props.userId}
                                                     tweetCounter={this.getTweetCounter}
+                                                    located="profile"
             /></FadeIn>, document.getElementById('profileInfo'));
         }
     }
@@ -120,8 +128,10 @@ class Edit_Profile extends Component {
                     <FadeIn>
                         <div className="userProfile" id="profileInfo">
                             <TwittContainer TweetUserId={this.state.userId}
-                                            userId={this.state.userId}
+                                            userId={this.props.userId}
                                             tweetCounter={this.getTweetCounter}
+                                            located="profile"
+
                             />
                         </div>
                     </FadeIn>

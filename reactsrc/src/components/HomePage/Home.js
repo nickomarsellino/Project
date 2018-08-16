@@ -12,6 +12,7 @@ import TwittBox from "../Twitt_Box/Twitt_Box";
 import TwittContainer from "../Twitt_Container/Twitt_Container";
 import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
+import MyProfilePage from '../Profile_Page/Profile_Page'
 
 
 class Home extends Component {
@@ -25,8 +26,8 @@ class Home extends Component {
     }
 
     getData() {
-        axios.get('/api/users',{
-            credentials:'include',
+        axios.get('/api/users', {
+            credentials: 'include',
             withCredentials: true
         })
             .then(res => {
@@ -38,18 +39,17 @@ class Home extends Component {
     }
 
 
-
-    verify(){
-        axios.get('/api/users/verify',{
-            credentials:'include',
+    verify() {
+        axios.get('/api/users/verify', {
+            credentials: 'include',
             withCredentials: true
         })
             .then(res => {
                 console.log(res.data);
-                if(res.data.success){
+                if (res.data.success) {
                     this.props.history.push("/home");
                 }
-                else{
+                else {
                     this.props.history.push("/signin");
                 }
             });
@@ -76,23 +76,19 @@ class Home extends Component {
 
         const home = () => (
             <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
-                <div>
-                    <TwittBox username={this.state.username}
-                               userId={this.state.userId}
-                    />
-                </div>
-                <div>
-                    <TwittContainer userId={this.state.userId}/>
-                </div>
+                <TwittBox username={this.state.username}
+                          userId={this.state.userId}
+                />
+                <TwittContainer userId={this.state.userId} located="home"/>
             </Container>
         );
 
         const profile = () => (
-            <ProfilePage usrId={this.props.location.state}/>
+            <ProfilePage userIdProfile={this.props.location.state}/>
         );
 
         const myProfile = () => (
-            <ProfilePage userId={this.state.userId}/>
+            <MyProfilePage userId={this.state.userId}/>
         );
 
         return (
@@ -109,9 +105,9 @@ class Home extends Component {
 
                         <Route path={this.props.match.url + '/changePassword'} component={parentChangePw}/>
 
-                        <Route path={this.props.match.url +'/myProfile'} component={myProfile}/>
+                        <Route path={this.props.match.url + '/myProfile'} component={myProfile}/>
 
-                        <Route path={this.props.match.url +'/profile'} component={profile}/>
+                        <Route path={this.props.match.url + '/profile'} component={profile}/>
                     </div>
                 </FadeIn>
             </div>
