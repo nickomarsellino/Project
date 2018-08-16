@@ -1,4 +1,4 @@
-    const express = require('express');
+const express = require('express');
 const router = express.Router();
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
@@ -72,10 +72,6 @@ router.get('/profiletweet/:id', (req, res) => {
         res.status(404).json({success: false, msg: `No such tweets.`});
     });
 });
-
-
-
-
 
 
 router.post('/register', (req, res) => {
@@ -311,14 +307,20 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/allUsers', (req, res, next) => {
+    User.find({}).sort({timestamp: 'descending'}).then((result) => {
+        res.send(result);
+    });
+});
+
 // Get data for profile page
 router.get('/profile/:id', (req, res) => {
-        User.find({_id: req.params.id}).then((result) => {
-            res.json(result);
-        }).catch((err) => {
-            res.status(404).json({success: false, msg: `No such user.`});
-        });
+    User.find({_id: req.params.id}).then((result) => {
+        res.json(result);
+    }).catch((err) => {
+        res.status(404).json({success: false, msg: `No such user.`});
     });
+});
 
 router.get('/verify', (req, res, next) => {
 

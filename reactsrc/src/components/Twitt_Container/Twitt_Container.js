@@ -43,11 +43,6 @@ class Twitt_Container extends Component {
         }
     }
 
-    componentDidMount() {
-
-    }
-
-
     viewUserProfile(username, userId) {
         if (this.props.located === "home") {
             return (
@@ -158,6 +153,18 @@ class Twitt_Container extends Component {
                                             <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
 
                                             <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+
+                                            <div>
+                                                <Icon.Group>
+                                                    9 <Icon name='comments' />
+                                                </Icon.Group>{'  '}
+                                                <Icon.Group>
+                                                    10 <Icon name='like' />
+                                                </Icon.Group>{'  '}
+                                                <Icon.Group>
+                                                    11 <Icon name='sync alternate' />
+                                                </Icon.Group>
+                                            </div>
                                         </Feed.Content>
 
                                         <Feed.Label className="Tweet-Delete">

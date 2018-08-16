@@ -31,7 +31,6 @@ class Edit_Profile extends Component {
     }
 
     componentWillMount() {
-        // console.log(this.props.usrId.userId)
         this.getProfileData();
     }
 

@@ -35,9 +35,7 @@ class Navigationbar extends Component {
     }
 
     getData() {
-        // console.log(this.props.userId);
         axios.get('/api/users', {
-            credentials: 'include',
             withCredentials: true
         })
             .then(res => {
