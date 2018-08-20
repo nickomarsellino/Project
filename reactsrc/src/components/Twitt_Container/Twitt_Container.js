@@ -156,11 +156,15 @@ class Twitt_Container extends Component {
 
                                             <div>
                                                 <Icon.Group>
-                                                    9 <Icon name='comments' />
-                                                </Icon.Group>{'  '}
+                                                     <Icon
+                                                    name='comments'
+                                                    id="commentsIcon">{' '}9</Icon>
+                                                </Icon.Group>
                                                 <Icon.Group>
-                                                    10 <Icon name='like' />
-                                                </Icon.Group>{'  '}
+                                                    <Icon
+                                                        name='like'
+                                                        id="likeIcon">{' '}10</Icon>
+                                                </Icon.Group>
                                                 <Icon.Group>
                                                     11 <Icon name='sync alternate' />
                                                 </Icon.Group>
