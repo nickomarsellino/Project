@@ -2,7 +2,6 @@ import axios from "axios/index";
 import React, {Component} from "react";
 import {Card, Icon, Image} from 'semantic-ui-react';
 import './UserAccountContainer.css'
-import profile from '../../daniel.jpg';
 const Timestamp = require('react-timestamp');
 
 class UserAccountContainer extends Component {
@@ -24,7 +23,6 @@ class UserAccountContainer extends Component {
     }
 
     render() {
-        {console.log(this.state.userData)}
         return (
             <div>
                 {this.state.userData.map(user =>

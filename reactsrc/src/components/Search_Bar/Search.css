@@ -1,0 +1,17 @@
+#SearchBoxContainer{
+    margin-top: 4%;
+}
+
+.ui.input {
+    width: 100%;
+    font-size: 1em;
+}
+
+.ui.search .prompt {
+    border-radius: 10px;
+}
+
+
+.ui.search>.results {
+    width: 100%;
+}

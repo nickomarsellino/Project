@@ -7,6 +7,8 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "faker": "^4.1.0",
+    "lodash": "^4.17.10",
     "mdbreact": "^4.5.0",
     "mongoose": "^5.1.7",
     "morgan": "^1.9.0",

@@ -4,7 +4,6 @@ import profile from '../../daniel.jpg';
 import './Profile_Page.css';
 import TwittContainer from "../Twitt_Container/Twitt_Container";
 import UserAccountContainer from '../UserAccountContainer/UserAccountContainer'
-import {Icon} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
 

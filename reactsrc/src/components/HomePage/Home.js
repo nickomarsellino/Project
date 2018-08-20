@@ -13,6 +13,7 @@ import TwittContainer from "../Twitt_Container/Twitt_Container";
 import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
+import SearchBar from '../Search_Bar/Search_Bar'
 
 
 class Home extends Component {
@@ -76,6 +77,9 @@ class Home extends Component {
 
         const home = () => (
             <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
+
+                <SearchBar/>
+
                 <TwittBox username={this.state.username}
                           userId={this.state.userId}
                 />
