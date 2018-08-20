@@ -1,24 +1,57 @@
 
-.Tweet_Container{
-  margin-top: 3px;
+.Tweet_Container {
+    margin-top: 3px;
 }
 
-.Tweet_Container:hover{
-  background: rgba(255, 255, 255, 0.7);
+#text-warp{
+    word-wrap: break-word;
 }
 
-.Tweet{
-  padding: 10px;
+#tweetText {
+    word-wrap: break-word;
+    max-width: 840px;
 }
 
-.Tweet-Content{
-  display : inline-block;
+.Tweet-Delete {
+    margin-bottom: 20px;
+    margin-left: 10px;
 }
 
-#recycleIcon{
-  float: right;
-  cursor: pointer;
-  opacity: 0.5;
-  width: 4%;
-  color: #f70010;
+.Tweet_Container:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.Tweet {
+    padding: 10px;
+}
+
+.Tweet-Content {
+    display: inline-block;
+    word-wrap: break-word;
+    width: 72%;
+}
+
+.buttonTweetBox {
+    text-align: left;
+}
+
+#commentIcon {
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.5;
+    margin-right: 50px;
+}
+
+#recycleIcon {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#recycleIcon:hover {
+    color: #f70010;
+}
+
+#recycleIcon:active {
+    position: relative;
+    top: 1px;
 }
