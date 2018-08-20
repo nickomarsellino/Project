@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Route} from 'react-router-dom';
 import FadeIn from 'react-fade-in';
+import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 import './Home.css';
 import {Container} from "mdbreact"
 
@@ -97,6 +98,7 @@ class Home extends Component {
 
         return (
             <div>
+                <ScrollUpButton/>
                 <FadeIn>
                     <div>
                         <Navbar className="navbarFixed" success={true}/>
