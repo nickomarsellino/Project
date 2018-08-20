@@ -14,6 +14,17 @@ const source = _.times(5, () => ({
 
 
 class Search_Bar extends Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: false,
+            value: '',
+            results: []
+        };
+    }
+
     componentWillMount() {
         this.resetComponent()
     }
@@ -39,23 +50,19 @@ class Search_Bar extends Component {
     }
 
     render() {
-        const {isLoading, value, results} = this.state
-
         return (
             <center>
                 <Grid id="SearchBoxContainer">
-
-                    <Grid.Column width={20}>
+                    <Grid.Column gridcolumn={20}>
                         <Search
                             placeholder = "Search"
-                            loading={isLoading}
+                            loading={this.state.isLoading}
                             onResultSelect={this.handleResultSelect}
                             onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
-                            results={results}
-                            value={value}
+                            results={this.state.results}
+                            value={this.state.value}
                         />
                     </Grid.Column>
-
                 </Grid>
             </center>
         )
