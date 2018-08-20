@@ -47,6 +47,7 @@ class Search_Bar extends Component {
 
                     <Grid.Column width={20}>
                         <Search
+                            placeholder = "Search"
                             loading={isLoading}
                             onResultSelect={this.handleResultSelect}
                             onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}

@@ -98,7 +98,7 @@ class Home extends Component {
 
         return (
             <div>
-                <ScrollUpButton/>
+                <ScrollUpButton TransitionBtnPosition={150}/>
                 <FadeIn>
                     <div>
                         <Navbar className="navbarFixed" success={true}/>
