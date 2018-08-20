@@ -8,9 +8,8 @@ import {Search, Grid, Header, Segment} from 'semantic-ui-react';
 const source = _.times(5, () => ({
     title: faker.company.companyName(),
     description: faker.company.catchPhrase(),
-    image: faker.image.people(),
-    price: faker.finance.amount(0, 100, 2, '$'),
-}))
+    image: faker.image.people()
+}));
 
 
 class Search_Bar extends Component {
@@ -52,8 +51,7 @@ class Search_Bar extends Component {
     render() {
         return (
             <center>
-                <Grid id="SearchBoxContainer">
-                    <Grid.Column gridcolumn={20}>
+                    <div id="SearchBoxContainer">
                         <Search
                             placeholder = "Search"
                             loading={this.state.isLoading}
@@ -62,8 +60,7 @@ class Search_Bar extends Component {
                             results={this.state.results}
                             value={this.state.value}
                         />
-                    </Grid.Column>
-                </Grid>
+                    </div>
             </center>
         )
     }

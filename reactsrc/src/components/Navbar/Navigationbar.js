@@ -17,6 +17,7 @@ import {
 import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
 import './Navbar.css'
+import SearchBar from '../Search_Bar/Search_Bar'
 
 class Navigationbar extends Component {
 
@@ -76,6 +77,7 @@ class Navigationbar extends Component {
                     </NavbarBrand>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
+                            <SearchBar/>
                             <NavItem>
                                 <Link to={'/home/myProfile/' + this.state.userName}>
                                     <Image className="navProfile" src={profile} avatar={true}/>

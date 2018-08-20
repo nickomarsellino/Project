@@ -79,7 +79,7 @@ class Home extends Component {
         const home = () => (
             <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
 
-                <SearchBar/>
+                {/*<SearchBar/>*/}
 
                 <TwittBox username={this.state.username}
                           userId={this.state.userId}
