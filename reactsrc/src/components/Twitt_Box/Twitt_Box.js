@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import {Card, CardBody, Button} from "mdbreact"
-import { Form,  TextArea, Image } from 'semantic-ui-react'
+import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
-import {setInStorage} from "../../utils/storage";
+import CircularProgressbar from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 
 class Twitt_Box extends Component {
@@ -12,12 +13,15 @@ class Twitt_Box extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            tweetStatus: '#4db6ac',
+            charCounter: 160,
             userId: '',
             username: '',
             userTweet: ''
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentWillMount() {
@@ -32,10 +36,38 @@ class Twitt_Box extends Component {
 
 
     handleInputChange(e) {
-        const target = e.target;
-        const name = target.name;
-        this.setState({[name]: target.value});
+        this.setState({
+            [e.target.name]: e.target.value,
+            charCounter: 160 - e.target.value.length
+        });
 
+        if (this.state.charCounter > 70) {
+            this.setState({
+                tweetStatus: '#4db6ac'
+            });
+        }
+        if (this.state.charCounter < 70) {
+            this.setState({
+                tweetStatus: '#ffbe76'
+            });
+        }
+        if (this.state.charCounter < 30) {
+            this.setState({
+                tweetStatus: '#ff7675'
+            });
+        }
+        if (this.state.charCounter === 160) {
+            this.setState({
+                userTweet: '',
+                tweetStatus: '#4db6ac'
+            });
+        }
+        if (e.target.value.length > 160 ) {
+            this.setState({
+                userTweet: '',
+                tweetStatus: '#ff7675'
+            });
+        }
     }
 
     handleSubmit(e) {
@@ -52,39 +84,84 @@ class Twitt_Box extends Component {
         axios({
             method: method,
             responseType: 'json',
-            url: `http://localhost:3000/api/users/tweet/`+this.state.userId,
+            url: `api/users/tweet`,
             data: tweet
         })
             .then(() => {
-                window.location.reload();
+               window.location.reload();
             });
     }
 
+    handleClick(e) {
+        this.refs.fileUploader.click();
+    }
 
     render() {
         return (
-            <div style={{marginTop: "8%", marginBottom: "2%"}}>
+            <div className="Tweet-Container">
                 <Card>
                     <CardBody>
-                        <div>
-                            <Image src={profile} avatar/>
-                            <span><h5>{this.state.username}</h5></span>
+                        <div className="profileBox">
+                            <Image src={profile} avatar id="avatarBox"/>
+                            <span><h5 id="nameBox">{this.state.username}</h5></span>
                         </div>
                         <Form id="Form_Container" onSubmit={this.handleSubmit}>
                             <Form.Field
                                 id='form-textarea-control-opinion'
                                 type="text"
+                                maxLength="160"
                                 control={TextArea}
-                                placeholder={"Have a nice day "+this.state.username}
-                                style={{maxHeight: "100px"}}
+                                placeholder={"Have a nice day " + this.state.username}
+                                style={{maxHeight: "100px", minHeight: "90px"}}
                                 name="userTweet"
                                 onChange={this.handleInputChange}
                             />
-                            <Button color="default"
-                                    size="md"
-                                    type="submit"
-                                    style={{borderRadius: "100px"}}
-                            >Post</Button>
+                            <div className="buttonBox">
+                                <div>
+                                    <Icon.Group size='large' id="addImageButton" onClick={this.handleClick.bind(this)}>
+                                        <Icon name='images'/>
+                                        <Icon corner name='add'/>
+                                    </Icon.Group>
+                                </div>
+
+                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
+
+                                <Button color="default"
+                                        size="md"
+                                        id="postButton"
+                                        type="submit"
+                                        style={{borderRadius: "100px"}}
+                                        disabled={!this.state.userTweet}
+                                >Post</Button>
+
+                                <p id="limiter-Tweet" style={{color: this.state.tweetStatus}}>
+                                    {this.state.charCounter}
+                                </p>
+
+                                <span>
+                                    <div id='limiter-Tweet-Circular'>
+                                        <CircularProgressbar
+                                            percentage={
+                                                this.state.charCounter
+                                            }
+                                            background
+                                            backgroundPadding={1}
+                                            strokeWidth={50}
+                                            styles={{
+                                                background: {
+                                                    fill: this.state.tweetStatus
+                                                },
+                                                path: {
+                                                    strokeLinecap: "butt",
+                                                    stroke: "#ffff"
+                                                },
+                                                trail: {stroke: "transparent"}
+                                            }}
+                                        />
+                                    </div>
+                                </span>
+
+                            </div>
                         </Form>
                     </CardBody>
                 </Card>

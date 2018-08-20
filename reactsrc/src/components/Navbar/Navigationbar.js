@@ -3,13 +3,20 @@ import axios from 'axios';
 import logo from '../../logo.png';
 import {Link} from 'react-router-dom';
 import {
-    Navbar, NavbarBrand, NavbarNav,
-    NavbarToggler, Collapse, NavItem, DropdownItem
-    , Dropdown, DropdownToggle, DropdownMenu
+    Navbar,
+    NavbarBrand,
+    NavbarNav,
+    NavbarToggler,
+    Collapse,
+    NavItem,
+    DropdownItem,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu
 } from 'mdbreact';
-import {getFromStorage, setInStorage} from '../../utils/storage';
 import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
+import './Navbar.css'
 
 class Navigationbar extends Component {
 
@@ -17,6 +24,7 @@ class Navigationbar extends Component {
         super(props);
         this.state = {
             userName: "",
+            userId: "",
             collapse: false,
             isWideEnough: false,
             dropdownOpen: false
@@ -27,13 +35,14 @@ class Navigationbar extends Component {
     }
 
     getData() {
-        // console.log(this.props.userId);
-        axios.get('/api/users/' + this.props.userId)
+        axios.get('/api/users', {
+            withCredentials: true
+        })
             .then(res => {
                 this.setState({
-                    userName: res.data.username
+                    userName: res.data.username,
+                    userId: res.data._id
                 });
-                console.log("state ", this.state);
             });
     }
 
@@ -43,7 +52,7 @@ class Navigationbar extends Component {
 
     onClick() {
         this.setState({
-            collapse: !this.state.collapse,
+            collapse: !this.state.collapse
         });
     }
 
@@ -54,80 +63,79 @@ class Navigationbar extends Component {
     }
 
     logout() {
-        const obj = getFromStorage('bebas');
-
-        axios.get('/api/users/logout?token=' + obj.token)
-            .then(res => {
-                setInStorage('bebas', {
-                    token: " ",
-                    userId: " "
-                });
-            });
+        axios.get('/api/users/logout');
     }
 
     render() {
         if (this.props.success) {
             return (
-                <Navbar light color="teal lighten-2"
-                        expand="md" dark="true" scrolling>
-                    <NavbarBrand href="/">
-                        <img src={logo} alt="" height="30px"/> Friend Zone ?
+                <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
+                    <NavbarBrand href="/home">
+                        <img src={logo} alt="" height="30px"/>
+                        Friend Zone ?
                     </NavbarBrand>
-                    {!this.state.isWideEnough &&
-                    <NavbarNav right>
-                        <NavItem>
-                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                <DropdownToggle nav caret>
-                                    <Image src={profile} avatar/>
-                                    <span>{this.state.userName}</span>
-                                </DropdownToggle>
-                                <DropdownMenu>
+                    {
+                        !this.state.isWideEnough && <NavbarNav right={true}>
+                            <NavItem>
+                                <Link to={'/home/myProfile/' + this.state.userName}>
+                                    <Image className="navProfile" src={profile} avatar={true}/>
+                                    <span className="navProfile">{this.state.userName}</span>
+                                </Link>
 
-                                    <DropdownItem>
-                                        <Link to={'/home/profile/'+this.state.userName}>
-                                            Edit Profile
-                                        </Link>
-                                    </DropdownItem>
+                                <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                    <DropdownToggle nav={true} caret={true}></DropdownToggle>
+                                    <DropdownMenu>
 
-                                    <DropdownItem onClick={this.logout}>
-                                        <Link to={'/signin'}>
-                                            Log Out
-                                        </Link>
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </Dropdown>
-                        </NavItem>
-                    </NavbarNav>
-                    }
-                </Navbar>
-            );
-        }
-
-        else {
-            return (
-                <Navbar light color="teal lighten-2" dark="true" expand="md" scrolling>
-                    <NavbarBrand href="/">
-                        <img src={logo} alt="" height="40px"/> Friend Zone ?
-                    </NavbarBrand>
-                    {!this.state.isWideEnough && <NavbarToggler dark onClick={this.onClick}/>}
-                    <Collapse isOpen={this.state.collapse} navbar>
-                        <NavbarNav right>
-                            <center>
-                                <NavItem>
-                                    <Link to={'/signin'}>
-                                        <Button color="white"><p>Sign In</p></Button>
-                                    </Link>
-
-                                    <Link to={'/register'}>
-                                        <Button color="white"><p>Register</p></Button>
-                                    </Link>
-
-                                </NavItem>
-                            </center>
+                                        <DropdownItem>
+                                            <Link to={'/home/editProfile/' + this.state.userName}>
+                                                Edit Profile
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                            <Link to={'/home/changePassword/' + this.state.userName}>
+                                                Change Password
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem onClick={this.logout}>
+                                            <Link to={'/signin'}>
+                                                Log Out
+                                            </Link>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
+                            </NavItem>
                         </NavbarNav>
-                    </Collapse>
-                </Navbar>
-            );
+                    }
+                </Navbar>);
+        }
+        else {
+            return (<Navbar light={true} color="teal lighten-2" dark={true} expand="md" scrolling={true}>
+                <NavbarBrand href="/home">
+                    <img src={logo} alt="" height="40px"/>
+                    Friend Zone ?
+                </NavbarBrand>
+                {!this.state.isWideEnough && <NavbarToggler dark="dark" onClick={this.onClick}/>}
+                <Collapse isOpen={this.state.collapse} navbar={true}>
+                    <NavbarNav right={true}>
+                        <center>
+                            <NavItem>
+                                <Link to={'/signin'}>
+                                    <Button color="white">
+                                        <p>Sign In</p>
+                                    </Button>
+                                </Link>
+
+                                <Link to={'/register'}>
+                                    <Button color="white">
+                                        <p>Register</p>
+                                    </Button>
+                                </Link>
+
+                            </NavItem>
+                        </center>
+                    </NavbarNav>
+                </Collapse>
+            </Navbar>);
         }
     }
 }

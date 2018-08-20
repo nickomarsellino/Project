@@ -6,11 +6,19 @@ const UserSessionSchema = new Schema({
         type    : String,
         default : ''
     },
-    timestamp: {
-        type    : Date,
-        default : Date.now()
+    username:{
+        type    : String,
+        default : ''
     },
-    isDeleted: {
+    password: {
+        type    : String,
+        default : ''
+    },
+    expiredTime: {
+        type    : Date,
+        default : ''
+    },
+    isLogout: {
         type    : Boolean,
         default : false
     }

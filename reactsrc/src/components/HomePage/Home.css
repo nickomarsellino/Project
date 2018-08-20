@@ -8,8 +8,13 @@ body {
     background-size: 30%;
 }
 
-.container-content{
-    margin-top: 1%;
+.navbarFixed{
+  overflow: hidden;
+  background-color: grey;
+  position: fixed;
+  top: 0;
 }
 
-
+.container-content {
+    margin-top: 1%;
+}
