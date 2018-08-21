@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const http = require('http');
-const userRoutes = require('./api/routes/userRouter');
+const userRoutes = require('./routes/userRouter');
 const app = express();
 
 app.use(logger('dev'));

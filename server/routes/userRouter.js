@@ -16,10 +16,11 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, './uploads/');
+    cb(null, '../reactsrc/src/uploads');
   },
   filename: function(req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' +
+     file.originalname);
   }
 });
 
@@ -124,8 +125,6 @@ router.get('/profiletweet/:id', (req, res) => {
 });
 
 
-
-
 router.post('/register', (req, res) => {
 
     const user = new User();
@@ -135,6 +134,7 @@ router.post('/register', (req, res) => {
         email: req.body.email,
         password: user.generateHash(req.body.password),
         phone: req.body.phone,
+        profilePicture: '',
         timestamp: Date.now()
     };
     User.create(users).then(function (result) {
@@ -147,6 +147,7 @@ router.post('/register', (req, res) => {
                 email: result.email,
                 password: result.password,
                 phone: result.phone,
+                profilePicture: '',
                 timestamp: new Date()
             }
         });
@@ -262,20 +263,19 @@ router.get('/logout', (req, res, next) => {
 });
 
 // Edit Profile
-router.put('/', (req, res) => {
+router.put('/:id', upload.single('profilePicture'), (req, res) => {
 
-    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    // const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    // const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    // const userData = JSON.parse(plaintext);
 
-
-    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
-    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    const userData = JSON.parse(plaintext);
-
-    User.findByIdAndUpdate({_id: userData.userId}, req.body).then(() => {
-        User.findOne({_id: userData.userId}).then((user) => {
+    User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
+        User.findOne({_id: req.params.id}).then((user) => {
             user.save()
                 .then((result) => {
-                    Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
+                  User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
+                    Tweet.updateMany({userId: req.params.id}, {$set: {username: req.body.username}}).exec();
                     res.json({
                         success: true,
                         msg: `Successfully edited..!`,
@@ -283,8 +283,8 @@ router.put('/', (req, res) => {
                             _id: result._id,
                             username: result.username,
                             email: result.email,
-                            password: result.password,
-                            phone: result.phone
+                            phone: result.phone,
+                            profilePicture: req.file.filename
                         }
                     });
                 }).catch((err) => {

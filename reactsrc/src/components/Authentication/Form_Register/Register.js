@@ -37,7 +37,7 @@ class Register extends Component {
 
         const name = e.target.name;
 
-        this.setState({[name]: target.value});
+        this.setState({[name]: e.target.value});
 
     }
 

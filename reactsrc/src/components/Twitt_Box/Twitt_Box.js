@@ -132,12 +132,9 @@ class Twitt_Box extends Component {
                                         <Icon corner name='add'/>
                                     </Icon.Group>
                                 </div>
-<<<<<<< HEAD
                                 <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
-=======
->>>>>>> 199fda2a83af3a42055ebad38680f9d0591672e9
-
                                 <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
+                                
 
                                 <Button color="default"
                                         size="md"
