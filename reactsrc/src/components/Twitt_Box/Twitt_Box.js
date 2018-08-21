@@ -17,7 +17,8 @@ class Twitt_Box extends Component {
             charCounter: 160,
             userId: '',
             username: '',
-            userTweet: ''
+            userTweet: '',
+            tweetImage: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -77,7 +78,8 @@ class Twitt_Box extends Component {
         const tweet = {
             tweetText: this.state.userTweet,
             username: this.state.username,
-            userId: this.state.userId
+            userId: this.state.userId,
+            tweetImage: this.state.tweetImage
         };
 
         const method = 'post';
@@ -94,6 +96,13 @@ class Twitt_Box extends Component {
 
     handleClick(e) {
         this.refs.fileUploader.click();
+    }
+
+    fileSelectedHandler = event => {
+      this.setState({
+        imageUpload: event.target.files[0]
+      })
+      console.log(event.target.files[0]);
     }
 
     render() {
@@ -123,8 +132,9 @@ class Twitt_Box extends Component {
                                         <Icon corner name='add'/>
                                     </Icon.Group>
                                 </div>
-
+                                <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
                                 <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
+                                
 
                                 <Button color="default"
                                         size="md"

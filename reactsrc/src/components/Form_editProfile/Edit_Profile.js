@@ -21,11 +21,16 @@ class Edit_Profile extends Component {
             email: "",
             phone: "",
             formMessage: "",
-            formStatus: ""
+            formStatus: "",
+            selectedFile: [],
+            file:"",
+            imageId:'',
+            status: false
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
     }
 
     getData() {
@@ -47,12 +52,45 @@ class Edit_Profile extends Component {
     handleInputChange(e) {
         const target = e.target;
         const name = target.name;
-
         this.setState({[name]: target.value});
+    }
+
+    fileSelectedHandler = event => {
+        console.log(event.target.files[0]);
+
+        // Check kalo ada file nya (image)
+        if (event.target.files != null || event.target.files[0] != null){
+            // ini buat get image nya
+            this.setState({
+              selectedFile: event.target.files[0]
+            });
+            this.setState({
+              status: true
+            });
+            console.log("isi state nya ",this.state);
+
+            // manage tampilan view pake javascript
+            if(event.target.files && event.target.files[0]){
+              var reader = new FileReader();
+              // ketika image nya ke load
+              reader.onload = (event) => {
+                document.getElementById("cover").setAttribute('src', event.target.result)
+              }
+              // iniii let the browser get data nya
+              reader.readAsDataURL(event.target.files[0]);
+            }
+        } else {
+          console.log("No data on the field..");
+        }
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        var formData = new FormData();
+        var fileField = document.querySelector("input[type='file']");
+
+        formData.append('profilePicture', this.state.selectedFile);
+
         const user = {
             username: this.state.username,
             email: this.state.email,
@@ -62,8 +100,9 @@ class Edit_Profile extends Component {
         axios({
             method: 'put',
             responseType: 'json',
-            url: `/api/users`,
-            data: user,
+            url: '/api/users/'+ this.state.userId,
+            // data: user,
+            body: formData,
             credentials:'include',
             withCredentials: true
         })
@@ -113,11 +152,15 @@ class Edit_Profile extends Component {
                             <CardBody>
                                 <center>
                                     <h1>Profile</h1>
-                                    <Image src={profile} size='small' circular/>
+                                    <Image id="cover" src={profile} size='small' circular/>
                                 </center>
+                                <br/>
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
+                                            <center>
+                                                <input type="file" id="profilePicture"  onChange={this.fileSelectedHandler} />
+                                            </center>
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
                                                         value={this.state.username}

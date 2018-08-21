@@ -34,10 +34,10 @@ class Register extends Component {
 
 
     handleInputChange(e) {
-        const target = e.target;
-        const name = target.name;
 
-        this.setState({[name]: target.value});
+        const name = e.target.name;
+
+        this.setState({[name]: e.target.value});
 
     }
 

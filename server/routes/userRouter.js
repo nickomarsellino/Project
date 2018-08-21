@@ -9,26 +9,77 @@ const btoa = require('btoa');
 const atob = require('atob');
 const cookie = require('cookie');
 const secretKey = 'Lil-Uzi-Vert=XO-Tour-LIF3'
-
-
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
-router.post('/tweet', (req, res, next) => {
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, '../reactsrc/src/uploads');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' +
+     file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 10
+    // max: 10 mb
+  },
+  fileFilter: fileFilter
+});
+
+router.post('/tweet', upload.single('tweetImage'),(req, res, next) => {
 
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-
-
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    const tweet = {
+
+    const tweet = new Tweet({
+        // _id: new mongoose.Types.ObjectId(),
         username: req.body.username,
         tweetText: req.body.tweetText,
         userId: userData.userId,
+        tweetImage: req.file.path,
         timestamp: Date.now()
-    };
+    });
+    tweet
+      .save()
+      .then(result => {
+        console.log("resultnya ",result);
+        res.status(201).json({
+          message: "Created product successfully",
+          created:{
+              username: req.body.username,
+              tweetText: req.body.tweetText,
+              userId: userData.userId,
+              timestamp: new Date(),
+              tweetImage: req.file.path
+          }
+        });
+      })
+      .catch(err => {
+        console.log("errornya: ",err);
+        res.status(500).json({
+          error: err
+        });
+      });
+
 
     Tweet.create(tweet).then(function (result) {
         return res.send({
@@ -74,8 +125,6 @@ router.get('/profiletweet/:id', (req, res) => {
 });
 
 
-
-
 router.post('/register', (req, res) => {
 
     const user = new User();
@@ -85,6 +134,7 @@ router.post('/register', (req, res) => {
         email: req.body.email,
         password: user.generateHash(req.body.password),
         phone: req.body.phone,
+        profilePicture: '',
         timestamp: Date.now()
     };
     User.create(users).then(function (result) {
@@ -97,6 +147,7 @@ router.post('/register', (req, res) => {
                 email: result.email,
                 password: result.password,
                 phone: result.phone,
+                profilePicture: '',
                 timestamp: new Date()
             }
         });
@@ -212,20 +263,21 @@ router.get('/logout', (req, res, next) => {
 });
 
 // Edit Profile
-router.put('/', (req, res) => {
+router.put('/:id', upload.single('profilePicture'), (req, res) => {
 
-    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    // const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    // const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    // const userData = JSON.parse(plaintext);
 
+    console.log("req.file.filename: ",req.file.filename);
 
-    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
-    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    const userData = JSON.parse(plaintext);
-
-    User.findByIdAndUpdate({_id: userData.userId}, req.body).then(() => {
-        User.findOne({_id: userData.userId}).then((user) => {
+    User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
+        User.findOne({_id: req.params.id}).then((user) => {
             user.save()
                 .then((result) => {
-                    Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
+                  User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
+                    Tweet.updateMany({userId: req.params.id}, {$set: {username: req.body.username}}).exec();
                     res.json({
                         success: true,
                         msg: `Successfully edited..!`,
@@ -233,8 +285,8 @@ router.put('/', (req, res) => {
                             _id: result._id,
                             username: result.username,
                             email: result.email,
-                            password: result.password,
-                            phone: result.phone
+                            phone: result.phone,
+                            profilePicture: req.file.filename
                         }
                     });
                 }).catch((err) => {

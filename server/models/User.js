@@ -38,9 +38,9 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Phone Number is required.']
     },
+    profilePicture: { type: String },
     timestamp: {
-        type    : Date,
-        default : Date.now()
+        type    : Date      
     }
 });
 
