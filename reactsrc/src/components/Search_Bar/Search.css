@@ -1,5 +1,6 @@
 #SearchBoxContainer{
     margin-right: 4%;
+    width: 300px;
 }
 
 .ui.input {
@@ -17,4 +18,38 @@
 
 .ui.search>.results {
     width: 150%;
+}
+
+.ui.search>.results .result .image {
+    float: left;
+}
+
+.ui.search>.results .result .image+.content {
+    margin: 6px 0px 2px;
+}
+
+.ui.search>.results .result .image {
+    float: right;
+    overflow: hidden;
+    background: 0 0;
+    width: 6em;
+    height: 5em;
+}
+
+.ui.search>.results .result .image {
+    vertical-align: middle;
+    float: left;
+}
+
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.ui.search>.results .result .image img {
+    display: block;
+    width: 70px;
+    height: 65px;
+    border-radius: 50%;
 }

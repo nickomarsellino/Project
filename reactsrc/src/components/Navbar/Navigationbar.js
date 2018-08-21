@@ -77,7 +77,10 @@ class Navigationbar extends Component {
                     </NavbarBrand>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
-                            <SearchBar/>
+                            <NavItem>
+                                <SearchBar/>
+                            </NavItem>
+
                             <NavItem>
                                 <Link to={'/home/myProfile/' + this.state.userName}>
                                     <Image className="navProfile" src={profile} avatar={true}/>
@@ -85,7 +88,7 @@ class Navigationbar extends Component {
                                 </Link>
 
                                 <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                    <DropdownToggle nav={true} caret={true}></DropdownToggle>
+                                    <DropdownToggle nav={true} caret={true}/>
                                     <DropdownMenu>
 
                                         <DropdownItem>
