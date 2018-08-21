@@ -50,18 +50,16 @@ class Search_Bar extends Component {
 
     render() {
         return (
-            <center>
-                    <div id="SearchBoxContainer">
-                        <Search
-                            placeholder = "Search"
-                            loading={this.state.isLoading}
-                            onResultSelect={this.handleResultSelect}
-                            onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
-                            results={this.state.results}
-                            value={this.state.value}
-                        />
-                    </div>
-            </center>
+            <div id="SearchBoxContainer">
+                <Search
+                    placeholder="Search"
+                    loading={this.state.isLoading}
+                    onResultSelect={this.handleResultSelect}
+                    onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
+                    results={this.state.results}
+                    value={this.state.value}
+                />
+            </div>
         )
     }
 }

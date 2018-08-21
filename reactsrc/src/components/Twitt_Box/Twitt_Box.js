@@ -109,7 +109,6 @@ class Twitt_Box extends Component {
                             <Form.Field
                                 id='form-textarea-control-opinion'
                                 type="text"
-                                maxLength="160"
                                 control={TextArea}
                                 placeholder={"Have a nice day " + this.state.username}
                                 style={{maxHeight: "100px", minHeight: "90px"}}
