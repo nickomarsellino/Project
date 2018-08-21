@@ -35,9 +35,7 @@ class Navigationbar extends Component {
     }
 
     getData() {
-        // console.log(this.props.userId);
         axios.get('/api/users', {
-            credentials: 'include',
             withCredentials: true
         })
             .then(res => {
@@ -72,14 +70,14 @@ class Navigationbar extends Component {
         if (this.props.success) {
             return (
                 <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
-                    <NavbarBrand href="/">
+                    <NavbarBrand href="/home">
                         <img src={logo} alt="" height="30px"/>
                         Friend Zone ?
                     </NavbarBrand>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>
-                                <Link to={'/home/profile/' + this.state.userName}>
+                                <Link to={'/home/myProfile/' + this.state.userName}>
                                     <Image className="navProfile" src={profile} avatar={true}/>
                                     <span className="navProfile">{this.state.userName}</span>
                                 </Link>
@@ -112,7 +110,7 @@ class Navigationbar extends Component {
         }
         else {
             return (<Navbar light={true} color="teal lighten-2" dark={true} expand="md" scrolling={true}>
-                <NavbarBrand href="/">
+                <NavbarBrand href="/home">
                     <img src={logo} alt="" height="40px"/>
                     Friend Zone ?
                 </NavbarBrand>

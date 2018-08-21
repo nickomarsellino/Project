@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const TweetSchema = new Schema({
+const TweetSchema = Schema({
   userId: {
       type    : String,
       default : ''
@@ -18,11 +18,8 @@ const TweetSchema = new Schema({
   },
   tweetImage: {
     type: Buffer
-  },
-  isDeleted: {
-    type    : Boolean,
-    default : false
   }
+  
 });
 
 module.exports = mongoose.model('Tweet', TweetSchema);

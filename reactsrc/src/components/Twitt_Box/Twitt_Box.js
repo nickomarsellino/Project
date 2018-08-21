@@ -4,6 +4,8 @@ import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
+import CircularProgressbar from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 
 class Twitt_Box extends Component {
@@ -11,6 +13,8 @@ class Twitt_Box extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            tweetStatus: '#4db6ac',
+            charCounter: 160,
             userId: '',
             username: '',
             userTweet: '',
@@ -33,9 +37,38 @@ class Twitt_Box extends Component {
 
 
     handleInputChange(e) {
-        const target = e.target;
-        const name = target.name;
-        this.setState({[name]: target.value});
+        this.setState({
+            [e.target.name]: e.target.value,
+            charCounter: 160 - e.target.value.length
+        });
+
+        if (this.state.charCounter > 70) {
+            this.setState({
+                tweetStatus: '#4db6ac'
+            });
+        }
+        if (this.state.charCounter < 70) {
+            this.setState({
+                tweetStatus: '#ffbe76'
+            });
+        }
+        if (this.state.charCounter < 30) {
+            this.setState({
+                tweetStatus: '#ff7675'
+            });
+        }
+        if (this.state.charCounter === 160) {
+            this.setState({
+                userTweet: '',
+                tweetStatus: '#4db6ac'
+            });
+        }
+        if (e.target.value.length > 160 ) {
+            this.setState({
+                userTweet: '',
+                tweetStatus: '#ff7675'
+            });
+        }
     }
 
     handleSubmit(e) {
@@ -57,7 +90,7 @@ class Twitt_Box extends Component {
             data: tweet
         })
             .then(() => {
-                window.location.reload();
+               window.location.reload();
             });
     }
 
@@ -85,9 +118,10 @@ class Twitt_Box extends Component {
                             <Form.Field
                                 id='form-textarea-control-opinion'
                                 type="text"
+                                maxLength="160"
                                 control={TextArea}
                                 placeholder={"Have a nice day " + this.state.username}
-                                style={{maxHeight: "100px"}}
+                                style={{maxHeight: "100px", minHeight: "90px"}}
                                 name="userTweet"
                                 onChange={this.handleInputChange}
                             />
@@ -98,8 +132,12 @@ class Twitt_Box extends Component {
                                         <Icon corner name='add'/>
                                     </Icon.Group>
                                 </div>
+<<<<<<< HEAD
                                 <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
+=======
+>>>>>>> 199fda2a83af3a42055ebad38680f9d0591672e9
 
+                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
 
                                 <Button color="default"
                                         size="md"
@@ -108,6 +146,34 @@ class Twitt_Box extends Component {
                                         style={{borderRadius: "100px"}}
                                         disabled={!this.state.userTweet}
                                 >Post</Button>
+
+                                <p id="limiter-Tweet" style={{color: this.state.tweetStatus}}>
+                                    {this.state.charCounter}
+                                </p>
+
+                                <span>
+                                    <div id='limiter-Tweet-Circular'>
+                                        <CircularProgressbar
+                                            percentage={
+                                                this.state.charCounter
+                                            }
+                                            background
+                                            backgroundPadding={1}
+                                            strokeWidth={50}
+                                            styles={{
+                                                background: {
+                                                    fill: this.state.tweetStatus
+                                                },
+                                                path: {
+                                                    strokeLinecap: "butt",
+                                                    stroke: "#ffff"
+                                                },
+                                                trail: {stroke: "transparent"}
+                                            }}
+                                        />
+                                    </div>
+                                </span>
+
                             </div>
                         </Form>
                     </CardBody>

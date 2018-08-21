@@ -6,6 +6,9 @@
 .profile{
   margin: 3%;
 }
+.item{
+  font-size: 15px;
+}
 
 #detailProfile{
   width: 20%;
@@ -19,7 +22,7 @@
   float: right;
 }
 
-.userTweet{
+.userProfile{
   float: right;
   width: 75%;
   margin-bottom: 20px;

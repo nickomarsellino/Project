@@ -93,7 +93,6 @@ router.post('/tweet', upload.single('tweetImage'),(req, res, next) => {
 });
 
 router.delete('/tweet/:id', (req, res, next) => {
-    console.log(req.params.id);
     Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
         res.send(result);
     });
@@ -123,8 +122,6 @@ router.get('/profiletweet/:id', (req, res) => {
         res.status(404).json({success: false, msg: `No such tweets.`});
     });
 });
-
-
 
 
 
@@ -344,7 +341,7 @@ router.put('/changePassword', (req, res) => {
     })
 });
 
-// Get data for update profile
+// Get data for update profile & to View User Data
 router.get('/', (req, res) => {
 
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
@@ -356,6 +353,21 @@ router.get('/', (req, res) => {
 
 
     User.findById(userData.userId).then((result) => {
+        res.json(result);
+    }).catch((err) => {
+        res.status(404).json({success: false, msg: `No such user.`});
+    });
+});
+
+router.get('/allUsers', (req, res, next) => {
+    User.find({}).sort({timestamp: 'descending'}).then((result) => {
+        res.send(result);
+    });
+});
+
+// Get data for profile page
+router.get('/profile/:id', (req, res) => {
+    User.find({_id: req.params.id}).then((result) => {
         res.json(result);
     }).catch((err) => {
         res.status(404).json({success: false, msg: `No such user.`});
