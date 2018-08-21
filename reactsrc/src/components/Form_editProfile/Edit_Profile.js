@@ -86,6 +86,11 @@ class Edit_Profile extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        var formData = new FormData();
+        var fileField = document.querySelector("input[type='file']");
+
+        formData.append('profilePicture', this.state.selectedFile);
+
         const user = {
             username: this.state.username,
             email: this.state.email,
@@ -95,8 +100,9 @@ class Edit_Profile extends Component {
         axios({
             method: 'put',
             responseType: 'json',
-            url: `/api/users`,
-            data: user,
+            url: '/api/users/'+ this.state.userId,
+            // data: user,
+            body: formData,
             credentials:'include',
             withCredentials: true
         })
@@ -153,7 +159,7 @@ class Edit_Profile extends Component {
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
                                             <center>
-                                                <input type="file" id="productImage"  onChange={this.fileSelectedHandler} />
+                                                <input type="file" id="profilePicture"  onChange={this.fileSelectedHandler} />
                                             </center>
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}

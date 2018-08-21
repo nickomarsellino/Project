@@ -40,8 +40,7 @@ const UserSchema = new mongoose.Schema({
     },
     profilePicture: { type: String },
     timestamp: {
-        type    : Date,
-        default : Date.now()
+        type    : Date      
     }
 });
 

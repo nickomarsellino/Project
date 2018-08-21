@@ -270,6 +270,8 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
     // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     // const userData = JSON.parse(plaintext);
 
+    console.log("req.file.filename: ",req.file.filename);
+
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
         User.findOne({_id: req.params.id}).then((user) => {
             user.save()
