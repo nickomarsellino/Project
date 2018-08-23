@@ -344,6 +344,7 @@ router.get('/allUsers', (req, res, next) => {
     });
 });
 
+
 // Get data for profile page
 router.get('/profile/:id', (req, res) => {
     User.find({_id: req.params.id}).then((result) => {

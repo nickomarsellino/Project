@@ -39,6 +39,7 @@ class Edit_Profile extends Component {
 
     getProfileData() {
 
+        //Jika ia klik My Profile
         if (this.props.userId) {
             axios.get('/api/users/profile/'+ this.props.userId).then(res => {
                 const user = res.data[0];
@@ -51,6 +52,8 @@ class Edit_Profile extends Component {
             });
             this.setState({userId: this.props.userId})
         }
+
+        //Jika ia Klik DI container tweetnya
         else if (this.props.userIdProfile.userId) {
             axios.get('/api/users/profile/'+ this.props.userIdProfile.userId).then(res => {
                 const user = res.data[0];
