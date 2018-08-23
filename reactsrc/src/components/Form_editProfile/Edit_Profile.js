@@ -40,10 +40,12 @@ class Edit_Profile extends Component {
                     userId: res.data._id,
                     username: res.data.username,
                     email: res.data.email,
-                    phone: res.data.phone
+                    phone: res.data.phone,
+                    selectedFile: res.data
                 });
             });
     }
+
 
     componentDidMount() {
         this.getData();
@@ -101,7 +103,7 @@ class Edit_Profile extends Component {
             method: 'put',
             responseType: 'json',
             url: '/api/users/'+ this.state.userId,
-            // data: user,
+            data: user,
             body: formData,
             credentials:'include',
             withCredentials: true
@@ -144,6 +146,18 @@ class Edit_Profile extends Component {
     }
 
     render() {
+      console.log("state :",this.state);
+
+      var imageUrl = this.state.selectedFile.profilePicture;
+      let imagedisplay
+
+      if(imageUrl){
+          imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} style={{width: '550px', height: '450px',marginTop:'-1.1rem'}} className="float-right" />
+      }
+      else{
+        imagedisplay = <img src={profile} />
+      }
+
         return (
             <FadeIn>
                 <div>
@@ -152,7 +166,9 @@ class Edit_Profile extends Component {
                             <CardBody>
                                 <center>
                                     <h1>Profile</h1>
-                                    <Image id="cover" src={profile} size='small' circular/>
+                                    <Image id="cover" src={profile} size='small' circular>
+                                    {imagedisplay}
+                                    </Image>
                                 </center>
                                 <br/>
                                 <Row>

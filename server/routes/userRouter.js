@@ -42,10 +42,10 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
+
 router.post('/tweet', (req, res, next) => {
-
+  
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-
 
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
@@ -55,7 +55,30 @@ router.post('/tweet', (req, res, next) => {
         username: req.body.username,
         tweetText: req.body.tweetText,
         userId: userData.userId,
+        // tweetImage: req.file.path,
         timestamp: Date.now()
+    });
+    tweet
+      .save()
+      .then(result => {
+        console.log("resultnya ",result);
+        res.status(201).json({
+          message: "Created product successfully",
+          created:{
+              username: req.body.username,
+              tweetText: req.body.tweetText,
+              userId: userData.userId,
+              timestamp: new Date(),
+              // tweetImage: req.file.path
+          }
+        });
+      })
+      .catch(err => {
+        console.log("errornya: ",err);
+        res.status(500).json({
+          error: err
+        });
+      });
     };
 
     Tweet.create(tweet).then(function (result) {
@@ -247,7 +270,7 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
     // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     // const userData = JSON.parse(plaintext);
 
-    console.log("req.file.filename: ",req.file.filename);
+    // console.log("req.file.filename: ",req.file.filename);
 
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
         User.findOne({_id: req.params.id}).then((user) => {

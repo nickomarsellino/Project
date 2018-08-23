@@ -28,27 +28,29 @@ class Navigationbar extends Component {
             userId: "",
             collapse: false,
             isWideEnough: false,
-            dropdownOpen: false
+            dropdownOpen: false,
+            profilePicture: ""
         };
         this.onClick = this.onClick.bind(this);
         this.toggle = this.toggle.bind(this);
         this.logout = this.logout.bind(this);
     }
 
-    getData() {
+    getProfilePicture() {
         axios.get('/api/users', {
             withCredentials: true
         })
             .then(res => {
                 this.setState({
                     userName: res.data.username,
-                    userId: res.data._id
+                    userId: res.data._id,
+                    profilePicture: res.data.profilePicture
                 });
             });
     }
 
     componentWillMount() {
-        this.getData();
+        this.getProfilePicture();
     }
 
     onClick() {
@@ -68,6 +70,18 @@ class Navigationbar extends Component {
     }
 
     render() {
+
+      var imageUrl = this.state.profilePicture;
+      let imagedisplay
+
+      if(imageUrl){
+          imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+      }
+      else{
+        imagedisplay = <img src={profile} />
+      }
+
+      console.log("state di navbar :",this.state);
         if (this.props.success) {
             return (
                 <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
@@ -83,7 +97,9 @@ class Navigationbar extends Component {
 
                             <NavItem>
                                 <Link to={'/home/myProfile/' + this.state.userName}>
-                                    <Image className="navProfile" src={profile} avatar={true}/>
+                                    <Image className="navProfile" src={profile} avatar={true}>
+                                        {imagedisplay}
+                                    </Image>
                                     <span className="navProfile">{this.state.userName}</span>
                                 </Link>
 
