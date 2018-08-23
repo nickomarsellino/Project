@@ -1,15 +1,11 @@
 import React, {Component} from "react";
 import _ from 'lodash'
-import faker from 'faker'
 import './Search.css';
 import profile from '../../daniel.jpg';
 import {Search, Grid, Header, Segment} from 'semantic-ui-react';
+import axios from "axios/index";
 
-const source = _.times(5, () => ({
-    title: faker.company.companyName(),
-    description: faker.company.catchPhrase(),
-    image: faker.image.people()
-}));
+let source ;
 
 
 class Search_Bar extends Component {
@@ -20,17 +16,24 @@ class Search_Bar extends Component {
         this.state = {
             isLoading: false,
             value: '',
-            results: []
+            results: [],
+            sourceData : []
         };
     }
 
     componentWillMount() {
-        this.resetComponent()
+        this.resetComponent();
+
+        axios.get('/api/users/allUsers/')
+            .then(res => {
+                source = res.data;
+                console.log(JSON.stringify(res.data[1]).replace('username', 'title'));
+            });
     }
 
     resetComponent = () => this.setState({isLoading: false, results: [], value: ''})
 
-    handleResultSelect = (e, {result}) => this.setState({value: result.title})
+    handleResultSelect = (e, {result}) => this.setState({value: result.username})
 
     handleSearchChange = (e, {value}) => {
         this.setState({isLoading: true, value})
@@ -39,25 +42,34 @@ class Search_Bar extends Component {
             if (this.state.value.length < 1) return this.resetComponent()
 
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-            const isMatch = result => re.test(result.title)
+            const isMatch = result => re.test(result.username);
 
             this.setState({
                 isLoading: false,
                 results: _.filter(source, isMatch),
             })
         }, 300)
+    };
+
+    search() {
+        console.log("ENter");
     }
 
     render() {
         return (
             <div id="SearchBoxContainer">
+
                 <Search
                     placeholder="Search"
                     loading={this.state.isLoading}
-                    onResultSelect={this.handleResultSelect}
                     onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
-                    results={this.state.results}
                     value={this.state.value}
+                    showNoResults={false}
+                    onKeyPress={event => {
+                        if (event.key === "Enter") {
+                            this.search();
+                        }
+                    }}
                 />
             </div>
         )

@@ -108,13 +108,6 @@ class Twitt_Box extends Component {
         this.refs.fileUploader.click();
     }
 
-    fileSelectedHandler = event => {
-      this.setState({
-        imageUpload: event.target.files[0]
-      })
-      console.log(event.target.files[0]);
-    }
-
     render() {
       console.log(this.state);
 
