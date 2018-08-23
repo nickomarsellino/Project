@@ -18,6 +18,7 @@ class Twitt_Box extends Component {
             userId: '',
             username: '',
             userTweet: '',
+            profilePicture: '',
             tweetImage: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -31,10 +32,19 @@ class Twitt_Box extends Component {
 
         this.setState({
             userId: userId,
-            username: username
+            username: username,
         });
+        this.getProfilePicture();
     }
 
+    getProfilePicture() {
+        axios.get('/api/users')
+            .then(res => {
+                this.setState({
+                    profilePicture: res.data.profilePicture
+                });
+            });
+    }
 
     handleInputChange(e) {
         this.setState({
@@ -106,12 +116,26 @@ class Twitt_Box extends Component {
     }
 
     render() {
+      console.log(this.state);
+
+      var imageUrl = this.state.profilePicture;
+      let imagedisplay
+
+      if(imageUrl){
+          imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+      }
+      else{
+        imagedisplay = <img src={profile} />
+      }
+
         return (
             <div className="Tweet-Container">
                 <Card>
                     <CardBody>
                         <div className="profileBox">
-                            <Image src={profile} avatar id="avatarBox"/>
+                            <Image src={profile} avatar id="avatarBox">
+                                {imagedisplay}
+                            </Image>
                             <span><h5 id="nameBox">{this.state.username}</h5></span>
                         </div>
                         <Form id="Form_Container" onSubmit={this.handleSubmit}>
@@ -133,7 +157,7 @@ class Twitt_Box extends Component {
                                 </div>
                                 <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
                                 <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
-                                
+
 
                                 <Button color="default"
                                         size="md"
