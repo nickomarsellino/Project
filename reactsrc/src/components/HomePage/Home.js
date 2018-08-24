@@ -14,7 +14,7 @@ import TwittContainer from "../Twitt_Container/Twitt_Container";
 import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
-import SearchBar from '../Search_Bar/Search_Bar'
+import SearchPage from '../Search_Page/Search_Page'
 
 
 class Home extends Component {
@@ -78,9 +78,6 @@ class Home extends Component {
 
         const home = () => (
             <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
-
-                {/*<SearchBar/>*/}
-
                 <TwittBox username={this.state.username}
                           userId={this.state.userId}
                 />
@@ -114,6 +111,9 @@ class Home extends Component {
                         <Route path={this.props.match.url + '/myProfile'} component={myProfile}/>
 
                         <Route path={this.props.match.url + '/profile'} component={profile}/>
+
+                        <Route path={this.props.match.url + '/search'} component={SearchPage}/>
+
                     </div>
                 </FadeIn>
             </div>

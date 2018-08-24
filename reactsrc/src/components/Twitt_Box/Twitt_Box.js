@@ -109,9 +109,8 @@ class Twitt_Box extends Component {
     }
 
     render() {
-      console.log(this.state);
 
-      var imageUrl = this.state.profilePicture;
+        let imageUrl = this.state.profilePicture;
       let imagedisplay
 
       if(imageUrl){

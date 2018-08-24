@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Icon} from 'semantic-ui-react'
 import logo from '../../logo.png';
 import {Link} from 'react-router-dom';
 import {
@@ -18,12 +19,14 @@ import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
 import './Navbar.css'
 import SearchBar from '../Search_Bar/Search_Bar'
+import ReactDOM from "react-dom";
 
 class Navigationbar extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            isSearch : false,
             userName: "",
             userId: "",
             collapse: false,
@@ -34,6 +37,7 @@ class Navigationbar extends Component {
         this.onClick = this.onClick.bind(this);
         this.toggle = this.toggle.bind(this);
         this.logout = this.logout.bind(this);
+        this.searchClicked = this.searchClicked.bind(this);
     }
 
     getProfilePicture() {
@@ -69,9 +73,37 @@ class Navigationbar extends Component {
         axios.get('/api/users/logout');
     }
 
+    searchClicked(){
+        this.setState({ isSearch: !this.state.isSearch });
+    }
+
+    isSearch(){
+        if (this.state.isSearch) {
+            return (
+                <Link to={'/home'} >
+                    <Icon name='cancel'
+                          size='large'
+                          id="cancelIcon"
+                          onClick={this.searchClicked}/>
+                </Link>
+            );
+        }
+        else{
+            return (
+            <Link to={'/home/search/'} >
+                <Icon name='search'
+                      size='large'
+                      id="searchIcon"
+                      onClick={this.searchClicked}/>
+            </Link>
+            );
+        }
+    }
+
+
     render() {
 
-      var imageUrl = this.state.profilePicture;
+        let imageUrl = this.state.profilePicture;
       let imagedisplay
 
       if(imageUrl){
@@ -92,15 +124,17 @@ class Navigationbar extends Component {
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>
-                                <SearchBar/>
+                                <div className="buttonContainer">
+                                    {this.isSearch(this.state.isSearch)}
+                                </div>
                             </NavItem>
 
                             <NavItem>
                                 <Link to={'/home/myProfile/' + this.state.userName}>
-                                    <Image className="navProfile" src={profile} avatar={true}>
+                                    <Image className="navProfile" id="ProfilePicture" src={profile} avatar={true}>
                                         {imagedisplay}
                                     </Image>
-                                    <span className="navProfile">{this.state.userName}</span>
+                                    <span className="navProfile" id="ProfileName">{this.state.userName}</span>
                                 </Link>
 
                                 <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
