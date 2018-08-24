@@ -23,7 +23,8 @@ class Home extends Component {
         super(props);
         this.state = {
             userId: '',
-            username: ''
+            username: '',
+            profilePicture: ''
         };
     }
 
@@ -35,7 +36,8 @@ class Home extends Component {
             .then(res => {
                 this.setState({
                     username: res.data.username,
-                    userId: res.data._id
+                    userId: res.data._id,
+                    profilePicture: res.data.profilePicture
                 });
             });
     }
@@ -80,6 +82,7 @@ class Home extends Component {
             <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
                 <TwittBox username={this.state.username}
                           userId={this.state.userId}
+                          profilePicture={this.state.profilePicture}
                 />
                 <TwittContainer userId={this.state.userId} located="home"/>
             </Container>

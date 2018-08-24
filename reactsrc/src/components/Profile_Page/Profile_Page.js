@@ -19,6 +19,7 @@ class Edit_Profile extends Component {
             timestamp: '',
             email: '',
             phone: '',
+            profilePicture: '',
             tweetCount: '',
             tweetItem: true,
             followingItem: false,
@@ -47,7 +48,8 @@ class Edit_Profile extends Component {
                     username: user.username,
                     timestamp: user.timestamp,
                     email: user.email,
-                    phone: user.phone
+                    phone: user.phone,
+                    profilePicture: user.profilePicture
                 });
             });
             this.setState({userId: this.props.userId})
@@ -61,7 +63,8 @@ class Edit_Profile extends Component {
                     username: user.username,
                     timestamp: user.timestamp,
                     email: user.email,
-                    phone: user.phone
+                    phone: user.phone,
+                    profilePicture: user.profilePicture
                 });
             });
             this.setState({userId: this.props.userIdProfile.userId})
@@ -93,12 +96,23 @@ class Edit_Profile extends Component {
     }
 
     render() {
+
+        let imageUrl = this.state.profilePicture;
+        let imagedisplay
+
+        if(imageUrl){
+            imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+        }
+        else{
+            imagedisplay = <img alt=" " src={profile} />
+        }
+
         return (
             <FadeIn>
                 <div className="profile">
                     <div id="detailProfile" className="ui card">
-                        <div className="image">
-                            <img className="profilePic" src={profile} alt=""/>
+                        <div className="image" id="profilePicture">
+                            {imagedisplay}
                         </div>
                         <div className="content">
                             <a className="header"><i className="user icon"/>{this.state.username}</a>

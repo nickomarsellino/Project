@@ -34,17 +34,8 @@ class Twitt_Box extends Component {
             userId: userId,
             username: username,
         });
-        this.getProfilePicture();
     }
 
-    getProfilePicture() {
-        axios.get('/api/users')
-            .then(res => {
-                this.setState({
-                    profilePicture: res.data.profilePicture
-                });
-            });
-    }
 
     handleInputChange(e) {
         this.setState({
@@ -110,14 +101,14 @@ class Twitt_Box extends Component {
 
     render() {
 
-        let imageUrl = this.state.profilePicture;
+        let imageUrl = this.props.profilePicture;
       let imagedisplay
 
       if(imageUrl){
-          imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+          imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
       }
       else{
-        imagedisplay = <img src={profile} />
+        imagedisplay = <img alt=" "  src={profile} />
       }
 
         return (

@@ -18,8 +18,6 @@ import {
 import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
 import './Navbar.css'
-import SearchBar from '../Search_Bar/Search_Bar'
-import ReactDOM from "react-dom";
 
 class Navigationbar extends Component {
 
@@ -50,6 +48,7 @@ class Navigationbar extends Component {
                     userId: res.data._id,
                     profilePicture: res.data.profilePicture
                 });
+                console.log(res.data);
             });
     }
 
@@ -107,13 +106,12 @@ class Navigationbar extends Component {
       let imagedisplay
 
       if(imageUrl){
-          imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+          imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
       }
       else{
-        imagedisplay = <img src={profile} />
+        imagedisplay = <img alt=" " src={profile} />
       }
 
-      console.log("state di navbar :",this.state);
         if (this.props.success) {
             return (
                 <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
