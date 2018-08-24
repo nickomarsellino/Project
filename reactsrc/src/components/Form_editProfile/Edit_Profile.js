@@ -64,25 +64,25 @@ class Edit_Profile extends Component {
         if (event.target.files != null || event.target.files[0] != null){
             // ini buat get image nya
             this.setState({
-              selectedFile: event.target.files[0]
+                selectedFile: event.target.files[0]
             });
             this.setState({
-              status: true
+                status: true
             });
             console.log("isi state nya ",this.state);
 
             // manage tampilan view pake javascript
             if(event.target.files && event.target.files[0]){
-              var reader = new FileReader();
-              // ketika image nya ke load
-              reader.onload = (event) => {
-                document.getElementById("cover").setAttribute('src', event.target.result)
-              }
-              // iniii let the browser get data nya
-              reader.readAsDataURL(event.target.files[0]);
+                var reader = new FileReader();
+                // ketika image nya ke load
+                reader.onload = (event) => {
+                    document.getElementById("cover").setAttribute('src', event.target.result)
+                }
+                // iniii let the browser get data nya
+                reader.readAsDataURL(event.target.files[0]);
             }
         } else {
-          console.log("No data on the field..");
+            console.log("No data on the field..");
         }
     }
 
@@ -146,17 +146,17 @@ class Edit_Profile extends Component {
     }
 
     render() {
-      console.log("state :",this.state);
+        console.log("state di edit profile:",this.state);
 
-      var imageUrl = this.state.selectedFile.profilePicture;
-      let imagedisplay
+        var imageUrl = this.state.selectedFile.profilePicture;
+        let imagedisplay
 
-      if(imageUrl){
-          imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} style={{width: '550px', height: '450px',marginTop:'-1.1rem'}} className="float-right" />
-      }
-      else{
-        imagedisplay = <img src={profile} />
-      }
+        if(imageUrl){
+            imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} style={{width: '550px', height: '450px',marginTop:'-1.1rem'}} className="float-right" />
+        }
+        else{
+            <h2 className="lead">No Image</h2>
+        }
 
         return (
             <FadeIn>
@@ -167,7 +167,7 @@ class Edit_Profile extends Component {
                                 <center>
                                     <h1>Profile</h1>
                                     <Image id="cover" src={profile} size='small' circular>
-                                    {imagedisplay}
+                                        {imagedisplay}
                                     </Image>
                                 </center>
                                 <br/>
@@ -200,7 +200,7 @@ class Edit_Profile extends Component {
                                                         onChange={this.handleInputChange}
                                                         name="phone"
                                             />
-                                            <div id="messageValidation"></div>
+                                            <div id="messageValidation"/>
                                             <Button id="Submit_Button" block size="lg" type="submit">Update
                                                 Profile</Button>
                                         </Form>

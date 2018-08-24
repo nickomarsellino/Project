@@ -61,6 +61,7 @@ class Search_Bar extends Component {
 
                 <Search
                     placeholder="Search"
+                    size="big"
                     loading={this.state.isLoading}
                     onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
                     value={this.state.value}

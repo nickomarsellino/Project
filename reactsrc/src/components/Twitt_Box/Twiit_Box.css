@@ -48,3 +48,13 @@
 #nameBox {
     display: inline-block;
 }
+
+#avatarBox{
+    width: 2.5em;
+    height: 2.5em;
+}
+
+#avatarBox img{
+    width: 2.5em;
+    height: 2.5em;
+}
