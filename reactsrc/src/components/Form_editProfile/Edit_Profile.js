@@ -146,17 +146,17 @@ class Edit_Profile extends Component {
     }
 
     render() {
-        console.log("state di edit profile:",this.state);
+      console.log("state di edit profile:",this.state);
 
         var imageUrl = this.state.selectedFile.profilePicture;
         let imagedisplay
 
-        if(imageUrl){
-            imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} style={{width: '550px', height: '450px',marginTop:'-1.1rem'}} className="float-right" />
-        }
-        else{
-            <h2 className="lead">No Image</h2>
-        }
+      if(imageUrl){
+          imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} style={{width: '550px', height: '450px',marginTop:'-1.1rem'}} className="float-right" />
+      }
+      else{
+        <h2 className="lead">No Image</h2>
+      }
 
         return (
             <FadeIn>
