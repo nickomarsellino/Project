@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+    import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
 import {Feed, Icon} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';

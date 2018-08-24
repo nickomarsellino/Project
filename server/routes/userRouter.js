@@ -42,16 +42,16 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-router.post('/tweet',(req, res, next) => {
 
+router.post('/tweet', (req, res, next) => {
+  
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-
-    const tweet = new Tweet({
-        // _id: new mongoose.Types.ObjectId(),
+    const tweet = {
         username: req.body.username,
         tweetText: req.body.tweetText,
         userId: userData.userId,
@@ -382,6 +382,7 @@ router.get('/allUsers/:username', (req, res, next) => {
         res.send(result);
     });
 });
+
 
 // Get data for profile page
 router.get('/profile/:id', (req, res) => {
