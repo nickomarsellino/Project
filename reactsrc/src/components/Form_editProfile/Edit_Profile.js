@@ -146,7 +146,7 @@ class Edit_Profile extends Component {
     }
 
     render() {
-      console.log("state :",this.state);
+      console.log("state di edit profile:",this.state);
 
       var imageUrl = this.state.selectedFile.profilePicture;
       let imagedisplay
@@ -155,7 +155,7 @@ class Edit_Profile extends Component {
           imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} style={{width: '550px', height: '450px',marginTop:'-1.1rem'}} className="float-right" />
       }
       else{
-        imagedisplay = <img src={profile} />
+        <h2 className="lead">No Image</h2>
       }
 
         return (
