@@ -79,7 +79,6 @@ router.post('/tweet', (req, res, next) => {
           error: err
         });
       });
-    };
 
     Tweet.create(tweet).then(function (result) {
         return res.send({
@@ -101,10 +100,27 @@ router.delete('/tweet/:id', (req, res, next) => {
 
 // get all tweets
 router.get('/tweets', (req, res, next) => {
-    Tweet.find({}).sort({timestamp: 'descending'}).then((result) => {
+    Tweet.find({ tweetText: /tes/i }, 'username tweetText').sort({timestamp: 'descending'}).then((result) => {
         res.send(result);
     });
 });
+
+
+// SEARCH FILTER BY USER, get all of the username yang mengandung kata yang di input
+router.get('/searchByUser/:username', (req, res, next) => {
+    User.find({username: /:req.params.username/i}, 'username').then((result)=> {
+        res.send(result);
+    });
+});
+
+
+// SEARCH FILTER BY TWEETS, get all tweets data, yang input nya sesuai dengan tweets nya
+router.get('/searchByTweets/:tweetText', (req, res, next) => {
+    Tweet.find({tweetText: /:req.params.tweetText/i}, 'username tweetText').then((result) => {
+        res.send(result);
+    });
+});
+
 
 // get one tweet only for modal, id nya Tweets id nya
 router.get('/tweet/:id', (req, res) => {
@@ -361,8 +377,8 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/allUsers', (req, res, next) => {
-    User.find({}).sort({timestamp: 'descending'}).then((result) => {
+router.get('/allUsers/:username', (req, res, next) => {
+    User.find({username: req.params.username}).sort({timestamp: 'descending'}).then((result) => {
         res.send(result);
     });
 });
@@ -377,9 +393,8 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
+
 router.get('/verify', (req, res, next) => {
-
-
     if (req.headers.cookie) {
         const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
         const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
