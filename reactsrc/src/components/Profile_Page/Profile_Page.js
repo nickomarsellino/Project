@@ -55,6 +55,8 @@ class Edit_Profile extends Component {
             this.setState({userId: this.props.userId})
         }
 
+
+
         //Jika ia Klik DI container tweetnya
         else if (this.props.userIdProfile.userId) {
             axios.get('/api/users/profile/'+ this.props.userIdProfile.userId).then(res => {
