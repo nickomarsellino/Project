@@ -45,9 +45,6 @@ class Twitt_Container extends Component {
 
     viewUserProfile(username, userId) {
         if (this.props.located === "home") {
-
-            console.log(username);
-
             //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
             if(userId === this.props.userId){
                 return (
