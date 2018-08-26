@@ -45,7 +45,7 @@ class UserAccountContainer extends Component {
             <div>
                 {this.state.userData.map(user =>
                     <div className="col-lg-3 col-lg-offset-4 user-Container">
-                        <Card>
+                        <Card key={user._id}>
                             <center>
                                 <Image
                                     style={{width: "80%", margin: "20px"}}
