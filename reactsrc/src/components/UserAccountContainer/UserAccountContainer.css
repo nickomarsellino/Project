@@ -34,3 +34,10 @@
     margin-bottom: 10px;
     display: inline-block;
 }
+
+.profileName{
+  font-size: 25px;
+  white-space:nowrap;
+  overflow: hidden;
+  width: 135px;
+}

@@ -53,7 +53,7 @@ class UserAccountContainer extends Component {
                             </center>
                             <Card.Content>
                                 <center>
-                                    <Card.Header style={{fontSize: "25px"}}>{user.username}</Card.Header>
+                                    <Card.Header className="profileName">{user.username}</Card.Header>
                                     <Card.Meta>
                                         <span className='date'>{<Timestamp time={user.timestamp} precision={1}/>}</span>
                                     </Card.Meta>
