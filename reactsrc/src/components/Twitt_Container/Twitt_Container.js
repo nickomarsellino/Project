@@ -88,7 +88,9 @@ class Twitt_Container extends Component {
                 this.setState({
                     tweetData: res.data
                 });
+                // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.length)
+                // maksudnya dikirim ke profilepage, tweetCounter di profilepage
             });
     }
 
