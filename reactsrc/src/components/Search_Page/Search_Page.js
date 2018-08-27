@@ -4,7 +4,7 @@ import {Container} from "mdbreact"
 
 
 //Load another component
-import Search_Bar from "../Search_Bar/Search_Bar";
+import SearchBar from "../Search_Bar/Search_Bar";
 
 class Search_Page extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class Search_Page extends Component {
             <FadeIn>
                 <Container className="col-lg-8 col-lg-offset-4" style={{marginBottom: "5%", marginTop: "5%"}}>
                     <div>
-                        <Search_Bar/>
+                        <SearchBar/>
                     </div>
                 </Container>
             </FadeIn>

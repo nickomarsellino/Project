@@ -31,3 +31,7 @@
 .emailProfile{
   color: black;
 }
+
+#profilePicture{
+padding: 25px;
+}

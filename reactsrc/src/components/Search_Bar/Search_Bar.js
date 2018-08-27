@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import _ from 'lodash'
 import './Search.css';
-import profile from '../../daniel.jpg';
-import {Search, Grid, Header, Segment} from 'semantic-ui-react';
+import {Search} from 'semantic-ui-react';
 import axios from "axios/index";
 
 let source ;
