@@ -148,7 +148,6 @@ class Edit_Profile extends Component {
                                             userId={this.props.userId}
                                             tweetCounter={this.getTweetCounter}
                                             located="profile"
-
                             />
                         </div>
                     </FadeIn>

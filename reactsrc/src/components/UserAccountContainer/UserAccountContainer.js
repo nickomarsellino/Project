@@ -42,14 +42,12 @@ class UserAccountContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="peopleCards">
                 {this.state.userData.map(user =>
                     <div className="col-lg-3 col-lg-offset-4 user-Container">
                         <Card key={user._id}>
                             <center>
-                                <Image
-                                    style={{width: "80%", margin: "20px"}}
-                                >
+                                <Image style={{margin: "20px"}} >
                                     {this.setProfileImage(user.profilePicture)}
                                 </Image>
                             </center>

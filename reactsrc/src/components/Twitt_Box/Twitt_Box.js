@@ -80,7 +80,8 @@ class Twitt_Box extends Component {
             tweetText: this.state.userTweet,
             username: this.state.username,
             userId: this.state.userId,
-            tweetImage: this.state.tweetImage
+            tweetImage: this.state.tweetImage,
+            profilePicture: this.props.profilePicture
         };
 
         const method = 'post';
