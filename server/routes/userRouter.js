@@ -54,8 +54,10 @@ router.post('/tweet', (req, res, next) => {
         username: req.body.username,
         tweetText: req.body.tweetText,
         userId: userData.userId,
+        profilePicture: req.body.profilePicture,
         //tweetImage: req.file.path,
         timestamp: Date.now()
+
     };
 
     Tweet.create(tweet).then(function (result) {

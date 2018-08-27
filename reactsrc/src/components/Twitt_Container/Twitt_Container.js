@@ -1,6 +1,6 @@
     import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
-import {Feed, Icon} from 'semantic-ui-react';
+import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
@@ -149,6 +149,21 @@ class Twitt_Container extends Component {
         }
     }
 
+    setProfileImage(profilePicture) {
+        let imageUrl = profilePicture;
+
+        if (imageUrl) {
+            return (
+                <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
+            );
+        }
+        else {
+            return (
+                <img alt=" " src={profile}/>
+            );
+        }
+    }
+
     render() {
         return (
             <FadeIn>
@@ -158,7 +173,9 @@ class Twitt_Container extends Component {
                             <CardBody className="Tweet">
                                 <Feed>
                                     <Feed.Event>
-                                        <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
+                                        <Feed.Label style={{width: "10%", padding: "5px 0"}}>
+                                            {this.setProfileImage(tweet.profilePicture)}
+                                        </Feed.Label>
                                         <Feed.Content className="Tweet-Content"
                                                       onClick={() => this.openModalTweet(tweet._id)}>
 
