@@ -87,6 +87,9 @@ class Edit_Profile extends Component {
     }
 
     handleSubmit(e) {
+
+        console.log(this.state.selectedFile[0]);
+
         e.preventDefault();
         var formData = new FormData();
         var fileField = document.querySelector("input[type='file']");

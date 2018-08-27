@@ -154,12 +154,12 @@ class Twitt_Container extends Component {
 
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
+                <img alt=" " src={require(`../../uploads/${imageUrl}`)} id="profilePictureTweet"/>
             );
         }
         else {
             return (
-                <img alt=" " src={profile}/>
+                <img alt=" " src={profile} id="profilePictureTweet"/>
             );
         }
     }
@@ -173,7 +173,7 @@ class Twitt_Container extends Component {
                             <CardBody className="Tweet">
                                 <Feed>
                                     <Feed.Event>
-                                        <Feed.Label style={{width: "10%", padding: "5px 0"}}>
+                                        <Feed.Label style={{width: "13%", paddingTop: "3px", paddingBottom: "20px"}}>
                                             {this.setProfileImage(tweet.profilePicture)}
                                         </Feed.Label>
                                         <Feed.Content className="Tweet-Content"
