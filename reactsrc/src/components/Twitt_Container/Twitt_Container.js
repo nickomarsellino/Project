@@ -45,18 +45,32 @@ class Twitt_Container extends Component {
 
     viewUserProfile(username, userId) {
         if (this.props.located === "home") {
-            return (
-                <Link to={{
-                    pathname: `/home/profile/${username}`,
-                    state: {
-                        userId: userId
-                    }
-                }}>
-                    <div>
-                        <Feed.Summary content={username}/>
-                    </div>
-                </Link>
-            );
+            //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
+            if(userId === this.props.userId){
+                return (
+                    <Link to={{
+                        pathname: `/home/myProfile/${username}`,
+                    }}>
+                        <div>
+                            <Feed.Summary content={username}/>
+                        </div>
+                    </Link>
+                );
+            }
+            else{
+                return (
+                    <Link to={{
+                        pathname: `/home/profile/${username}`,
+                        state: {
+                            userId: userId
+                        }
+                    }}>
+                        <div>
+                            <Feed.Summary content={username}/>
+                        </div>
+                    </Link>
+                );
+            }
         }
 
         else if (this.props.located === "profile") {

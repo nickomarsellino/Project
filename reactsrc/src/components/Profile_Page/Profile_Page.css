@@ -32,6 +32,10 @@
   color: black;
 }
 
+#profilePicture{
+padding: 25px;
+}
+
 @media only screen and (max-width: 750px){
     #navDetail{
         width: 100%;
@@ -45,3 +49,4 @@
       width: 100%;
     }
  }
+

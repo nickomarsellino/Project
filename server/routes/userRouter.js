@@ -356,8 +356,8 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/allUsers/:username', (req, res, next) => {
-    User.find({username: req.params.username}).sort({timestamp: 'descending'}).then((result) => {
+router.get('/allUsers', (req, res, next) => {
+    User.find({}).sort({timestamp: 'descending'}).then((result) => {
         res.send(result);
     });
 });
