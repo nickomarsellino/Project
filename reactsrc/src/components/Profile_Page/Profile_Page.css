@@ -31,3 +31,17 @@
 .emailProfile{
   color: black;
 }
+
+@media only screen and (max-width: 750px){
+    #navDetail{
+        width: 100%;
+        display: none;
+    }
+    #detailProfile{
+      width: 100%;
+      position: fixed;
+    }
+    .userProfile{
+      width: 100%;
+    }
+ }
