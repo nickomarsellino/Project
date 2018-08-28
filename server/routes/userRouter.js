@@ -54,10 +54,8 @@ router.post('/tweet', (req, res, next) => {
         username: req.body.username,
         tweetText: req.body.tweetText,
         userId: userData.userId,
-        profilePicture: req.body.profilePicture,
         //tweetImage: req.file.path,
         timestamp: Date.now()
-
     };
 
     Tweet.create(tweet).then(function (result) {
@@ -267,6 +265,8 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
     // const userData = JSON.parse(plaintext);
 
     // console.log("req.file.filename: ",req.file.filename);
+
+    console.log(req.body);
 
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
         User.findOne({_id: req.params.id}).then((user) => {

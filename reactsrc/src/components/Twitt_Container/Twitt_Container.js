@@ -173,7 +173,7 @@ class Twitt_Container extends Component {
                             <CardBody className="Tweet">
                                 <Feed>
                                     <Feed.Event>
-                                        <Feed.Label style={{width: "13%", paddingTop: "3px", paddingBottom: "20px"}}>
+                                        <Feed.Label style={{width: "10%", paddingTop: "3px", paddingBottom: "40px"}}>
                                             {this.setProfileImage(tweet.profilePicture)}
                                         </Feed.Label>
                                         <Feed.Content className="Tweet-Content"
