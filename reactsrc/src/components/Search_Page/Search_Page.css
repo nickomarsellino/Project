@@ -1,0 +1,17 @@
+button{
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  font-weight: bold;
+  color: #7f6f69;
+  -webkit-box-shadow: none;
+}
+
+#navSearchDetail{
+    width: 30%;
+    text-align: center;
+}
+
+.ui.menu.three.item .item {
+    width: 50%;
+}
