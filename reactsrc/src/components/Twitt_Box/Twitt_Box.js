@@ -92,7 +92,7 @@ class Twitt_Box extends Component {
             data: tweet
         })
             .then(() => {
-               window.location.reload();
+                window.location.reload();
             });
     }
 
@@ -103,14 +103,14 @@ class Twitt_Box extends Component {
     render() {
 
         let imageUrl = this.props.profilePicture;
-      let imagedisplay
+        let imagedisplay
 
-      if(imageUrl){
-          imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
-      }
-      else{
-        imagedisplay = <img alt=" "  src={profile} />
-      }
+        if(imageUrl){
+            imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+        }
+        else{
+            imagedisplay = <img alt=" "  src={profile} />
+        }
 
         return (
             <div className="Tweet-Container">
