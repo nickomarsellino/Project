@@ -108,7 +108,7 @@ class Edit_Profile extends Component {
         else{
             imagedisplay = <img alt=" " src={profile} />
         }
-
+        console.log("PROFILE PAGE ", this.state);
         return (
             <FadeIn>
                 <div className="profile">
@@ -148,7 +148,6 @@ class Edit_Profile extends Component {
                                             userId={this.props.userId}
                                             tweetCounter={this.getTweetCounter}
                                             located="profile"
-
                             />
                         </div>
                     </FadeIn>

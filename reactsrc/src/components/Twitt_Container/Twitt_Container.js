@@ -88,7 +88,9 @@ class Twitt_Container extends Component {
                 this.setState({
                     tweetData: res.data
                 });
+                // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.length)
+                // maksudnya dikirim ke profilepage, tweetCounter di profilepage
             });
     }
 
@@ -173,7 +175,8 @@ class Twitt_Container extends Component {
                             <CardBody className="Tweet">
                                 <Feed>
                                     <Feed.Event>
-                                        <Feed.Label style={{width: "10%", paddingTop: "3px", paddingBottom: "40px"}}>
+
+                                        <Feed.Label style={{width: "56px", padding: "5px 0"}}>
                                             {this.setProfileImage(tweet.profilePicture)}
                                         </Feed.Label>
                                         <Feed.Content className="Tweet-Content"
