@@ -59,6 +59,7 @@ class Search_Bar extends Component {
             <div id="SearchBoxContainer">
 
                 <Search
+                    autofocus
                     placeholder="Search"
                     size="big"
                     loading={this.state.isLoading}

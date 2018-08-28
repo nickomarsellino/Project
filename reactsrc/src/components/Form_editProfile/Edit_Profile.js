@@ -69,7 +69,7 @@ class Edit_Profile extends Component {
             this.setState({
                 status: true
             });
-            console.log("isi state nya ",this.state);
+
 
             // manage tampilan view pake javascript
             if(event.target.files && event.target.files[0]){
@@ -87,16 +87,22 @@ class Edit_Profile extends Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
-        var formData = new FormData();
-        var fileField = document.querySelector("input[type='file']");
 
-        formData.append('profilePicture', this.state.selectedFile);
+        e.preventDefault();
+        let formData = new FormData();
+
+
+        console.log("PAS CLICK SUBMIT: ", this.state.selectedFile.name);
+
+        formData.append('profilePicture', this.state.selectedFile, this.state.selectedFile.name);
+
+        console.log("PAS CLICK SUBMIT: ", formData);
 
         const user = {
             username: this.state.username,
             email: this.state.email,
-            phone: this.state.phone
+            phone: this.state.phone,
+            profilePicture: this.state.selectedFile
         };
 
         axios({
