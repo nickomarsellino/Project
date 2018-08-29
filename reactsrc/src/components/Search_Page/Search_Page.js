@@ -2,10 +2,12 @@ import React, {Component} from "react";
 import FadeIn from 'react-fade-in';
 import {Container} from "mdbreact"
 import './Search_Page.css';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 //Load another component
 import SearchBar from "../Search_Bar/Search_Bar";
+import TweetResult from "../Search_Result/Tweet_Result/Tweet_Result";
 
 class Search_Page extends Component {
     constructor(props) {
@@ -34,7 +36,7 @@ class Search_Page extends Component {
             if (this.state.tweetData.length === 0) {
                 return (
                     <FadeIn>
-                        <h1>DATA NOT FOUND CUK ...</h1>
+                        <h1>DATA NOT FOUND BRO ...</h1>
                     </FadeIn>
                 );
             }
@@ -46,7 +48,10 @@ class Search_Page extends Component {
                             <a className="item itemNav">PEOPLES</a>
                         </div>
 
-                        <div id="searchResult"/>
+                        <TweetResult
+                            tweetResult = {this.state.tweetData}
+                            userId = {this.props.userId}
+                        />
                     </FadeIn>
                 );
             }
@@ -54,13 +59,14 @@ class Search_Page extends Component {
         else {
             return (
                 <div>
-                    <h1>Search EVERYTHING</h1>
+                    <h1>Search Everything :)</h1>
                 </div>
             );
         }
     }
 
     render() {
+        console.log(this.props.userId);
         return (
             <FadeIn>
                 <Container className="col-lg-8 col-lg-offset-4" style={{marginBottom: "5%", marginTop: "5%"}}>

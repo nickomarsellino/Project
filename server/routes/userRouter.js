@@ -99,7 +99,7 @@ router.get('/searchByTweets/:tweetText', (req, res, next) => {
     var searchTweetsQuery = req.params.tweetText;
     console.log("params.tweettext: ",searchTweetsQuery);
 
-    Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId').then((result) => {
+    Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture').then((result) => {
         res.send(result);
     });
 });
