@@ -30,12 +30,12 @@ class UserAccountContainer extends Component {
 
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
+                <img alt=" "  id="ProfileImage" src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
             );
         }
         else {
             return (
-                <img alt=" " src={profile}/>
+                <img alt=" " src={profile} id="ProfileImage"/>
             );
         }
     }

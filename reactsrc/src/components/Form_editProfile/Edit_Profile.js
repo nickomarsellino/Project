@@ -180,7 +180,7 @@ class Edit_Profile extends Component {
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
                                             <center>
-                                                <input type="file" id="profilePicture"  onChange={this.fileSelectedHandler} />
+                                                <input type="file" id="profilePicture"  name="profilePicture" onChange={this.fileSelectedHandler} />
                                             </center>
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
