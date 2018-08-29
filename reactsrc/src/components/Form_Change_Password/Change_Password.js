@@ -62,7 +62,9 @@ class Change_Password extends Component {
                 method: 'put',
                 responseType: 'json',
                 url: '/api/users/changePassword',
-                data: password
+                data: password,
+                credentials: 'include',
+                withCredentials: true
             })
                 .then((response) => {
                     this.setState({
