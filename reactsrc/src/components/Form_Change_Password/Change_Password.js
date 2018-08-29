@@ -61,7 +61,7 @@ class Change_Password extends Component {
             axios({
                 method: 'put',
                 responseType: 'json',
-                url: '/api/users/changePassword',
+                url: '/api/users/changePassword/'+this.props.userId,
                 data: password,
                 credentials: 'include',
                 withCredentials: true
@@ -72,7 +72,7 @@ class Change_Password extends Component {
                         formMessage: response.data.msg
                     });
                     ReactDOM.render(<MessageValidation
-                        form="Success"
+                        form="success"
                         formStatus={this.state.formStatus}
                         formMessage={this.state.formMessage}
                     />, document.getElementById('messageValidation'));
@@ -103,7 +103,6 @@ class Change_Password extends Component {
     }
 
     render() {
-        console.log("userId(ChangePW): ", this.props.userId);
         return (
             <FadeIn>
                 <div>
