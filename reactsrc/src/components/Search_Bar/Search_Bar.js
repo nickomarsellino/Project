@@ -6,9 +6,7 @@ import axios from "axios/index";
 
 let source ;
 
-
 class Search_Bar extends Component {
-
 
     constructor(props) {
         super(props);
@@ -20,38 +18,18 @@ class Search_Bar extends Component {
         };
     }
 
-    componentWillMount() {
-        this.resetComponent();
-
-        axios.get('/api/users/allUsers/')
-            .then(res => {
-                source = res.data;
-                console.log(JSON.stringify(res.data[1]).replace('username', 'title'));
-            });
-    }
-
-    resetComponent = () => this.setState({isLoading: false, results: [], value: ''})
-
-    handleResultSelect = (e, {result}) => this.setState({value: result.username})
-
     handleSearchChange = (e, {value}) => {
         this.setState({isLoading: true, value})
-
         setTimeout(() => {
-            if (this.state.value.length < 1) return this.resetComponent()
-
-            const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-            const isMatch = result => re.test(result.username);
-
             this.setState({
                 isLoading: false,
-                results: _.filter(source, isMatch),
             })
         }, 300)
     };
 
     search() {
-        console.log("ENter");
+        console.log("valuenya: ", this.state.value);
+        this.props.ParentSearchTweetsData(this.state.value)
     }
 
     render() {

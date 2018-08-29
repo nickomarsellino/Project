@@ -79,6 +79,7 @@ router.delete('/tweet/:id', (req, res, next) => {
 
 // get all tweets
 router.get('/tweets', (req, res, next) => {
+    // Tweet.find({ tweetText: /test/i }, 'username tweetText').sort({timestamp: 'descending'}).then((result) => {
     Tweet.find({}).sort({timestamp: 'descending'}).then((result) => {
         res.send(result);
     });
@@ -86,16 +87,19 @@ router.get('/tweets', (req, res, next) => {
 
 
 // SEARCH FILTER BY USER, get all of the username yang mengandung kata yang di input
-router.get('/searchByUser/:username', (req, res, next) => {
-    User.find({username: /:req.params.username/i}, 'username').then((result)=> {
-        res.send(result);
-    });
-});
+// router.get('/searchByUser/:username', (req, res, next) => {
+//     User.find({username: /:req.params.username/i}, 'username').then((result)=> {
+//         res.send(result);
+//     });
+// });
 
 
 // SEARCH FILTER BY TWEETS, get all tweets data, yang input nya sesuai dengan tweets nya
 router.get('/searchByTweets/:tweetText', (req, res, next) => {
-    Tweet.find({tweetText: /:req.params.tweetText/i}, 'username tweetText').then((result) => {
+    var searchTweetsQuery = req.params.tweetText;
+    console.log("params.tweettext: ",searchTweetsQuery);
+
+    Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId').then((result) => {
         res.send(result);
     });
 });
