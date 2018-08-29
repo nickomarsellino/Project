@@ -6,7 +6,7 @@ import axios from 'axios';
 import './Tweet_Result.css';
 import FadeIn from 'react-fade-in';
 import {Link} from 'react-router-dom';
-
+import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
 
 const Timestamp = require('react-timestamp');
 
@@ -17,19 +17,20 @@ class Tweet_Result extends Component {
         super();
         this.state = {
             tweetResults: [],
+            tweet:[],
+            modalDelete: false
         };
 
         this.getTweetSearch = this.getTweetSearch.bind(this);
+        this.openModalDelete = this.openModalDelete.bind(this);
+        this.closeModalDelete = this.closeModalDelete.bind(this);
     }
 
     componentWillMount() {
-            this.getTweetSearch();
+        this.getTweetSearch();
     }
 
     viewUserProfile(username, userId) {
-
-        console.log(userId+" "+this.props.userId);
-
         if (window.location.href === "http://localhost:3001/home/search/") {
             if(userId === this.props.userId){
                 return (
@@ -63,6 +64,25 @@ class Tweet_Result extends Component {
         this.setState({
             tweetResults: this.props.tweetResult
         });
+    }
+
+
+    openModalDelete(tweetId) {
+        axios.get('/api/users/tweet/' + tweetId)
+            .then(res => {
+                this.setState({
+                    tweet: res.data,
+                    modalDelete: true
+                });
+            });
+    }
+
+    closeModalDelete(isOpen) {
+        if (isOpen) {
+            this.setState({
+                modalDelete: false
+            })
+        }
     }
 
     buttonDelete(userId, tweetId) {
@@ -135,6 +155,12 @@ class Tweet_Result extends Component {
                         </Card>
                     )}
                 </div>
+
+                <ModalDelete
+                    isOpen={this.state.modalDelete}
+                    tweet={this.state.tweet}
+                    isClose={this.closeModalDelete}
+                />
             </FadeIn>
         );
     }

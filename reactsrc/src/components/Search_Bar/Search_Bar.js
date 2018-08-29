@@ -31,12 +31,13 @@ class Search_Bar extends Component {
         this.props.ParentSearchTweetsData(this.state.value)
     }
 
+
     render() {
         return (
             <div id="SearchBoxContainer">
 
                 <Search
-                    autoFocus
+                   // autoFocus
                     placeholder="Search"
                     size="big"
                     loading={this.state.isLoading}
@@ -48,6 +49,7 @@ class Search_Bar extends Component {
                             this.search();
                         }
                     }}
+                    onFocus={this.props.isBlur}
                 />
             </div>
         )

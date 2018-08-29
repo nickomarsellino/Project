@@ -14,10 +14,12 @@ class Search_Page extends Component {
         super(props);
         this.state = {
             tweetData: '',
-            isSearch: false
+            isSearch: false,
+            searchValue: ''
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
         this.isSearched = this.isSearched.bind(this);
+        this.isBlur = this.isBlur.bind(this);
     }
 
     searchTweetsData(searchValue) {
@@ -25,10 +27,10 @@ class Search_Page extends Component {
             .then(res => {
                 this.setState({
                     tweetData: res.data,
-                    isSearch: true
+                    isSearch: true,
+                    searchValue: searchValue
                 });
-                console.log(res.data);
-            })
+            });
     }
 
     isSearched(isSearch) {
@@ -37,6 +39,7 @@ class Search_Page extends Component {
                 return (
                     <FadeIn>
                         <h1>DATA NOT FOUND BRO ...</h1>
+                        <h2>{this.state.searchValue}</h2>
                     </FadeIn>
                 );
             }
@@ -58,20 +61,28 @@ class Search_Page extends Component {
         }
         else {
             return (
-                <div>
+                <FadeIn>
                     <h1>Search Everything :)</h1>
-                </div>
+                </FadeIn>
             );
         }
     }
 
+    isBlur() {
+        this.setState({
+            isSearch: false
+        });
+    }
+
     render() {
-        console.log(this.props.userId);
         return (
             <FadeIn>
                 <Container className="col-lg-8 col-lg-offset-4" style={{marginBottom: "5%", marginTop: "5%"}}>
                     <div>
-                        <SearchBar ParentSearchTweetsData={this.searchTweetsData}/>
+                        <SearchBar
+                            ParentSearchTweetsData={this.searchTweetsData}
+                            isBlur = {this.isBlur}
+                        />
                         <br/>
                         <center>
                             {this.isSearched(this.state.isSearch)}
