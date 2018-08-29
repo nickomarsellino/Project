@@ -18,11 +18,7 @@ const TweetSchema = Schema({
     timestamp: {
         type: Date,
         default: Date.now()
-    },
-    tweetImage: {
-        type: Buffer
     }
-
 });
 
-module.exports = mongoose.model('Tweet', TweetSchema);
+module.exports = mongoose.model('Tweet', TweetSchema)

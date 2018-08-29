@@ -15,31 +15,31 @@ router.use(cookieParser());
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, '../reactsrc/src/uploads');
-  },
-  filename: function(req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' +
-     file.originalname);
-  }
+    destination: function(req, file, cb) {
+        cb(null, '../reactsrc/src/uploads');
+    },
+    filename: function(req, file, cb) {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' +
+            file.originalname);
+    }
 });
 
 const fileFilter = (req, file, cb) => {
-  // reject a file
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
+    // reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
 };
 
 const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 10
-    // max: 10 mb
-  },
-  fileFilter: fileFilter
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 10
+        // max: 10 mb
+    },
+    fileFilter: fileFilter
 });
 
 
@@ -57,7 +57,6 @@ router.post('/tweet', (req, res, next) => {
         profilePicture: req.body.profilePicture,
         //tweetImage: req.file.path,
         timestamp: Date.now()
-
     };
 
     Tweet.create(tweet).then(function (result) {
@@ -272,11 +271,13 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
 
     // console.log("req.file.filename: ",req.file.filename);
 
+    console.log(req.body);
+
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
         User.findOne({_id: req.params.id}).then((user) => {
             user.save()
                 .then((result) => {
-                  User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
+                    User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
                     Tweet.updateMany({userId: req.params.id}, {$set: {username: req.body.username}}).exec();
                     res.json({
                         success: true,
