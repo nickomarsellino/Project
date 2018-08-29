@@ -11,22 +11,54 @@ class Search_Page extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tweetData : '',
+            tweetData: '',
             isSearch: false
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
+        this.isSearched = this.isSearched.bind(this);
     }
 
-    searchTweetsData(searchValue){
+    searchTweetsData(searchValue) {
         axios.get('/api/users/searchByTweets/' + searchValue)
             .then(res => {
                 this.setState({
-                    tweetData: res.data
+                    tweetData: res.data,
+                    isSearch: true
                 });
                 console.log(res.data);
             })
     }
 
+    isSearched(isSearch) {
+        if (isSearch) {
+            if (this.state.tweetData.length === 0) {
+                return (
+                    <FadeIn>
+                        <h1>DATA NOT FOUND CUK ...</h1>
+                    </FadeIn>
+                );
+            }
+            else {
+                return (
+                    <FadeIn>
+                        <div id="navSearchDetail" className="ui three item menu">
+                            <a className="item itemNav">TWEETS</a>
+                            <a className="item itemNav">PEOPLES</a>
+                        </div>
+
+                        <div id="searchResult"/>
+                    </FadeIn>
+                );
+            }
+        }
+        else {
+            return (
+                <div>
+                    <h1>Search EVERYTHING</h1>
+                </div>
+            );
+        }
+    }
 
     render() {
         return (
@@ -36,15 +68,7 @@ class Search_Page extends Component {
                         <SearchBar ParentSearchTweetsData={this.searchTweetsData}/>
                         <br/>
                         <center>
-
-                        <div id="navSearchDetail" className="ui three item menu">
-                          <a className="item itemNav">TWEETS</a>
-                          <a className="item itemNav">PEOPLES</a>
-                        </div>
-
-                        <div id="asdf">
-                        </div>
-
+                            {this.isSearched(this.state.isSearch)}
                         </center>
                     </div>
                 </Container>
