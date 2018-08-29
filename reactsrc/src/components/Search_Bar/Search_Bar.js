@@ -28,7 +28,6 @@ class Search_Bar extends Component {
     };
 
     search() {
-        console.log("valuenya: ", this.state.value);
         this.props.ParentSearchTweetsData(this.state.value)
     }
 
@@ -37,7 +36,7 @@ class Search_Bar extends Component {
             <div id="SearchBoxContainer">
 
                 <Search
-                    autofocus
+                    autoFocus
                     placeholder="Search"
                     size="big"
                     loading={this.state.isLoading}

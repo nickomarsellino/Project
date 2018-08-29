@@ -47,9 +47,6 @@ class Modal_Twitt extends Component {
     }
 
     render() {
-
-        console.log(this.state.tweet);
-
         return (
             <Container>
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
