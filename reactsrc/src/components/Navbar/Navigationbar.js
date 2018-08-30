@@ -48,7 +48,6 @@ class Navigationbar extends Component {
                     userId: res.data._id,
                     profilePicture: res.data.profilePicture
                 });
-                console.log(res.data._id);
             });
     }
 
