@@ -18,6 +18,12 @@ class Search_Bar extends Component {
         };
     }
 
+    componentWillMount() {
+        if(this.props.searchValue){
+            console.log("searchValue: ",this.props.searchValue);
+        }
+    }
+
     handleSearchChange = (e, {value}) => {
         this.setState({isLoading: true, value})
         setTimeout(() => {
@@ -49,7 +55,6 @@ class Search_Bar extends Component {
                             this.search();
                         }
                     }}
-                    //onFocus={this.props.isBlur}
                 />
             </div>
         )

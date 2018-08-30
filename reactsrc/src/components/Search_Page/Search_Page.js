@@ -19,7 +19,6 @@ class Search_Page extends Component {
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
         this.isSearched = this.isSearched.bind(this);
-        //this.isBlur = this.isBlur.bind(this);
     }
 
     componentWillMount() {
@@ -27,16 +26,11 @@ class Search_Page extends Component {
             console.log(this.props.searchData);
             this.setState({
                 tweetData: this.props.searchData.searchData,
-                isSearch: true
+                isSearch: true,
+                searchValue: this.props.searchData.searchValue
             });
         }
     }
-
-    componentDidMount() {
-        console.log("ISI STATE: ",this.state.tweetData);
-    }
-
-
 
     searchTweetsData(searchValue) {
         axios.get('/api/users/searchByTweets/' + searchValue)
@@ -46,11 +40,13 @@ class Search_Page extends Component {
                     isSearch: true,
                     searchValue: searchValue
                 });
-                //this.props.history.push("/home/search/"+searchValue);
                 this.props.history.replace({
                     pathname: '/home/search/',
                     search: searchValue.replace(' ', '-'),
-                    state: { searchData: res.data }
+                    state: {
+                        searchData: res.data,
+                        searchValue: searchValue
+                    }
                 })
             });
     }
@@ -90,12 +86,6 @@ class Search_Page extends Component {
         }
     }
 
-    // isBlur() {
-    //     this.setState({
-    //         isSearch: false
-    //     });
-    // }
-
     render() {
         return (
             <FadeIn>
@@ -103,7 +93,7 @@ class Search_Page extends Component {
                     <div>
                         <SearchBar
                             ParentSearchTweetsData={this.searchTweetsData}
-                            // isBlur = {this.isBlur}
+                            searchValue={this.state.searchValue}
                         />
                         <br/>
                         <center>
