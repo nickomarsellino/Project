@@ -55,6 +55,11 @@ class Search_Page extends Component {
             if (this.state.tweetData.length === 0) {
                 return (
                     <FadeIn>
+                        <div id="navSearchDetail" className="ui three item menu">
+                            <a className="item itemNav">TWEETS</a>
+                            <a className="item itemNav">PEOPLES</a>
+                        </div>
+                        <br/>
                         <h1>DATA NOT FOUND BRO ...</h1>
                         <h2>{this.state.searchValue}</h2>
                     </FadeIn>
