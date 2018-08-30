@@ -103,10 +103,10 @@ class Edit_Profile extends Component {
         let imagedisplay
 
         if(imageUrl){
-            imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+            imagedisplay = <img alt=" " id="profileImage" src={require(`../../uploads/${imageUrl}`)} className="float-right" />
         }
         else{
-            imagedisplay = <img alt=" " src={profile} />
+            imagedisplay = <img alt=" " src={profile} id="profileImage"/>
         }
         return (
             <FadeIn>
