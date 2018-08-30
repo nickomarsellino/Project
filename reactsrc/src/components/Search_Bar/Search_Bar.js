@@ -49,7 +49,7 @@ class Search_Bar extends Component {
                             this.search();
                         }
                     }}
-                    onFocus={this.props.isBlur}
+                    //onFocus={this.props.isBlur}
                 />
             </div>
         )

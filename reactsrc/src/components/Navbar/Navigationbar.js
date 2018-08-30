@@ -76,6 +76,7 @@ class Navigationbar extends Component {
     }
 
     isSearch(){
+
         if (this.state.isSearch) {
             return (
                 <Link to={'/home'} >
@@ -127,7 +128,7 @@ class Navigationbar extends Component {
                             </NavItem>
 
                             <NavItem>
-                                <Link to={'/home/myProfile/' + this.state.userName}>
+                                <Link to={'/home/myProfile/' + this.state.userName.replace(' ', '')}>
                                     <Image className="navProfile" id="ProfilePicture" src={profile} avatar={true}>
                                         {imagedisplay}
                                     </Image>
@@ -139,12 +140,12 @@ class Navigationbar extends Component {
                                     <DropdownMenu>
 
                                         <DropdownItem>
-                                            <Link to={'/home/editProfile/' + this.state.userName}>
+                                            <Link to={'/home/editProfile/' + this.state.userName.replace(' ', '')}>
                                                 Edit Profile
                                             </Link>
                                         </DropdownItem>
                                         <DropdownItem>
-                                            <Link to={'/home/changePassword/' + this.state.userName}>
+                                            <Link to={'/home/changePassword/' + this.state.userName.replace(' ', '')}>
                                                 Change Password
                                             </Link>
                                         </DropdownItem>

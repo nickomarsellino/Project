@@ -97,7 +97,10 @@ class Home extends Component {
         );
 
         const search = () => (
-          <SearchPage userId={this.state.userId}/>
+          <SearchPage userId={this.state.userId}
+                      history={this.props.history}
+                      searchData={this.props.location.state}
+          />
         );
 
         return (
