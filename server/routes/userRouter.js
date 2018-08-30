@@ -13,14 +13,15 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
 const multer = require('multer');
+const jimp = require('jimp') // buat image processing
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, '../reactsrc/src/uploads');
     },
     filename: function(req, file, cb) {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' +
-            file.originalname);
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+        // cb(null, file.originalname);
     }
 });
 
@@ -271,7 +272,21 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
 
     // console.log("req.file.filename: ",req.file.filename);
 
-    console.log(req.body);
+      jimp.read(req.file.path , function(err, image){
+          if(err){
+              console.log("Gagal cuuu!");
+          }
+          else{
+              image
+              .quality(45)
+              .write('../reactsrc/src/uploads/' + req.file.filename);
+              console.log("Berhasil!");
+          }
+      })
+
+      console.log("originalname: ",req.file.originalname);
+      console.log("path: ",req.file.path);
+      console.log("filename: ",req.file.filename);
 
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
         User.findOne({_id: req.params.id}).then((user) => {
