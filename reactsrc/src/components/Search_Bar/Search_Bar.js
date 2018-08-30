@@ -18,6 +18,12 @@ class Search_Bar extends Component {
         };
     }
 
+    componentWillMount() {
+        if(this.props.searchValue){
+            console.log("searchValue: ",this.props.searchValue);
+        }
+    }
+
     handleSearchChange = (e, {value}) => {
         this.setState({isLoading: true, value})
         setTimeout(() => {
@@ -28,16 +34,16 @@ class Search_Bar extends Component {
     };
 
     search() {
-        console.log("valuenya: ", this.state.value);
         this.props.ParentSearchTweetsData(this.state.value)
     }
+
 
     render() {
         return (
             <div id="SearchBoxContainer">
 
                 <Search
-                    autofocus
+                   // autoFocus
                     placeholder="Search"
                     size="big"
                     loading={this.state.isLoading}
