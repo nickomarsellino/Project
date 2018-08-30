@@ -88,19 +88,19 @@ router.get('/tweets', (req, res, next) => {
 
 
 // SEARCH FILTER BY USER, get all of the username yang mengandung kata yang di input
-// router.get('/searchByUser/:username', (req, res, next) => {
-//     User.find({username: /:req.params.username/i}, 'username').then((result)=> {
-//         res.send(result);
-//     });
-// });
+router.get('/searchByUser/:username', (req, res, next) => {
+    const searchUserQuery = req.params.username;
+    User.find({username: new RegExp(searchUserQuery, "i")}, 'username').then((result)=> {
+        res.send(result);
+    });
+});
 
 
 // SEARCH FILTER BY TWEETS, get all tweets data, yang input nya sesuai dengan tweets nya
 router.get('/searchByTweets/:tweetText', (req, res, next) => {
-    var searchTweetsQuery = req.params.tweetText;
-    console.log("params.tweettext: ",searchTweetsQuery);
+    const searchTweetsQuery = req.params.tweetText;
 
-    Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId').then((result) => {
+    Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture').then((result) => {
         res.send(result);
     });
 });

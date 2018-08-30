@@ -96,6 +96,13 @@ class Home extends Component {
             <MyProfilePage userId={this.state.userId}/>
         );
 
+        const search = () => (
+          <SearchPage userId={this.state.userId}
+                      history={this.props.history}
+                      searchData={this.props.location.state}
+          />
+        );
+
         return (
             <div>
                 <ScrollUpButton TransitionBtnPosition={150} ToggledStyle={{paddingLeft: "4px"}}/>
@@ -115,7 +122,7 @@ class Home extends Component {
 
                         <Route path={this.props.match.url + '/profile'} component={profile}/>
 
-                        <Route path={this.props.match.url + '/search'} component={SearchPage}/>
+                        <Route path={this.props.match.url + '/search'} component={search}/>
 
                     </div>
                 </FadeIn>
