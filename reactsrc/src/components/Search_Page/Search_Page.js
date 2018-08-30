@@ -23,7 +23,6 @@ class Search_Page extends Component {
 
     componentWillMount() {
         if(this.props.searchData){
-            console.log(this.props.searchData);
             this.setState({
                 tweetData: this.props.searchData.searchData,
                 isSearch: true,
@@ -72,6 +71,7 @@ class Search_Page extends Component {
                         <TweetResult
                             tweetResult = {this.state.tweetData}
                             userId = {this.props.userId}
+                            searchValue={this.state.searchValue}
                         />
                     </FadeIn>
                 );

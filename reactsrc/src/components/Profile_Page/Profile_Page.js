@@ -108,7 +108,6 @@ class Edit_Profile extends Component {
         else{
             imagedisplay = <img alt=" " src={profile} />
         }
-        console.log("PROFILE PAGE ", this.state);
         return (
             <FadeIn>
                 <div className="profile">

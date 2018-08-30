@@ -13,6 +13,7 @@ class Search_Bar extends Component {
         this.state = {
             isLoading: false,
             value: '',
+            searchValue: "Search",
             results: [],
             sourceData : []
         };
@@ -20,7 +21,9 @@ class Search_Bar extends Component {
 
     componentWillMount() {
         if(this.props.searchValue){
-            console.log("searchValue: ",this.props.searchValue);
+            this.setState({
+                searchValue: this.props.searchValue,
+            })
         }
     }
 
@@ -44,7 +47,7 @@ class Search_Bar extends Component {
 
                 <Search
                    // autoFocus
-                    placeholder="Search"
+                    placeholder={this.state.searchValue}
                     size="big"
                     loading={this.state.isLoading}
                     onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
