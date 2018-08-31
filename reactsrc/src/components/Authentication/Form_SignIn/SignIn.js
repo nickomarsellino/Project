@@ -43,7 +43,7 @@ class SignIn extends Component {
         axios({
             method: 'post',
             responseType: 'json',
-            url: `/api/users/signin`,
+            url: `/api/authentication/signin`,
             data: user
         })
             .then((response) => {

@@ -32,7 +32,7 @@ class Search_Page extends Component {
     }
 
     searchTweetsData(searchValue) {
-        axios.get('/api/users/searchByTweets/' + searchValue)
+        axios.get('/api/tweet/searchByTweets/' + searchValue)
             .then(res => {
                 this.setState({
                     tweetData: res.data,
