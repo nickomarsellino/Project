@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import FadeIn from 'react-fade-in';
-import {Container} from "mdbreact"
+import {Container} from "mdbreact";
+import profile from '../../daniel.jpg';
+import {Card, Icon, Image} from 'semantic-ui-react';
 import './Search_Page.css';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -40,6 +42,8 @@ class Search_Page extends Component {
 
             if(this.props.searchData.isUserSearch){
                 this.setState({isUserSearch: true});
+
+                console.log(this.props.searchData.searchUsersData);
             }
         }
     }
@@ -96,9 +100,24 @@ class Search_Page extends Component {
         }
     }
 
+    setProfileImage(profilePicture) {
+        let imageUrl = profilePicture;
+
+        if (imageUrl) {
+            return (
+                <img alt=" "  id="ProfileImage" src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
+            );
+        }
+        else {
+            return (
+                <img alt=" " src={profile} id="ProfileImage"/>
+            );
+        }
+    }
+
     isSearched(isSearch) {
         if (isSearch) {
-            if (this.state.tweetSearch.length === 0) {
+            if (this.state.tweetSearch.length === 0 && this.state.isUserSearch.length === 0) {
                 return (
                     <FadeIn>
                         <div id="navSearchDetail" className="ui three item menu">
@@ -155,7 +174,32 @@ class Search_Page extends Component {
                                 </a>
                             </div>
 
-                            <h1>SKRUP>> ITS PEOPLE BITCH</h1>
+                            <div className="peopleCards">
+                                {this.state.userSearch.map(user =>
+                                    <div className="col-lg-3 col-lg-offset-4 user-Container">
+                                        <Card key={user._id}>
+                                            <center>
+                                                <Image style={{margin: "20px"}} >
+                                                    {this.setProfileImage(user.profilePicture)}
+                                                </Image>
+                                            </center>
+                                            <Card.Content>
+                                                <center>
+                                                    <Card.Header className="profileName">{user.username}</Card.Header>
+                                                    <Card.Description id="followButton">
+                                                        <Icon
+                                                            size='large'
+                                                            name='handshake'
+                                                            id='iconFollow'
+                                                        />
+                                                        {' '}Follow
+                                                    </Card.Description>
+                                                </center>
+                                            </Card.Content>
+                                        </Card>
+                                    </div>
+                                )}
+                            </div>
                         </FadeIn>
                     );
                 }
