@@ -293,7 +293,7 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
             user.save()
                 .then((result) => {
                     User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
-                    Tweet.updateMany({userId: req.params.id}, {$set: {username: req.body.username}}).exec();
+                    Tweet.updateMany({userId: req.params.id}, {$set: {username: req.body.username, profilePicture: req.file.filename} }).exec();
                     res.json({
                         success: true,
                         msg: `Successfully edited..!`,

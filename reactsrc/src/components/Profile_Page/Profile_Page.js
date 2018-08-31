@@ -39,7 +39,6 @@ class Edit_Profile extends Component {
     }
 
     getProfileData() {
-
         //Jika ia klik My Profile
         if (this.props.userId) {
             axios.get('/api/users/profile/'+ this.props.userId).then(res => {
@@ -54,8 +53,6 @@ class Edit_Profile extends Component {
             });
             this.setState({userId: this.props.userId})
         }
-
-
 
         //Jika ia Klik DI container tweetnya
         else if (this.props.userIdProfile.userId) {
@@ -90,9 +87,9 @@ class Edit_Profile extends Component {
         else if (item === "Tweets") {
             //Render Validation box message
             ReactDOM.render(<FadeIn><TwittContainer TweetUserId={this.state.userId}
-                                                    userId={this.props.userId}
-                                                    tweetCounter={this.getTweetCounter}
-                                                    located="profile"
+            userId={this.props.userId}
+            tweetCounter={this.getTweetCounter}
+            located="profile"
             /></FadeIn>, document.getElementById('profileInfo'));
         }
     }
@@ -108,7 +105,9 @@ class Edit_Profile extends Component {
         else{
             imagedisplay = <img alt=" " src={profile} />
         }
+
         console.log("PROFILE PAGE ", this.state);
+
         return (
             <FadeIn>
                 <div className="profile">
@@ -120,7 +119,7 @@ class Edit_Profile extends Component {
                             <a className="header"><i className="user icon"/>{this.state.username}</a>
                             <div className="description">
                                 <i className="calendar icon"/>Joined on <Timestamp time={this.state.timestamp}
-                                                                                   format="date"/>
+                                format="date"/>
                             </div>
                             <div className="description">
                                 <i className="envelope outline icon"/>
@@ -145,9 +144,9 @@ class Edit_Profile extends Component {
                     <FadeIn>
                         <div className="userProfile" id="profileInfo">
                             <TwittContainer TweetUserId={this.state.userId}
-                                            userId={this.props.userId}
-                                            tweetCounter={this.getTweetCounter}
-                                            located="profile"
+                            userId={this.props.userId}
+                            tweetCounter={this.getTweetCounter}
+                            located="profile"
                             />
                         </div>
                     </FadeIn>

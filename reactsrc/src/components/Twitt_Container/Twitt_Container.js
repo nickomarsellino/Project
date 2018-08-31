@@ -166,7 +166,10 @@ class Twitt_Container extends Component {
         }
     }
 
+
+
     render() {
+      console.log("tweet: ", this.state.tweet)
         return (
             <FadeIn>
                 <div>
