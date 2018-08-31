@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
-import {Feed, Icon, Image} from 'semantic-ui-react';
+import {Feed, Icon} from 'semantic-ui-react';
 import profile from '../../../../src/daniel.jpg';
 import axios from 'axios';
 import './Tweet_Result.css';

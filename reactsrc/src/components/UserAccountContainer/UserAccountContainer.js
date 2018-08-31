@@ -4,7 +4,6 @@ import {Card, Icon, Image} from 'semantic-ui-react';
 import './UserAccountContainer.css';
 import profile from '../../daniel.jpg';
 
-const Timestamp = require('react-timestamp');
 
 class UserAccountContainer extends Component {
 

@@ -153,11 +153,11 @@ class Edit_Profile extends Component {
 
     render() {
 
-        var imageUrl = this.state.selectedFile.profilePicture;
+        let imageUrl = this.state.selectedFile.profilePicture;
         let imagedisplay
 
       if(imageUrl){
-          imagedisplay = <img src={require(`../../uploads/${imageUrl}`)} style={{width: '200px', height: '200px',marginTop:'-0.1rem'}} className="float-right" />
+          imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} style={{width: '200px', height: '200px',marginTop:'-0.1rem'}} className="float-right" />
       }
       else{
         <h2 className="lead">No Image</h2>
@@ -183,6 +183,10 @@ class Edit_Profile extends Component {
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
+                                            <center>
+                                                <input type="file" name="profilePicture" onChange={this.fileSelectedHandler} />
+                                            </center>
+
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
                                                         value={this.state.username}
