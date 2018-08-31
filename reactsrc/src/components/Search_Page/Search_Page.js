@@ -36,8 +36,8 @@ class Search_Page extends Component {
 
     searchTweetsData(searchValue) {
         axios.all([
-            axios.get('/api/users/searchByTweets/' + searchValue),
-            axios.get('/api/users/searchByUser/' + searchValue)
+            axios.get('/api/tweet/searchByTweets/' + searchValue),
+            axios.get('/api/tweet/searchByUser/' + searchValue)
         ])
             .then(axios.spread((searchByTweetsRes, searchByUsersRes) => {
                 this.setState({

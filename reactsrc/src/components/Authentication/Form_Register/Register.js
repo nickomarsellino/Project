@@ -89,7 +89,7 @@ class Register extends Component {
             axios({
                 method: 'post',
                 responseType: 'json',
-                url: `/api/users/register`,
+                url: `/api/authentication/register`,
                 data: user
             })
                 .then((response) => {

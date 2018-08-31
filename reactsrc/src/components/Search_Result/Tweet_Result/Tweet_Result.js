@@ -68,7 +68,7 @@ class Tweet_Result extends Component {
 
 
     openModalDelete(tweetId) {
-        axios.get('/api/users/tweet/' + tweetId)
+        axios.get('/api/tweet/tweet/' + tweetId)
             .then(res => {
                 this.setState({
                     tweet: res.data,
