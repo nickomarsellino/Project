@@ -1,6 +1,6 @@
     import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
-import {Feed, Icon, Image} from 'semantic-ui-react';
+import {Feed, Icon} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
@@ -169,7 +169,6 @@ class Twitt_Container extends Component {
 
 
     render() {
-      console.log("tweet: ", this.state.tweet)
         return (
             <FadeIn>
                 <div>

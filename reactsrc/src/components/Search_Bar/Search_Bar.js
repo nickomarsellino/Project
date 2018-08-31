@@ -2,9 +2,6 @@ import React, {Component} from "react";
 import _ from 'lodash'
 import './Search.css';
 import {Search} from 'semantic-ui-react';
-import axios from "axios/index";
-
-let source ;
 
 class Search_Bar extends Component {
 

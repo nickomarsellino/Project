@@ -29,9 +29,10 @@
 }
 
 #limiter-Tweet{
+    margin-right: 38px;
     position: absolute;
     top: 60%;
-    right: 6%;
+    right: 0%;
     transform: translateY(-55%);
     font-family: "Roboto", sans-serif;
 }
