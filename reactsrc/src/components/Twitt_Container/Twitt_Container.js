@@ -83,7 +83,7 @@ class Twitt_Container extends Component {
     }
 
     getTweetUser() {
-        axios.get('/api/users/profiletweet/' + this.props.TweetUserId)
+        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
             .then(res => {
                 this.setState({
                     tweetData: res.data
@@ -95,7 +95,7 @@ class Twitt_Container extends Component {
     }
 
     getTweetData() {
-        axios.get('/api/users/tweets')
+        axios.get('/api/tweet/tweets')
             .then(res => {
                 this.setState({
                     tweetData: res.data
@@ -104,7 +104,7 @@ class Twitt_Container extends Component {
     }
 
     openModalTweet(tweetId) {
-        axios.get('/api/users/tweet/' + tweetId)
+        axios.get('/api/tweet/tweet/' + tweetId)
             .then(res => {
                 this.setState({
                     tweet: res.data,
@@ -114,7 +114,7 @@ class Twitt_Container extends Component {
     }
 
     openModalDelete(tweetId) {
-        axios.get('/api/users/tweet/' + tweetId)
+        axios.get('/api/tweet/tweet/' + tweetId)
             .then(res => {
                 this.setState({
                     tweet: res.data,

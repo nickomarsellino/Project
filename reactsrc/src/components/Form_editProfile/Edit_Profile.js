@@ -174,14 +174,15 @@ class Edit_Profile extends Component {
                                     <Image id="cover" src={profile} size='small' circular>
                                         {imagedisplay}
                                     </Image>
+                                    <br/>
+                                    <center>
+                                      <input type="file"  name="profilePicture" onChange={this.fileSelectedHandler} />
+                                    </center>
                                 </center>
                                 <br/>
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
-                                            <center>
-                                                <input type="file" id="profilePicture"  name="profilePicture" onChange={this.fileSelectedHandler} />
-                                            </center>
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
                                                         value={this.state.username}

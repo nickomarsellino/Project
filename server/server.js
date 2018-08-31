@@ -5,8 +5,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const http = require('http');
-const userRoutes = require('./routes/userRouter');
 const app = express();
+
+const userRoutes = require('./routes/userRouter');
+const authenticationRoutes = require('./routes/authenticationRouter');
+const tweetsRoutes = require('./routes/tweetsRouter');
 
 app.use(logger('dev'));
 app.use(helmet());
@@ -21,7 +24,9 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/project').then(() => console.log('connection succesful')).catch((err) => console.error(err));
 const db = mongoose.connection;
 
+app.use('/api/authentication', authenticationRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/tweet', tweetsRoutes)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

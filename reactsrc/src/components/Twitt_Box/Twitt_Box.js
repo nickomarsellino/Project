@@ -88,7 +88,7 @@ class Twitt_Box extends Component {
         axios({
             method: method,
             responseType: 'json',
-            url: `api/users/tweet`,
+            url: `api/tweet/posting`,
             data: tweet
         })
             .then(() => {
