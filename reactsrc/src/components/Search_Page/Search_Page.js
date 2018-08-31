@@ -23,7 +23,6 @@ class Search_Page extends Component {
 
     componentWillMount() {
         if(this.props.searchData){
-            console.log(this.props.searchData);
             this.setState({
                 tweetData: this.props.searchData.searchData,
                 isSearch: true,
@@ -56,6 +55,11 @@ class Search_Page extends Component {
             if (this.state.tweetData.length === 0) {
                 return (
                     <FadeIn>
+                        <div id="navSearchDetail" className="ui three item menu">
+                            <a className="item itemNav">TWEETS</a>
+                            <a className="item itemNav">PEOPLES</a>
+                        </div>
+                        <br/>
                         <h1>DATA NOT FOUND BRO ...</h1>
                         <h2>{this.state.searchValue}</h2>
                     </FadeIn>
@@ -72,6 +76,7 @@ class Search_Page extends Component {
                         <TweetResult
                             tweetResult = {this.state.tweetData}
                             userId = {this.props.userId}
+                            searchValue={this.state.searchValue}
                         />
                     </FadeIn>
                 );

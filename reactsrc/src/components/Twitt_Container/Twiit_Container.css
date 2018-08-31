@@ -17,10 +17,11 @@
     max-width: 840px;
 }
 
-.Tweet-Delete {
+.ui.feed>.event>.Tweet-Delete {
     margin-bottom: 20px;
-    margin-left: 10px;
+    margin-left: -2%;
 }
+
 
 .Tweet_Container:hover {
     background: rgba(255, 255, 255, 0.7);
