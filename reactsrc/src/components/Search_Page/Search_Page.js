@@ -16,7 +16,9 @@ class Search_Page extends Component {
             tweetSearch: '',
             userSearch: '',
             isSearch: false,
-            searchValue: ''
+            searchValue: '',
+            isTweetSearch: '',
+            isUserSearch: '',
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
         this.isSearched = this.isSearched.bind(this);
@@ -31,13 +33,21 @@ class Search_Page extends Component {
                 isSearch: true,
                 searchValue: this.props.searchData.searchValue
             });
+
+            if(this.props.searchData.isTweetSearch){
+                this.setState({isTweetSearch: true});
+            }
+
+            if(this.props.searchData.isUserSearch){
+                this.setState({isUserSearch: true});
+            }
         }
     }
 
     searchTweetsData(searchValue) {
         axios.all([
             axios.get('/api/tweet/searchByTweets/' + searchValue),
-            axios.get('/api/tweet/searchByUser/' + searchValue)
+            axios.get('/api/users/searchByUser/' + searchValue)
         ])
             .then(axios.spread((searchByTweetsRes, searchByUsersRes) => {
                 this.setState({
@@ -50,7 +60,8 @@ class Search_Page extends Component {
                     state: {
                         searchTweetsData: searchByTweetsRes.data,
                         searchValue: searchValue,
-                        searchUsersData: searchByUsersRes.data
+                        searchUsersData: searchByUsersRes.data,
+                        isTweetSearch: true
                     }
                 })
             }));
@@ -58,10 +69,30 @@ class Search_Page extends Component {
 
     handleItemClicked(item) {
         if (item === "Tweets") {
-            console.log(this.state.tweetSearch);
+            //console.log(this.state.tweetSearch);
+            this.props.history.replace({
+                pathname: '/home/search/',
+                search: this.state.searchValue.replace(' ', '-'),
+                state: {
+                    searchTweetsData: this.state.tweetSearch,
+                    searchValue: this.state.searchValue,
+                    searchUsersData: this.state.userSearch,
+                    isTweetSearch: true
+                }
+            })
         }
         else if (item === "Peoples") {
-            console.log(this.state.userSearch);
+            //console.log(this.state.userSearch);
+            this.props.history.replace({
+                pathname: '/home/search/',
+                search: this.state.searchValue.replace(' ', '-'),
+                state: {
+                    searchTweetsData: this.state.tweetSearch,
+                    searchValue: this.state.searchValue,
+                    searchUsersData: this.state.userSearch,
+                    isUserSearch: true
+                }
+            })
         }
     }
 
@@ -87,26 +118,48 @@ class Search_Page extends Component {
                 );
             }
             else {
-                return (
-                    <FadeIn>
-                        <div id="navSearchDetail" className="ui three item menu">
-                            <a className="item itemNav"
-                               onClick={() => this.handleItemClicked("Tweets")}>
-                                TWEETS
-                            </a>
-                            <a className="item itemNav"
-                               onClick={() => this.handleItemClicked("Peoples")}>
-                                PEOPLES
-                            </a>
-                        </div>
+                if(this.state.isTweetSearch){
+                    return (
+                        <FadeIn>
+                            <div id="navSearchDetail" className="ui three item menu">
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Tweets")}>
+                                    TWEETS
+                                </a>
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Peoples")}>
+                                    PEOPLES
+                                </a>
+                            </div>
 
-                        <TweetResult
-                            tweetResult={this.state.tweetSearch}
-                            userId={this.props.userId}
-                            searchValue={this.state.searchValue}
-                        />
-                    </FadeIn>
-                );
+                            <TweetResult
+                                tweetResult={this.state.tweetSearch}
+                                userId={this.props.userId}
+                                searchValue={this.state.searchValue}
+                            />
+                        </FadeIn>
+                    );
+                }
+
+                if(this.state.isUserSearch){
+                    return (
+                        <FadeIn>
+                            <div id="navSearchDetail" className="ui three item menu">
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Tweets")}>
+                                    TWEETS
+                                </a>
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Peoples")}>
+                                    PEOPLES
+                                </a>
+                            </div>
+
+                            <h1>SKRUP>> ITS PEOPLE BITCH</h1>
+                        </FadeIn>
+                    );
+                }
+
             }
         }
         else {
@@ -131,7 +184,9 @@ class Search_Page extends Component {
                         <center>
                             {this.isSearched(this.state.isSearch)}
 
-                            <div id="searchResult"/>
+                            <FadeIn>
+                                <div id="searchResult"/>
+                            </FadeIn>
                         </center>
                     </div>
                 </Container>

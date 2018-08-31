@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import FadeIn from 'react-fade-in';
 import ScrollUpButton from "react-scroll-up-button";
 import './Home.css';
