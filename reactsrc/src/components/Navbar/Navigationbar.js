@@ -77,24 +77,37 @@ class Navigationbar extends Component {
 
     isSearch(){
 
-        if (this.state.isSearch) {
-            return (
-                <Link to={'/home'} >
-                    <Icon name='cancel'
-                          size='large'
-                          id="cancelIcon"
-                          onClick={this.searchClicked}/>
-                </Link>
-            );
+
+        if(window.location.href === "http://localhost:3001/home/search/"){
+            if (this.state.isSearch) {
+                return (
+                    <Link to={'/home'} >
+                        <Icon name='cancel'
+                              size='large'
+                              id="cancelIcon"
+                              onClick={this.searchClicked}/>
+                    </Link>
+                );
+            }
+            else{
+                return (
+                    <Link to={'/home/search/'} >
+                        <Icon name='search'
+                              size='large'
+                              id="searchIcon"
+                              onClick={this.searchClicked}/>
+                    </Link>
+                );
+            }
         }
         else{
             return (
-            <Link to={'/home/search/'} >
-                <Icon name='search'
-                      size='large'
-                      id="searchIcon"
-                      onClick={this.searchClicked}/>
-            </Link>
+                <Link to={'/home/search/'} >
+                    <Icon name='search'
+                          size='large'
+                          id="searchIcon"
+                          onClick={this.searchClicked}/>
+                </Link>
             );
         }
     }

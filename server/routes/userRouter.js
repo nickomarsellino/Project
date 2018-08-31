@@ -265,13 +265,6 @@ router.get('/logout', (req, res, next) => {
 // Edit Profile
 router.put('/:id', upload.single('profilePicture'), (req, res) => {
 
-    // const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-    // const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
-    // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    // const userData = JSON.parse(plaintext);
-
-    // console.log("req.file.filename: ",req.file.filename);
-
       jimp.read(req.file.path , function(err, image){
           if(err){
               console.log("Gagal cuuu!");

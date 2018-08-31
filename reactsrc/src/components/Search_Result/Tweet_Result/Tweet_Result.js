@@ -31,7 +31,7 @@ class Tweet_Result extends Component {
     }
 
     viewUserProfile(username, userId) {
-        if (window.location.href === "http://localhost:3001/home/search/") {
+        if (window.location.href === "http://localhost:3001/home/search/?"+this.props.searchValue) {
             if(userId === this.props.userId){
                 return (
                     <Link to={{
