@@ -8,6 +8,7 @@ import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import FadeIn from 'react-fade-in';
 import MessageValidation from '../../MessageValidationBox/MessageValidation'
 
+
 import {Form} from 'semantic-ui-react';
 
 
@@ -184,7 +185,10 @@ class Register extends Component {
                                                            onClick={this.isClicked}
                                                            checked={this.state.isChecked}/>
 
-                                            <div id="messageValidation"></div>
+                                            <FadeIn>
+                                                <div id="messageValidation"/>
+                                            </FadeIn>
+
 
                                             <Button id="Submit_Button" block size="lg" type="submit">Register</Button>
                                         </Form>

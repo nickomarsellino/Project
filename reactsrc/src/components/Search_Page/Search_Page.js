@@ -10,6 +10,7 @@ import axios from 'axios';
 //Load another component
 import SearchBar from "../Search_Bar/Search_Bar";
 import TweetResult from "../Search_Result/Tweet_Result/Tweet_Result";
+import UserAccountContainer from "../UserAccountContainer/UserAccountContainer"
 
 class Search_Page extends Component {
     constructor(props) {
@@ -42,8 +43,6 @@ class Search_Page extends Component {
 
             if(this.props.searchData.isUserSearch){
                 this.setState({isUserSearch: true});
-
-                console.log(this.props.searchData.searchUsersData);
             }
         }
     }
@@ -117,25 +116,49 @@ class Search_Page extends Component {
 
     isSearched(isSearch) {
         if (isSearch) {
-            if (this.state.tweetSearch.length === 0 && this.state.isUserSearch.length === 0) {
-                return (
-                    <FadeIn>
-                        <div id="navSearchDetail" className="ui three item menu">
-                            <a className="item itemNav"
-                               onClick={() => this.handleItemClicked("Tweets")}>
-                                TWEETS
-                            </a>
-                            <a className="item itemNav"
-                               onClick={() => this.handleItemClicked("Peoples")}>
-                                PEOPLES
-                            </a>
-                        </div>
-                        <br/>
-                        <h1>DATA NOT FOUND BRO ...</h1>
-                        <h2>{this.state.searchValue}</h2>
-                    </FadeIn>
-                );
+            if (this.state.tweetSearch.length === 0) {
+                if( this.state.isUserSearch.length === 0){
+                    return (
+                        <FadeIn>
+                            <div id="navSearchDetail" className="ui three item menu">
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Tweets")}>
+                                    TWEETS
+                                </a>
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Peoples")}>
+                                    PEOPLES
+                                </a>
+                            </div>
+                            <br/>
+                            <h1>SEARCH NOT FOUND BRO ...</h1>
+                            <h2>{this.state.searchValue}</h2>
+                        </FadeIn>
+                    );
+                }
+                else{
+                    return (
+                        <FadeIn>
+                            <div id="navSearchDetail" className="ui three item menu">
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Tweets")}>
+                                    TWEETS
+                                </a>
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Peoples")}>
+                                    PEOPLES
+                                </a>
+                            </div>
+
+                            <UserAccountContainer
+                                userSearch={this.state.userSearch}
+                                history={this.props.history}
+                            />
+                        </FadeIn>
+                    );
+                }
             }
+
             else {
                 if(this.state.isTweetSearch){
                     return (
