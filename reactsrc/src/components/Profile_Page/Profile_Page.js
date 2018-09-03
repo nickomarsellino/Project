@@ -30,6 +30,7 @@ class Edit_Profile extends Component {
         this.handleItemClicked = this.handleItemClicked.bind(this);
     }
 
+
     componentWillMount() {
         this.getProfileData();
     }

@@ -141,14 +141,12 @@ class Register extends Component {
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
 
-                                            <Form.Field>
-                                                <Form.Input required type="text" fluid label='Username'
-                                                            placeholder='Username'
-                                                            className={this.state.formStatus}
-                                                            onChange={this.handleInputChange}
-                                                            name="username"
-                                                />
-                                            </Form.Field>
+                                            <Form.Input required type="text" fluid label='Username'
+                                                        placeholder='Username'
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                                        name="username"
+                                            />
 
                                             <Form.Input required type="email" fluid label='Email'
                                                         placeholder='Email'
