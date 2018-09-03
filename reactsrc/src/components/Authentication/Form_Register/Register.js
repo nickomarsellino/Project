@@ -73,8 +73,8 @@ class Register extends Component {
             //Render Validation box message
             ReactDOM.render(<MessageValidation
                 form="danger"
-                formStatus=" "
-                formMessage="Please CheckList Bor."
+                formStatus="Error"
+                formMessage="Please CheckList Terms & Conditions"
             />, document.getElementById('messageValidation'));
         }
 
@@ -140,12 +140,15 @@ class Register extends Component {
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
-                                            <Form.Input required type="text" fluid label='Username'
-                                                        placeholder='Username'
-                                                        className={this.state.formStatus}
-                                                        onChange={this.handleInputChange}
-                                                        name="username"
-                                            />
+
+                                            <Form.Field>
+                                                <Form.Input required type="text" fluid label='Username'
+                                                            placeholder='Username'
+                                                            className={this.state.formStatus}
+                                                            onChange={this.handleInputChange}
+                                                            name="username"
+                                                />
+                                            </Form.Field>
 
                                             <Form.Input required type="email" fluid label='Email'
                                                         placeholder='Email'
