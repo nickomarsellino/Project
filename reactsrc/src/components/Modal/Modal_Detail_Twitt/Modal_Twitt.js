@@ -3,6 +3,7 @@ import {Container, Modal, ModalBody, ModalHeader} from 'mdbreact';
 import {Image} from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
 import './Modal_Twitt.css'
+import {Link} from 'react-router-dom';
 
 const Timestamp = require('react-timestamp');
 
@@ -31,6 +32,20 @@ class Modal_Twitt extends Component {
         this.props.isClose(this.props.isOpen);
     }
 
+    setProfileImage(profilePicture) {
+        let imageUrl = profilePicture;
+
+        if (imageUrl) {
+            return (
+                <img alt=" " src={require(`../../../uploads/${imageUrl}`)} id="profilePictureTweet"/>
+            );
+        }
+        else {
+            return (
+                <img alt=" " src={profile} id="profilePictureTweet"/>
+            );
+        }
+    }
 
     render() {
         return (
@@ -38,8 +53,17 @@ class Modal_Twitt extends Component {
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
                     <ModalHeader toggle={this.openModal}>
                         <div className="profileBox">
-                            <Image src={profile} avatar id="avatarBox"/>
+                            <Link to={{
+                                pathname: `/home/profile/${this.state.tweet.username}`,
+                                state: {
+                                    userId: this.state.tweet.userId
+                                }
+                            }}>
+                            <Image avatar id="avatarBox">
+                                {this.setProfileImage(this.state.tweet.profilePicture)}
+                            </Image>
                             <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
+                            </Link>
                         </div>
                     </ModalHeader>
 

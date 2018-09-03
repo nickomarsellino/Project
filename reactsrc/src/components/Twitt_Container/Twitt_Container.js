@@ -1,9 +1,12 @@
-import React, {Component} from "react";
+    import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
 import {Feed, Icon} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
+import FadeIn from 'react-fade-in';
+import {Link} from 'react-router-dom';
+
 
 //load another component
 import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
@@ -32,8 +35,7 @@ class Twitt_Container extends Component {
     }
 
     componentWillMount() {
-
-        if(this.props.TweetUserId){
+        if (this.props.TweetUserId) {
             this.getTweetUser();
         }
         else {
@@ -41,27 +43,68 @@ class Twitt_Container extends Component {
         }
     }
 
+    viewUserProfile(username, userId) {
+        if (this.props.located === "home") {
+            //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
+            if(userId === this.props.userId){
+                return (
+                    <Link to={{
+                        pathname: `/home/myProfile/${username}`,
+                    }}>
+                        <div>
+                            <Feed.Summary content={username}/>
+                        </div>
+                    </Link>
+                );
+            }
+            else{
+                return (
+                    <Link to={{
+                        pathname: `/home/profile/${username}`,
+                        state: {
+                            userId: userId
+                        }
+                    }}>
+                        <div>
+                            <Feed.Summary content={username}/>
+                        </div>
+                    </Link>
+                );
+            }
+        }
+
+        else if (this.props.located === "profile") {
+            return (
+                    <div>
+                        <Feed.Summary content={username}/>
+                    </div>
+            );
+        }
+    }
+
     getTweetUser() {
-        axios.get('/api/users/profiletweet/'+this.props.TweetUserId)
+        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
             .then(res => {
                 this.setState({
                     tweetData: res.data
                 });
+                // get berapa banyak data tweet nya
+                this.props.tweetCounter(res.data.length)
+                // maksudnya dikirim ke profilepage, tweetCounter di profilepage
             });
     }
 
     getTweetData() {
-        axios.get('/api/users/tweets')
+        axios.get('/api/tweet/tweets')
             .then(res => {
                 this.setState({
                     tweetData: res.data
                 });
-                console.log("tweetData ", this.state.tweetData);
             });
     }
 
     openModalTweet(tweetId) {
-        axios.get('/api/users/tweet/' + tweetId)
+        axios.get('/api/tweet/tweet/' + tweetId)
             .then(res => {
                 this.setState({
                     tweet: res.data,
@@ -71,7 +114,7 @@ class Twitt_Container extends Component {
     }
 
     openModalDelete(tweetId) {
-        axios.get('/api/users/tweet/' + tweetId)
+        axios.get('/api/tweet/tweet/' + tweetId)
             .then(res => {
                 this.setState({
                     tweet: res.data,
@@ -82,17 +125,17 @@ class Twitt_Container extends Component {
 
     closeModalTweet(isOpen) {
         if (isOpen) {
-              this.setState({
-                  modalTweet: false
-              })
+            this.setState({
+                modalTweet: false
+            })
         }
     }
 
     closeModalDelete(isOpen) {
         if (isOpen) {
-              this.setState({
-                  modalDelete: false
-              })
+            this.setState({
+                modalDelete: false
+            })
         }
     }
 
@@ -108,46 +151,81 @@ class Twitt_Container extends Component {
         }
     }
 
+    setProfileImage(profilePicture) {
+        let imageUrl = profilePicture;
+
+        if (imageUrl) {
+            return (
+                <img alt=" " src={require(`../../uploads/${imageUrl}`)} id="profilePictureTweet"/>
+            );
+        }
+        else {
+            return (
+                <img alt=" " src={profile} id="profilePictureTweet"/>
+            );
+        }
+    }
+
+
+
     render() {
         return (
-            <div>
-                {this.state.tweetData.map(tweet =>
-                    <Card className="Tweet_Container text-warp">
-                        <CardBody className="Tweet">
-                            <Feed>
-                                <Feed.Event>
-                                    <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
-                                    <Feed.Content onClick={() => this.openModalTweet(tweet._id)}>
-                                        <div className="Tweet-Content">
-                                            <Feed.Summary content={tweet.username}/>
-                                        </div>
-                                        <Feed.Extra text content={tweet.tweetText}/> <br/>
-                                        <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>} />
-                                    </Feed.Content>
+            <FadeIn>
+                <div>
+                    {this.state.tweetData.map(tweet =>
+                        <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
+                            <CardBody className="Tweet">
+                                <Feed>
+                                    <Feed.Event>
+                                        <Feed.Label style={{width: "60px", padding: "8px 0"}}>
+                                            {this.setProfileImage(tweet.profilePicture)}
+                                        </Feed.Label>
+                                        <Feed.Content className="Tweet-Content"
+                                                      onClick={() => this.openModalTweet(tweet._id)}>
 
-                                    <Feed.Label className="Tweet-Delete">
-                                        {this.buttonDelete(tweet.userId, tweet._id)}
-                                    </Feed.Label>
+                                            {this.viewUserProfile(tweet.username, tweet.userId)}
 
-                                </Feed.Event>
-                            </Feed>
-                        </CardBody>
-                    </Card>
-                )}
+                                            <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
 
-                <ModalTwitt
-                    isOpen={this.state.modalTweet}
-                    tweet={this.state.tweet}
-                    isClose={this.closeModalTweet}
-                />
+                                            <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
-                <ModalDelete
-                    isOpen={this.state.modalDelete}
-                    tweet={this.state.tweet}
-                    isClose={this.closeModalDelete}
-                />
+                                            <div>
+                                                <Icon.Group>
+                                                    9 <Icon name='comments' id="commentsIcon"/>
+                                                </Icon.Group>
+                                                <Icon.Group>
+                                                    10 <Icon name='like' id="likeIcon"/>
+                                                </Icon.Group>
+                                                <Icon.Group>
+                                                    11 <Icon name='sync alternate'/>
+                                                </Icon.Group>
+                                            </div>
+                                        </Feed.Content>
 
-            </div>
+                                        <Feed.Label className="Tweet-Delete">
+                                            {this.buttonDelete(tweet.userId, tweet._id)}
+                                        </Feed.Label>
+
+                                    </Feed.Event>
+                                </Feed>
+                            </CardBody>
+                        </Card>
+                    )}
+
+                    <ModalTwitt
+                        isOpen={this.state.modalTweet}
+                        tweet={this.state.tweet}
+                        isClose={this.closeModalTweet}
+                    />
+
+                    <ModalDelete
+                        isOpen={this.state.modalDelete}
+                        tweet={this.state.tweet}
+                        isClose={this.closeModalDelete}
+                    />
+
+                </div>
+            </FadeIn>
         );
     }
 }

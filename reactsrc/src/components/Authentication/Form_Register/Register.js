@@ -34,10 +34,10 @@ class Register extends Component {
 
 
     handleInputChange(e) {
-        const target = e.target;
-        const name = target.name;
 
-        this.setState({[name]: target.value});
+        const name = e.target.name;
+
+        this.setState({[name]: e.target.value});
 
     }
 
@@ -73,8 +73,8 @@ class Register extends Component {
             //Render Validation box message
             ReactDOM.render(<MessageValidation
                 form="danger"
-                formStatus=" "
-                formMessage="Please CheckList Bor."
+                formStatus="Error"
+                formMessage="Please CheckList Terms & Conditions"
             />, document.getElementById('messageValidation'));
         }
 
@@ -89,7 +89,7 @@ class Register extends Component {
             axios({
                 method: 'post',
                 responseType: 'json',
-                url: `/api/users/register`,
+                url: `/api/authentication/register`,
                 data: user
             })
                 .then((response) => {
@@ -140,12 +140,15 @@ class Register extends Component {
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
-                                            <Form.Input required type="text" fluid label='Username'
-                                                        placeholder='Username'
-                                                        className={this.state.formStatus}
-                                                        onChange={this.handleInputChange}
-                                                        name="username"
-                                            />
+
+                                            <Form.Field>
+                                                <Form.Input required type="text" fluid label='Username'
+                                                            placeholder='Username'
+                                                            className={this.state.formStatus}
+                                                            onChange={this.handleInputChange}
+                                                            name="username"
+                                                />
+                                            </Form.Field>
 
                                             <Form.Input required type="email" fluid label='Email'
                                                         placeholder='Email'

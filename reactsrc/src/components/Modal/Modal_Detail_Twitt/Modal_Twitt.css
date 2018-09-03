@@ -1,3 +1,7 @@
 .text-warp{
     word-wrap: break-word;
 }
+
+#nameBox{
+    color: black;
+}

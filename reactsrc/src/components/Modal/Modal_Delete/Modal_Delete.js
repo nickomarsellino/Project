@@ -29,9 +29,10 @@ class Modal_Delete extends Component {
 
 
     deleteTweet(tweetId) {
-        axios.delete('/api/users/tweet/' + tweetId)
+        axios.delete('/api/tweet/tweet/' + tweetId)
             .then(() => {
-                window.location.reload();
+                this.props.isClose(this.props.isOpen);
+                //window.location.reload();
             });
     }
 

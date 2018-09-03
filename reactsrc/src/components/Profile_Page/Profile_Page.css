@@ -6,6 +6,9 @@
 .profile{
   margin: 3%;
 }
+.item{
+  font-size: 15px;
+}
 
 #detailProfile{
   width: 20%;
@@ -19,7 +22,7 @@
   float: right;
 }
 
-.userTweet{
+.userProfile{
   float: right;
   width: 75%;
   margin-bottom: 20px;
@@ -28,3 +31,29 @@
 .emailProfile{
   color: black;
 }
+
+#profilePicture {
+    padding: 25px;
+    height: 280px;
+    width: 100%;
+}
+
+#profileImage {
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 750px){
+    #navDetail{
+        width: 100%;
+        display: none;
+    }
+    #detailProfile{
+      width: 100%;
+      position: fixed;
+    }
+    .userProfile{
+      width: 100%;
+    }
+ }
+
