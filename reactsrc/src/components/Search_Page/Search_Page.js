@@ -8,6 +8,7 @@ import axios from 'axios';
 //Load another component
 import SearchBar from "../Search_Bar/Search_Bar";
 import TweetResult from "../Search_Result/Tweet_Result/Tweet_Result";
+import UserAccountContainer from '../UserAccountContainer/UserAccountContainer'
 
 class Search_Page extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class Search_Page extends Component {
     searchTweetsData(searchValue) {
         axios.all([
             axios.get('/api/tweet/searchByTweets/' + searchValue),
-            axios.get('/api/tweet/searchByUser/' + searchValue)
+            axios.get('/api/users/searchByUser/' + searchValue)
         ])
             .then(axios.spread((searchByTweetsRes, searchByUsersRes) => {
                 this.setState({
@@ -58,10 +59,13 @@ class Search_Page extends Component {
 
     handleItemClicked(item) {
         if (item === "Tweets") {
-            console.log(this.state.tweetSearch);
+            console.log("TWEETS CLICKED: ",this.state.tweetSearch);
         }
         else if (item === "Peoples") {
-            console.log(this.state.userSearch);
+            console.log("PEOPLES CLICKED :",this.state.userSearch);
+            ReactDOM.render(<FadeIn>
+                <UserAccountContainer/>
+            </FadeIn>, document.getElementById('searchResult'));
         }
     }
 
@@ -130,8 +134,9 @@ class Search_Page extends Component {
                         <br/>
                         <center>
                             {this.isSearched(this.state.isSearch)}
-
-                            <div id="searchResult"/>
+                            <div id="searchResult">
+                                <h1>INI PEOPLE</h1>
+                            </div>
                         </center>
                     </div>
                 </Container>

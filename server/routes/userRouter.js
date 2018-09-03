@@ -107,14 +107,12 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
 
 router.put('/changePassword/:id', (req, res) => {
     const user = new User();
-
     // Dari inputan
     const currentPassword = req.body.currentPassword;
 
     User.findById(req.params.id).then((result) => {
         // Cek current sama di db sama gak
         if (bcrypt.compareSync(currentPassword, result.password)) {
-
             // ganti newpassword
             User.updateMany({_id: req.params.id}, {$set: {password: user.generateHash(req.body.newPassword)}}).exec();
 
@@ -130,21 +128,18 @@ router.put('/changePassword/:id', (req, res) => {
 // SEARCH FILTER BY USER, get all of the username yang mengandung kata yang di input
 router.get('/searchByUser/:username', (req, res, next) => {
     const searchUserQuery = req.params.username;
-    User.find({username: new RegExp(searchUserQuery, "i")}, 'username').then((result)=> {
+    User.find({username: new RegExp(searchUserQuery, "i")}, 'username profilePicture').then((result)=> {
         res.send(result);
     });
 });
 
 // Get data for update profile & to View User Data
 router.get('/', (req, res) => {
-
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-
 
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
-
 
     User.findById(userData.userId).then((result) => {
         res.json(result);
