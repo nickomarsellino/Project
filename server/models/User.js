@@ -40,7 +40,17 @@ const UserSchema = new mongoose.Schema({
     profilePicture: { type: String },
     timestamp: {
         type    : Date
-    }
+    },
+    following: [{
+      type : Schema.ObjectId,
+      username : String,
+      ref: 'User'
+    }],
+    followers: [{
+      type : Schema.ObjectId,
+      username : String,
+      ref: 'User'
+    }]
 });
 
 UserSchema.methods.validPassword = function (password) {

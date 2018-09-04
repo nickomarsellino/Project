@@ -105,6 +105,38 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
 });
 
 
+router.post('/following/:id', function(req, res, next) {
+    User.findOne({ _id: req.body.username }, function(err, user) {
+
+    user.followers.push(req.user._id);
+    var followedUser = user._id;
+    user.save(function(err){
+        if(err){
+            //Handle error
+            //send error response
+        }
+        else
+        {
+            // Secondly, find the user account for the logged in user
+            User.findOne({ username: req.user.username }, function(err, user) {
+
+                user.following.push(followedUser);
+                user.save(function(err){
+                    if(err){
+                        //Handle error
+                        //send error response
+                    }
+                    else{
+                        //send success response
+                    }
+                });
+            });
+        }
+    });
+  });
+});
+
+
 router.put('/changePassword/:id', (req, res) => {
     const user = new User();
     // Dari inputan

@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import FadeIn from 'react-fade-in';
-import {Container} from "mdbreact"
+import {Container} from "mdbreact";
+import profile from '../../daniel.jpg';
+import {Card, Icon, Image} from 'semantic-ui-react';
 import './Search_Page.css';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -17,7 +19,9 @@ class Search_Page extends Component {
             tweetSearch: '',
             userSearch: '',
             isSearch: false,
-            searchValue: ''
+            searchValue: '',
+            isTweetSearch: '',
+            isUserSearch: '',
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
         this.isSearched = this.isSearched.bind(this);
@@ -32,6 +36,16 @@ class Search_Page extends Component {
                 isSearch: true,
                 searchValue: this.props.searchData.searchValue
             });
+
+            if(this.props.searchData.isTweetSearch){
+                this.setState({isTweetSearch: true});
+            }
+
+            if(this.props.searchData.isUserSearch){
+                this.setState({isUserSearch: true});
+
+                console.log(this.props.searchData.searchUsersData);
+            }
         }
     }
 
@@ -51,7 +65,8 @@ class Search_Page extends Component {
                     state: {
                         searchTweetsData: searchByTweetsRes.data,
                         searchValue: searchValue,
-                        searchUsersData: searchByUsersRes.data
+                        searchUsersData: searchByUsersRes.data,
+                        isTweetSearch: true
                     }
                 })
             }));
@@ -59,19 +74,51 @@ class Search_Page extends Component {
 
     handleItemClicked(item) {
         if (item === "Tweets") {
-            console.log("TWEETS CLICKED: ",this.state.tweetSearch);
+            //console.log(this.state.tweetSearch);
+            this.props.history.replace({
+                pathname: '/home/search/',
+                search: this.state.searchValue.replace(' ', '-'),
+                state: {
+                    searchTweetsData: this.state.tweetSearch,
+                    searchValue: this.state.searchValue,
+                    searchUsersData: this.state.userSearch,
+                    isTweetSearch: true
+                }
+            })
         }
         else if (item === "Peoples") {
-            console.log("PEOPLES CLICKED :",this.state.userSearch);
-            ReactDOM.render(<FadeIn>
-                <UserAccountContainer/>
-            </FadeIn>, document.getElementById('searchResult'));
+            //console.log(this.state.userSearch);
+            this.props.history.replace({
+                pathname: '/home/search/',
+                search: this.state.searchValue.replace(' ', '-'),
+                state: {
+                    searchTweetsData: this.state.tweetSearch,
+                    searchValue: this.state.searchValue,
+                    searchUsersData: this.state.userSearch,
+                    isUserSearch: true
+                }
+            })
+        }
+    }
+
+    setProfileImage(profilePicture) {
+        let imageUrl = profilePicture;
+
+        if (imageUrl) {
+            return (
+                <img alt=" "  id="ProfileImage" src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
+            );
+        }
+        else {
+            return (
+                <img alt=" " src={profile} id="ProfileImage"/>
+            );
         }
     }
 
     isSearched(isSearch) {
         if (isSearch) {
-            if (this.state.tweetSearch.length === 0) {
+            if (this.state.tweetSearch.length === 0 && this.state.isUserSearch.length === 0) {
                 return (
                     <FadeIn>
                         <div id="navSearchDetail" className="ui three item menu">
@@ -91,26 +138,73 @@ class Search_Page extends Component {
                 );
             }
             else {
-                return (
-                    <FadeIn>
-                        <div id="navSearchDetail" className="ui three item menu">
-                            <a className="item itemNav"
-                               onClick={() => this.handleItemClicked("Tweets")}>
-                                TWEETS
-                            </a>
-                            <a className="item itemNav"
-                               onClick={() => this.handleItemClicked("Peoples")}>
-                                PEOPLES
-                            </a>
-                        </div>
+                if(this.state.isTweetSearch){
+                    return (
+                        <FadeIn>
+                            <div id="navSearchDetail" className="ui three item menu">
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Tweets")}>
+                                    TWEETS
+                                </a>
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Peoples")}>
+                                    PEOPLES
+                                </a>
+                            </div>
 
-                        <TweetResult
-                            tweetResult={this.state.tweetSearch}
-                            userId={this.props.userId}
-                            searchValue={this.state.searchValue}
-                        />
-                    </FadeIn>
-                );
+                            <TweetResult
+                                tweetResult={this.state.tweetSearch}
+                                userId={this.props.userId}
+                                searchValue={this.state.searchValue}
+                            />
+                        </FadeIn>
+                    );
+                }
+
+                if(this.state.isUserSearch){
+                    return (
+                        <FadeIn>
+                            <div id="navSearchDetail" className="ui three item menu">
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Tweets")}>
+                                    TWEETS
+                                </a>
+                                <a className="item itemNav"
+                                   onClick={() => this.handleItemClicked("Peoples")}>
+                                    PEOPLES
+                                </a>
+                            </div>
+
+                            <div className="peopleCards">
+                                {this.state.userSearch.map(user =>
+                                    <div className="col-lg-3 col-lg-offset-4 user-Container">
+                                        <Card key={user._id}>
+                                            <center>
+                                                <Image style={{margin: "20px"}} >
+                                                    {this.setProfileImage(user.profilePicture)}
+                                                </Image>
+                                            </center>
+                                            <Card.Content>
+                                                <center>
+                                                    <Card.Header className="profileName">{user.username}</Card.Header>
+                                                    <Card.Description id="followButton">
+                                                        <Icon
+                                                            size='large'
+                                                            name='handshake'
+                                                            id='iconFollow'
+                                                        />
+                                                        {' '}Follow
+                                                    </Card.Description>
+                                                </center>
+                                            </Card.Content>
+                                        </Card>
+                                    </div>
+                                )}
+                            </div>
+                        </FadeIn>
+                    );
+                }
+
             }
         }
         else {
@@ -134,9 +228,10 @@ class Search_Page extends Component {
                         <br/>
                         <center>
                             {this.isSearched(this.state.isSearch)}
-                            <div id="searchResult">
-                                <h1>INI PEOPLE</h1>
-                            </div>
+
+                            <FadeIn>
+                                <div id="searchResult"/>
+                            </FadeIn>
                         </center>
                     </div>
                 </Container>
