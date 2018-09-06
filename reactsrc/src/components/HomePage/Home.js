@@ -45,7 +45,7 @@ class Home extends Component {
 
 
     verify() {
-        axios.get('/api/users/verify', {
+        axios.get('/api/authentication/verify', {
             credentials: 'include',
             withCredentials: true
         })
