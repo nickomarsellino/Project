@@ -102,10 +102,6 @@ class Search_Page extends Component {
     }
 
     isSearched(isSearch) {
-
-        console.log("INI TWEET: ",this.state.isTweetSearch);
-        console.log("INI USERS: ",this.state.isUserSearch);
-
         if (isSearch) {
             if (this.state.tweetSearch.length === 0 && this.state.userSearch.length === 0) {
                 if(this.state.isTweetSearch){

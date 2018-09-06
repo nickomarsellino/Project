@@ -92,7 +92,7 @@ class Edit_Profile extends Component {
         let formData = new FormData();
 
 
-        console.log("PAS CLICK SUBMIT: ", this.state.selectedFile.name);
+        console.log("PAS CLICK SUBMIT: ", this.state.selectedFile);
 
         formData.append('profilePicture', this.state.selectedFile, this.state.selectedFile.name);
 
@@ -101,8 +101,7 @@ class Edit_Profile extends Component {
         const user = {
             username: this.state.username,
             email: this.state.email,
-            phone: this.state.phone,
-            profilePicture: this.state.selectedFile
+            phone: this.state.phone
         };
 
         axios({
@@ -182,11 +181,7 @@ class Edit_Profile extends Component {
                                 <br/>
                                 <Row>
                                     <Col md="12">
-                                        <Form onSubmit={this.handleSubmit}>
-                                            <center>
-                                                <input type="file" name="profilePicture" onChange={this.fileSelectedHandler} />
-                                            </center>
-
+                                        <Form onSubmit={this.handleSubmit} enctype="multipart/form-data">
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
                                                         value={this.state.username}

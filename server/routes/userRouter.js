@@ -46,6 +46,7 @@ const upload = multer({
 // Edit Profile
 router.put('/:id', upload.single('profilePicture'), (req, res) => {
 
+        console.log(req.file);
       jimp.read(req.file.path , function(err, image){
           if(err){
               console.log("Gagal cuuu!");
@@ -58,6 +59,7 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
           }
       })
 
+      console.log(req.file.path);
       console.log("originalname: ",req.file.originalname);
       console.log("path: ",req.file.path);
       console.log("filename: ",req.file.filename);
