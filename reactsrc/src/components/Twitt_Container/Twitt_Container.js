@@ -43,44 +43,6 @@ class Twitt_Container extends Component {
         }
     }
 
-    viewUserProfile(username, userId) {
-        if (this.props.located === "home") {
-            //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
-            if(userId === this.props.userId){
-                return (
-                    <Link to={{
-                        pathname: `/home/myProfile/${username}`.replace(' ', ''),
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
-                );
-            }
-            else{
-                return (
-                    <Link to={{
-                        pathname: `/home/profile/${username}`.replace(' ', ''),
-                        state: {
-                            userId: userId
-                        }
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
-                );
-            }
-        }
-
-        else if (this.props.located === "profile") {
-            return (
-                    <div>
-                        <Feed.Summary content={username}/>
-                    </div>
-            );
-        }
-    }
 
     getTweetUser() {
         axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
@@ -151,22 +113,84 @@ class Twitt_Container extends Component {
         }
     }
 
-    setProfileImage(profilePicture) {
+    onClickedImage(userId, username){
+        if(this.props.userId === userId){
+            this.props.history.push({
+                pathname: `/home/myProfile/${username}`.replace(' ', ''),
+            })
+        }
+        else {
+            this.props.history.push({
+                pathname: `/home/profile/${username}`.replace(' ', ''),
+                state: {
+                    userId: userId
+                }
+            })
+        }
+    }
+
+    setProfileImage(profilePicture, userId, username) {
         let imageUrl = profilePicture;
 
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../uploads/${imageUrl}`)} id="profilePictureTweet"/>
+                <img alt=" "
+                     src={require(`../../uploads/${imageUrl}`)}
+                     id="profilePictureTweet"
+                     onClick={() => this.onClickedImage(userId, username)}
+                />
             );
         }
         else {
             return (
-                <img alt=" " src={profile} id="profilePictureTweet"/>
+                <img alt=" "
+                     src={profile}
+                     id="profilePictureTweet"
+                     onClick={() => this.onClickedImage(userId, username)}
+                />
             );
         }
     }
 
 
+    viewUserProfile(username, userId) {
+        if (this.props.located === "home") {
+            //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
+            if(userId === this.props.userId){
+                return (
+                    <Link to={{
+                        pathname: `/home/myProfile/${username}`.replace(' ', ''),
+                    }}>
+                        <div>
+                            <Feed.Summary content={username}/>
+                        </div>
+                    </Link>
+                );
+            }
+            else{
+                return (
+                    <Link to={{
+                        pathname: `/home/profile/${username}`.replace(' ', ''),
+                        state: {
+                            userId: userId
+                        }
+                    }}>
+                        <div>
+                            <Feed.Summary content={username}/>
+                        </div>
+                    </Link>
+                );
+            }
+        }
+
+        else if (this.props.located === "profile") {
+            return (
+                <div>
+                    <Feed.Summary content={username}/>
+                </div>
+            );
+        }
+    }
 
     render() {
         return (
@@ -178,28 +202,28 @@ class Twitt_Container extends Component {
                                 <Feed>
                                     <Feed.Event>
                                         <Feed.Label style={{width: "60px", padding: "8px 0"}}>
-                                            {this.setProfileImage(tweet.profilePicture)}
+                                            {this.setProfileImage(tweet.profilePicture, tweet.userId, tweet.username)}
                                         </Feed.Label>
-                                        <Feed.Content className="Tweet-Content"
-                                                      onClick={() => this.openModalTweet(tweet._id)}>
+                                        <Feed.Content className="Tweet-Content">
 
                                             {this.viewUserProfile(tweet.username, tweet.userId)}
 
-                                            <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
+                                            <Feed.Extra onClick={() => this.openModalTweet(tweet._id)} id="tweetText" text content={tweet.tweetText}/> <br/>
 
-                                            <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+                                            <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
-                                            <div>
+                                            <div className="buttonGroup">
                                                 <Icon.Group>
                                                     9 <Icon name='comments' id="commentsIcon"/>
                                                 </Icon.Group>
                                                 <Icon.Group>
-                                                    10 <Icon name='like' id="likeIcon"/>
+                                                    10 <Icon name='like' id="likesIcon"/>
                                                 </Icon.Group>
                                                 <Icon.Group>
                                                     11 <Icon name='sync alternate'/>
                                                 </Icon.Group>
                                             </div>
+
                                         </Feed.Content>
 
                                         <Feed.Label className="Tweet-Delete">

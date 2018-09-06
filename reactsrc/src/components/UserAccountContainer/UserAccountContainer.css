@@ -28,6 +28,7 @@
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
     z-index: 0;
+    cursor: pointer;
 }
 
 .user-Container{
@@ -41,4 +42,8 @@
   white-space:nowrap;
   overflow: hidden;
   width: 100%;
+}
+
+.profileName:hover{
+    cursor: pointer;
 }
