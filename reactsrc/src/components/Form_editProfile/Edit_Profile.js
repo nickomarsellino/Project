@@ -87,16 +87,7 @@ class Edit_Profile extends Component {
     }
 
     handleSubmit(e) {
-
         e.preventDefault();
-        let formData = new FormData();
-
-
-        console.log("PAS CLICK SUBMIT: ", this.state.selectedFile);
-
-        formData.append('profilePicture', this.state.selectedFile, this.state.selectedFile.name);
-
-        console.log("PAS CLICK SUBMIT: ", formData);
 
         const user = {
             username: this.state.username,
@@ -107,9 +98,8 @@ class Edit_Profile extends Component {
         axios({
             method: 'put',
             responseType: 'json',
-            url: '/api/users/'+ this.state.userId,
+            url: `/api/users/editProfile`,
             data: user,
-            body: formData,
             credentials:'include',
             withCredentials: true
         })
@@ -119,13 +109,26 @@ class Edit_Profile extends Component {
                     formMessage: response.data.msg
                 });
 
-                //Render Validation box message
-                ReactDOM.render(<MessageValidation
-                    form="success"
-                    formStatus={this.state.formStatus}
-                    formMessage={this.state.formMessage}
-                />, document.getElementById('messageValidation'));
+                let formData = new FormData();
 
+                console.log("PAS CLICK SUBMIT: ", this.state.selectedFile);
+
+                formData.append('profilePicture', this.state.selectedFile);
+
+                console.log("PAS CLICK SUBMIT: ", formData);
+
+                axios.put('/api/users/editProfilePicture/'+this.state.userId, formData)
+                    .then((result) => {
+
+                    })
+                    .catch(() => {
+                        //Render Validation box message
+                        ReactDOM.render(<MessageValidation
+                            form="success"
+                            formStatus="Success"
+                            formMessage="Success Update Profile"
+                        />, document.getElementById('messageValidation'));
+                        });
             })
             .catch((err) => {
                 if (err.response) {
@@ -149,6 +152,7 @@ class Edit_Profile extends Component {
                 />, document.getElementById('messageValidation'));
             });
     }
+
 
     render() {
 
@@ -181,7 +185,7 @@ class Edit_Profile extends Component {
                                 <br/>
                                 <Row>
                                     <Col md="12">
-                                        <Form onSubmit={this.handleSubmit} enctype="multipart/form-data">
+                                        <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
                                                         value={this.state.username}
