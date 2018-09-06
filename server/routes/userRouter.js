@@ -10,6 +10,8 @@ const atob = require('atob');
 const cookie = require('cookie');
 const secretKey = 'Lil-Uzi-Vert=XO-Tour-LIF3'
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
+
 router.use(cookieParser());
 
 const multer = require('multer');
@@ -114,23 +116,21 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
         }
     });
 
-            User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
-            Tweet.updateMany({userId: req.params.id}, {
-                $set: {
-                    profilePicture: req.file.filename
-                }
-            }).exec();
-            // res.json({
-            //     success: true,
-            //     msg: `Successfully edited..!`,
-            //     result: {
-            //         _id: result._id,
-            //         username: result.username,
-            //         email: result.email,
-            //         phone: result.phone,
-            //         profilePicture: req.file.filename
-            //     }
-            // });
+
+    User.find({_id: req.params.id}, 'profilePicture').then((result) => {
+        fs.unlink('../reactsrc/src/uploads/'+result[0].profilePicture, function(error) {
+            if (error) {
+                throw error;
+            }
+        });
+    });
+
+    User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
+    Tweet.updateMany({userId: req.params.id}, {
+        $set: {
+            profilePicture: req.file.filename
+        }
+        }).exec();
 });
 
 
