@@ -97,17 +97,41 @@ class Tweet_Result extends Component {
         }
     }
 
-    setProfileImage(profilePicture) {
+    onClickedImage(userId, username){
+        if(this.props.userId === userId){
+            this.props.history.push({
+                pathname: `/home/myProfile/${username}`.replace(' ', ''),
+            })
+        }
+        else {
+            this.props.history.push({
+                pathname: `/home/profile/${username}`.replace(' ', ''),
+                state: {
+                    userId: userId
+                }
+            })
+        }
+    }
+
+    setProfileImage(profilePicture, userId, username) {
         let imageUrl = profilePicture;
 
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../../uploads/${imageUrl}`)} id="profilePictureTweet"/>
+                <img alt=" "
+                     src={require(`../../../uploads/${imageUrl}`)}
+                     id="profilePictureTweet"
+                     onClick={() => this.onClickedImage(userId, username)}
+                />
             );
         }
         else {
             return (
-                <img alt=" " src={profile} id="profilePictureTweet"/>
+                <img alt=" "
+                     src={profile}
+                     id="profilePictureTweet"
+                     onClick={() => this.onClickedImage(userId, username)}
+                />
             );
         }
     }
@@ -122,7 +146,7 @@ class Tweet_Result extends Component {
                                 <Feed>
                                     <Feed.Event>
                                         <Feed.Label style={{width: "60px", padding: "8px 0"}}>
-                                            {this.setProfileImage(tweet.profilePicture)}
+                                            {this.setProfileImage(tweet.profilePicture, tweet.userId, tweet.username)}
                                         </Feed.Label>
                                         <Feed.Content className="Tweet-Content">
 

@@ -85,7 +85,7 @@ class Home extends Component {
                           userId={this.state.userId}
                           profilePicture={this.state.profilePicture}
                 />
-                <TwittContainer userId={this.state.userId} located="home"/>
+                <TwittContainer userId={this.state.userId} located="home" history={this.props.history}/>
             </Container>
         );
 

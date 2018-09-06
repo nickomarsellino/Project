@@ -181,6 +181,7 @@ class Search_Page extends Component {
                                 </div>
 
                                 <TweetResult
+                                    history={this.props.history}
                                     tweetResult={this.state.tweetSearch}
                                     userId={this.props.userId}
                                     searchValue={this.state.searchValue}
@@ -246,6 +247,7 @@ class Search_Page extends Component {
     }
 
     render() {
+
         return (
             <FadeIn>
                 <Container className="col-lg-8 col-lg-offset-4" style={{marginBottom: "5%", marginTop: "5%"}}>
