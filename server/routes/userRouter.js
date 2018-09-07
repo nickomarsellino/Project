@@ -118,11 +118,11 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
 
 
     User.find({_id: req.params.id}, 'profilePicture').then((result) => {
-        fs.unlink('../reactsrc/src/uploads/'+result[0].profilePicture, function(error) {
-            if (error) {
-                throw error;
-            }
-        });
+            fs.unlink('../reactsrc/src/uploads/'+result[0].profilePicture, function(error) {
+                if (error) {
+                    throw error;
+                }
+            });
     });
 
     User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
