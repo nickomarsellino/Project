@@ -90,11 +90,11 @@ class Home extends Component {
         );
 
         const profile = () => (
-            <ProfilePage userIdProfile={this.props.location.state}/>
+            <ProfilePage userIdProfile={this.props.location.state} history={this.props.history}/>
         );
 
         const myProfile = () => (
-            <MyProfilePage userId={localStorage.getItem("myThings")}/>
+            <MyProfilePage userId={localStorage.getItem("myThings")} history={this.props.history}/>
         );
 
         const search = () => (

@@ -22,6 +22,7 @@ class Twitt_Container extends Component {
         this.state = {
             tweetData: [],
             tweet: [],
+            tweetCounter: '',
             modalTweet: false,
             modalDelete: false
         };
@@ -48,7 +49,8 @@ class Twitt_Container extends Component {
         axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
             .then(res => {
                 this.setState({
-                    tweetData: res.data
+                    tweetData: res.data,
+                    tweetCounter: res.data.length
                 });
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.length)
@@ -114,18 +116,24 @@ class Twitt_Container extends Component {
     }
 
     onClickedImage(userId, username){
-        if(this.props.userId === userId){
-            this.props.history.push({
-                pathname: `/home/myProfile/${username}`.replace(' ', ''),
-            })
+
+        if (this.props.located === "profile") {
+
         }
-        else {
-            this.props.history.push({
-                pathname: `/home/profile/${username}`.replace(' ', ''),
-                state: {
-                    userId: userId
-                }
-            })
+        else{
+            if(this.props.userId === userId){
+                this.props.history.push({
+                    pathname: `/home/myProfile/${username}`.replace(' ', ''),
+                })
+            }
+            else {
+                this.props.history.push({
+                    pathname: `/home/profile/${username}`.replace(' ', ''),
+                    state: {
+                        userId: userId
+                    }
+                })
+            }
         }
     }
 
@@ -192,10 +200,28 @@ class Twitt_Container extends Component {
         }
     }
 
+    isEmptyTweet(){
+        if(this.props.located === "profile"){
+            if(this.state.tweetCounter === 0){
+                return (
+                    <Card className="Tweet_Container" id="text-warp">
+                        <CardBody className="Tweet">
+                            <center>
+                                <h3>Sorry, We Didn't Find Something In Here :)</h3>
+                            </center>
+                        </CardBody>
+                    </Card>
+                );
+            }
+        }
+    }
+
+
     render() {
         return (
             <FadeIn>
                 <div>
+                    {this.isEmptyTweet(this.state.tweetData)}
                     {this.state.tweetData.map(tweet =>
                         <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
                             <CardBody className="Tweet">
@@ -213,20 +239,17 @@ class Twitt_Container extends Component {
                                             <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
                                             <div className="buttonGroup">
-                                                <Icon.Group>
-                                                    9 <Icon name='comments' id="commentsIcon"/>
+                                                <Icon.Group id="commentsIcon">
+                                                    9 <Icon name='comments'/>
                                                 </Icon.Group>
-                                                <Icon.Group>
-                                                    10 <Icon name='like' id="likesIcon"/>
-                                                </Icon.Group>
-                                                <Icon.Group>
-                                                    11 <Icon name='sync alternate'/>
+                                                <Icon.Group id="likesIcon">
+                                                    10 <Icon name='like' />
                                                 </Icon.Group>
                                             </div>
 
                                         </Feed.Content>
 
-                                        <Feed.Label className="Tweet-Delete">
+                                        <Feed.Label className="Tweet-Delete" onClick={() => this.openModalTweet(tweet._id)}>
                                             {this.buttonDelete(tweet.userId, tweet._id)}
                                         </Feed.Label>
 
