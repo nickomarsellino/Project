@@ -55,9 +55,9 @@ router.get('/tweets', (req, res, next) => {
 
 
 // SEARCH FILTER BY TWEETS, get all tweets data, yang input nya sesuai dengan tweets nya
+// https://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value
 router.get('/searchByTweets/:tweetText', (req, res, next) => {
     const searchTweetsQuery = req.params.tweetText;
-
     Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture').then((result) => {
         res.send(result);
     });

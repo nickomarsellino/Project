@@ -134,16 +134,46 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
 });
 
 
+router.post('/following/:id', function(req, res, next) {
+    User.findOne({ _id: req.body.username }, function(err, user) {
+
+    user.followers.push(req.user._id);
+    var followedUser = user._id;
+    user.save(function(err){
+        if(err){
+            //Handle error
+            //send error response
+        }
+        else
+        {
+            // Secondly, find the user account for the logged in user
+            User.findOne({ username: req.user.username }, function(err, user) {
+
+                user.following.push(followedUser);
+                user.save(function(err){
+                    if(err){
+                        //Handle error
+                        //send error response
+                    }
+                    else{
+                        //send success response
+                    }
+                });
+            });
+        }
+    });
+  });
+});
+
+
 router.put('/changePassword/:id', (req, res) => {
     const user = new User();
-
     // Dari inputan
     const currentPassword = req.body.currentPassword;
 
     User.findById(req.params.id).then((result) => {
         // Cek current sama di db sama gak
         if (bcrypt.compareSync(currentPassword, result.password)) {
-
             // ganti newpassword
             User.updateMany({_id: req.params.id}, {$set: {password: user.generateHash(req.body.newPassword)}}).exec();
 
@@ -166,14 +196,11 @@ router.get('/searchByUser/:username', (req, res, next) => {
 
 // Get data for update profile & to View User Data
 router.get('/', (req, res) => {
-
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-
 
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
-
 
     User.findById(userData.userId).then((result) => {
         res.json(result);

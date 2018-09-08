@@ -9,17 +9,29 @@ import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import axios from "axios/index";
 
+import openSocket from 'socket.io-client';
+const  socket = openSocket('http://10.183.28.153:8000');
+
+function subscribeToTimer(cb) {
+  socket.on('timer', timestamp => cb(null, timestamp));
+  // on itu penerima
+  socket.emit('subscribeToTimer', 1000);
+}
 
 class SignIn extends Component {
     constructor(props) {
         super(props);
+        subscribeToTimer((err, timestamp) => this.setState({
+          timestamp
+        }));
         this.state = {
             email: "",
             password: "",
             token: "",
             formMessage: "",
             formStatus: "",
-            success: false
+            success: false,
+            timestamp: 'no timestamp yet'
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,6 +42,9 @@ class SignIn extends Component {
         const name = target.name;
         this.setState({[name]: target.value});
     }
+
+
+
 
 
     handleSubmit(e) {
@@ -88,7 +103,10 @@ class SignIn extends Component {
                     <Container className="col-md-4 col-md-offset-2">
                         <Card className="Card_container">
                             <CardBody>
-                                <center><h1>Sign In</h1></center>
+                                <center><h1>Sign In</h1>
+                                <br/>
+                                This is the timer value: {this.state.timestamp}
+                                </center>
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>

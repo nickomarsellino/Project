@@ -88,7 +88,6 @@ class Edit_Profile extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
         const user = {
             username: this.state.username,
             email: this.state.email,
@@ -185,6 +184,7 @@ class Edit_Profile extends Component {
                                 <br/>
                                 <Row>
                                     <Col md="12">
+
                                         <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
