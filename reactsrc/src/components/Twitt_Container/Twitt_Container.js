@@ -22,6 +22,7 @@ class Twitt_Container extends Component {
         this.state = {
             tweetData: [],
             tweet: [],
+            tweetCounter: '',
             modalTweet: false,
             modalDelete: false
         };
@@ -43,50 +44,13 @@ class Twitt_Container extends Component {
         }
     }
 
-    viewUserProfile(username, userId) {
-        if (this.props.located === "home") {
-            //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
-            if(userId === this.props.userId){
-                return (
-                    <Link to={{
-                        pathname: `/home/myProfile/${username}`.replace(' ', ''),
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
-                );
-            }
-            else{
-                return (
-                    <Link to={{
-                        pathname: `/home/profile/${username}`.replace(' ', ''),
-                        state: {
-                            userId: userId
-                        }
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
-                );
-            }
-        }
-
-        else if (this.props.located === "profile") {
-            return (
-                    <div>
-                        <Feed.Summary content={username}/>
-                    </div>
-            );
-        }
-    }
 
     getTweetUser() {
         axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
             .then(res => {
                 this.setState({
-                    tweetData: res.data
+                    tweetData: res.data,
+                    tweetCounter: res.data.length
                 });
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.length)
@@ -151,58 +115,141 @@ class Twitt_Container extends Component {
         }
     }
 
-    setProfileImage(profilePicture) {
+    onClickedImage(userId, username){
+
+        if (this.props.located === "profile") {
+
+        }
+        else{
+            if(this.props.userId === userId){
+                this.props.history.push({
+                    pathname: `/home/myProfile/${username}`.replace(' ', ''),
+                })
+            }
+            else {
+                this.props.history.push({
+                    pathname: `/home/profile/${username}`.replace(' ', ''),
+                    state: {
+                        userId: userId
+                    }
+                })
+            }
+        }
+    }
+
+    setProfileImage(profilePicture, userId, username) {
         let imageUrl = profilePicture;
 
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../uploads/${imageUrl}`)} id="profilePictureTweet"/>
+                <img alt=" "
+                     src={require(`../../uploads/${imageUrl}`)}
+                     id="profilePictureTweet"
+                     onClick={() => this.onClickedImage(userId, username)}
+                />
             );
         }
         else {
             return (
-                <img alt=" " src={profile} id="profilePictureTweet"/>
+                <img alt=" "
+                     src={profile}
+                     id="profilePictureTweet"
+                     onClick={() => this.onClickedImage(userId, username)}
+                />
             );
         }
     }
 
+
+    viewUserProfile(username, userId) {
+        if (this.props.located === "home") {
+            //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
+            if(userId === this.props.userId){
+                return (
+                    <Link to={{
+                        pathname: `/home/myProfile/${username}`.replace(' ', ''),
+                    }}>
+                        <div>
+                            <Feed.Summary content={username}/>
+                        </div>
+                    </Link>
+                );
+            }
+            else{
+                return (
+                    <Link to={{
+                        pathname: `/home/profile/${username}`.replace(' ', ''),
+                        state: {
+                            userId: userId
+                        }
+                    }}>
+                        <div>
+                            <Feed.Summary content={username}/>
+                        </div>
+                    </Link>
+                );
+            }
+        }
+
+        else if (this.props.located === "profile") {
+            return (
+                <div>
+                    <Feed.Summary content={username}/>
+                </div>
+            );
+        }
+    }
+
+    isEmptyTweet(){
+        if(this.props.located === "profile"){
+            if(this.state.tweetCounter === 0){
+                return (
+                    <Card className="Tweet_Container" id="text-warp">
+                        <CardBody className="Tweet">
+                            <center>
+                                <h3>Sorry, We Didn't Find Something In Here :)</h3>
+                            </center>
+                        </CardBody>
+                    </Card>
+                );
+            }
+        }
+    }
 
 
     render() {
         return (
             <FadeIn>
                 <div>
+                    {this.isEmptyTweet(this.state.tweetData)}
                     {this.state.tweetData.map(tweet =>
                         <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
                             <CardBody className="Tweet">
                                 <Feed>
                                     <Feed.Event>
                                         <Feed.Label style={{width: "60px", padding: "8px 0"}}>
-                                            {this.setProfileImage(tweet.profilePicture)}
+                                            {this.setProfileImage(tweet.profilePicture, tweet.userId, tweet.username)}
                                         </Feed.Label>
-                                        <Feed.Content className="Tweet-Content"
-                                                      onClick={() => this.openModalTweet(tweet._id)}>
+                                        <Feed.Content className="Tweet-Content">
 
                                             {this.viewUserProfile(tweet.username, tweet.userId)}
 
-                                            <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
+                                            <Feed.Extra onClick={() => this.openModalTweet(tweet._id)} id="tweetText" text content={tweet.tweetText}/> <br/>
 
-                                            <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+                                            <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
-                                            <div>
-                                                <Icon.Group>
-                                                    9 <Icon name='comments' id="commentsIcon"/>
+                                            <div className="buttonGroup">
+                                                <Icon.Group id="commentsIcon">
+                                                    9 <Icon name='comments'/>
                                                 </Icon.Group>
-                                                <Icon.Group>
-                                                    10 <Icon name='like' id="likeIcon"/>
-                                                </Icon.Group>
-                                                <Icon.Group>
-                                                    11 <Icon name='sync alternate'/>
+                                                <Icon.Group id="likesIcon">
+                                                    10 <Icon name='like' />
                                                 </Icon.Group>
                                             </div>
+
                                         </Feed.Content>
 
-                                        <Feed.Label className="Tweet-Delete">
+                                        <Feed.Label className="Tweet-Delete" onClick={() => this.openModalTweet(tweet._id)}>
                                             {this.buttonDelete(tweet.userId, tweet._id)}
                                         </Feed.Label>
 

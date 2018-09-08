@@ -10,16 +10,18 @@ const atob = require('atob');
 const cookie = require('cookie');
 const secretKey = 'Lil-Uzi-Vert=XO-Tour-LIF3'
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
+
 router.use(cookieParser());
 
 const multer = require('multer');
 const jimp = require('jimp') // buat image processing
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, '../reactsrc/src/uploads');
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
         // cb(null, file.originalname);
     }
@@ -44,30 +46,20 @@ const upload = multer({
 });
 
 // Edit Profile
-router.put('/:id', upload.single('profilePicture'), (req, res) => {
+router.put('/editProfile', (req, res) => {
 
-      jimp.read(req.file.path , function(err, image){
-          if(err){
-              console.log("Gagal cuuu!");
-          }
-          else{
-              image
-              .quality(45)
-              .write('../reactsrc/src/uploads/' + req.file.filename);
-              console.log("Berhasil!");
-          }
-      })
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
 
-      console.log("originalname: ",req.file.originalname);
-      console.log("path: ",req.file.path);
-      console.log("filename: ",req.file.filename);
 
-    User.findByIdAndUpdate({_id: req.params.id}, req.body).then(() => {
-        User.findOne({_id: req.params.id}).then((user) => {
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    User.findByIdAndUpdate({_id: userData.userId}, req.body).then(() => {
+        User.findOne({_id: userData.userId}).then((user) => {
             user.save()
                 .then((result) => {
-                    User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
-                    Tweet.updateMany({userId: req.params.id}, {$set: {username: req.body.username, profilePicture: req.file.filename} }).exec();
+                    Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
                     res.json({
                         success: true,
                         msg: `Successfully edited..!`,
@@ -75,8 +67,8 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
                             _id: result._id,
                             username: result.username,
                             email: result.email,
-                            phone: result.phone,
-                            profilePicture: req.file.filename
+                            password: result.password,
+                            phone: result.phone
                         }
                     });
                 }).catch((err) => {
@@ -102,6 +94,43 @@ router.put('/:id', upload.single('profilePicture'), (req, res) => {
             }
         });
     });
+});
+
+// Edit Profile PICTURE
+router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res) => {
+
+    console.log("Id nya: ", req.params.id);
+    console.log("originalname: ", req.file.originalname);
+    console.log("path: ", req.file.path);
+    console.log("filename: ", req.file.filename);
+
+    jimp.read(req.file.path, function (err, image) {
+        if (err) {
+            console.log("Gagal cuuu!");
+        }
+        else {
+            image
+                .quality(45)
+                .write('../reactsrc/src/uploads/' + req.file.filename);
+            console.log("Berhasil!");
+        }
+    });
+
+
+    User.find({_id: req.params.id}, 'profilePicture').then((result) => {
+            fs.unlink('../reactsrc/src/uploads/'+result[0].profilePicture, function(error) {
+                if (error) {
+                    throw error;
+                }
+            });
+    });
+
+    User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
+    Tweet.updateMany({userId: req.params.id}, {
+        $set: {
+            profilePicture: req.file.filename
+        }
+        }).exec();
 });
 
 
@@ -160,7 +189,7 @@ router.put('/changePassword/:id', (req, res) => {
 // SEARCH FILTER BY USER, get all of the username yang mengandung kata yang di input
 router.get('/searchByUser/:username', (req, res, next) => {
     const searchUserQuery = req.params.username;
-    User.find({username: new RegExp(searchUserQuery, "i")}, 'username profilePicture').then((result)=> {
+    User.find({username: new RegExp(searchUserQuery, "i")}, 'username profilePicture').then((result) => {
         res.send(result);
     });
 });
