@@ -8,6 +8,7 @@ import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import FadeIn from 'react-fade-in';
 import MessageValidation from '../../MessageValidationBox/MessageValidation'
 
+
 import {Form} from 'semantic-ui-react';
 
 
@@ -141,14 +142,12 @@ class Register extends Component {
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
 
-                                            <Form.Field>
-                                                <Form.Input required type="text" fluid label='Username'
-                                                            placeholder='Username'
-                                                            className={this.state.formStatus}
-                                                            onChange={this.handleInputChange}
-                                                            name="username"
-                                                />
-                                            </Form.Field>
+                                            <Form.Input required type="text" fluid label='Username'
+                                                        placeholder='Username'
+                                                        className={this.state.formStatus}
+                                                        onChange={this.handleInputChange}
+                                                        name="username"
+                                            />
 
                                             <Form.Input required type="email" fluid label='Email'
                                                         placeholder='Email'
@@ -186,7 +185,10 @@ class Register extends Component {
                                                            onClick={this.isClicked}
                                                            checked={this.state.isChecked}/>
 
-                                            <div id="messageValidation"></div>
+                                            <FadeIn>
+                                                <div id="messageValidation"/>
+                                            </FadeIn>
+
 
                                             <Button id="Submit_Button" block size="lg" type="submit">Register</Button>
                                         </Form>

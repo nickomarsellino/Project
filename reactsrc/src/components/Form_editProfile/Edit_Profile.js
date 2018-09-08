@@ -87,17 +87,11 @@ class Edit_Profile extends Component {
     }
 
     handleSubmit(e) {
-
         e.preventDefault();
         let formData = new FormData();
-
-
         console.log("PAS CLICK SUBMIT: ", this.state.selectedFile.name);
-
         formData.append('profilePicture', this.state.selectedFile, this.state.selectedFile.name);
-
         console.log("PAS CLICK SUBMIT: ", formData);
-
         const user = {
             username: this.state.username,
             email: this.state.email,

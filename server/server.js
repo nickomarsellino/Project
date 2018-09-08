@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const http = require('http');
 const app = express();
 
+
 const userRoutes = require('./routes/userRouter');
 const authenticationRoutes = require('./routes/authenticationRouter');
 const tweetsRoutes = require('./routes/tweetsRouter');
@@ -50,5 +51,18 @@ app.use((error, req, res, next) => {
     }
   });
 });
+
+const io = require('socket.io')();
+
+io.on('connection', (client) => {
+  client.on('subscribeToTimer', (interval) => {
+    console.log('client is subscribing to timer with interval ', interval);
+    setInterval(() => {
+      client.emit('timer', new Date());
+    }, interval);
+  });
+});
+
+io.listen(8000);
 
 module.exports = app;

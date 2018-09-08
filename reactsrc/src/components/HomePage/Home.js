@@ -39,6 +39,7 @@ class Home extends Component {
                     userId: res.data._id,
                     profilePicture: res.data.profilePicture
                 });
+                localStorage.setItem("myThings",res.data._id);
             });
     }
 
@@ -93,7 +94,7 @@ class Home extends Component {
         );
 
         const myProfile = () => (
-            <MyProfilePage userId={this.state.userId}/>
+            <MyProfilePage userId={localStorage.getItem("myThings")}/>
         );
 
         const search = () => (
@@ -102,7 +103,6 @@ class Home extends Component {
                       searchData={this.props.location.state}
           />
         );
-
         return (
             <div>
                 <ScrollUpButton TransitionBtnPosition={150} ToggledStyle={{paddingLeft: "4px"}}/>

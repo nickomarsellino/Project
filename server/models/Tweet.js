@@ -15,6 +15,9 @@ const TweetSchema = Schema({
     tweetText: {
         type: String
     },
+    like: [{
+        userId: { type: String }
+    }],
     timestamp: {
         type: Date,
         default: Date.now()
