@@ -45,7 +45,7 @@ class Home extends Component {
 
 
     verify() {
-        axios.get('/api/users/verify', {
+        axios.get('/api/authentication/verify', {
             credentials: 'include',
             withCredentials: true
         })
@@ -85,16 +85,16 @@ class Home extends Component {
                           userId={this.state.userId}
                           profilePicture={this.state.profilePicture}
                 />
-                <TwittContainer userId={this.state.userId} located="home"/>
+                <TwittContainer userId={this.state.userId} located="home" history={this.props.history}/>
             </Container>
         );
 
         const profile = () => (
-            <ProfilePage userIdProfile={this.props.location.state}/>
+            <ProfilePage userIdProfile={this.props.location.state} history={this.props.history}/>
         );
 
         const myProfile = () => (
-            <MyProfilePage userId={localStorage.getItem("myThings")}/>
+            <MyProfilePage userId={localStorage.getItem("myThings")} history={this.props.history}/>
         );
 
         const search = () => (

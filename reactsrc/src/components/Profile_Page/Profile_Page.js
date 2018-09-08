@@ -76,22 +76,21 @@ class Edit_Profile extends Component {
         if (item === "Follower") {
             //Render Validation box message
             ReactDOM.render(<FadeIn>
-                <UserAccountContainer/>
+                <UserAccountContainer history={this.props.history}/>
             </FadeIn>, document.getElementById('profileInfo'));
         }
         else if (item === "Following") {
             //Render Validation box message
             ReactDOM.render(<FadeIn>
-                <UserAccountContainer/>
+                <UserAccountContainer history={this.props.history}/>
             </FadeIn>, document.getElementById('profileInfo'));
         }
         else if (item === "Tweets") {
             //Render Validation box message
-            ReactDOM.render(<FadeIn>
-              <TwittContainer TweetUserId={this.state.userId}
-              userId={this.props.userId}
-              tweetCounter={this.getTweetCounter}
-              located="profile"
+            ReactDOM.render(<FadeIn><TwittContainer history={this.props.history} TweetUserId={this.state.userId}
+            userId={this.props.userId}
+            tweetCounter={this.getTweetCounter}
+            located="profile"
             /></FadeIn>, document.getElementById('profileInfo'));
         }
     }
@@ -146,7 +145,7 @@ class Edit_Profile extends Component {
                             <TwittContainer TweetUserId={this.state.userId}
                             userId={this.props.userId}
                             tweetCounter={this.getTweetCounter}
-                            located="profile"
+                            located="profile" history={this.props.history}
                             />
                         </div>
                     </FadeIn>

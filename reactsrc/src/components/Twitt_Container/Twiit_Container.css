@@ -17,6 +17,14 @@
     max-width: 840px;
 }
 
+#tweetText:hover {
+    cursor: pointer;
+}
+
+#profilePictureTweet:hover {
+    cursor: pointer;
+}
+
 .ui.feed>.event>.Tweet-Delete {
     margin-bottom: 20px;
     margin-left: -4%;
@@ -60,4 +68,13 @@
 #recycleIcon:active {
     position: relative;
     top: 1px;
+}
+
+.buttonGroup{
+    margin-top: 10px;
+}
+
+
+#commentIcon{
+    opacity: 0.5;
 }

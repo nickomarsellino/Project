@@ -48,14 +48,19 @@ class UserAccountContainer extends Component {
     }
 
     viewUserProfile(username, userId) {
-        console.log(username, userId);
-
-        this.props.history.push({
-            pathname: `/home/profile/${username}`.replace(' ', ''),
-            state: {
-                userId: userId
-            }
-        })
+        if(localStorage.getItem("myThings") === userId){
+            this.props.history.push({
+                pathname: `/home/myProfile/${username}`.replace(' ', ''),
+            })
+        }
+        else {
+            this.props.history.push({
+                pathname: `/home/profile/${username}`.replace(' ', ''),
+                state: {
+                    userId: userId
+                }
+            })
+        }
     }
 
     render() {
