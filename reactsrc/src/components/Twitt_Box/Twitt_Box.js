@@ -7,6 +7,10 @@ import axios from "axios/index";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
+import openSocket from 'socket.io-client';
+
+// Ini yang nge buat dia connect sama si backend nya
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Twitt_Box extends Component {
 
@@ -34,6 +38,7 @@ class Twitt_Box extends Component {
             userId: userId,
             username: username,
         });
+
     }
 
 
@@ -76,7 +81,7 @@ class Twitt_Box extends Component {
 
         e.preventDefault();
 
-        const tweet = {
+        const tweetData = {
             tweetText: this.state.userTweet,
             username: this.state.username,
             userId: this.state.userId,
@@ -84,16 +89,18 @@ class Twitt_Box extends Component {
             profilePicture: this.props.profilePicture
         };
 
+        socket.emit('sendTheData', tweetData);
+
         const method = 'post';
         axios({
             method: method,
             responseType: 'json',
             url: `api/tweet/posting`,
-            data: tweet
+            data: tweetData
         })
-            .then(() => {
-                window.location.reload();
-            });
+            // .then(() => {
+            //     window.location.reload();
+            // });
     }
 
     handleClick(e) {

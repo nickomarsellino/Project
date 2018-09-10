@@ -86,20 +86,12 @@ class Edit_Profile extends Component {
             </FadeIn>, document.getElementById('profileInfo'));
         }
         else if (item === "Tweets") {
-            //Render Validation box message
-<<<<<<< HEAD
-            ReactDOM.render(<FadeIn>
-              <TwittContainer TweetUserId={this.state.userId}
-              userId={this.props.userId}
-              tweetCounter={this.getTweetCounter}
-              located="profile"
-=======
-            ReactDOM.render(<FadeIn><TwittContainer history={this.props.history} TweetUserId={this.state.userId}
-            userId={this.props.userId}
-            tweetCounter={this.getTweetCounter}
-            located="profile"
->>>>>>> 3997363e52a9c8d97ae4c3f23fd3fda11b1b09d3
-            /></FadeIn>, document.getElementById('profileInfo'));
+          //Render Validation box message
+          ReactDOM.render(<FadeIn><TwittContainer history={this.props.history} TweetUserId={this.state.userId}
+          userId={this.props.userId}
+          tweetCounter={this.getTweetCounter}
+          located="profile"
+          /></FadeIn>, document.getElementById('profileInfo'));
         }
     }
 

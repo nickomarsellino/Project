@@ -54,12 +54,14 @@ app.use((error, req, res, next) => {
 
 const io = require('socket.io')();
 
-io.on('connection', (client) => {
-  client.on('subscribeToTimer', (interval) => {
-    console.log('client is subscribing to timer with interval ', interval);
-    setInterval(() => {
-      client.emit('timer', new Date());
-    }, interval);
+io.on('connection', (socket) => {
+  console.log('a new user connected, with Id:', socket.id);
+  // Memastikan emit tsb telah terkirim dari client (front end)
+  socket.on('sendTheData', (data) => {
+     // console.log("apakek masuk ga?");
+    socket.broadcast.emit('getData', data)
+    socket.emit('getData', data);
+    // io.sockets.emit('bebas1', data);
   });
 });
 

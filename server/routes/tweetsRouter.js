@@ -48,7 +48,7 @@ router.delete('/tweet/:id', (req, res, next) => {
 // get all tweets
 router.get('/tweets', (req, res, next) => {
     // Tweet.find({ tweetText: /test/i }, 'username tweetText').sort({timestamp: 'descending'}).then((result) => {
-    Tweet.find({}).sort({timestamp: 'descending'}).then((result) => {
+    Tweet.find({}).sort({timestamp: 'ascending'}).then((result) => {
         res.send(result);
     });
 });

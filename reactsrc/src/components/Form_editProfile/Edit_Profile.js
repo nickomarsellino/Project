@@ -88,14 +88,7 @@ class Edit_Profile extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-<<<<<<< HEAD
-        let formData = new FormData();
-        console.log("PAS CLICK SUBMIT: ", this.state.selectedFile.name);
-        formData.append('profilePicture', this.state.selectedFile, this.state.selectedFile.name);
-        console.log("PAS CLICK SUBMIT: ", formData);
-=======
 
->>>>>>> 3997363e52a9c8d97ae4c3f23fd3fda11b1b09d3
         const user = {
             username: this.state.username,
             email: this.state.email,
@@ -192,11 +185,7 @@ class Edit_Profile extends Component {
                                 <br/>
                                 <Row>
                                     <Col md="12">
-<<<<<<< HEAD
-                                        <Form onSubmit={this.handleSubmit}>
-=======
                                         <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
->>>>>>> 3997363e52a9c8d97ae4c3f23fd3fda11b1b09d3
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
                                                         value={this.state.username}
