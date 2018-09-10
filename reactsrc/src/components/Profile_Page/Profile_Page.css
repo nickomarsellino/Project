@@ -43,6 +43,10 @@
     height: 100%;
 }
 
+#profileImage:hover {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 750px){
     #navDetail{
         width: 100%;
