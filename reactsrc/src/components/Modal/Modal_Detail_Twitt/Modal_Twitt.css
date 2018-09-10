@@ -2,6 +2,22 @@
     word-wrap: break-word;
 }
 
+.text-Timestamp{
+    font-style: italic;
+    size: 18px;
+    opacity: 0.9;
+}
+
 #nameBox{
     color: black;
+}
+
+#buttonGroup{
+    margin-top: 10px;
+    opacity: 0.6;
+}
+
+
+.commentBox{
+    margin-top: 10px;
 }

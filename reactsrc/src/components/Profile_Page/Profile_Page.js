@@ -7,7 +7,10 @@ import UserAccountContainer from '../UserAccountContainer/UserAccountContainer'
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
 
+import ModalProfilePicture from '../Modal/Modal_ProfilePicture/Modal_ProfilePicture';
+
 const Timestamp = require('react-timestamp');
+
 
 class Edit_Profile extends Component {
 
@@ -23,11 +26,14 @@ class Edit_Profile extends Component {
             tweetCount: '',
             tweetItem: true,
             followingItem: false,
-            followerItem: false
+            followerItem: false,
+            modalProfilePicture: false
         };
 
         this.getTweetCounter = this.getTweetCounter.bind(this);
         this.handleItemClicked = this.handleItemClicked.bind(this);
+        this.openProfilePicture = this.openProfilePicture.bind(this);
+        this.closeProfilePicture = this.closeProfilePicture.bind(this);
     }
 
 
@@ -42,7 +48,7 @@ class Edit_Profile extends Component {
     getProfileData() {
         //Jika ia klik My Profile
         if (this.props.userId) {
-            axios.get('/api/users/profile/'+ this.props.userId).then(res => {
+            axios.get('/api/users/profile/' + this.props.userId).then(res => {
                 const user = res.data[0];
                 this.setState({
                     username: user.username,
@@ -57,7 +63,7 @@ class Edit_Profile extends Component {
 
         //Jika ia Klik DI container tweetnya
         else if (this.props.userIdProfile.userId) {
-            axios.get('/api/users/profile/'+ this.props.userIdProfile.userId).then(res => {
+            axios.get('/api/users/profile/' + this.props.userIdProfile.userId).then(res => {
                 const user = res.data[0];
                 this.setState({
                     username: user.username,
@@ -88,23 +94,46 @@ class Edit_Profile extends Component {
         else if (item === "Tweets") {
             //Render Validation box message
             ReactDOM.render(<FadeIn><TwittContainer history={this.props.history} TweetUserId={this.state.userId}
-            userId={this.props.userId}
-            tweetCounter={this.getTweetCounter}
-            located="profile"
+                                                    userId={this.props.userId}
+                                                    tweetCounter={this.getTweetCounter}
+                                                    located="profile"
             /></FadeIn>, document.getElementById('profileInfo'));
         }
     }
+
+
+    openProfilePicture() {
+        this.setState({
+            modalProfilePicture: true
+        });
+    }
+
+    closeProfilePicture(isOpen) {
+        if (isOpen) {
+            this.setState({
+                modalProfilePicture: false
+            })
+        }
+    }
+
 
     render() {
 
         let imageUrl = this.state.profilePicture;
         let imagedisplay
 
-        if(imageUrl){
-            imagedisplay = <img alt=" " id="profileImage" src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+        if (imageUrl) {
+            imagedisplay = <img alt=" "
+                                id="profileImage"
+                                src={require(`../../uploads/${imageUrl}`)}
+                                className="float-right"
+                                onClick={() => this.openProfilePicture()}/>
         }
-        else{
-            imagedisplay = <img alt=" " src={profile} id="profileImage"/>
+        else {
+            imagedisplay = <img alt=" "
+                                src={profile}
+                                id="profileImage"
+                                onClick={() => this.openProfilePicture()}/>
         }
 
         return (
@@ -118,7 +147,7 @@ class Edit_Profile extends Component {
                             <a className="header"><i className="user icon"/>{this.state.username}</a>
                             <div className="description">
                                 <i className="calendar icon"/>Joined on <Timestamp time={this.state.timestamp}
-                                format="date"/>
+                                                                                   format="date"/>
                             </div>
                             <div className="description">
                                 <i className="envelope outline icon"/>
@@ -143,15 +172,24 @@ class Edit_Profile extends Component {
                     <FadeIn>
                         <div className="userProfile" id="profileInfo">
                             <TwittContainer TweetUserId={this.state.userId}
-                            userId={this.props.userId}
-                            tweetCounter={this.getTweetCounter}
-                            located="profile" history={this.props.history}
+                                            userId={this.props.userId}
+                                            tweetCounter={this.getTweetCounter}
+                                            located="profile" history={this.props.history}
                             />
                         </div>
                     </FadeIn>
                 </div>
-            </FadeIn>
 
+
+                <ModalProfilePicture
+                    isOpen={this.state.modalProfilePicture}
+                    profilePicture={this.state.profilePicture}
+                    username={this.state.username}
+                    isClose={this.closeProfilePicture}
+                />
+
+
+            </FadeIn>
         );
     }
 }

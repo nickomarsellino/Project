@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 import FadeIn from 'react-fade-in';
 import {Container} from "mdbreact";
-import profile from '../../daniel.jpg';
-import {Card, Icon, Image} from 'semantic-ui-react';
 import './Search_Page.css';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 //Load another component
