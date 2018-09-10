@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Container, Modal, ModalBody, ModalHeader} from 'mdbreact';
-import {Image} from 'semantic-ui-react'
+import {Container, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
+import {Image, Icon, Form, TextArea} from 'semantic-ui-react';
 import profile from '../../../daniel.jpg';
 import './Modal_Twitt.css'
 import {Link} from 'react-router-dom';
@@ -59,10 +59,10 @@ class Modal_Twitt extends Component {
                                     userId: this.state.tweet.userId
                                 }
                             }}>
-                            <Image avatar id="avatarBox">
-                                {this.setProfileImage(this.state.tweet.profilePicture)}
-                            </Image>
-                            <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
+                                <Image avatar id="avatarBox">
+                                    {this.setProfileImage(this.state.tweet.profilePicture)}
+                                </Image>
+                                <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
                             </Link>
                         </div>
                     </ModalHeader>
@@ -71,9 +71,25 @@ class Modal_Twitt extends Component {
                         <h5>{this.state.tweet.tweetText}</h5>
                     </ModalBody>
 
-                    <ModalBody>
+                    <ModalBody className="text-Timestamp">
                         <Timestamp time={this.state.tweet.timestamp} format='full' includeDay/>
+
+                        <div id="buttonGroup">
+                            <Icon.Group className="likesIcon">
+                                <Icon name='like'/> {" "} 10 Likes
+                            </Icon.Group>
+                            <Icon.Group className="commentsIcon">
+                                {" "}<Icon name='comments'/> {" "} 10 Comments
+                            </Icon.Group>
+                        </div>
+                        <hr/>
+                        <div className="commentBox">
+                            <Image avatar id="avatarBox">
+                                {this.setProfileImage(this.state.tweet.profilePicture)}
+                            </Image>
+                        </div>
                     </ModalBody>
+
                 </Modal>
             </Container>
         );

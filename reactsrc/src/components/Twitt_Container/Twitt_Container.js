@@ -116,18 +116,6 @@ class Twitt_Container extends Component {
         }
     }
 
-    buttonDelete(userId, tweetId) {
-        if (userId === this.props.userId) {
-            return (
-                <Icon
-                    size='large' name='trash'
-                    id="recycleIcon"
-                    onClick={() => this.openModalDelete(tweetId)}
-                />
-            );
-        }
-    }
-
     onClickedImage(userId, username){
 
         if (this.props.located === "profile") {
@@ -229,6 +217,17 @@ class Twitt_Container extends Component {
         }
     }
 
+    buttonDelete(userId, tweetId) {
+        if (userId === this.props.userId) {
+            return (
+                <Icon
+                    size='large' name='trash'
+                    id="recycleIcon"
+                    onClick={() => this.openModalDelete(tweetId)}
+                />
+            );
+        }
+    }
 
     render() {
         return (
@@ -252,17 +251,17 @@ class Twitt_Container extends Component {
                                             <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
                                             <div className="buttonGroup">
-                                                <Icon.Group id="commentsIcon">
-                                                    9 <Icon name='comments'/>
+                                                <Icon.Group className="likesIcon">
+                                                    <Icon name='like' /> {" "} 10 Likes
                                                 </Icon.Group>
-                                                <Icon.Group id="likesIcon">
-                                                    10 <Icon name='like' />
+                                                <Icon.Group className="commentsIcon">
+                                                    {" "}<Icon name='comments'/> {" "} 10 Comments
                                                 </Icon.Group>
                                             </div>
 
                                         </Feed.Content>
 
-                                        <Feed.Label className="Tweet-Delete" onClick={() => this.openModalTweet(tweet._id)}>
+                                        <Feed.Label className="Tweet-Delete">
                                             {this.buttonDelete(tweet.userId, tweet._id)}
                                         </Feed.Label>
 
