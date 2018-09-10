@@ -1,4 +1,4 @@
-    import React, {Component} from "react";
+import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
 import {Feed, Icon} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
@@ -7,10 +7,16 @@ import './Twiit_Container.css';
 import FadeIn from 'react-fade-in';
 import {Link} from 'react-router-dom';
 
-
 //load another component
 import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
 import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
+
+import openSocket from 'socket.io-client';
+
+// Ini yang nge buat dia connect sama si backend nya
+const socket = openSocket('http://10.183.28.153:8000');
+
+
 
 const Timestamp = require('react-timestamp');
 
@@ -41,6 +47,12 @@ class Twitt_Container extends Component {
         }
         else {
             this.getTweetData();
+            socket.on('getData', namavariabel => {
+                console.log("isi Nama Variabel: ",namavariabel);
+                this.setState({
+                    tweetData: this.state.tweetData.concat(namavariabel)
+                })
+            })
         }
     }
 
@@ -59,12 +71,13 @@ class Twitt_Container extends Component {
     }
 
     getTweetData() {
-        axios.get('/api/tweet/tweets')
-            .then(res => {
-                this.setState({
-                    tweetData: res.data
-                });
-            });
+            fetch('/api/tweet/tweets', {
+                method: 'GET',
+            }).then(res => res.json())
+            .then(response =>
+                this.setState({ tweetData: response },
+                console.log("tweetData: ",response)))
+            .catch(error => console.error('Error:', error));
     }
 
     openModalTweet(tweetId) {
@@ -195,7 +208,7 @@ class Twitt_Container extends Component {
                     <Card className="Tweet_Container" id="text-warp">
                         <CardBody className="Tweet">
                             <center>
-                                <h3>Sorry, We Didn't Find Something In Here :)</h3>
+                                <h3>Sorry, We Didnt Find Something In Here :) </h3>
                             </center>
                         </CardBody>
                     </Card>
@@ -221,7 +234,7 @@ class Twitt_Container extends Component {
             <FadeIn>
                 <div>
                     {this.isEmptyTweet(this.state.tweetData)}
-                    {this.state.tweetData.map(tweet =>
+                    {this.state.tweetData.slice(0).reverse().map(tweet =>
                         <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
                             <CardBody className="Tweet">
                                 <Feed>

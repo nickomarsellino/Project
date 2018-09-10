@@ -98,6 +98,7 @@ class Edit_Profile extends Component {
                                                     tweetCounter={this.getTweetCounter}
                                                     located="profile"
             /></FadeIn>, document.getElementById('profileInfo'));
+
         }
     }
 
