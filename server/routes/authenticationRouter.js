@@ -157,6 +157,7 @@ router.get('/verify', (req, res, next) => {
         const plaintext = bytes.toString(CryptoJS.enc.Utf8);
         const userData = JSON.parse(plaintext);
 
+
         // Verify the token is one of a kind and it's not deleted.
         UserSession.find({
             _id: userData.tokenId

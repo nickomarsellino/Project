@@ -25,6 +25,10 @@
     cursor: pointer;
 }
 
+#tweetImage{
+    margin-bottom: 20px;
+}
+
 .ui.feed>.event>.Tweet-Delete {
     margin-bottom: 20px;
     margin-left: -4%;

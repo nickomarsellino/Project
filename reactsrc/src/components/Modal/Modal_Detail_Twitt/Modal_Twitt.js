@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Container, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
-import {Image, Icon, Form, TextArea} from 'semantic-ui-react';
+import {Container, Modal, ModalBody, ModalHeader} from 'mdbreact';
+import {Image, Icon} from 'semantic-ui-react';
 import profile from '../../../daniel.jpg';
 import './Modal_Twitt.css'
 import {Link} from 'react-router-dom';

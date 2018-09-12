@@ -8,6 +8,7 @@ import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 import openSocket from 'socket.io-client';
+import ReactDOM from "react-dom";
 
 // Ini yang nge buat dia connect sama si backend nya
 const socket = openSocket('http://10.183.28.155:8000');
@@ -23,6 +24,7 @@ class Twitt_Box extends Component {
             username: '',
             userTweet: '',
             profilePicture: '',
+            selectedFile: [],
             tweetImage: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -40,7 +42,6 @@ class Twitt_Box extends Component {
         });
 
     }
-
 
     handleInputChange(e) {
         this.setState({
@@ -102,12 +103,41 @@ class Twitt_Box extends Component {
                 this.setState({
                     userTweet: ''
                 });
+
+                let formData = new FormData();
+
+                formData.append('tweetPicture', this.state.selectedFile);
+
+                console.log(this.state.selectedFile);
+
+                axios.put('/api/tweet/postingImage', formData)
+                    .then((result) => {
+
+                    })
+                    .catch(() => {
+
+                    });
             });
     }
 
     handleClick(e) {
         this.refs.fileUploader.click();
     }
+
+    fileSelectedHandler = event => {
+        // Check kalo ada file nya (image)
+        if (event.target.files != null || event.target.files[0] != null) {
+            // ini buat get image nya
+            this.setState({
+                selectedFile: event.target.files[0]
+            });
+        }
+        else {
+            this.setState({
+                selectedFile: ''
+            });
+        }
+    };
 
     render() {
 
@@ -131,7 +161,7 @@ class Twitt_Box extends Component {
                             </Image>
                             <span><h5 id="nameBox">{this.state.username}</h5></span>
                         </div>
-                        <Form id="Form_Container" onSubmit={this.handleSubmit}>
+                        <Form id="Form_Container" onSubmit={this.handleSubmit} encType="multipart/form-data">
                             <Form.Field
                                 value={this.state.userTweet}
                                 id='form-textarea-control-opinion'
@@ -149,10 +179,9 @@ class Twitt_Box extends Component {
                                         <Icon name='images'/>
                                         <Icon corner name='add'/>
                                     </Icon.Group>
+                                    <span><p id="imageName">{this.state.selectedFile.name}</p></span>
                                 </div>
                                 <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
-                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
-
 
                                 <Button color="default"
                                         size="md"

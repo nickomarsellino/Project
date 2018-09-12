@@ -13,6 +13,37 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
 
+const multer = require('multer');
+const jimp = require('jimp') // buat image processing
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../reactsrc/src/tweetImage');
+    },
+    filename: function (req, file, cb) {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+        // cb(null, file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 10
+        // max: 10 mb
+    },
+    fileFilter: fileFilter
+});
+
 router.post('/posting', (req, res, next) => {
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
@@ -24,7 +55,7 @@ router.post('/posting', (req, res, next) => {
         tweetText: req.body.tweetText,
         userId: userData.userId,
         profilePicture: req.body.profilePicture,
-        //tweetImage: req.file.path,
+        tweetPicture: '',
         timestamp: Date.now()
     };
     Tweet.create(tweet).then(function (result) {
@@ -38,6 +69,41 @@ router.post('/posting', (req, res, next) => {
         });
     });
 });
+
+
+router.put('/postingImage', upload.single('tweetPicture'), (req, res) => {
+
+    jimp.read(req.file.path, function (err, image) {
+        if (err) {
+            console.log("Gagal cuuu!");
+        }
+        else {
+            image
+                .quality(45)
+                .write('../reactsrc/src/tweetImage/' + req.file.filename);
+            console.log("Berhasil!");
+        }
+    });
+
+    //
+    //
+    // User.find({_id: req.params.id}, 'profilePicture').then((result) => {
+    //     fs.unlink('../reactsrc/src/uploads/'+result[0].profilePicture, function(error) {
+    //         if (error) {
+    //             throw error;
+    //         }
+    //     });
+    // });
+    //
+    // User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
+    // Tweet.updateMany({userId: req.params.id}, {
+    //     $set: {
+    //         profilePicture: req.file.filename
+    //     }
+    // }).exec();
+});
+
+
 
 router.delete('/tweet/:id', (req, res, next) => {
     Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {

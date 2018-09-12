@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
-import {Feed, Icon} from 'semantic-ui-react';
+import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
@@ -16,10 +16,7 @@ import openSocket from 'socket.io-client';
 // Ini yang nge buat dia connect sama si backend nya
 const socket = openSocket('http://10.183.28.155:8000');
 
-
-
 const Timestamp = require('react-timestamp');
-
 
 class Twitt_Container extends Component {
 
@@ -76,8 +73,7 @@ class Twitt_Container extends Component {
                 method: 'GET',
             }).then(res => res.json())
             .then(response =>
-                this.setState({ tweetData: response },
-                console.log("tweetData: ",response)))
+                this.setState({ tweetData: response }))
             .catch(error => console.error('Error:', error));
     }
 
@@ -248,6 +244,8 @@ class Twitt_Container extends Component {
                                             {this.viewUserProfile(tweet.username, tweet.userId)}
 
                                             <Feed.Extra onClick={() => this.openModalTweet(tweet._id)} id="tweetText" text content={tweet.tweetText}/> <br/>
+
+                                            <Image src={profile} fluid id="tweetImage"/>
 
                                             <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 

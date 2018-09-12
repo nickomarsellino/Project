@@ -30,8 +30,8 @@ class Home extends Component {
 
     getData() {
         axios.get('/api/users', {
-            // credentials: 'include',
-            // withCredentials: true
+            credentials: 'include',
+            withCredentials: true
         })
             .then(res => {
                 this.setState({
@@ -46,8 +46,8 @@ class Home extends Component {
 
     verify() {
         axios.get('/api/authentication/verify', {
-            // credentials: 'include',
-            // withCredentials: true
+            credentials: 'include',
+            withCredentials: true
         })
             .then(res => {
                 console.log(res.data);

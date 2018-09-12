@@ -59,3 +59,10 @@
     width: 2.5em;
     height: 2.5em;
 }
+
+#imageName{
+    font-style: italic;
+    font-size: 12px;
+    font-family: "Roboto", sans-serif;
+    display: inline-block;
+}

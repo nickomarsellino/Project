@@ -15,6 +15,9 @@ const TweetSchema = Schema({
     tweetText: {
         type: String
     },
+    tweetPicture: {
+        type: String
+    },
     like: [{
         userId: { type: String }
     }],

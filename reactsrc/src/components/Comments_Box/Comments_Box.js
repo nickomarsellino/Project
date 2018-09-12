@@ -1,13 +1,10 @@
 import React, {Component} from "react";
-import {Card, CardBody, Button} from "mdbreact"
-import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
+import {Form, TextArea, Image} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import './Comments_Box.css'
-import axios from "axios/index";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-import openSocket from 'socket.io-client';
 
 
 class Comments_Box extends Component {
