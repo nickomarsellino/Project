@@ -5,6 +5,10 @@ import profile from '../../../daniel.jpg';
 import './Modal_Twitt.css'
 import {Link} from 'react-router-dom';
 
+
+//load another component
+import CommentsBox from "../../Comments_Box/Comments_Box";
+
 const Timestamp = require('react-timestamp');
 
 
@@ -83,11 +87,11 @@ class Modal_Twitt extends Component {
                             </Icon.Group>
                         </div>
                         <hr/>
+
                         <div className="commentBox">
-                            <Image avatar id="avatarBox">
-                                {this.setProfileImage(this.state.tweet.profilePicture)}
-                            </Image>
+                            <CommentsBox profilePicture={this.props.profilePicture}/>
                         </div>
+
                     </ModalBody>
 
                 </Modal>

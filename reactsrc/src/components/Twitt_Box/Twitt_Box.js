@@ -10,7 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Twitt_Box extends Component {
 
@@ -98,9 +98,11 @@ class Twitt_Box extends Component {
             url: `api/tweet/posting`,
             data: tweetData
         })
-            // .then(() => {
-            //     window.location.reload();
-            // });
+            .then(() => {
+                this.setState({
+                    userTweet: ''
+                });
+            });
     }
 
     handleClick(e) {
@@ -131,8 +133,10 @@ class Twitt_Box extends Component {
                         </div>
                         <Form id="Form_Container" onSubmit={this.handleSubmit}>
                             <Form.Field
+                                value={this.state.userTweet}
                                 id='form-textarea-control-opinion'
                                 type="text"
+                                maxLength="160"
                                 control={TextArea}
                                 placeholder={"Have a nice day " + this.state.username}
                                 style={{maxHeight: "100px", minHeight: "90px"}}
