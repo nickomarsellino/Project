@@ -80,6 +80,7 @@ class Twitt_Container extends Component {
     openModalTweet(tweetId) {
         axios.get('/api/tweet/tweet/' + tweetId)
             .then(res => {
+                console.log(res.data);
                 this.setState({
                     tweet: res.data,
                     modalTweet: true
@@ -113,7 +114,7 @@ class Twitt_Container extends Component {
         }
     }
 
-    onClickedImage(userId, username){
+    onClickedImageProfile(userId, username){
 
         if (this.props.located === "profile") {
 
@@ -143,7 +144,7 @@ class Twitt_Container extends Component {
                 <img alt=" "
                      src={require(`../../uploads/${imageUrl}`)}
                      id="profilePictureTweet"
-                     onClick={() => this.onClickedImage(userId, username)}
+                     onClick={() => this.onClickedImageProfile(userId, username)}
                 />
             );
         }
@@ -152,19 +153,20 @@ class Twitt_Container extends Component {
                 <img alt=" "
                      src={profile}
                      id="profilePictureTweet"
-                     onClick={() => this.onClickedImage(userId, username)}
+                     onClick={() => this.onClickedImageProfile(userId, username)}
                 />
             );
         }
     }
 
-    viewTweetPicture(tweetPicture){
+    viewTweetPicture(tweetPicture, userId){
         if(this.props.located === "profile"){
             if (tweetPicture) {
                 return (
                     <center>
                         <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
-                               id="tweetImage"/>
+                               id="tweetImage"
+                        />
                     </center>
                 );
             }
@@ -174,7 +176,9 @@ class Twitt_Container extends Component {
                 return (
                     <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
                            fluid
-                           style={{marginBottom: "20px"}}/>
+                           style={{marginBottom: "20px", cursor: "pointer"}}
+                           onClick={() => this.openModalTweet(userId)}
+                    />
                 );
             }
         }
@@ -267,7 +271,7 @@ class Twitt_Container extends Component {
 
                                             <Feed.Extra onClick={() => this.openModalTweet(tweet._id)} id="tweetText" text content={tweet.tweetText}/> <br/>
 
-                                            {this.viewTweetPicture(tweet.tweetPicture)}
+                                            {this.viewTweetPicture(tweet.tweetPicture, tweet._id)}
 
                                             <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 

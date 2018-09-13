@@ -51,6 +51,16 @@ class Modal_Twitt extends Component {
         }
     }
 
+    viewTweetPicture(tweetPicture) {
+        if (tweetPicture) {
+            return (
+                <center>
+                    <Image src={require(`../../../tweetImage/${tweetPicture}`)}/>
+                </center>
+            );
+        }
+    }
+
     render() {
         return (
             <Container>
@@ -73,6 +83,7 @@ class Modal_Twitt extends Component {
 
                     <ModalBody className="text-warp">
                         <h5>{this.state.tweet.tweetText}</h5>
+                        {this.viewTweetPicture(this.state.tweet.tweetPicture)}
                     </ModalBody>
 
                     <ModalBody className="text-Timestamp">
