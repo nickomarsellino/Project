@@ -159,12 +159,24 @@ class Twitt_Container extends Component {
     }
 
     viewTweetPicture(tweetPicture){
-        if (tweetPicture) {
-            return (
-                <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
-                       fluid
-                       id="tweetImage"/>
-            );
+        if(this.props.located === "profile"){
+            if (tweetPicture) {
+                return (
+                    <center>
+                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                               id="tweetImage"/>
+                    </center>
+                );
+            }
+        }
+        else{
+            if (tweetPicture) {
+                return (
+                    <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                           fluid
+                           style={{marginBottom: "20px"}}/>
+                );
+            }
         }
     }
 
@@ -234,6 +246,7 @@ class Twitt_Container extends Component {
             );
         }
     }
+
 
     render() {
         return (

@@ -144,7 +144,7 @@ router.get('/tweet/:id', (req, res) => {
 
 // get tweet yang di post user nya aja, id si user
 router.get('/profiletweet/:id', (req, res) => {
-    Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'}).then((result) => {
+    Tweet.find({userId: req.params.id}).sort({timestamp: 'ascending'}).then((result) => {
         res.json(result);
     }).catch((err) => {
         res.status(404).json({success: false, msg: `No such tweets.`});
