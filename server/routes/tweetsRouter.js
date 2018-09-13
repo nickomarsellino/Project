@@ -10,6 +10,8 @@ const atob = require('atob');
 const cookie = require('cookie');
 const secretKey = 'Lil-Uzi-Vert=XO-Tour-LIF3'
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
+
 router.use(cookieParser());
 
 
@@ -60,6 +62,7 @@ router.post('/posting', (req, res, next) => {
     };
     Tweet.create(tweet).then(function (result) {
         return res.send({
+            _id : result._id,
             success: true,
             userId: '',
             username: result.username,
@@ -71,7 +74,7 @@ router.post('/posting', (req, res, next) => {
 });
 
 
-router.put('/postingImage', upload.single('tweetPicture'), (req, res) => {
+router.put('/postingImage/:id', upload.single('tweetPicture'), (req, res) => {
 
     jimp.read(req.file.path, function (err, image) {
         if (err) {
@@ -79,33 +82,34 @@ router.put('/postingImage', upload.single('tweetPicture'), (req, res) => {
         }
         else {
             image
-                .quality(45)
+                .quality(40)
                 .write('../reactsrc/src/tweetImage/' + req.file.filename);
             console.log("Berhasil!");
         }
     });
 
-    //
-    //
-    // User.find({_id: req.params.id}, 'profilePicture').then((result) => {
-    //     fs.unlink('../reactsrc/src/uploads/'+result[0].profilePicture, function(error) {
-    //         if (error) {
-    //             throw error;
-    //         }
-    //     });
-    // });
-    //
-    // User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
-    // Tweet.updateMany({userId: req.params.id}, {
-    //     $set: {
-    //         profilePicture: req.file.filename
-    //     }
-    // }).exec();
+    Tweet.updateMany({_id: req.params.id}, {
+        $set: {tweetPicture: req.file.filename}
+    }).exec();
+
+    if (req.file.filename){
+        res.send({
+            tweetPicture : req.file.filename
+        });
+    }
 });
 
 
 
 router.delete('/tweet/:id', (req, res, next) => {
+    Tweet.find({_id: req.params.id}, 'tweetPicture').then((result) => {
+        fs.unlink('../reactsrc/src/tweetImage/'+result[0].tweetPicture, function(error) {
+            if (error) {
+                throw error;
+            }
+        });
+    });
+
     Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
         res.send(result);
     });

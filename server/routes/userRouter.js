@@ -110,7 +110,7 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
         }
         else {
             image
-                .quality(45)
+                .quality(30)
                 .write('../reactsrc/src/uploads/' + req.file.filename);
             console.log("Berhasil!");
         }

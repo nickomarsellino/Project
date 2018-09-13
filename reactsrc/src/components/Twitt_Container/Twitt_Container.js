@@ -158,6 +158,15 @@ class Twitt_Container extends Component {
         }
     }
 
+    viewTweetPicture(tweetPicture){
+        if (tweetPicture) {
+            return (
+                <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                       fluid
+                       id="tweetImage"/>
+            );
+        }
+    }
 
     viewUserProfile(username, userId) {
         if (this.props.located === "home") {
@@ -245,7 +254,7 @@ class Twitt_Container extends Component {
 
                                             <Feed.Extra onClick={() => this.openModalTweet(tweet._id)} id="tweetText" text content={tweet.tweetText}/> <br/>
 
-                                            <Image src={profile} fluid id="tweetImage"/>
+                                            {this.viewTweetPicture(tweet.tweetPicture)}
 
                                             <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 

@@ -90,8 +90,6 @@ class Twitt_Box extends Component {
             profilePicture: this.props.profilePicture
         };
 
-        socket.emit('sendTheData', tweetData);
-
         const method = 'post';
         axios({
             method: method,
@@ -99,23 +97,32 @@ class Twitt_Box extends Component {
             url: `api/tweet/posting`,
             data: tweetData
         })
-            .then(() => {
+            .then((response) => {
                 this.setState({
                     userTweet: ''
                 });
 
+                //Upload Image ke table tweet
                 let formData = new FormData();
 
                 formData.append('tweetPicture', this.state.selectedFile);
 
-                console.log(this.state.selectedFile);
-
-                axios.put('/api/tweet/postingImage', formData)
+                axios.put('/api/tweet/postingImage/'+response.data._id, formData)
                     .then((result) => {
 
+                        // const tweetDataAndImage ={
+                        //     tweetText: this.state.userTweet,
+                        //     username: this.state.username,
+                        //     userId: this.state.userId,
+                        //     tweetImage: this.state.tweetImage,
+                        //     profilePicture: this.props.profilePicture,
+                        //     tweetPicture : result.data.tweetPicture
+                        // }
+                        //
+                        // socket.emit('sendTheData', tweetDataAndImage);
                     })
                     .catch(() => {
-
+                        socket.emit('sendTheData', tweetData);
                     });
             });
     }
