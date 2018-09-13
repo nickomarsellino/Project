@@ -94,11 +94,17 @@ class Home extends Component {
         );
 
         const profile = () => (
-            <ProfilePage userIdProfile={this.props.location.state} history={this.props.history}/>
+            <ProfilePage userIdProfile={this.props.location.state}
+                         history={this.props.history}
+                         profilePicture={this.state.profilePicture}
+            />
         );
 
         const myProfile = () => (
-            <MyProfilePage userId={localStorage.getItem("myThings")} history={this.props.history}/>
+            <MyProfilePage userId={localStorage.getItem("myThings")}
+                           history={this.props.history}
+                           profilePicture={this.state.profilePicture}
+            />
         );
 
         const search = () => (

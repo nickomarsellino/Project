@@ -30,6 +30,10 @@
     margin-bottom: 20px;
 }
 
+#tweetImage:hover {
+    cursor: pointer;
+}
+
 .ui.feed>.event>.Tweet-Delete {
     margin-bottom: 20px;
     margin-left: -4%;

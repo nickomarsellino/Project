@@ -166,6 +166,7 @@ class Twitt_Container extends Component {
                     <center>
                         <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
                                id="tweetImage"
+                               onClick={() => this.openModalTweet(userId)}
                         />
                     </center>
                 );

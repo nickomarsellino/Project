@@ -76,9 +76,6 @@ class Comments_Box extends Component {
 
         const tweetData = {
             tweetText: this.state.userTweet,
-            // username: this.state.username,
-            // userId: this.state.userId,
-            // tweetImage: this.state.tweetImage,
             profilePicture: this.props.profilePicture
         };
 
@@ -102,6 +99,9 @@ class Comments_Box extends Component {
     }
 
     render() {
+
+        console.log("Profile Pic : ",this.props.profilePicture);
+
         return (
             <Form id="Comment_Container" onSubmit={this.handleSubmit}>
                 <Image avatar id="avatarBoxComment">
