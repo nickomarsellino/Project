@@ -128,13 +128,19 @@ router.get('/tweets', (req, res, next) => {
 // https://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value
 router.get('/searchByTweets/:tweetText', (req, res, next) => {
     const searchTweetsQuery = req.params.tweetText;
+
     const query = Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture');
+    const { page, perPage } = req.query;
+    const options = {
+        page: parseInt(page, 10),
+        limit: parseInt(perPage, 10),
+    };
 
     // Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture').then((result) => {
     //     res.send(result);
     // });
 
-    Tweet.paginate(query).then(function(result) {
+    Tweet.paginate(query, options).then(function(result) {
         res.send(result);
     });
 
