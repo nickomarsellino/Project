@@ -128,9 +128,16 @@ router.get('/tweets', (req, res, next) => {
 // https://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value
 router.get('/searchByTweets/:tweetText', (req, res, next) => {
     const searchTweetsQuery = req.params.tweetText;
-    Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture').then((result) => {
+    const query = Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture');
+
+    // Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture').then((result) => {
+    //     res.send(result);
+    // });
+
+    Tweet.paginate(query).then(function(result) {
         res.send(result);
     });
+
 });
 
 // get one tweet only for modal, id nya Tweets id nya

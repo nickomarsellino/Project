@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 
 const TweetSchema = Schema({
@@ -27,4 +28,5 @@ const TweetSchema = Schema({
     }
 });
 
+TweetSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Tweet', TweetSchema)
