@@ -129,7 +129,8 @@ router.get('/tweets', (req, res, next) => {
 router.get('/searchByTweets/:tweetText', (req, res, next) => {
     const searchTweetsQuery = req.params.tweetText;
 
-    const query = Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture');
+    const query = Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId' +
+        ' profilePicture tweetPicture').sort({timestamp: 'descending'});
     const { page, perPage } = req.query;
     const options = {
         page: parseInt(page, 10),

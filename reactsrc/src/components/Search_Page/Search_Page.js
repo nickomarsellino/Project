@@ -19,6 +19,7 @@ class Search_Page extends Component {
             searchValue: '',
             isTweetSearch: '',
             isUserSearch: '',
+            pagesSearchTweet: '',
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
         this.isSearched = this.isSearched.bind(this);
@@ -31,7 +32,8 @@ class Search_Page extends Component {
                 tweetSearch: this.props.searchData.searchTweetsData,
                 userSearch: this.props.searchData.searchUsersData,
                 isSearch: true,
-                searchValue: this.props.searchData.searchValue
+                searchValue: this.props.searchData.searchValue,
+                pagesSearchTweet: this.props.searchData.pagesSearchTweet
             });
 
             if(this.props.searchData.isTweetSearch){
@@ -46,7 +48,7 @@ class Search_Page extends Component {
 
     searchTweetsData(searchValue) {
         axios.all([
-            axios.get('/api/tweet/searchByTweets/' + searchValue),
+            axios.get('/api/tweet/searchByTweets/' + searchValue +'?perPage=5&page=1'),
             axios.get('/api/users/searchByUser/' + searchValue)
         ])
             .then(axios.spread((searchByTweetsRes, searchByUsersRes) => {
@@ -58,10 +60,11 @@ class Search_Page extends Component {
                     pathname: '/home/search/',
                     search: searchValue.replace(' ', '-'),
                     state: {
-                        searchTweetsData: searchByTweetsRes.data,
+                        searchTweetsData: searchByTweetsRes.data.docs,
                         searchValue: searchValue,
                         searchUsersData: searchByUsersRes.data,
-                        isTweetSearch: true
+                        isTweetSearch: true,
+                        pagesSearchTweet: searchByTweetsRes.data.pages
                     }
                 })
             }));
@@ -78,7 +81,8 @@ class Search_Page extends Component {
                     searchValue: this.state.searchValue,
                     searchUsersData: this.state.userSearch,
                     isTweetSearch: true,
-                    isUserSearch: false
+                    isUserSearch: false,
+                    pagesSearchTweet: this.state.pagesSearchTweet
                 }
             })
         }
@@ -92,7 +96,8 @@ class Search_Page extends Component {
                     searchValue: this.state.searchValue,
                     searchUsersData: this.state.userSearch,
                     isUserSearch: true,
-                    isTweetSearch: false
+                    isTweetSearch: false,
+                    pagesSearchTweet: this.state.pagesSearchTweet
                 }
             })
         }
@@ -178,6 +183,7 @@ class Search_Page extends Component {
                                 </div>
 
                                 <TweetResult
+                                    pagesSearchTweet={this.state.pagesSearchTweet}
                                     history={this.props.history}
                                     tweetResult={this.state.tweetSearch}
                                     userId={this.props.userId}
