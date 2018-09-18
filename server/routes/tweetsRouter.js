@@ -102,16 +102,24 @@ router.put('/postingImage/:id', upload.single('tweetPicture'), (req, res) => {
 
 
 router.delete('/tweet/:id', (req, res, next) => {
-    Tweet.find({_id: req.params.id}, 'tweetPicture').then((result) => {
-        fs.unlink('../reactsrc/src/tweetImage/'+result[0].tweetPicture, function(error) {
-            if (error) {
-                throw error;
-            }
-        });
-    });
 
-    Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
-        res.send(result);
+    Tweet.find({_id: req.params.id}, 'tweetPicture').then((result) => {
+        if(result[0].tweetPicture.length === 0){
+            Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
+                res.send(result);
+            });
+        }
+        else{
+            fs.unlink('../reactsrc/src/tweetImage/'+result[0].tweetPicture, function(error) {
+                if (error) {
+                    throw error;
+                }
+            });
+
+            Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
+                res.send(result);
+            });
+        }
     });
 });
 

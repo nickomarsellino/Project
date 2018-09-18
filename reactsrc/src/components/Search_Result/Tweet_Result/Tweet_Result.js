@@ -175,10 +175,6 @@ class Tweet_Result extends Component {
     }
 
     render() {
-        console.log(this.state.lengthData);
-        console.log(this.props.tweetSearchLength);
-        console.log(this.state.tweetResults);
-
         return (
             <FadeIn>
                 <InfiniteScroll
