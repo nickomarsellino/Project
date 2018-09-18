@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
 import {Feed, Icon} from 'semantic-ui-react';
 import profile from '../../../../src/daniel.jpg';
+import loading from '../../../loading.gif'
 import axios from 'axios';
 import './Tweet_Result.css';
 import FadeIn from 'react-fade-in';
@@ -150,8 +151,9 @@ class Tweet_Result extends Component {
         setTimeout(() => {
             axios.get('/api/tweet/searchByTweets/' + this.props.searchValue +'?perPage=5&page='+parseInt(this.state.pagesData+1, 10))
                 .then(res => {
+                    const joined = this.state.tweetResults.concat(res.data.docs);
                     this.setState({
-                        tweetResults: res.data.docs,
+                        tweetResults: joined,
                         lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10)
                     });
                 });
@@ -165,12 +167,7 @@ class Tweet_Result extends Component {
                         dataLength={this.state.lengthData}
                         next={this.fetchMoreData}
                         hasMore={this.state.hasMore}
-                        loader={<h4>Loading...</h4>}
-                        endMessage={
-                            <p style={{ textAlign: "center" }}>
-                                <b>Yay! You have seen it all</b>
-                            </p>
-                        }
+                        loader={<img id="loadingGif" src={loading} alt="loading..." />}
                     >
                         <div style={{marginTop: "2%"}}>
                         {this.state.tweetResults.map(tweet =>

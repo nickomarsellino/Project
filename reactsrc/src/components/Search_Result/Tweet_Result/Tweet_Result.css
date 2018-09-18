@@ -60,3 +60,7 @@
     position: relative;
     top: 1px;
 }
+
+#loadingGif{
+    width: 80px;
+}
