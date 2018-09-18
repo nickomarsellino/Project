@@ -20,8 +20,8 @@ class Tweet_Result extends Component {
             tweet:[],
             modalDelete: false,
             hasMore: true,
+            lengthData: '',
             pagesData: 1
-
         };
 
         this.getTweetSearch = this.getTweetSearch.bind(this);
@@ -66,6 +66,7 @@ class Tweet_Result extends Component {
 
     getTweetSearch() {
         this.setState({
+            lengthData: this.props.tweetResult.length,
             tweetResults: this.props.tweetResult
         });
     }
@@ -142,18 +143,16 @@ class Tweet_Result extends Component {
 
 
     fetchMoreData (){
-        if(this.state.pagesData >= this.props.pagesSearchTweet){
+        if(this.state.lengthData === this.props.tweetSearchLength){
             this.setState({ hasMore: false });
         }
 
         setTimeout(() => {
             axios.get('/api/tweet/searchByTweets/' + this.props.searchValue +'?perPage=5&page='+parseInt(this.state.pagesData+1, 10))
                 .then(res => {
-                    console.log(this.props.searchValue);
-                    console.log(res);
                     this.setState({
                         tweetResults: res.data.docs,
-                        pagesData: this.state.pagesData + 1
+                        lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10)
                     });
                 });
         }, 2000);
@@ -163,7 +162,7 @@ class Tweet_Result extends Component {
         return (
             <FadeIn>
                     <InfiniteScroll
-                        dataLength={this.props.pagesSearchTweet}
+                        dataLength={this.state.lengthData}
                         next={this.fetchMoreData}
                         hasMore={this.state.hasMore}
                         loader={<h4>Loading...</h4>}
