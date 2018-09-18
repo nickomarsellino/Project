@@ -1,5 +1,8 @@
-.Tweet_Container {
+.Tweet_Result {
+    margin-left: 60px;
+    margin-right: 60px;
     margin-top: 3px;
+    margin-bottom: 2px;
 }
 
 #text-warp{

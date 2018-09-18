@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
-import {Feed, Icon} from 'semantic-ui-react';
+import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../../../src/daniel.jpg';
 import loading from '../../../loading.gif'
 import axios from 'axios';
@@ -9,6 +9,7 @@ import FadeIn from 'react-fade-in';
 import {Link} from 'react-router-dom';
 import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
 import InfiniteScroll from "react-infinite-scroll-component";
+
 const Timestamp = require('react-timestamp');
 
 
@@ -18,7 +19,7 @@ class Tweet_Result extends Component {
         super();
         this.state = {
             tweetResults: [],
-            tweet:[],
+            tweet: [],
             modalDelete: false,
             hasMore: true,
             lengthData: '',
@@ -36,8 +37,8 @@ class Tweet_Result extends Component {
     }
 
     viewUserProfile(username, userId) {
-        if (window.location.href === "http://localhost:3001/home/search/?"+this.props.searchValue) {
-            if(userId === this.props.userId){
+        if (window.location.href === "http://localhost:3001/home/search/?" + this.props.searchValue) {
+            if (userId === this.props.userId) {
                 return (
                     <Link to={{
                         pathname: `/home/myProfile/${username}`,
@@ -48,7 +49,7 @@ class Tweet_Result extends Component {
                     </Link>
                 );
             }
-            else{
+            else {
                 return (
                     <Link to={{
                         pathname: `/home/profile/${username}`,
@@ -103,8 +104,8 @@ class Tweet_Result extends Component {
         }
     }
 
-    onClickedImage(userId, username){
-        if(this.props.userId === userId){
+    onClickedImage(userId, username) {
+        if (this.props.userId === userId) {
             this.props.history.push({
                 pathname: `/home/myProfile/${username}`.replace(' ', ''),
             })
@@ -142,36 +143,53 @@ class Tweet_Result extends Component {
         }
     }
 
-
-    fetchMoreData (){
-        if(this.state.lengthData === this.props.tweetSearchLength){
-            this.setState({ hasMore: false });
+    viewTweetPicture(tweetPicture, userId) {
+        if (tweetPicture) {
+            return (
+                <center>
+                    <Image src={require(`../../../tweetImage/${tweetPicture}`)}
+                           id="tweetImage"
+                    />
+                </center>
+            );
         }
+    }
 
-        setTimeout(() => {
-            axios.get('/api/tweet/searchByTweets/' + this.props.searchValue +'?perPage=5&page='+parseInt(this.state.pagesData+1, 10))
-                .then(res => {
-                    const joined = this.state.tweetResults.concat(res.data.docs);
-                    this.setState({
-                        tweetResults: joined,
-                        lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10)
+
+    fetchMoreData() {
+        if (this.state.lengthData >= this.props.tweetSearchLength) {
+            this.setState({hasMore: false});
+        }
+        else{
+            setTimeout(() => {
+                axios.get('/api/tweet/searchByTweets/' + this.props.searchValue + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                    .then(res => {
+                        const joined = this.state.tweetResults.concat(res.data.docs);
+                        this.setState({
+                            tweetResults: joined,
+                            lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10)
+                        });
                     });
-                });
-        }, 2000);
+            }, 1000);
+        }
     }
 
     render() {
+        console.log(this.state.lengthData);
+        console.log(this.props.tweetSearchLength);
+        console.log(this.state.tweetResults);
+
         return (
             <FadeIn>
-                    <InfiniteScroll
-                        dataLength={this.state.lengthData}
-                        next={this.fetchMoreData}
-                        hasMore={this.state.hasMore}
-                        loader={<img id="loadingGif" src={loading} alt="loading..." />}
-                    >
-                        <div style={{marginTop: "2%"}}>
+                <InfiniteScroll
+                    dataLength={this.state.lengthData}
+                    next={this.fetchMoreData}
+                    hasMore={this.state.hasMore}
+                    loader={<img id="loadingGif" src={loading} alt="loading..."/>}
+                >
+                    <div style={{marginTop: "2%"}}>
                         {this.state.tweetResults.map(tweet =>
-                            <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
+                            <Card className="Tweet_Result" id="text-warp" key={tweet._id}>
                                 <CardBody className="Tweet">
                                     <Feed>
                                         <Feed.Event>
@@ -183,6 +201,8 @@ class Tweet_Result extends Component {
                                                 {this.viewUserProfile(tweet.username, tweet.userId)}
 
                                                 <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
+
+                                                {this.viewTweetPicture(tweet.tweetPicture, tweet._id)}
 
                                                 <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
@@ -208,8 +228,8 @@ class Tweet_Result extends Component {
                                 </CardBody>
                             </Card>
                         )}
-                </div>
-                    </InfiniteScroll>
+                    </div>
+                </InfiniteScroll>
 
                 <ModalDelete
                     isOpen={this.state.modalDelete}
