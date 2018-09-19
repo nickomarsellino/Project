@@ -62,14 +62,16 @@ class Twitt_Container extends Component {
 
 
     getTweetUser() {
-        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
+        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=1')
             .then(res => {
                 this.setState({
-                    tweetData: res.data,
-                    tweetCounter: res.data.length
+                    tweetData: res.data.docs,
+                    tweetCounter: res.data.total,
+                    totalLengthData: res.data.total,
+                    lengthData: res.data.docs.length
                 });
                 // get berapa banyak data tweet nya
-                this.props.tweetCounter(res.data.length)
+                this.props.tweetCounter(res.data.total)
                 // maksudnya dikirim ke profilepage, tweetCounter di profilepage
             });
     }
@@ -269,15 +271,15 @@ class Twitt_Container extends Component {
             }
             else {
                 setTimeout(() => {
-                    // axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
-                    //     .then(res => {
-                    //         const joined = this.state.tweetData.concat(res.data.docs);
-                    //         this.setState({
-                    //             tweetData: joined,
-                    //             lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
-                    //             pagesData: parseInt(this.state.pagesData + 1, 10)
-                    //         });
-                    //     });
+                    axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                        .then(res => {
+                            const joined = this.state.tweetData.concat(res.data.docs);
+                            this.setState({
+                                tweetData: joined,
+                                lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                                pagesData: parseInt(this.state.pagesData + 1, 10)
+                            });
+                        });
                 }, 1000);
             }
         }
