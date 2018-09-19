@@ -262,21 +262,42 @@ class Twitt_Container extends Component {
     }
 
     fetchMoreData() {
-        if (this.state.lengthData === this.state.totalLengthData) {
-            this.setState({hasMore: false});
+
+        if(this.props.located === "profile") {
+            if (this.state.lengthData === this.state.totalLengthData) {
+                this.setState({hasMore: false});
+            }
+            else {
+                setTimeout(() => {
+                    // axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                    //     .then(res => {
+                    //         const joined = this.state.tweetData.concat(res.data.docs);
+                    //         this.setState({
+                    //             tweetData: joined,
+                    //             lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                    //             pagesData: parseInt(this.state.pagesData + 1, 10)
+                    //         });
+                    //     });
+                }, 1000);
+            }
         }
         else{
-            setTimeout(() => {
-                axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
-                    .then(res => {
-                        const joined = this.state.tweetData.concat(res.data.docs);
-                        this.setState({
-                            tweetData: joined,
-                            lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
-                            pagesData: parseInt(this.state.pagesData + 1, 10)
+            if (this.state.lengthData === this.state.totalLengthData) {
+                this.setState({hasMore: false});
+            }
+            else{
+                setTimeout(() => {
+                    axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                        .then(res => {
+                            const joined = this.state.tweetData.concat(res.data.docs);
+                            this.setState({
+                                tweetData: joined,
+                                lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                                pagesData: parseInt(this.state.pagesData + 1, 10)
+                            });
                         });
-                    });
-            }, 1000);
+                }, 1000);
+            }
         }
     }
 
@@ -290,7 +311,7 @@ class Twitt_Container extends Component {
                 >
                     <div>
                         {this.isEmptyTweet(this.state.tweetData)}
-                        {this.state.tweetData.slice(0).reverse().map(tweet =>
+                        {this.state.tweetData.map(tweet =>
                             <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
                                 <CardBody className="Tweet">
                                     <Feed>
