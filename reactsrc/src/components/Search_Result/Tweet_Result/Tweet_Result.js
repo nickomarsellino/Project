@@ -157,7 +157,7 @@ class Tweet_Result extends Component {
 
 
     fetchMoreData() {
-        if (this.state.lengthData >= this.props.tweetSearchLength) {
+        if (this.state.lengthData === this.props.tweetSearchLength) {
             this.setState({hasMore: false});
         }
         else{
@@ -181,7 +181,7 @@ class Tweet_Result extends Component {
                     dataLength={this.state.lengthData}
                     next={this.fetchMoreData}
                     hasMore={this.state.hasMore}
-                    loader={<img id="loadingGif" src={loading} alt="loading..."/>}
+                    // loader={<img id="loadingGif" src={loading} alt="loading..."/>}
                 >
                     <div style={{marginTop: "2%"}}>
                         {this.state.tweetResults.map(tweet =>
@@ -202,17 +202,15 @@ class Tweet_Result extends Component {
 
                                                 <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
-                                                <div>
-                                                    <Icon.Group>
-                                                        9 <Icon name='comments' id="commentsIcon"/>
+                                                <div className="buttonGroup">
+                                                    <Icon.Group className="likesIcon">
+                                                        <Icon name='like' /> {" "} 10 Likes
                                                     </Icon.Group>
-                                                    <Icon.Group>
-                                                        10 <Icon name='like' id="likeIcon"/>
-                                                    </Icon.Group>
-                                                    <Icon.Group>
-                                                        11 <Icon name='sync alternate'/>
+                                                    <Icon.Group className="commentsIcon">
+                                                        {" "}<Icon name='comments'/> {" "} 10 Comments
                                                     </Icon.Group>
                                                 </div>
+
                                             </Feed.Content>
 
                                             <Feed.Label className="Tweet-Delete">

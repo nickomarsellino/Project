@@ -125,8 +125,14 @@ router.delete('/tweet/:id', (req, res, next) => {
 
 // get all tweets
 router.get('/tweets', (req, res, next) => {
-    // Tweet.find({ tweetText: /test/i }, 'username tweetText').sort({timestamp: 'descending'}).then((result) => {
-    Tweet.find({}).sort({timestamp: 'ascending'}).then((result) => {
+    const query = Tweet.find({}).sort({timestamp: 'descending'});
+    const { page, perPage } = req.query;
+    const options = {
+        page: parseInt(page, 10),
+        limit: parseInt(perPage, 10),
+    };
+
+    Tweet.paginate(query, options).then(function(result) {
         res.send(result);
     });
 });
@@ -144,10 +150,6 @@ router.get('/searchByTweets/:tweetText', (req, res, next) => {
         page: parseInt(page, 10),
         limit: parseInt(perPage, 10),
     };
-
-    // Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture').then((result) => {
-    //     res.send(result);
-    // });
 
     Tweet.paginate(query, options).then(function(result) {
         res.send(result);
