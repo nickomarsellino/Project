@@ -23,6 +23,7 @@ class Twitt_Box extends Component {
             username: '',
             userTweet: '',
             profilePicture: '',
+            like: '',
             tweetImage: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -86,7 +87,8 @@ class Twitt_Box extends Component {
             username: this.state.username,
             userId: this.state.userId,
             tweetImage: this.state.tweetImage,
-            profilePicture: this.props.profilePicture
+            profilePicture: this.props.profilePicture,
+            like: this.state.like
         };
 
         socket.emit('sendTheData', tweetData);
@@ -98,9 +100,6 @@ class Twitt_Box extends Component {
             url: `api/tweet/posting`,
             data: tweetData
         })
-            // .then(() => {
-            //     window.location.reload();
-            // });
     }
 
     handleClick(e) {

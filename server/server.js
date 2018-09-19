@@ -17,8 +17,8 @@ app.use(helmet());
 app.use(cors({origin:'http://localhost:3000', methods:['GET', 'PUT', 'POST']}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'build')));
-app.use('/uploads', express.static('uploads'));
+// app.use(express.static(path.join(__dirname, 'build')));
+// app.use('/uploads', express.static('uploads'));
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -58,11 +58,19 @@ io.on('connection', (socket) => {
   console.log('a new user connected, with Id:', socket.id);
   // Memastikan emit tsb telah terkirim dari client (front end)
   socket.on('sendTheData', (data) => {
-     // console.log("apakek masuk ga?");
+     console.log("apakek masuk ga?");
     socket.broadcast.emit('getData', data)
     socket.emit('getData', data);
     // io.sockets.emit('bebas1', data);
   });
+
+  // socket.on('sendLike', (data) => {
+  //   console.log("Masuk?");
+  //   socket.broadcast.emit('getTheLikeData', data)
+  //   socket.emit('getTheLikeData', data);
+  //   // io.sockets.emit('bebas1', data);
+  // });
+
 });
 
 io.listen(8000);

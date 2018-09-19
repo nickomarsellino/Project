@@ -15,12 +15,17 @@ const TweetSchema = Schema({
     tweetText: {
         type: String
     },
-    like: [{
-        userId: { type: String }
+    likes: [{
+        type: Schema.ObjectId,
+        ref: 'User'
     }],
     timestamp: {
         type: Date,
         default: Date.now()
+    },
+    checkLikes:{
+      type: Boolean,
+      default: false
     }
 });
 

@@ -166,7 +166,9 @@ class Edit_Profile extends Component {
         <h2 className="lead">No Image</h2>
       }
 
+{console.log("imageurl ", imageUrl);}
         return (
+
             <FadeIn>
                 <div>
                     <Container className="col-lg-4 col-lg-offset-2">

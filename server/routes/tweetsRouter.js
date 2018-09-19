@@ -25,6 +25,7 @@ router.post('/posting', (req, res, next) => {
         userId: userData.userId,
         profilePicture: req.body.profilePicture,
         //tweetImage: req.file.path,
+        checkLikes: false,
         timestamp: Date.now()
     };
     Tweet.create(tweet).then(function (result) {
@@ -34,6 +35,7 @@ router.post('/posting', (req, res, next) => {
             username: result.username,
             tweetText: result.tweetText,
             timestamp: new Date(),
+            checkLikes: '',
             message: 'Tweet posted successfully..!',
         });
     });
@@ -52,7 +54,6 @@ router.get('/tweets', (req, res, next) => {
         res.send(result);
     });
 });
-
 
 // SEARCH FILTER BY TWEETS, get all tweets data, yang input nya sesuai dengan tweets nya
 // https://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value
@@ -81,5 +82,24 @@ router.get('/profiletweet/:id', (req, res) => {
     });
 });
 
+// Buat Like kasih id kita
+router.put('/likeTweet/:id', (req,res) => {
+    User.find({})
+    Tweet.findByIdAndUpdate( {_id: req.params.id}, {$push: {likes: req.body.userId}}, {new: true}, function (err, user) {
+      if (err) {
+        return res.send(err)
+      };
+      res.json(user);
+    });
+  })
+
+router.put('/unlikeTweet/:id', (req,res) => {
+    Tweet.findByIdAndUpdate( {_id: req.params.id}, {$pull: {likes: req.body.userId}}, {new: true}, function (err, user) {
+      if (err) {
+        return res.send(err)
+      };
+      res.json(user);
+    });
+  })
 
 module.exports = router;

@@ -106,3 +106,8 @@
     position: relative;
     top: 1px;
 }
+
+.loadingGif{
+    height: 35px;
+    width: 35px;
+}

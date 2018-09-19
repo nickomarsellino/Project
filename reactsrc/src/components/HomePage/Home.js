@@ -5,6 +5,7 @@ import ScrollUpButton from "react-scroll-up-button";
 import './Home.css';
 import {Container} from "mdbreact"
 
+
 //load another component
 import Navbar from "../Navbar/Navigationbar";
 import Profile from '../Form_editProfile/Edit_Profile'
