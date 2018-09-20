@@ -8,7 +8,6 @@ import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 import openSocket from 'socket.io-client';
-import ReactDOM from "react-dom";
 
 // Ini yang nge buat dia connect sama si backend nya
 const socket = openSocket('http://10.183.28.155:8000');

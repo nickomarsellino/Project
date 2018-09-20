@@ -62,16 +62,16 @@ class Twitt_Container extends Component {
 
 
     getTweetUser() {
-        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
+        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=1')
             .then(res => {
                 this.setState({
-                    tweetData: res.data,
+                    tweetData: res.data.docs,
                     tweetCounter: res.data.length,
-                    // totalLengthData: res.data.total,
-                    // lengthData: res.data.docs.length
+                    totalLengthData: res.data.total,
+                    lengthData: res.data.docs.length
                 });
                 // get berapa banyak data tweet nya
-                this.props.tweetCounter(res.data.length)
+                this.props.tweetCounter(res.data.total)
                 // maksudnya dikirim ke profilepage, tweetCounter di profilepage
             });
     }
@@ -132,12 +132,12 @@ class Twitt_Container extends Component {
         }
         else {
             if (this.props.userId === userId) {
-                this.props.history.push({
+                this.props.history.replace({
                     pathname: `/home/myProfile/${username}`.replace(' ', ''),
                 })
             }
             else {
-                this.props.history.push({
+                this.props.history.replace({
                     pathname: `/home/profile/${username}`.replace(' ', ''),
                     state: {
                         userId: userId
@@ -265,39 +265,42 @@ class Twitt_Container extends Component {
 
     fetchMoreData() {
 
-        // if(this.props.located === "profile") {
-        //     if (this.state.lengthData === this.state.totalLengthData) {
-        //         this.setState({hasMore: false});
-        //     }
-        //     else {
-        //         setTimeout(() => {
-        //             axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
-        //                 .then(res => {
-        //                     const joined = this.state.tweetData.concat(res.data.docs);
-        //                     this.setState({
-        //                         tweetData: joined,
-        //                         lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
-        //                         pagesData: parseInt(this.state.pagesData + 1, 10)
-        //                     });
-        //                 });
-        //         }, 1000);
-        //     }
-        // }
-        if (this.state.lengthData === this.state.totalLengthData) {
-            this.setState({hasMore: false, lengthData: '', totalLengthData: ''});
-        }
-        else {
-            setTimeout(() => {
-                axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
-                    .then(res => {
-                        const joined = this.state.tweetData.concat(res.data.docs);
-                        this.setState({
-                            tweetData: joined,
-                            lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
-                            pagesData: parseInt(this.state.pagesData + 1, 10)
+        if(this.props.located === "profile") {
+            if (this.state.lengthData === this.state.totalLengthData) {
+                this.setState({hasMore: false});
+            }
+            else {
+                setTimeout(() => {
+                    axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                        .then(res => {
+                            const joined = this.state.tweetData.concat(res.data.docs);
+                            this.setState({
+                                tweetData: joined,
+                                lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                                pagesData: parseInt(this.state.pagesData + 1, 10)
+                            });
                         });
-                    });
-            }, 1000);
+                }, 1000);
+            }
+        }
+
+        else if (this.props.located === "home"){
+            if (this.state.lengthData === this.state.totalLengthData) {
+                this.setState({hasMore: false, lengthData: '', totalLengthData: ''});
+            }
+            else {
+                setTimeout(() => {
+                    axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                        .then(res => {
+                            const joined = this.state.tweetData.concat(res.data.docs);
+                            this.setState({
+                                tweetData: joined,
+                                lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                                pagesData: parseInt(this.state.pagesData + 1, 10)
+                            });
+                        });
+                }, 1000);
+            }
         }
     }
 

@@ -140,22 +140,22 @@ router.get('/tweets', (req, res, next) => {
 // get tweet yang di post user nya aja, id si user
 router.get('/profiletweet/:id', (req, res) => {
 
-    // const query = Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'});
-    // const {page, perPage} = req.query;
-    // const options = {
-    //     page: parseInt(page, 10),
-    //     limit: parseInt(perPage, 10),
-    // };
-    //
-    // Tweet.paginate(query, options).then(function(result) {
-    //      res.send(result);
-    // });
+    const query = Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'});
+    const {page, perPage} = req.query;
+    const options = {
+        page: parseInt(page, 10),
+        limit: parseInt(perPage, 10),
+    };
 
-    Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'}).then((result) => {
-        res.json(result);
-    }).catch((err) => {
-        res.status(404).json({success: false, msg: `No such tweets.`});
+    Tweet.paginate(query, options).then(function(result) {
+         res.send(result);
     });
+
+    // Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'}).then((result) => {
+    //     res.json(result);
+    // }).catch((err) => {
+    //     res.status(404).json({success: false, msg: `No such tweets.`});
+    // });
 });
 
 
