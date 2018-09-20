@@ -62,16 +62,16 @@ class Twitt_Container extends Component {
 
 
     getTweetUser() {
-        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=1')
+        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
             .then(res => {
                 this.setState({
-                    tweetData: res.data.docs,
-                    tweetCounter: res.data.total,
-                    totalLengthData: res.data.total,
-                    lengthData: res.data.docs.length
+                    tweetData: res.data,
+                    tweetCounter: res.data.length,
+                    // totalLengthData: res.data.total,
+                    // lengthData: res.data.docs.length
                 });
                 // get berapa banyak data tweet nya
-                this.props.tweetCounter(res.data.total)
+                this.props.tweetCounter(res.data.length)
                 // maksudnya dikirim ke profilepage, tweetCounter di profilepage
             });
     }
@@ -125,13 +125,13 @@ class Twitt_Container extends Component {
         }
     }
 
-    onClickedImageProfile(userId, username){
+    onClickedImageProfile(userId, username) {
 
         if (this.props.located === "profile") {
 
         }
-        else{
-            if(this.props.userId === userId){
+        else {
+            if (this.props.userId === userId) {
                 this.props.history.push({
                     pathname: `/home/myProfile/${username}`.replace(' ', ''),
                 })
@@ -170,8 +170,8 @@ class Twitt_Container extends Component {
         }
     }
 
-    viewTweetPicture(tweetPicture, userId){
-        if(this.props.located === "profile"){
+    viewTweetPicture(tweetPicture, userId) {
+        if (this.props.located === "profile") {
             if (tweetPicture) {
                 return (
                     <center>
@@ -183,7 +183,7 @@ class Twitt_Container extends Component {
                 );
             }
         }
-        else{
+        else {
             if (tweetPicture) {
                 return (
                     <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
@@ -199,7 +199,7 @@ class Twitt_Container extends Component {
     viewUserProfile(username, userId) {
         if (this.props.located === "home") {
             //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
-            if(userId === this.props.userId){
+            if (userId === this.props.userId) {
                 return (
                     <Link to={{
                         pathname: `/home/myProfile/${username}`.replace(' ', ''),
@@ -210,7 +210,7 @@ class Twitt_Container extends Component {
                     </Link>
                 );
             }
-            else{
+            else {
                 return (
                     <Link to={{
                         pathname: `/home/profile/${username}`.replace(' ', ''),
@@ -235,9 +235,9 @@ class Twitt_Container extends Component {
         }
     }
 
-    isEmptyTweet(){
-        if(this.props.located === "profile"){
-            if(this.state.tweetCounter === 0){
+    isEmptyTweet() {
+        if (this.props.located === "profile") {
+            if (this.state.tweetCounter === 0) {
                 return (
                     <Card className="Tweet_Container" id="text-warp">
                         <CardBody className="Tweet">
@@ -265,41 +265,39 @@ class Twitt_Container extends Component {
 
     fetchMoreData() {
 
-        if(this.props.located === "profile") {
-            if (this.state.lengthData === this.state.totalLengthData) {
-                this.setState({hasMore: false});
-            }
-            else {
-                setTimeout(() => {
-                    axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
-                        .then(res => {
-                            const joined = this.state.tweetData.concat(res.data.docs);
-                            this.setState({
-                                tweetData: joined,
-                                lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
-                                pagesData: parseInt(this.state.pagesData + 1, 10)
-                            });
-                        });
-                }, 1000);
-            }
+        // if(this.props.located === "profile") {
+        //     if (this.state.lengthData === this.state.totalLengthData) {
+        //         this.setState({hasMore: false});
+        //     }
+        //     else {
+        //         setTimeout(() => {
+        //             axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+        //                 .then(res => {
+        //                     const joined = this.state.tweetData.concat(res.data.docs);
+        //                     this.setState({
+        //                         tweetData: joined,
+        //                         lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+        //                         pagesData: parseInt(this.state.pagesData + 1, 10)
+        //                     });
+        //                 });
+        //         }, 1000);
+        //     }
+        // }
+        if (this.state.lengthData === this.state.totalLengthData) {
+            this.setState({hasMore: false, lengthData: '', totalLengthData: ''});
         }
-        else{
-            if (this.state.lengthData === this.state.totalLengthData) {
-                this.setState({hasMore: false, lengthData: '', totalLengthData: ''});
-            }
-            else{
-                setTimeout(() => {
-                    axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
-                        .then(res => {
-                            const joined = this.state.tweetData.concat(res.data.docs);
-                            this.setState({
-                                tweetData: joined,
-                                lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
-                                pagesData: parseInt(this.state.pagesData + 1, 10)
-                            });
+        else {
+            setTimeout(() => {
+                axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                    .then(res => {
+                        const joined = this.state.tweetData.concat(res.data.docs);
+                        this.setState({
+                            tweetData: joined,
+                            lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                            pagesData: parseInt(this.state.pagesData + 1, 10)
                         });
-                }, 1000);
-            }
+                    });
+            }, 1000);
         }
     }
 
@@ -325,15 +323,17 @@ class Twitt_Container extends Component {
 
                                                 {this.viewUserProfile(tweet.username, tweet.userId)}
 
-                                                <Feed.Extra onClick={() => this.openModalTweet(tweet._id)} id="tweetText" text content={tweet.tweetText}/> <br/>
+                                                <Feed.Extra onClick={() => this.openModalTweet(tweet._id)}
+                                                            id="tweetText" text content={tweet.tweetText}/> <br/>
 
                                                 {this.viewTweetPicture(tweet.tweetPicture, tweet._id)}
 
-                                                <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+                                                <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText"
+                                                           content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
                                                 <div className="buttonGroup">
                                                     <Icon.Group className="likesIcon">
-                                                        <Icon name='like' /> {" "} 10 Likes
+                                                        <Icon name='like'/> {" "} 10 Likes
                                                     </Icon.Group>
                                                     <Icon.Group className="commentsIcon">
                                                         {" "}<Icon name='comments'/> {" "} 10 Comments
