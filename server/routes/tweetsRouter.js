@@ -102,24 +102,59 @@ router.put('/postingImage/:id', upload.single('tweetPicture'), (req, res) => {
 
 
 router.delete('/tweet/:id', (req, res, next) => {
-    Tweet.find({_id: req.params.id}, 'tweetPicture').then((result) => {
-        fs.unlink('../reactsrc/src/tweetImage/'+result[0].tweetPicture, function(error) {
-            if (error) {
-                throw error;
-            }
-        });
-    });
 
-    Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
-        res.send(result);
+    Tweet.find({_id: req.params.id}, 'tweetPicture').then((result) => {
+        if(result[0].tweetPicture.length === 0){
+            Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
+                res.send(result);
+            });
+        }
+        else{
+            fs.unlink('../reactsrc/src/tweetImage/'+result[0].tweetPicture, function(error) {
+                if (error) {
+                    throw error;
+                }
+            });
+
+            Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
+                res.send(result);
+            });
+        }
     });
 });
 
 // get all tweets
 router.get('/tweets', (req, res, next) => {
-    // Tweet.find({ tweetText: /test/i }, 'username tweetText').sort({timestamp: 'descending'}).then((result) => {
-    Tweet.find({}).sort({timestamp: 'ascending'}).then((result) => {
+    const query = Tweet.find({}).sort({timestamp: 'descending'});
+    const { page, perPage } = req.query;
+    const options = {
+        page: parseInt(page, 10),
+        limit: parseInt(perPage, 10),
+    };
+
+    Tweet.paginate(query, options).then(function(result) {
         res.send(result);
+    });
+});
+
+// get tweet yang di post user nya aja, id si user
+router.get('/profiletweet/:id', (req, res) => {
+
+    // const query = Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'});
+    // const {page, perPage} = req.query;
+    // const options = {
+    //     page: parseInt(page, 10),
+    //     limit: parseInt(perPage, 10),
+    // };
+    //
+    // Tweet.paginate(query, options).then(function(result) {
+    //      res.send(result);
+    // });
+
+    Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'}).then((result) => {
+        res.json(result);
+    }).catch((err) => {
+        res.status(404).json({success: false, msg: `No such tweets.`});
     });
 });
 
@@ -128,9 +163,19 @@ router.get('/tweets', (req, res, next) => {
 // https://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value
 router.get('/searchByTweets/:tweetText', (req, res, next) => {
     const searchTweetsQuery = req.params.tweetText;
-    Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId profilePicture').then((result) => {
+
+    const query = Tweet.find({tweetText: new RegExp(searchTweetsQuery, "i")}, 'username tweetText timestamp userId' +
+        ' profilePicture tweetPicture').sort({timestamp: 'descending'});
+    const { page, perPage } = req.query;
+    const options = {
+        page: parseInt(page, 10),
+        limit: parseInt(perPage, 10),
+    };
+
+    Tweet.paginate(query, options).then(function(result) {
         res.send(result);
     });
+
 });
 
 // get one tweet only for modal, id nya Tweets id nya
@@ -142,14 +187,6 @@ router.get('/tweet/:id', (req, res) => {
     });
 });
 
-// get tweet yang di post user nya aja, id si user
-router.get('/profiletweet/:id', (req, res) => {
-    Tweet.find({userId: req.params.id}).sort({timestamp: 'ascending'}).then((result) => {
-        res.json(result);
-    }).catch((err) => {
-        res.status(404).json({success: false, msg: `No such tweets.`});
-    });
-});
 
 
 module.exports = router;

@@ -122,7 +122,7 @@ class Twitt_Box extends Component {
                         // socket.emit('sendTheData', tweetDataAndImage);
                     })
                     .catch(() => {
-                        socket.emit('sendTheData', tweetData);
+                        // socket.emit('sendTheData', tweetData);
                     });
             });
     }

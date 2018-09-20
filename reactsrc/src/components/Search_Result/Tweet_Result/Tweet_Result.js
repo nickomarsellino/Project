@@ -1,12 +1,14 @@
 import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
-import {Feed, Icon} from 'semantic-ui-react';
+import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../../../src/daniel.jpg';
+import loading from '../../../loading.gif'
 import axios from 'axios';
 import './Tweet_Result.css';
 import FadeIn from 'react-fade-in';
 import {Link} from 'react-router-dom';
 import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Timestamp = require('react-timestamp');
 
@@ -17,13 +19,17 @@ class Tweet_Result extends Component {
         super();
         this.state = {
             tweetResults: [],
-            tweet:[],
-            modalDelete: false
+            tweet: [],
+            modalDelete: false,
+            hasMore: true,
+            lengthData: '',
+            pagesData: 1
         };
 
         this.getTweetSearch = this.getTweetSearch.bind(this);
         this.openModalDelete = this.openModalDelete.bind(this);
         this.closeModalDelete = this.closeModalDelete.bind(this);
+        this.fetchMoreData = this.fetchMoreData.bind(this);
     }
 
     componentWillMount() {
@@ -31,8 +37,8 @@ class Tweet_Result extends Component {
     }
 
     viewUserProfile(username, userId) {
-        if (window.location.href === "http://localhost:3001/home/search/?"+this.props.searchValue) {
-            if(userId === this.props.userId){
+        if (window.location.href === "http://localhost:3001/home/search/?" + this.props.searchValue) {
+            if (userId === this.props.userId) {
                 return (
                     <Link to={{
                         pathname: `/home/myProfile/${username}`,
@@ -43,7 +49,7 @@ class Tweet_Result extends Component {
                     </Link>
                 );
             }
-            else{
+            else {
                 return (
                     <Link to={{
                         pathname: `/home/profile/${username}`,
@@ -62,6 +68,7 @@ class Tweet_Result extends Component {
 
     getTweetSearch() {
         this.setState({
+            lengthData: this.props.tweetResult.length,
             tweetResults: this.props.tweetResult
         });
     }
@@ -97,8 +104,8 @@ class Tweet_Result extends Component {
         }
     }
 
-    onClickedImage(userId, username){
-        if(this.props.userId === userId){
+    onClickedImage(userId, username) {
+        if (this.props.userId === userId) {
             this.props.history.push({
                 pathname: `/home/myProfile/${username}`.replace(' ', ''),
             })
@@ -136,49 +143,87 @@ class Tweet_Result extends Component {
         }
     }
 
+    viewTweetPicture(tweetPicture, userId) {
+        if (tweetPicture) {
+            return (
+                <center>
+                    <Image src={require(`../../../tweetImage/${tweetPicture}`)}
+                           id="tweetImage"
+                    />
+                </center>
+            );
+        }
+    }
+
+
+    fetchMoreData() {
+        if (this.state.lengthData === this.props.tweetSearchLength) {
+            this.setState({hasMore: false});
+        }
+        else{
+            setTimeout(() => {
+                axios.get('/api/tweet/searchByTweets/' + this.props.searchValue + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                    .then(res => {
+                        const joined = this.state.tweetResults.concat(res.data.docs);
+                        this.setState({
+                            tweetResults: joined,
+                            lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10)
+                        });
+                    });
+            }, 1000);
+        }
+    }
+
     render() {
         return (
             <FadeIn>
-                <div style={{marginTop: "2%"}}>
-                    {this.state.tweetResults.map(tweet =>
-                        <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
-                            <CardBody className="Tweet">
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label style={{width: "60px", padding: "8px 0"}}>
-                                            {this.setProfileImage(tweet.profilePicture, tweet.userId, tweet.username)}
-                                        </Feed.Label>
-                                        <Feed.Content className="Tweet-Content">
+                <InfiniteScroll
+                    dataLength={this.state.lengthData}
+                    next={this.fetchMoreData}
+                    hasMore={this.state.hasMore}
+                    // loader={<img id="loadingGif" src={loading} alt="loading..."/>}
+                >
+                    <div style={{marginTop: "2%"}}>
+                        {this.state.tweetResults.map(tweet =>
+                            <Card className="Tweet_Result" id="text-warp" key={tweet._id}>
+                                <CardBody className="Tweet">
+                                    <Feed>
+                                        <Feed.Event>
+                                            <Feed.Label style={{width: "60px", padding: "8px 0"}}>
+                                                {this.setProfileImage(tweet.profilePicture, tweet.userId, tweet.username)}
+                                            </Feed.Label>
+                                            <Feed.Content className="Tweet-Content">
 
-                                            {this.viewUserProfile(tweet.username, tweet.userId)}
+                                                {this.viewUserProfile(tweet.username, tweet.userId)}
 
-                                            <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
+                                                <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
 
-                                            <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+                                                {this.viewTweetPicture(tweet.tweetPicture, tweet._id)}
 
-                                            <div>
-                                                <Icon.Group>
-                                                    9 <Icon name='comments' id="commentsIcon"/>
-                                                </Icon.Group>
-                                                <Icon.Group>
-                                                    10 <Icon name='like' id="likeIcon"/>
-                                                </Icon.Group>
-                                                <Icon.Group>
-                                                    11 <Icon name='sync alternate'/>
-                                                </Icon.Group>
-                                            </div>
-                                        </Feed.Content>
+                                                <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
-                                        <Feed.Label className="Tweet-Delete">
-                                            {this.buttonDelete(tweet.userId, tweet._id)}
-                                        </Feed.Label>
+                                                <div className="buttonGroup">
+                                                    <Icon.Group className="likesIcon">
+                                                        <Icon name='like' /> {" "} 10 Likes
+                                                    </Icon.Group>
+                                                    <Icon.Group className="commentsIcon">
+                                                        {" "}<Icon name='comments'/> {" "} 10 Comments
+                                                    </Icon.Group>
+                                                </div>
 
-                                    </Feed.Event>
-                                </Feed>
-                            </CardBody>
-                        </Card>
-                    )}
-                </div>
+                                            </Feed.Content>
+
+                                            <Feed.Label className="Tweet-Delete">
+                                                {this.buttonDelete(tweet.userId, tweet._id)}
+                                            </Feed.Label>
+
+                                        </Feed.Event>
+                                    </Feed>
+                                </CardBody>
+                            </Card>
+                        )}
+                    </div>
+                </InfiniteScroll>
 
                 <ModalDelete
                     isOpen={this.state.modalDelete}

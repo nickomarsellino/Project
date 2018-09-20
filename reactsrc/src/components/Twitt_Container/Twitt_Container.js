@@ -6,6 +6,7 @@ import axios from 'axios';
 import './Twiit_Container.css';
 import FadeIn from 'react-fade-in';
 import {Link} from 'react-router-dom';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 //load another component
 import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
@@ -28,7 +29,11 @@ class Twitt_Container extends Component {
             tweetCounter: '',
             userProfilePicture: '',
             modalTweet: false,
-            modalDelete: false
+            modalDelete: false,
+            hasMore: true,
+            lengthData: '',
+            totalLengthData: '',
+            pagesData: 1
         };
 
         this.getTweetData = this.getTweetData.bind(this);
@@ -37,6 +42,7 @@ class Twitt_Container extends Component {
         this.openModalDelete = this.openModalDelete.bind(this);
         this.closeModalTweet = this.closeModalTweet.bind(this);
         this.closeModalDelete = this.closeModalDelete.bind(this);
+        this.fetchMoreData = this.fetchMoreData.bind(this);
     }
 
     componentWillMount() {
@@ -45,12 +51,12 @@ class Twitt_Container extends Component {
         }
         else {
             this.getTweetData();
-            socket.on('getData', namavariabel => {
-                console.log("isi Nama Variabel: ",namavariabel);
-                this.setState({
-                    tweetData: this.state.tweetData.concat(namavariabel)
-                })
-            })
+            // socket.on('getData', namavariabel => {
+            //     console.log("isi Nama Variabel: ",namavariabel);
+            //     this.setState({
+            //         tweetData: this.state.tweetData.concat(namavariabel)
+            //     })
+            // })
         }
     }
 
@@ -60,7 +66,9 @@ class Twitt_Container extends Component {
             .then(res => {
                 this.setState({
                     tweetData: res.data,
-                    tweetCounter: res.data.length
+                    tweetCounter: res.data.length,
+                    // totalLengthData: res.data.total,
+                    // lengthData: res.data.docs.length
                 });
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.length)
@@ -69,12 +77,15 @@ class Twitt_Container extends Component {
     }
 
     getTweetData() {
-            fetch('/api/tweet/tweets', {
-                method: 'GET',
-            }).then(res => res.json())
-            .then(response =>
-                this.setState({ tweetData: response }))
-            .catch(error => console.error('Error:', error));
+        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
+            .then(res => {
+                this.setState(
+                    {
+                        tweetData: res.data.docs,
+                        totalLengthData: res.data.total,
+                        lengthData: res.data.docs.length
+                    })
+            });
     }
 
     openModalTweet(tweetId) {
@@ -114,13 +125,13 @@ class Twitt_Container extends Component {
         }
     }
 
-    onClickedImageProfile(userId, username){
+    onClickedImageProfile(userId, username) {
 
         if (this.props.located === "profile") {
 
         }
-        else{
-            if(this.props.userId === userId){
+        else {
+            if (this.props.userId === userId) {
                 this.props.history.push({
                     pathname: `/home/myProfile/${username}`.replace(' ', ''),
                 })
@@ -159,8 +170,8 @@ class Twitt_Container extends Component {
         }
     }
 
-    viewTweetPicture(tweetPicture, userId){
-        if(this.props.located === "profile"){
+    viewTweetPicture(tweetPicture, userId) {
+        if (this.props.located === "profile") {
             if (tweetPicture) {
                 return (
                     <center>
@@ -172,7 +183,7 @@ class Twitt_Container extends Component {
                 );
             }
         }
-        else{
+        else {
             if (tweetPicture) {
                 return (
                     <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
@@ -188,7 +199,7 @@ class Twitt_Container extends Component {
     viewUserProfile(username, userId) {
         if (this.props.located === "home") {
             //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
-            if(userId === this.props.userId){
+            if (userId === this.props.userId) {
                 return (
                     <Link to={{
                         pathname: `/home/myProfile/${username}`.replace(' ', ''),
@@ -199,7 +210,7 @@ class Twitt_Container extends Component {
                     </Link>
                 );
             }
-            else{
+            else {
                 return (
                     <Link to={{
                         pathname: `/home/profile/${username}`.replace(' ', ''),
@@ -224,9 +235,9 @@ class Twitt_Container extends Component {
         }
     }
 
-    isEmptyTweet(){
-        if(this.props.located === "profile"){
-            if(this.state.tweetCounter === 0){
+    isEmptyTweet() {
+        if (this.props.located === "profile") {
+            if (this.state.tweetCounter === 0) {
                 return (
                     <Card className="Tweet_Container" id="text-warp">
                         <CardBody className="Tweet">
@@ -252,65 +263,110 @@ class Twitt_Container extends Component {
         }
     }
 
+    fetchMoreData() {
+
+        // if(this.props.located === "profile") {
+        //     if (this.state.lengthData === this.state.totalLengthData) {
+        //         this.setState({hasMore: false});
+        //     }
+        //     else {
+        //         setTimeout(() => {
+        //             axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+        //                 .then(res => {
+        //                     const joined = this.state.tweetData.concat(res.data.docs);
+        //                     this.setState({
+        //                         tweetData: joined,
+        //                         lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+        //                         pagesData: parseInt(this.state.pagesData + 1, 10)
+        //                     });
+        //                 });
+        //         }, 1000);
+        //     }
+        // }
+        if (this.state.lengthData === this.state.totalLengthData) {
+            this.setState({hasMore: false, lengthData: '', totalLengthData: ''});
+        }
+        else {
+            setTimeout(() => {
+                axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                    .then(res => {
+                        const joined = this.state.tweetData.concat(res.data.docs);
+                        this.setState({
+                            tweetData: joined,
+                            lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                            pagesData: parseInt(this.state.pagesData + 1, 10)
+                        });
+                    });
+            }, 1000);
+        }
+    }
 
     render() {
         return (
             <FadeIn>
-                <div>
-                    {this.isEmptyTweet(this.state.tweetData)}
-                    {this.state.tweetData.slice(0).reverse().map(tweet =>
-                        <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
-                            <CardBody className="Tweet">
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label style={{width: "60px", padding: "8px 0"}}>
-                                            {this.setProfileImage(tweet.profilePicture, tweet.userId, tweet.username)}
-                                        </Feed.Label>
-                                        <Feed.Content className="Tweet-Content">
+                <InfiniteScroll
+                    dataLength={this.state.lengthData}
+                    next={this.fetchMoreData}
+                    hasMore={this.state.hasMore}
+                >
+                    <div>
+                        {this.isEmptyTweet(this.state.tweetData)}
+                        {this.state.tweetData.map(tweet =>
+                            <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
+                                <CardBody className="Tweet">
+                                    <Feed>
+                                        <Feed.Event>
+                                            <Feed.Label style={{width: "60px", padding: "8px 0"}}>
+                                                {this.setProfileImage(tweet.profilePicture, tweet.userId, tweet.username)}
+                                            </Feed.Label>
+                                            <Feed.Content className="Tweet-Content">
 
-                                            {this.viewUserProfile(tweet.username, tweet.userId)}
+                                                {this.viewUserProfile(tweet.username, tweet.userId)}
 
-                                            <Feed.Extra onClick={() => this.openModalTweet(tweet._id)} id="tweetText" text content={tweet.tweetText}/> <br/>
+                                                <Feed.Extra onClick={() => this.openModalTweet(tweet._id)}
+                                                            id="tweetText" text content={tweet.tweetText}/> <br/>
 
-                                            {this.viewTweetPicture(tweet.tweetPicture, tweet._id)}
+                                                {this.viewTweetPicture(tweet.tweetPicture, tweet._id)}
 
-                                            <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
+                                                <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText"
+                                                           content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
-                                            <div className="buttonGroup">
-                                                <Icon.Group className="likesIcon">
-                                                    <Icon name='like' /> {" "} 10 Likes
-                                                </Icon.Group>
-                                                <Icon.Group className="commentsIcon">
-                                                    {" "}<Icon name='comments'/> {" "} 10 Comments
-                                                </Icon.Group>
-                                            </div>
+                                                <div className="buttonGroup">
+                                                    <Icon.Group className="likesIcon">
+                                                        <Icon name='like'/> {" "} 10 Likes
+                                                    </Icon.Group>
+                                                    <Icon.Group className="commentsIcon">
+                                                        {" "}<Icon name='comments'/> {" "} 10 Comments
+                                                    </Icon.Group>
+                                                </div>
 
-                                        </Feed.Content>
+                                            </Feed.Content>
 
-                                        <Feed.Label className="Tweet-Delete">
-                                            {this.buttonDelete(tweet.userId, tweet._id)}
-                                        </Feed.Label>
+                                            <Feed.Label className="Tweet-Delete">
+                                                {this.buttonDelete(tweet.userId, tweet._id)}
+                                            </Feed.Label>
 
-                                    </Feed.Event>
-                                </Feed>
-                            </CardBody>
-                        </Card>
-                    )}
+                                        </Feed.Event>
+                                    </Feed>
+                                </CardBody>
+                            </Card>
+                        )}
 
-                    <ModalTwitt
-                        isOpen={this.state.modalTweet}
-                        tweet={this.state.tweet}
-                        isClose={this.closeModalTweet}
-                        profilePicture={this.props.profilePicture}
-                    />
+                        <ModalTwitt
+                            isOpen={this.state.modalTweet}
+                            tweet={this.state.tweet}
+                            isClose={this.closeModalTweet}
+                            profilePicture={this.props.profilePicture}
+                        />
 
-                    <ModalDelete
-                        isOpen={this.state.modalDelete}
-                        tweet={this.state.tweet}
-                        isClose={this.closeModalDelete}
-                    />
+                        <ModalDelete
+                            isOpen={this.state.modalDelete}
+                            tweet={this.state.tweet}
+                            isClose={this.closeModalDelete}
+                        />
 
-                </div>
+                    </div>
+                </InfiniteScroll>
             </FadeIn>
         );
     }

@@ -14,11 +14,13 @@ class Search_Page extends Component {
         super(props);
         this.state = {
             tweetSearch: '',
+            tweetSearchLength: '',
             userSearch: '',
+            userSearchLength: '',
             isSearch: false,
             searchValue: '',
             isTweetSearch: '',
-            isUserSearch: '',
+            isUserSearch: ''
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
         this.isSearched = this.isSearched.bind(this);
@@ -29,6 +31,7 @@ class Search_Page extends Component {
         if (this.props.searchData) {
             this.setState({
                 tweetSearch: this.props.searchData.searchTweetsData,
+                tweetSearchLength: this.props.searchData.tweetSearchLength,
                 userSearch: this.props.searchData.searchUsersData,
                 isSearch: true,
                 searchValue: this.props.searchData.searchValue
@@ -46,7 +49,7 @@ class Search_Page extends Component {
 
     searchTweetsData(searchValue) {
         axios.all([
-            axios.get('/api/tweet/searchByTweets/' + searchValue),
+            axios.get('/api/tweet/searchByTweets/' + searchValue +'?perPage=5&page=1'),
             axios.get('/api/users/searchByUser/' + searchValue)
         ])
             .then(axios.spread((searchByTweetsRes, searchByUsersRes) => {
@@ -58,7 +61,8 @@ class Search_Page extends Component {
                     pathname: '/home/search/',
                     search: searchValue.replace(' ', '-'),
                     state: {
-                        searchTweetsData: searchByTweetsRes.data,
+                        searchTweetsData: searchByTweetsRes.data.docs,
+                        tweetSearchLength: searchByTweetsRes.data.total,
                         searchValue: searchValue,
                         searchUsersData: searchByUsersRes.data,
                         isTweetSearch: true
@@ -75,6 +79,7 @@ class Search_Page extends Component {
                 search: this.state.searchValue.replace(' ', '-'),
                 state: {
                     searchTweetsData: this.state.tweetSearch,
+                    tweetSearchLength: this.state.tweetSearchLength,
                     searchValue: this.state.searchValue,
                     searchUsersData: this.state.userSearch,
                     isTweetSearch: true,
@@ -89,6 +94,7 @@ class Search_Page extends Component {
                 search: this.state.searchValue.replace(' ', '-'),
                 state: {
                     searchTweetsData: this.state.tweetSearch,
+                    tweetSearchLength: this.state.tweetSearchLength,
                     searchValue: this.state.searchValue,
                     searchUsersData: this.state.userSearch,
                     isUserSearch: true,
@@ -178,6 +184,7 @@ class Search_Page extends Component {
                                 </div>
 
                                 <TweetResult
+                                    tweetSearchLength={this.state.tweetSearchLength}
                                     history={this.props.history}
                                     tweetResult={this.state.tweetSearch}
                                     userId={this.props.userId}

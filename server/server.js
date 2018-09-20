@@ -17,8 +17,8 @@ app.use(helmet());
 app.use(cors({origin:'http://localhost:3000', methods:['GET', 'PUT', 'POST']}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'build')));
-app.use('/uploads', express.static('uploads'));
+// app.use(express.static(path.join(__dirname, 'build')));
+// app.use('/uploads', express.static('uploads'));
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
