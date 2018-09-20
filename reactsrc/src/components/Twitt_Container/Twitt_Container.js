@@ -64,11 +64,6 @@ class Twitt_Container extends Component {
     getTweetUser() {
         axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=1')
             .then(res => {
-                console.log(res.data.docs);
-                console.log(res.data.total);
-                console.log(res.data.total);
-                console.log(res.data.docs.length);
-
                 this.setState({
                     tweetData: res.data.docs,
                     tweetCounter: res.data.total,
@@ -271,10 +266,6 @@ class Twitt_Container extends Component {
     fetchMoreData() {
 
         if(this.props.located === "profile") {
-            console.log("JALAN LER: ", this.props.TweetUserId);
-            console.log("LENGTH DATA: ",this.state.lengthData);
-            console.log("TOTAL LENGTH: ",this.state.totalLengthData);
-
             if (this.state.lengthData === this.state.totalLengthData) {
                 this.setState({hasMore: false});
             }
@@ -294,7 +285,7 @@ class Twitt_Container extends Component {
         }
         else{
             if (this.state.lengthData === this.state.totalLengthData) {
-                this.setState({hasMore: false});
+                this.setState({hasMore: false, lengthData: '', totalLengthData: ''});
             }
             else{
                 setTimeout(() => {

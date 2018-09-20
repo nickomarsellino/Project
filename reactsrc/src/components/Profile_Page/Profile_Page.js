@@ -138,7 +138,6 @@ class Edit_Profile extends Component {
                                 onClick={() => this.openProfilePicture()}/>
         }
 
-
         return (
             <FadeIn>
                 <div className="profile">
