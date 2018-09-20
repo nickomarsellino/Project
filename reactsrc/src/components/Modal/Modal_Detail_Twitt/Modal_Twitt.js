@@ -67,17 +67,10 @@ class Modal_Twitt extends Component {
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
                     <ModalHeader toggle={this.openModal}>
                         <div className="profileBox">
-                            <Link to={{
-                                pathname: `/home/profile/${this.state.tweet.username}`,
-                                state: {
-                                    userId: this.state.tweet.userId
-                                }
-                            }}>
-                                <Image avatar id="avatarBox">
+                            <Image avatar id="avatarBox">
                                     {this.setProfileImage(this.state.tweet.profilePicture)}
-                                </Image>
+                                    </Image>
                                 <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
-                            </Link>
                         </div>
                     </ModalHeader>
 
