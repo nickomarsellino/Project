@@ -36,6 +36,7 @@ router.post('/posting', (req, res, next) => {
             tweetText: result.tweetText,
             timestamp: new Date(),
             checkLikes: '',
+            result:result,
             message: 'Tweet posted successfully..!',
         });
     });
@@ -50,7 +51,7 @@ router.delete('/tweet/:id', (req, res, next) => {
 // get all tweets
 router.get('/tweets', (req, res, next) => {
     // Tweet.find({ tweetText: /test/i }, 'username tweetText').sort({timestamp: 'descending'}).then((result) => {
-    Tweet.find({}).sort({timestamp: 'ascending'}).then((result) => {
+    Tweet.find({}).sort({timestamp: 'descending'}).then((result) => {
         res.send(result);
     });
 });

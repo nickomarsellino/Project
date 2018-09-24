@@ -54,8 +54,9 @@ class Twitt_Container extends Component {
         else {
             this.getTweetData();
             socket.on('getData', namavariabel => {
+              let asd  = this.state.tweetData.concat(namavariabel)
                 this.setState({
-                    tweetData: this.state.tweetData.concat(namavariabel)
+                    tweetData: asd
                 })
             })
         }
@@ -83,7 +84,6 @@ class Twitt_Container extends Component {
                 this.setState({
                   tweetData: response
                 })
-                console.log(this.state.tweetData);
                 this.setState({
                   isLoading:false
                 })}
@@ -109,15 +109,12 @@ class Twitt_Container extends Component {
 
 
     render() {
-      {console.log("propsuserid: ", this.props.userId);}
-      {console.log("checkLikes: ", this.state.checkLikes);}
-
       if(this.state.isLoading){
         return null
       }
       return (
       <div id="scrollableDiv" style={{ overflow: "auto" }}>
-        {this.state.tweetData.slice(0).reverse().map(tweet =>
+        {this.state.tweetData.map(tweet =>
             <TweetComponent tweet={tweet} history={this.props.history} userId={this.props.userId}  located="home"/>
         )}
 

@@ -23,7 +23,7 @@ class Twitt_Box extends Component {
             username: '',
             userTweet: '',
             profilePicture: '',
-            like: '',
+            likes: null,
             tweetImage: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -87,18 +87,16 @@ class Twitt_Box extends Component {
             username: this.state.username,
             userId: this.state.userId,
             tweetImage: this.state.tweetImage,
-            profilePicture: this.props.profilePicture,
-            like: this.state.like
+            profilePicture: this.props.profilePicture
         };
-
-        socket.emit('sendTheData', tweetData);
-
-        const method = 'post';
         axios({
-            method: method,
+            method: 'post',
             responseType: 'json',
             url: `api/tweet/posting`,
             data: tweetData
+        })
+        .then(res =>{
+            socket.emit('sendTheData', res.data.result);
         })
     }
 

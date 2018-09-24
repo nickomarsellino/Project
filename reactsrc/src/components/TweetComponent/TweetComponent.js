@@ -52,8 +52,8 @@ class TweetComponent extends Component {
           tweet: this.props.tweet,
           likes:this.props.tweet.likes
         })
-        this.getLikeData();
-        console.log(this.props.tweet._id+'like');
+
+        console.log(this.props.tweet);
 
         // Untuk Like
         socket.on(this.props.tweet._id+'like' , bebas => {
@@ -78,23 +78,6 @@ class TweetComponent extends Component {
         })
         this.likeIkonColor();
     }
-
-    getLikeData() {
-        const url = '/api/tweet/tweets';
-            fetch(url, {
-                method: 'GET',
-            }).then(res => res.json())
-            .then(response =>
-                this.setState({
-                  stateLikeData: response[0].likes.length
-                })
-            )
-            .catch(error => console.error('Error:', error));
-    }
-
-    // changeColor(){
-    //     this.setState({black: !this.state.black})
-    // }
 
     onClickedImage(userId, username){
 

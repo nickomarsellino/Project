@@ -58,7 +58,6 @@ io.on('connection', (socket) => {
   console.log('a new user connected, with Id:', socket.id);
   // Memastikan emit tsb telah terkirim dari client (front end)
   socket.on('sendTheData', (data) => {
-     console.log("apakek masuk ga?");
     socket.broadcast.emit('getData', data)
     socket.emit('getData', data);
     // io.sockets.emit('bebas1', data);
@@ -66,18 +65,14 @@ io.on('connection', (socket) => {
 
   socket.on('sendLike', (data) => {
     console.log("Masuk?1");
-    // socket.broadcast.emit('getLikeData', data)
     socket.emit(data.tweetId+'like', data);
-    // io.sockets.emit('bebas1', data);
   });
 
-  socket.on('unlike', (data) =>
-   {
+  socket.on('unlike', (data) => {
     console.log("Masuk?2");
-    // socket.broadcast.emit('getLikeData', data)
     socket.emit(data.tweetId+"unlike", data);
-    // io.sockets.emit('bebas1', data);
   });
+  
 });
 
 io.listen(8000);
