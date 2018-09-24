@@ -184,7 +184,9 @@ class Twitt_Box extends Component {
                                         <Icon name='images'/>
                                         <Icon corner name='add'/>
                                     </Icon.Group>
-                                    <span><p id="imageName">{this.state.selectedFile.name}</p></span>
+                                    <span>
+                                        <p id="imageName">{this.state.selectedFile.name}</p>
+                                    </span>
                                 </div>
                                 <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
 
