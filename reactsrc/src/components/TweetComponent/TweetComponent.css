@@ -77,15 +77,24 @@
 
 .likesIcon{
     margin-right: 5px;
+    cursor: pointer;
 }
 
-.likesIcon: hover{
+.likesIcon:hover{
     color: #f70010;
     cursor: pointer;
     top: 0.4px;
 }
 
-.likesIcon: active{
+.blackColor{
+   color: black;
+}
+
+.redColor{
+   color: red;
+}
+
+.likesIcon:active{
     position: relative;
     top: 1px;
     color: red;

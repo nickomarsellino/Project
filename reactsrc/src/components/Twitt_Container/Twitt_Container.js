@@ -35,10 +35,11 @@ class Twitt_Container extends Component {
             userId: '',
             modalTweet: false,
             modalDelete: false,
-            checkLikes: false
+            checkLikes: false,
+            isLoading:true
         };
         this.getTweetData = this.getTweetData.bind(this);
-        this.getTweetUser = this.getTweetUser.bind(this);
+        this.getUserProfile = this.getUserProfile.bind(this);
     }
 
     componentWillMount() {
@@ -48,7 +49,7 @@ class Twitt_Container extends Component {
         });
 
         if (this.props.TweetUserId) {
-            this.getTweetUser();
+            this.getUserProfile();
         }
         else {
             this.getTweetData();
@@ -60,7 +61,7 @@ class Twitt_Container extends Component {
         }
     }
 
-    getTweetUser() {
+    getUserProfile() {
         axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId)
             .then(res => {
                 this.setState({
@@ -78,11 +79,15 @@ class Twitt_Container extends Component {
             fetch(url, {
                 method: 'GET',
             }).then(res => res.json())
-            .then(response =>
+            .then(response =>{
                 this.setState({
                   tweetData: response
-                },
-                console.log("tweetData: ", response)))
+                })
+                console.log(this.state.tweetData);
+                this.setState({
+                  isLoading:false
+                })}
+            )
             .catch(error => console.error('Error:', error));
     }
 
@@ -107,6 +112,9 @@ class Twitt_Container extends Component {
       {console.log("propsuserid: ", this.props.userId);}
       {console.log("checkLikes: ", this.state.checkLikes);}
 
+      if(this.state.isLoading){
+        return null
+      }
       return (
       <div id="scrollableDiv" style={{ overflow: "auto" }}>
         {this.state.tweetData.slice(0).reverse().map(tweet =>

@@ -84,7 +84,6 @@ router.get('/profiletweet/:id', (req, res) => {
 
 // Buat Like kasih id kita
 router.put('/likeTweet/:id', (req,res) => {
-    User.find({})
     Tweet.findByIdAndUpdate( {_id: req.params.id}, {$push: {likes: req.body.userId}}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)

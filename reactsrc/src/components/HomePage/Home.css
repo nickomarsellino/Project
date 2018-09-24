@@ -18,3 +18,8 @@ body {
 .container-content {
     margin-top: 1%;
 }
+
+img.LoadingGif{
+    height: 400px;
+    width: 500px;
+}

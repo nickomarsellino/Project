@@ -64,13 +64,20 @@ io.on('connection', (socket) => {
     // io.sockets.emit('bebas1', data);
   });
 
-  // socket.on('sendLike', (data) => {
-  //   console.log("Masuk?");
-  //   socket.broadcast.emit('getTheLikeData', data)
-  //   socket.emit('getTheLikeData', data);
-  //   // io.sockets.emit('bebas1', data);
-  // });
+  socket.on('sendLike', (data) => {
+    console.log("Masuk?1");
+    // socket.broadcast.emit('getLikeData', data)
+    socket.emit(data.tweetId+'like', data);
+    // io.sockets.emit('bebas1', data);
+  });
 
+  socket.on('unlike', (data) =>
+   {
+    console.log("Masuk?2");
+    // socket.broadcast.emit('getLikeData', data)
+    socket.emit(data.tweetId+"unlike", data);
+    // io.sockets.emit('bebas1', data);
+  });
 });
 
 io.listen(8000);
