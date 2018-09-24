@@ -64,11 +64,11 @@ router.post('/posting', (req, res, next) => {
         return res.send({
             _id : result._id,
             success: true,
-            userId: '',
+            userId: result.userId,
             username: result.username,
             tweetText: result.tweetText,
             timestamp: new Date(),
-            message: 'Tweet posted successfully..!',
+            profilePicture: result.profilePicture
         });
     });
 });

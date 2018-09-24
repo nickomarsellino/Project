@@ -51,12 +51,13 @@ class Twitt_Container extends Component {
         }
         else {
             this.getTweetData();
-            // socket.on('getData', namavariabel => {
-            //     console.log("isi Nama Variabel: ",namavariabel);
-            //     this.setState({
-            //         tweetData: this.state.tweetData.concat(namavariabel)
-            //     })
-            // })
+            socket.on('getData', namavariabel => {
+
+                const allTweetData = this.state.tweetData;
+                const newTweetData = [namavariabel].concat(allTweetData);
+
+                this.setState({tweetData: newTweetData});
+            })
         }
     }
 
@@ -294,6 +295,7 @@ class Twitt_Container extends Component {
     }
 
     render() {
+        console.log("isi Concat: ",this.state.tweetData);
         return (
             <FadeIn>
                 <InfiniteScroll

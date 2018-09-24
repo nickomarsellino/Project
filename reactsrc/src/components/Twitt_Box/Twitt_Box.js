@@ -100,7 +100,6 @@ class Twitt_Box extends Component {
                 this.setState({
                     userTweet: ''
                 });
-
                 //Upload Image ke table tweet
                 let formData = new FormData();
 
@@ -121,7 +120,7 @@ class Twitt_Box extends Component {
                         // socket.emit('sendTheData', tweetDataAndImage);
                     })
                     .catch(() => {
-                        // socket.emit('sendTheData', tweetData);
+                        socket.emit('sendTheData', response.data);
                     });
             });
     }
