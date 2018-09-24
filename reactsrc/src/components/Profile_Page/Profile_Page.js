@@ -185,7 +185,6 @@ class Edit_Profile extends Component {
                     </FadeIn>
                 </div>
 
-
                 <ModalProfilePicture
                     isOpen={this.state.modalProfilePicture}
                     profilePicture={this.state.profilePicture}

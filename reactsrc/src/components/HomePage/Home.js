@@ -50,7 +50,6 @@ class Home extends Component {
             withCredentials: true
         })
             .then(res => {
-                console.log(res.data);
                 if (res.data.success) {
                     this.props.history.push("/home");
                 }
