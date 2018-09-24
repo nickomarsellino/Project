@@ -1,8 +1,5 @@
 .Tweet_Container {
     margin-top: 3px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 2px;
 }
 
 #text-warp{
@@ -25,15 +22,6 @@
 }
 
 #profilePictureTweet:hover {
-    cursor: pointer;
-}
-
-#tweetImage{
-    width: 70%;
-    margin-bottom: 20px;
-}
-
-#tweetImage:hover {
     cursor: pointer;
 }
 
@@ -89,15 +77,24 @@
 
 .likesIcon{
     margin-right: 5px;
+    cursor: pointer;
 }
 
-.likesIcon: hover{
+.likesIcon:hover{
     color: #f70010;
     cursor: pointer;
     top: 0.4px;
 }
 
-.likesIcon: active{
+.blackColor{
+   color: black;
+}
+
+.redColor{
+   color: red;
+}
+
+.likesIcon:active{
     position: relative;
     top: 1px;
     color: red;
@@ -110,7 +107,7 @@
 }
 
 .commentsIcon:hover{
-    color: #0869f7;
+    color: #008ef7;
     cursor: pointer;
     top: 0.4px;
 }

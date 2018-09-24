@@ -4,6 +4,7 @@ import FadeIn from 'react-fade-in';
 import ScrollUpButton from "react-scroll-up-button";
 import './Home.css';
 import {Container} from "mdbreact"
+import LoadingGif from '../../LoadingGif.gif';
 
 //load another component
 import Navbar from "../Navbar/Navigationbar";
@@ -24,7 +25,8 @@ class Home extends Component {
         this.state = {
             userId: '',
             username: '',
-            profilePicture: ''
+            profilePicture: '',
+            isLoading:true
         };
     }
 
@@ -40,6 +42,9 @@ class Home extends Component {
                     profilePicture: res.data.profilePicture
                 });
                 localStorage.setItem("myThings",res.data._id);
+                this.setState({
+                  isLoading:false
+                })
             });
     }
 
@@ -68,7 +73,6 @@ class Home extends Component {
     }
 
     render() {
-
         const editProfile = () => (
             <Profile userId={this.state.userId}/>
         );
@@ -112,6 +116,17 @@ class Home extends Component {
                       searchData={this.props.location.state}
           />
         );
+
+        if(this.state.isLoading){
+          return(
+            <center>
+                <div className="LoadingGif">
+                    <img className="LoadingGif" src={LoadingGif} />
+                </div>
+            </center>
+          )
+        }
+
         return (
             <div>
                 <ScrollUpButton TransitionBtnPosition={150} ToggledStyle={{paddingLeft: "4px"}}/>

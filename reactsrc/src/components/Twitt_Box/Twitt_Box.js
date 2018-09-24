@@ -23,6 +23,7 @@ class Twitt_Box extends Component {
             username: '',
             userTweet: '',
             profilePicture: '',
+            likes: null,
             selectedFile: [],
             tweetImage: null
         };
@@ -88,10 +89,8 @@ class Twitt_Box extends Component {
             tweetImage: this.state.tweetImage,
             profilePicture: this.props.profilePicture
         };
-
-        const method = 'post';
         axios({
-            method: method,
+            method: 'post',
             responseType: 'json',
             url: `api/tweet/posting`,
             data: tweetData

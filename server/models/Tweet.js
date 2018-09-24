@@ -16,15 +16,20 @@ const TweetSchema = Schema({
     tweetText: {
         type: String
     },
+    likes: [{
+        type: Schema.ObjectId,
+        ref: 'User'
+    }],
     tweetPicture: {
         type: String
     },
-    like: [{
-        userId: { type: String }
-    }],
     timestamp: {
         type: Date,
         default: Date.now()
+    },
+    checkLikes:{
+      type: Boolean,
+      default: false
     }
 });
 

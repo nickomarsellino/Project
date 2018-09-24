@@ -57,6 +57,7 @@ router.post('/posting', (req, res, next) => {
         tweetText: req.body.tweetText,
         userId: userData.userId,
         profilePicture: req.body.profilePicture,
+        checkLikes: false,
         tweetPicture: '',
         timestamp: Date.now()
     };
@@ -68,6 +69,9 @@ router.post('/posting', (req, res, next) => {
             username: result.username,
             tweetText: result.tweetText,
             timestamp: new Date(),
+            checkLikes: '',
+            result:result,
+            message: 'Tweet posted successfully..!',
             profilePicture: result.profilePicture
         });
     });
@@ -137,6 +141,7 @@ router.get('/tweets', (req, res, next) => {
     });
 });
 
+
 // get tweet yang di post user nya aja, id si user
 router.get('/profiletweet/:id', (req, res) => {
 
@@ -150,12 +155,6 @@ router.get('/profiletweet/:id', (req, res) => {
     Tweet.paginate(query, options).then(function(result) {
          res.send(result);
     });
-
-    // Tweet.find({userId: req.params.id}).sort({timestamp: 'descending'}).then((result) => {
-    //     res.json(result);
-    // }).catch((err) => {
-    //     res.status(404).json({success: false, msg: `No such tweets.`});
-    // });
 });
 
 
@@ -188,5 +187,23 @@ router.get('/tweet/:id', (req, res) => {
 });
 
 
+// Buat Like kasih id kita
+router.put('/likeTweet/:id', (req,res) => {
+    Tweet.findByIdAndUpdate( {_id: req.params.id}, {$push: {likes: req.body.userId}}, {new: true}, function (err, user) {
+      if (err) {
+        return res.send(err)
+      };
+      res.json(user);
+    });
+  })
+
+router.put('/unlikeTweet/:id', (req,res) => {
+    Tweet.findByIdAndUpdate( {_id: req.params.id}, {$pull: {likes: req.body.userId}}, {new: true}, function (err, user) {
+      if (err) {
+        return res.send(err)
+      };
+      res.json(user);
+    });
+  })
 
 module.exports = router;
