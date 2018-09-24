@@ -132,12 +132,12 @@ class Twitt_Container extends Component {
         }
         else {
             if (this.props.userId === userId) {
-                this.props.history.replace({
+                this.props.history.push({
                     pathname: `/home/myProfile/${username}`.replace(' ', ''),
                 })
             }
             else {
-                this.props.history.replace({
+                this.props.history.push({
                     pathname: `/home/profile/${username}`.replace(' ', ''),
                     state: {
                         userId: userId
@@ -201,27 +201,16 @@ class Twitt_Container extends Component {
             //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
             if (userId === this.props.userId) {
                 return (
-                    <Link to={{
-                        pathname: `/home/myProfile/${username}`.replace(' ', ''),
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
+                    <Feed.Summary content={username}
+                                  onClick={() => this.onClickedImageProfile(userId, username)}
+                    />
                 );
             }
             else {
                 return (
-                    <Link to={{
-                        pathname: `/home/profile/${username}`.replace(' ', ''),
-                        state: {
-                            userId: userId
-                        }
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
+                    <Feed.Summary content={username}
+                                  onClick={() => this.onClickedImageProfile(userId, username)}
+                    />
                 );
             }
         }
@@ -345,7 +334,7 @@ class Twitt_Container extends Component {
 
                                             </Feed.Content>
 
-                                            <Feed.Label className="Tweet-Delete">
+                                            <Feed.Label className="Tweet-Delete" >
                                                 {this.buttonDelete(tweet.userId, tweet._id)}
                                             </Feed.Label>
 

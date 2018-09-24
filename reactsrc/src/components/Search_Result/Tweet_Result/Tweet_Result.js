@@ -41,7 +41,7 @@ class Tweet_Result extends Component {
             if (userId === this.props.userId) {
                 return (
                     <Link to={{
-                        pathname: `/home/myProfile/${username}`,
+                        pathname: `/home/myProfile/${username}`.replace(' ', ''),
                     }}>
                         <div>
                             <Feed.Summary content={username}/>
@@ -52,7 +52,7 @@ class Tweet_Result extends Component {
             else {
                 return (
                     <Link to={{
-                        pathname: `/home/profile/${username}`,
+                        pathname: `/home/profile/${username}`.replace(' ', ''),
                         state: {
                             userId: userId
                         }

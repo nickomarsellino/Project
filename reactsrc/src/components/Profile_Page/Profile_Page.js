@@ -48,7 +48,6 @@ class Edit_Profile extends Component {
     getProfileData() {
         //Jika ia klik My Profile
         if (this.props.userId) {
-            console.log("USER ID MY PROFILE: ",this.props.userId);
             axios.get('/api/users/profile/' + this.props.userId).then(res => {
                 const user = res.data[0];
                 this.setState({
@@ -64,7 +63,6 @@ class Edit_Profile extends Component {
 
         //Jika ia Klik DI container tweetnya
         else if (this.props.userIdProfile.userId) {
-            console.log("USER ID PROPS: ",this.props.userIdProfile.userId);
             axios.get('/api/users/profile/' + this.props.userIdProfile.userId).then(res => {
                 const user = res.data[0];
                 this.setState({
@@ -186,7 +184,6 @@ class Edit_Profile extends Component {
                         </div>
                     </FadeIn>
                 </div>
-
 
                 <ModalProfilePicture
                     isOpen={this.state.modalProfilePicture}
