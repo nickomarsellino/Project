@@ -8,6 +8,7 @@ import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import FadeIn from 'react-fade-in';
 import MessageValidation from '../../MessageValidationBox/MessageValidation'
 
+
 import {Form} from 'semantic-ui-react';
 
 
@@ -34,10 +35,10 @@ class Register extends Component {
 
 
     handleInputChange(e) {
-        const target = e.target;
-        const name = target.name;
 
-        this.setState({[name]: target.value});
+        const name = e.target.name;
+
+        this.setState({[name]: e.target.value});
 
     }
 
@@ -73,8 +74,8 @@ class Register extends Component {
             //Render Validation box message
             ReactDOM.render(<MessageValidation
                 form="danger"
-                formStatus=" "
-                formMessage="Please CheckList Bor."
+                formStatus="Error"
+                formMessage="Please CheckList Terms & Conditions"
             />, document.getElementById('messageValidation'));
         }
 
@@ -89,7 +90,7 @@ class Register extends Component {
             axios({
                 method: 'post',
                 responseType: 'json',
-                url: `/api/users/register`,
+                url: `/api/authentication/register`,
                 data: user
             })
                 .then((response) => {
@@ -140,6 +141,7 @@ class Register extends Component {
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
+
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder='Username'
                                                         className={this.state.formStatus}
@@ -183,7 +185,10 @@ class Register extends Component {
                                                            onClick={this.isClicked}
                                                            checked={this.state.isChecked}/>
 
-                                            <div id="messageValidation"></div>
+                                            <FadeIn>
+                                                <div id="messageValidation"/>
+                                            </FadeIn>
+
 
                                             <Button id="Submit_Button" block size="lg" type="submit">Register</Button>
                                         </Form>

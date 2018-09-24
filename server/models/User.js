@@ -4,7 +4,6 @@ const validate = require('mongoose-validator');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
-
 const emailValidator = [
     validate({
         validator: 'isLength',
@@ -38,10 +37,20 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Phone Number is required.']
     },
+    profilePicture: { type: String },
     timestamp: {
-        type    : Date,
-        default : Date.now()
-    }
+        type    : Date
+    },
+    following: [{
+      type : Schema.ObjectId,
+      username : String,
+      ref: 'User'
+    }],
+    followers: [{
+      type : Schema.ObjectId,
+      username : String,
+      ref: 'User'
+    }]
 });
 
 UserSchema.methods.validPassword = function (password) {
@@ -54,4 +63,5 @@ UserSchema.methods.generateHash = function (password) {
 
 // Use the unique validator plugin
 UserSchema.plugin(unique, {message: 'That {PATH} is already taken.'});
+
 module.exports = mongoose.model('User', UserSchema);

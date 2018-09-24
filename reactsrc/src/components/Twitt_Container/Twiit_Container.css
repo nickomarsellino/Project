@@ -1,16 +1,47 @@
-
 .Tweet_Container {
     margin-top: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 2px;
 }
 
-.text-warp{
+#text-warp{
     word-wrap: break-word;
 }
 
-.Tweet-Delete {
-    margin-bottom: 20px;
-    margin-left: 10px;
+.ui.feed>.event>.label img {
+    border-radius: 50%;
+    width: 100%;
+    height: 60px;
 }
+
+#tweetText {
+    word-wrap: break-word;
+    max-width: 840px;
+}
+
+#tweetText:hover {
+    cursor: pointer;
+}
+
+#profilePictureTweet:hover {
+    cursor: pointer;
+}
+
+#tweetImage{
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+#tweetImage:hover {
+    cursor: pointer;
+}
+
+.ui.feed>.event>.Tweet-Delete {
+    margin-bottom: 20px;
+    margin-left: -4%;
+}
+
 
 .Tweet_Container:hover {
     background: rgba(255, 255, 255, 0.7);
@@ -22,18 +53,15 @@
 
 .Tweet-Content {
     display: inline-block;
+    word-wrap: break-word;
+    width: 72%;
 }
 
 .buttonTweetBox {
     text-align: left;
 }
 
-#commentIcon {
-    display: inline-block;
-    cursor: pointer;
-    opacity: 0.5;
-    margin-right: 50px;
-}
+/*Ini Button Delete*/
 
 #recycleIcon {
     cursor: pointer;
@@ -45,6 +73,48 @@
 }
 
 #recycleIcon:active {
+    position: relative;
+    top: 1px;
+}
+
+
+
+/*Button DI Container*/
+
+.buttonGroup{
+    margin-top: 10px;
+    opacity: 0.6;
+}
+
+
+.likesIcon{
+    margin-right: 5px;
+}
+
+.likesIcon:hover{
+    color: #f70010;
+    cursor: pointer;
+    top: 0.4px;
+}
+
+.likesIcon:active{
+    position: relative;
+    top: 1px;
+}
+
+
+
+.commentsIcon{
+    margin-left: 15px;
+}
+
+.commentsIcon:hover{
+    color: #0869f7;
+    cursor: pointer;
+    top: 0.4px;
+}
+
+.commentsIcon:active{
     position: relative;
     top: 1px;
 }
