@@ -1,5 +1,8 @@
 .Tweet_Container {
     margin-top: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 2px;
 }
 
 #text-warp{
@@ -22,6 +25,15 @@
 }
 
 #profilePictureTweet:hover {
+    cursor: pointer;
+}
+
+#tweetImage{
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+#tweetImage:hover {
     cursor: pointer;
 }
 
@@ -98,7 +110,7 @@
 }
 
 .commentsIcon:hover{
-    color: #008ef7;
+    color: #0869f7;
     cursor: pointer;
     top: 0.4px;
 }

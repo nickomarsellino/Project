@@ -55,7 +55,6 @@ class Home extends Component {
             withCredentials: true
         })
             .then(res => {
-                console.log(res.data);
                 if (res.data.success) {
                     this.props.history.push("/home");
                 }
@@ -89,16 +88,26 @@ class Home extends Component {
                           userId={this.state.userId}
                           profilePicture={this.state.profilePicture}
                 />
-                <TwittContainer userId={this.state.userId} located="home" history={this.props.history}/>
+                <TwittContainer userId={this.state.userId}
+                                located="home"
+                                history={this.props.history}
+                                profilePicture={this.state.profilePicture}
+                />
             </Container>
         );
 
         const profile = () => (
-            <ProfilePage userIdProfile={this.props.location.state} history={this.props.history}/>
+            <ProfilePage userIdProfile={this.props.location.state}
+                         history={this.props.history}
+                         profilePicture={this.state.profilePicture}
+            />
         );
 
         const myProfile = () => (
-            <MyProfilePage userId={localStorage.getItem("myThings")} history={this.props.history}/>
+            <MyProfilePage userId={localStorage.getItem("myThings")}
+                           history={this.props.history}
+                           profilePicture={this.state.profilePicture}
+            />
         );
 
         const search = () => (

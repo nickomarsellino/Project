@@ -10,7 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Twitt_Box extends Component {
 
@@ -24,6 +24,7 @@ class Twitt_Box extends Component {
             userTweet: '',
             profilePicture: '',
             likes: null,
+            selectedFile: [],
             tweetImage: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -41,7 +42,6 @@ class Twitt_Box extends Component {
         });
 
     }
-
 
     handleInputChange(e) {
         this.setState({
@@ -95,14 +95,53 @@ class Twitt_Box extends Component {
             url: `api/tweet/posting`,
             data: tweetData
         })
-        .then(res =>{
-            socket.emit('sendTheData', res.data.result);
-        })
+            .then((response) => {
+                this.setState({
+                    userTweet: ''
+                });
+                //Upload Image ke table tweet
+                let formData = new FormData();
+
+                formData.append('tweetPicture', this.state.selectedFile);
+
+                axios.put('/api/tweet/postingImage/'+response.data._id, formData)
+                    .then((result) => {
+
+                        // const tweetDataAndImage ={
+                        //     tweetText: this.state.userTweet,
+                        //     username: this.state.username,
+                        //     userId: this.state.userId,
+                        //     tweetImage: this.state.tweetImage,
+                        //     profilePicture: this.props.profilePicture,
+                        //     tweetPicture : result.data.tweetPicture
+                        // }
+                        //
+                        // socket.emit('sendTheData', tweetDataAndImage);
+                    })
+                    .catch(() => {
+                        socket.emit('sendTheData', response.data);
+                    });
+            });
     }
 
     handleClick(e) {
         this.refs.fileUploader.click();
     }
+
+    fileSelectedHandler = event => {
+        // Check kalo ada file nya (image)
+        if (event.target.files != null || event.target.files[0] != null) {
+            // ini buat get image nya
+            this.setState({
+                selectedFile: event.target.files[0]
+            });
+        }
+        else {
+            this.setState({
+                selectedFile: ''
+            });
+        }
+    };
 
     render() {
 
@@ -126,10 +165,12 @@ class Twitt_Box extends Component {
                             </Image>
                             <span><h5 id="nameBox">{this.state.username}</h5></span>
                         </div>
-                        <Form id="Form_Container" onSubmit={this.handleSubmit}>
+                        <Form id="Form_Container" onSubmit={this.handleSubmit} encType="multipart/form-data">
                             <Form.Field
+                                value={this.state.userTweet}
                                 id='form-textarea-control-opinion'
                                 type="text"
+                                maxLength="160"
                                 control={TextArea}
                                 placeholder={"Have a nice day " + this.state.username}
                                 style={{maxHeight: "100px", minHeight: "90px"}}
@@ -142,10 +183,11 @@ class Twitt_Box extends Component {
                                         <Icon name='images'/>
                                         <Icon corner name='add'/>
                                     </Icon.Group>
+                                    <span>
+                                        <p id="imageName">{this.state.selectedFile.name}</p>
+                                    </span>
                                 </div>
                                 <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
-                                <input type="file" id="file" ref="fileUploader" style={{display: "none"}}/>
-
 
                                 <Button color="default"
                                         size="md"

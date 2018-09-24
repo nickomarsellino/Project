@@ -1,9 +1,13 @@
 import React, {Component} from "react";
-import {Container, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
-import {Image, Icon, Form, TextArea} from 'semantic-ui-react';
+import {Container, Modal, ModalBody, ModalHeader} from 'mdbreact';
+import {Image, Icon} from 'semantic-ui-react';
 import profile from '../../../daniel.jpg';
 import './Modal_Twitt.css'
 import {Link} from 'react-router-dom';
+
+
+//load another component
+import CommentsBox from "../../Comments_Box/Comments_Box";
 
 const Timestamp = require('react-timestamp');
 
@@ -47,28 +51,32 @@ class Modal_Twitt extends Component {
         }
     }
 
+    viewTweetPicture(tweetPicture) {
+        if (tweetPicture) {
+            return (
+                <center>
+                    <Image src={require(`../../../tweetImage/${tweetPicture}`)}/>
+                </center>
+            );
+        }
+    }
+
     render() {
         return (
             <Container>
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
                     <ModalHeader toggle={this.openModal}>
                         <div className="profileBox">
-                            <Link to={{
-                                pathname: `/home/profile/${this.state.tweet.username}`,
-                                state: {
-                                    userId: this.state.tweet.userId
-                                }
-                            }}>
-                                <Image avatar id="avatarBox">
+                            <Image avatar id="avatarBox">
                                     {this.setProfileImage(this.state.tweet.profilePicture)}
-                                </Image>
+                                    </Image>
                                 <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
-                            </Link>
                         </div>
                     </ModalHeader>
 
                     <ModalBody className="text-warp">
                         <h5>{this.state.tweet.tweetText}</h5>
+                        {this.viewTweetPicture(this.state.tweet.tweetPicture)}
                     </ModalBody>
 
                     <ModalBody className="text-Timestamp">
@@ -83,11 +91,11 @@ class Modal_Twitt extends Component {
                             </Icon.Group>
                         </div>
                         <hr/>
+
                         <div className="commentBox">
-                            <Image avatar id="avatarBox">
-                                {this.setProfileImage(this.state.tweet.profilePicture)}
-                            </Image>
+                            <CommentsBox profilePicture={this.props.profilePicture}/>
                         </div>
+
                     </ModalBody>
 
                 </Modal>

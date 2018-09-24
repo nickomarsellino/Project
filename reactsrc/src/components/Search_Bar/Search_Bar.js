@@ -40,10 +40,9 @@ class Search_Bar extends Component {
 
     render() {
         return (
-            <div id="SearchBoxContainer">
-
+            <div>
                 <Search
-                   // autoFocus
+                    id="SearchBoxContainer"
                     placeholder={this.state.searchValue}
                     size="big"
                     loading={this.state.isLoading}

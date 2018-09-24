@@ -49,8 +49,6 @@ const upload = multer({
 router.put('/editProfile', (req, res) => {
 
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-
-
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
@@ -94,6 +92,98 @@ router.put('/editProfile', (req, res) => {
             }
         });
     });
+
+
+    // User.findById(userData.userId).then((userData) => {
+    //
+    //     console.log(userData.username);
+    //
+    //     User.find({username: req.body.username}).then((result) => {
+    //         if(result[0].username === userData.username){
+    //             User.findByIdAndUpdate({_id: userData.userId}, req.body).then(() => {
+    //                 User.findOne({_id: userData.userId}).then((user) => {
+    //                     user.save()
+    //                         .then((result) => {
+    //                             Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
+    //                             res.json({
+    //                                 success: true,
+    //                                 msg: `Successfully edited..!`,
+    //                                 result: {
+    //                                     _id: result._id,
+    //                                     username: result.username,
+    //                                     email: result.email,
+    //                                     password: result.password,
+    //                                     phone: result.phone
+    //                                 }
+    //                             });
+    //                         }).catch((err) => {
+    //                         res.status(500).json({success: false, msg: `Something went wrong. ${err}`});
+    //                         return;
+    //                     });
+    //                 }).catch((err) => {
+    //                     if (err.errors) {
+    //                         if (err.errors.username) {
+    //                             res.status(403).json({success: false, msg: err.errors.username.message});
+    //                             return;
+    //                         }
+    //                         if (err.errors.email) {
+    //                             res.status(403).json({success: false, msg: err.errors.email.message});
+    //                             return;
+    //                         }
+    //                         if (err.errors.phone) {
+    //                             res.status(403).json({success: false, msg: err.errors.phone.message});
+    //                             return;
+    //                         }
+    //                         // Show failed if all else fails for some reasons
+    //                         res.status(403).json({success: false, msg: `Something went wrong. ${err}`});
+    //                     }
+    //                 });
+    //             });
+    //         }
+    //
+    //         else{
+    //             User.findByIdAndUpdate({_id: userData.userId}, req.body).then(() => {
+    //                 User.findOne({_id: userData.userId}).then((user) => {
+    //                     user.save()
+    //                         .then((result) => {
+    //                             Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
+    //                             res.json({
+    //                                 success: true,
+    //                                 msg: `Successfully edited..!`,
+    //                                 result: {
+    //                                     _id: result._id,
+    //                                     username: result.username,
+    //                                     email: result.email,
+    //                                     password: result.password,
+    //                                     phone: result.phone
+    //                                 }
+    //                             });
+    //                         }).catch((err) => {
+    //                         res.status(500).json({success: false, msg: `Something went wrong. ${err}`});
+    //                         return;
+    //                     });
+    //                 }).catch((err) => {
+    //                     if (err.errors) {
+    //                         if (err.errors.username) {
+    //                             res.status(403).json({success: false, msg: err.errors.username.message});
+    //                             return;
+    //                         }
+    //                         if (err.errors.email) {
+    //                             res.status(403).json({success: false, msg: err.errors.email.message});
+    //                             return;
+    //                         }
+    //                         if (err.errors.phone) {
+    //                             res.status(403).json({success: false, msg: err.errors.phone.message});
+    //                             return;
+    //                         }
+    //                         // Show failed if all else fails for some reasons
+    //                         res.status(403).json({success: false, msg: `Something went wrong. ${err}`});
+    //                     }
+    //                 });
+    //             });
+    //         }
+    //     });
+    // });
 });
 
 // Edit Profile PICTURE
@@ -110,7 +200,7 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
         }
         else {
             image
-                .quality(45)
+                .quality(30)
                 .write('../reactsrc/src/uploads/' + req.file.filename);
             console.log("Berhasil!");
         }

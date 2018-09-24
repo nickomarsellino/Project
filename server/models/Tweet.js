@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 
 const TweetSchema = Schema({
@@ -19,6 +20,9 @@ const TweetSchema = Schema({
         type: Schema.ObjectId,
         ref: 'User'
     }],
+    tweetPicture: {
+        type: String
+    },
     timestamp: {
         type: Date,
         default: Date.now()
@@ -29,4 +33,5 @@ const TweetSchema = Schema({
     }
 });
 
+TweetSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Tweet', TweetSchema)

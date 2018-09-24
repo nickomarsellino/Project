@@ -26,7 +26,6 @@ class UserAccountContainer extends Component {
                     this.setState({
                         userData: res.data
                     });
-                    //console.log(res.data);
                 });
         }
 

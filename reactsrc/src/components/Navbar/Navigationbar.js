@@ -130,7 +130,7 @@ class Navigationbar extends Component {
                 <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
                     <NavbarBrand href="/home">
                         <img src={logo} alt="" height="30px"/>
-                        Friend Zone ?
+                        Media Social
                     </NavbarBrand>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>

@@ -52,3 +52,7 @@ img {
 .ui.icon.input>input {
     box-shadow: 0px 2px 13px -2px #d0d0d0;
 }
+
+#SearchBoxContainer{
+    margin-left: 20px;
+}
