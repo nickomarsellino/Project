@@ -9,7 +9,6 @@ import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import axios from "axios/index";
 
-
 class SignIn extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +18,8 @@ class SignIn extends Component {
             token: "",
             formMessage: "",
             formStatus: "",
-            success: false
+            success: false,
+            timestamp: 'no timestamp yet'
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +30,6 @@ class SignIn extends Component {
         const name = target.name;
         this.setState({[name]: target.value});
     }
-
 
     handleSubmit(e) {
 
@@ -43,7 +42,7 @@ class SignIn extends Component {
         axios({
             method: 'post',
             responseType: 'json',
-            url: `/api/users/signin`,
+            url: `/api/authentication/signin`,
             data: user
         })
             .then((response) => {
@@ -88,7 +87,8 @@ class SignIn extends Component {
                     <Container className="col-md-4 col-md-offset-2">
                         <Card className="Card_container">
                             <CardBody>
-                                <center><h1>Sign In</h1></center>
+                                <center><h1>Sign In</h1>
+                                </center>
                                 <Row>
                                     <Col md="12">
                                         <Form onSubmit={this.handleSubmit}>
