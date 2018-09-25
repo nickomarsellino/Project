@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
-import {Feed, Icon} from 'semantic-ui-react';
+import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
@@ -166,6 +166,32 @@ class TweetComponent extends Component {
         }
     }
 
+    viewTweetPicture(tweetPicture, userId) {
+            if (this.props.located === "profile") {
+                if (tweetPicture) {
+                    return (
+                        <center>
+                            <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                                   id="tweetImage"
+                                   onClick={() => this.openModalTweet(userId)}
+                            />
+                        </center>
+                    );
+                }
+            }
+            else {
+                if (tweetPicture) {
+                    return (
+                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                               fluid
+                               style={{marginBottom: "20px", cursor: "pointer"}}
+                               onClick={() => this.openModalTweet(userId)}
+                        />
+                    );
+                }
+            }
+        }
+
     buttonDelete(userId, tweetId) {
         if (userId === this.props.userId) {
             return (
@@ -305,6 +331,8 @@ class TweetComponent extends Component {
                                 {this.viewUserProfile(tweet.username, tweet.userId)}
 
                                 <Feed.Extra onClick={() => this.openModalTweet(tweet._id)} id="tweetText" text content={tweet.tweetText}/> <br/>
+
+                               {this.viewTweetPicture(tweet.tweetPicture, tweet._id)}
 
                                 <Feed.Date onClick={() => this.openModalTweet(tweet._id)} id="tweetText" content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 

@@ -33,7 +33,7 @@ class Twitt_Container extends Component {
             modalTweet: false,
             modalDelete: false,
             checkLikes: false,
-            isLoading:true
+            isLoading:true,
             userProfilePicture: '',
             hasMore: true,
             lengthData: '',
@@ -52,6 +52,7 @@ class Twitt_Container extends Component {
         });
 
         if (this.props.TweetUserId) {
+            console.log("Ini ID Profile: ",this.props.TweetUserId);
             this.showUserProfileFromTweets();
         }
         else {
@@ -70,6 +71,8 @@ class Twitt_Container extends Component {
         axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=1')
 
             .then(res => {
+            console.log(res.data.docs);
+
                 this.setState({
                     tweetData: res.data.docs,
                     tweetCounter: res.data.length,
@@ -284,7 +287,7 @@ class Twitt_Container extends Component {
                                 pagesData: parseInt(this.state.pagesData + 1, 10)
                             });
                         });
-                }, 1000);
+                }, 2000);
             }
         }
     }
@@ -302,9 +305,8 @@ class Twitt_Container extends Component {
                 >
                   {this.state.tweetData.map(tweet =>
                   <TweetComponent tweet={tweet} history={this.props.history} userId={this.props.userId}  located="home"/>
-           </InfiniteScroll>
         )}
-
+        </InfiniteScroll>
       </div>
     );
   }
