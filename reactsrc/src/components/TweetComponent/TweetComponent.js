@@ -46,6 +46,10 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
+    componentWillMount() {
+        //console.log("WILL: ", this.props.tweet)
+    }
+
     componentDidMount() {
         this.setState({
             tweet: this.props.tweet,
@@ -58,9 +62,9 @@ class TweetComponent extends Component {
         socket.on(this.props.tweet._id + 'like', bebas => {
             this.setState({
                 likes: this.state.likes.concat(bebas.userId)
-            })
+            });
             this.likeIkonColor();
-        })
+        });
 
         //  Untuk UNLIKE
         socket.on(this.props.tweet._id + "unlike", bebas => {
@@ -72,9 +76,9 @@ class TweetComponent extends Component {
             }
             this.setState({
                 likes: likeList
-            })
+            });
             this.likeIkonColor();
-        })
+        });
         this.likeIkonColor();
     }
 
@@ -314,6 +318,9 @@ class TweetComponent extends Component {
     }
 
     render() {
+        console.log(this.props.userId);
+        console.log(this.state.tweet);
+
         const tweet = this.props.tweet;
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
