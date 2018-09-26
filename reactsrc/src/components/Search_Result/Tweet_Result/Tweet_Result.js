@@ -10,6 +10,8 @@ import {Link} from 'react-router-dom';
 import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import openSocket from 'socket.io-client';
+const socket = openSocket('http://10.183.28.153:8000');
 const Timestamp = require('react-timestamp');
 
 
@@ -20,6 +22,7 @@ class Tweet_Result extends Component {
         this.state = {
             tweetResults: [],
             tweet: [],
+            likes:'',
             modalDelete: false,
             hasMore: true,
             lengthData: '',
@@ -34,6 +37,11 @@ class Tweet_Result extends Component {
 
     componentWillMount() {
         this.getTweetSearch();
+
+        this.setState({
+          tweet: this.props.tweet,
+        })
+
     }
 
     viewUserProfile(username, userId) {
@@ -155,6 +163,50 @@ class Tweet_Result extends Component {
         }
     }
 
+    clickLikeButton(userId, tweetId){
+        const likeData = {
+            userId: this.props.userId,
+            tweetId: this.props.tweet._id
+        };
+        console.log(this.state.tweet);
+        const tweetLikesLength = this.state.likes;
+        const checkValidID = tweetLikesLength.includes(userId);
+      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+        // Udabener ini
+        if(checkValidID){
+          console.log('UNLIKE');
+                  axios({
+                      method: 'PUT',
+                      responseType: 'json',
+                      url: `/api/tweet/unlikeTweet/` + this.state.tweet._id,
+                      data: likeData
+                  })
+                  .then(res => {
+                      this.setState({
+                          checkLikes: false,
+                          black: true
+                      });
+                      socket.emit('unlike', likeData)
+                  })
+        }
+        else{
+          console.log('LIKE');
+                  axios({
+                      method: 'PUT',
+                      responseType: 'json',
+                      url: `/api/tweet/likeTweet/` + this.state.tweet._id,
+                      data: likeData
+                  })
+                  .then(res => {
+                      this.setState({
+                          checkLikes: true,
+                          black: false
+                      });
+                      socket.emit('sendLike', likeData)
+                  })
+        }
+
+    }
 
     fetchMoreData() {
         if (this.state.lengthData === this.props.tweetSearchLength) {
@@ -183,6 +235,7 @@ class Tweet_Result extends Component {
                     hasMore={this.state.hasMore}
                     // loader={<img id="loadingGif" src={loading} alt="loading..."/>}
                 >
+                console.log("result ",tweetResult);
                     <div style={{marginTop: "2%"}}>
                         {this.state.tweetResults.map(tweet =>
                             <Card className="Tweet_Result" id="text-warp" key={tweet._id}>
@@ -203,9 +256,10 @@ class Tweet_Result extends Component {
                                                 <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
                                                 <div className="buttonGroup">
-                                                    <Icon.Group className="likesIcon">
-                                                        <Icon name='like' /> {" "} 10 Likes
-                                                    </Icon.Group>
+                                                <Icon.Group className={this.state.black} >
+                                                    <Icon name='like'>
+                                                  1 likes</Icon>
+                                                </Icon.Group>
                                                     <Icon.Group className="commentsIcon">
                                                         {" "}<Icon name='comments'/> {" "} 10 Comments
                                                     </Icon.Group>
