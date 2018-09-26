@@ -1,6 +1,4 @@
 import React, {Component} from "react";
-import {Card, CardBody} from "mdbreact"
-import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
@@ -42,12 +40,9 @@ class Twitt_Container extends Component {
 
     componentWillMount() {
         if (this.props.TweetUserId) {
-            console.log("BUKA PROFILE");
-            console.log("Ini ID Profile: ",this.props.TweetUserId);
             this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
-            console.log("BUKA HOME");
             this.getTweetData();
             socket.on('getData', namavariabel => {
                 const allTweetData = this.state.tweetData;
@@ -146,6 +141,7 @@ class Twitt_Container extends Component {
                 >
                   {this.state.tweetData.map(tweet =>
                   <TweetComponent tweet={tweet}
+                                  key={tweet._id}
                                   history={this.props.history}
                                   userId={this.props.userId}
                                   profilePicture={this.props.profilePicture}

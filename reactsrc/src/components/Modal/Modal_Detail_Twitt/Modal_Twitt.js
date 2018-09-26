@@ -3,7 +3,6 @@ import {Container, Modal, ModalBody, ModalHeader} from 'mdbreact';
 import {Image, Icon} from 'semantic-ui-react';
 import profile from '../../../daniel.jpg';
 import './Modal_Twitt.css'
-import {Link} from 'react-router-dom';
 
 
 //load another component

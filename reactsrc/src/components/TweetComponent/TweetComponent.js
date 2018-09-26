@@ -3,11 +3,8 @@ import {Card, CardBody} from "mdbreact"
 import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
-import FadeIn from 'react-fade-in';
 import './TweetComponent.css';
-import {Link} from 'react-router-dom';
 import Loading from '../../LoadingGif.gif';
-import shallowCompare from 'react-addons-shallow-compare';
 
 
 //load another component
@@ -55,8 +52,6 @@ class TweetComponent extends Component {
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
         })
-
-        console.log(this.props.tweet);
 
         // Untuk Like
         socket.on(this.props.tweet._id + 'like', bebas => {
@@ -128,34 +123,18 @@ class TweetComponent extends Component {
     }
 
     viewUserProfile(username, userId) {
-        // console.log("Func ViewUserPRofile ", username);
-        // console.log("Func ViewUserPRofile ", userId);
-        //   console.log('this.props.located ',this.props.located);
         if (this.props.located === "home") {
             //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
             if (userId === this.props.userId) {
                 return (
-                    <Link to={{
-                        pathname: `/home/myProfile/${username}`.replace(' ', ''),
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
+                    <Feed.Summary content={username}
+                                  onClick={() => this.onClickedImage(userId, username)}/>
                 );
             }
             else {
                 return (
-                    <Link to={{
-                        pathname: `/home/profile/${username}`.replace(' ', ''),
-                        state: {
-                            userId: userId
-                        }
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
+                    <Feed.Summary content={username}
+                                  onClick={() => this.onClickedImage(userId, username)}/>
                 );
             }
         }
