@@ -43,11 +43,8 @@ class Twitt_Box extends Component {
 
     }
 
-    handleInputChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value,
-            charCounter: 160 - e.target.value.length
-        });
+    handleInputChange(event) {
+        console.log(event.target.value);
 
         if (this.state.charCounter > 70) {
             this.setState({
@@ -70,12 +67,16 @@ class Twitt_Box extends Component {
                 tweetStatus: '#4db6ac'
             });
         }
-        if (e.target.value.length > 160 ) {
+        if (event.target.value.length > 160 ) {
             this.setState({
                 userTweet: '',
                 tweetStatus: '#ff7675'
             });
         }
+        this.setState({
+            userTweet: event.target.value,
+            charCounter: 160 - event.target.value.length
+        });
     }
 
     handleSubmit(e) {
@@ -144,6 +145,7 @@ class Twitt_Box extends Component {
     };
 
     render() {
+        console.log(this.state.userTweet);
 
         let imageUrl = this.props.profilePicture;
         let imagedisplay

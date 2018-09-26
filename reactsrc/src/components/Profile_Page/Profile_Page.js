@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import axios from "axios/index";
 import profile from '../../daniel.jpg';
 import './Profile_Page.css';
-import TwittContainer from "../Twitt_Container/Twitt_Container";
+import Twitt_Container from "../Twitt_Container/Twitt_Container";
 import UserAccountContainer from '../UserAccountContainer/UserAccountContainer'
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
@@ -93,15 +93,19 @@ class Edit_Profile extends Component {
         }
         else if (item === "Tweets") {
             //Render Validation box message
-            ReactDOM.render(<FadeIn><TwittContainer history={this.props.history}
-                                                    TweetUserId={this.state.userId}
-                                                    userId={this.props.userId}
-                                                    tweetCounter={this.getTweetCounter}
-                                                    profilePicture={this.props.profilePicture}
-                                                    located="profile"
-            /></FadeIn>, document.getElementById('profileInfo'));
-
+            ReactDOM.render(
+            <FadeIn>
+            <Twitt_Container history={this.props.history}
+                            TweetUserId={this.state.userId}
+                            userId={this.props.userId}
+                            tweetCounter={this.getTweetCounter}
+                            profilePicture={this.props.profilePicture}
+                            located="profile"
+            />
+            </FadeIn>, document.getElementById('profileInfo'));
         }
+        console.log(this.state.userId);
+        console.log(this.props.TweetUserId);
     }
 
 
@@ -173,7 +177,7 @@ class Edit_Profile extends Component {
 
                     <FadeIn>
                         <div className="userProfile" id="profileInfo">
-                            <TwittContainer history={this.props.history}
+                            <Twitt_Container history={this.props.history}
                                             TweetUserId={this.state.userId}
                                             userId={this.props.userId}
                                             tweetCounter={this.getTweetCounter}

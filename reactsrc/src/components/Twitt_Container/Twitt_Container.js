@@ -28,6 +28,7 @@ class Twitt_Container extends Component {
         this.state = {
             tweetData: [],
             tweet: [],
+            tweetUserId: '',
             tweetCounter: '',
             userId: '',
             modalTweet: false,
@@ -47,8 +48,10 @@ class Twitt_Container extends Component {
 
     componentWillMount() {
         const userId = this.props.userId;
+        const tweetUserId = this.props.TweetUserId
         this.setState({
-            userId: userId
+            userId: userId,
+            tweetUserId: tweetUserId
         });
 
         if (this.props.TweetUserId) {
@@ -66,7 +69,6 @@ class Twitt_Container extends Component {
         }
     }
 
-
     showUserProfileFromTweets() {
         axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=1')
 
@@ -77,7 +79,8 @@ class Twitt_Container extends Component {
                     tweetData: res.data.docs,
                     tweetCounter: res.data.length,
                     totalLengthData: res.data.total,
-                    lengthData: res.data.docs.length
+                    lengthData: res.data.docs.length,
+                    isLoading:false
                 });
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.total)
@@ -96,65 +99,6 @@ class Twitt_Container extends Component {
                         isLoading:false
                     })
             });
-    }
-
-    openModalTweet(tweetId) {
-        axios.get('/api/tweet/tweet/' + tweetId)
-            .then(res => {
-                console.log(res.data);
-                this.setState({
-                    tweet: res.data,
-                    modalTweet: true
-                });
-            });
-    }
-
-    openModalDelete(tweetId) {
-        axios.get('/api/tweet/tweet/' + tweetId)
-            .then(res => {
-                this.setState({
-                    tweet: res.data,
-                    modalDelete: true
-                });
-            });
-    }
-
-    closeModalTweet(isOpen) {
-        if (isOpen) {
-            this.setState({
-                modalTweet: false
-            })
-        }
-    }
-
-    closeModalDelete(isOpen) {
-        if (isOpen) {
-            this.setState({
-                modalDelete: false
-            })
-        }
-    }
-
-    onClickedImageProfile(userId, username) {
-
-        if (this.props.located === "profile") {
-
-        }
-        else {
-            if (this.props.userId === userId) {
-                this.props.history.push({
-                    pathname: `/home/myProfile/${username}`.replace(' ', ''),
-                })
-            }
-            else {
-                this.props.history.push({
-                    pathname: `/home/profile/${username}`.replace(' ', ''),
-                    state: {
-                        userId: userId
-                    }
-                })
-            }
-        }
     }
 
     setProfileImage(profilePicture, userId, username) {
@@ -179,77 +123,6 @@ class Twitt_Container extends Component {
             );
         }
     }
-
-    viewTweetPicture(tweetPicture, userId) {
-        if (this.props.located === "profile") {
-            if (tweetPicture) {
-                return (
-                    <center>
-                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
-                               id="tweetImage"
-                               onClick={() => this.openModalTweet(userId)}
-                        />
-                    </center>
-                );
-            }
-        }
-        else {
-            if (tweetPicture) {
-                return (
-                    <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
-                           fluid
-                           style={{marginBottom: "20px", cursor: "pointer"}}
-                           onClick={() => this.openModalTweet(userId)}
-                    />
-                );
-            }
-        }
-    }
-
-    viewUserProfile(username, userId) {
-        if (this.props.located === "home") {
-            //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
-            if (userId === this.props.userId) {
-                return (
-                    <Feed.Summary content={username}
-                                  onClick={() => this.onClickedImageProfile(userId, username)}
-                    />
-                );
-            }
-            else {
-                return (
-                    <Feed.Summary content={username}
-                                  onClick={() => this.onClickedImageProfile(userId, username)}
-                    />
-                );
-            }
-        }
-
-        else if (this.props.located === "profile") {
-            return (
-                <div>
-                    <Feed.Summary content={username}/>
-                </div>
-            );
-        }
-    }
-
-    isEmptyTweet() {
-        if (this.props.located === "profile") {
-            if (this.state.tweetCounter === 0) {
-                return (
-                    <Card className="Tweet_Container" id="text-warp">
-                        <CardBody className="Tweet">
-                            <center>
-                                <h3>Sorry, We Didnt Find Something In Here :) </h3>
-                            </center>
-                        </CardBody>
-                    </Card>
-                );
-            }
-        }
-    }
-
 
     fetchMoreData() {
 
@@ -296,6 +169,9 @@ class Twitt_Container extends Component {
       if(this.state.isLoading){
         return null
       }
+
+      console.log(this.state.tweetData);
+
       return (
       <div id="scrollableDiv" style={{ overflow: "auto" }}>
            <InfiniteScroll
@@ -304,7 +180,8 @@ class Twitt_Container extends Component {
                     hasMore={this.state.hasMore}
                 >
                   {this.state.tweetData.map(tweet =>
-                  <TweetComponent tweet={tweet} history={this.props.history} userId={this.props.userId}  located="home"/>
+                  <TweetComponent tweet={tweet}
+                  TweetUserId={this.props.TweetUserId} history={this.props.history} userId={this.props.userId}  located="home"/>
         )}
         </InfiniteScroll>
       </div>
