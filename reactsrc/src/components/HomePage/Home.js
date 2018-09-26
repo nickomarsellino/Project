@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import FadeIn from 'react-fade-in';
 import ScrollUpButton from "react-scroll-up-button";
 import './Home.css';
@@ -121,7 +121,7 @@ class Home extends Component {
           return(
             <center>
                 <div className="LoadingGif">
-                    <img className="LoadingGif" src={LoadingGif} />
+                    <img className="LoadingGif" src={LoadingGif} alt={" "}/>
                 </div>
             </center>
           )

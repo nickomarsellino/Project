@@ -99,9 +99,6 @@ class Comments_Box extends Component {
     }
 
     render() {
-
-        console.log("Profile Pic : ",this.props.profilePicture);
-
         return (
             <Form id="Comment_Container" onSubmit={this.handleSubmit}>
                 <Image avatar id="avatarBoxComment">
