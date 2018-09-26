@@ -4,14 +4,10 @@ import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
-import FadeIn from 'react-fade-in';
-import {Link} from 'react-router-dom';
 import Loading from '../../LoadingGif.gif';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 //load another component
-import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
-import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
 import TweetComponent from '../TweetComponent/TweetComponent';
 
 import openSocket from 'socket.io-client';
@@ -19,7 +15,6 @@ import openSocket from 'socket.io-client';
 // Ini yang nge buat dia connect sama si backend nya
 const socket = openSocket('http://10.183.28.155:8000');
 
-const Timestamp = require('react-timestamp');
 
 class Twitt_Container extends Component {
 
@@ -55,10 +50,12 @@ class Twitt_Container extends Component {
         });
 
         if (this.props.TweetUserId) {
+            console.log("BUKA PROFILE");
             console.log("Ini ID Profile: ",this.props.TweetUserId);
-            this.showUserProfileFromTweets();
+            this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
+            console.log("BUKA HOME");
             this.getTweetData();
             socket.on('getData', namavariabel => {
                 const allTweetData = this.state.tweetData;
@@ -69,12 +66,10 @@ class Twitt_Container extends Component {
         }
     }
 
-    showUserProfileFromTweets() {
-        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=1')
+    showUserProfileFromTweets(TweetUserId) {
+        axios.get('/api/tweet/profiletweet/' + TweetUserId + '?perPage=5&page=1')
 
             .then(res => {
-            console.log(res.data.docs);
-
                 this.setState({
                     tweetData: res.data.docs,
                     tweetCounter: res.data.length,
@@ -99,29 +94,6 @@ class Twitt_Container extends Component {
                         isLoading:false
                     })
             });
-    }
-
-    setProfileImage(profilePicture, userId, username) {
-        let imageUrl = profilePicture;
-
-        if (imageUrl) {
-            return (
-                <img alt=" "
-                     src={require(`../../uploads/${imageUrl}`)}
-                     id="profilePictureTweet"
-                     onClick={() => this.onClickedImageProfile(userId, username)}
-                />
-            );
-        }
-        else {
-            return (
-                <img alt=" "
-                     src={profile}
-                     id="profilePictureTweet"
-                     onClick={() => this.onClickedImageProfile(userId, username)}
-                />
-            );
-        }
     }
 
     fetchMoreData() {
@@ -165,11 +137,11 @@ class Twitt_Container extends Component {
         }
     }
 
+
     render() {
       if(this.state.isLoading){
         return null
       }
-
       console.log(this.state.tweetData);
 
       return (
@@ -181,7 +153,10 @@ class Twitt_Container extends Component {
                 >
                   {this.state.tweetData.map(tweet =>
                   <TweetComponent tweet={tweet}
-                  TweetUserId={this.props.TweetUserId} history={this.props.history} userId={this.props.userId}  located="home"/>
+                                  history={this.props.history} 
+                                  userId={this.props.userId}  
+                                  profilePicture={this.props.profilePicture}
+                                  located="home"/>
         )}
         </InfiniteScroll>
       </div>
