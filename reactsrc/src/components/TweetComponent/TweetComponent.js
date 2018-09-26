@@ -219,12 +219,12 @@ class TweetComponent extends Component {
         }
     }
 
-    clickLikeButton(userId, tweetId) {
+    clickLikeButton(userId) {
         const likeData = {
             userId: this.props.userId,
             tweetId: this.props.tweet._id
         };
-        console.log(this.state.tweet);
+        console.log(this.props.userId);
         const tweetLikesLength = this.state.likes;
         const checkValidID = tweetLikesLength.includes(userId);
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
@@ -261,7 +261,6 @@ class TweetComponent extends Component {
                     socket.emit('sendLike', likeData)
                 })
         }
-
     }
 
     likeIkonColor() {
@@ -324,9 +323,9 @@ class TweetComponent extends Component {
                                         >
                                             <Icon name='like'/>
                                                 {!this.state.likes ?
-                                                    tweet.likes.length + " Like"
+                                                    tweet.likes.length + " Likes"
                                                     :
-                                                    this.state.likes.length + " Like"
+                                                    this.state.likes.length + " Likes"
                                                 }
                                         </Icon.Group>
                                         <Icon.Group className="commentsIcon">

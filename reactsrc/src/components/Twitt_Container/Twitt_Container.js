@@ -21,7 +21,6 @@ class Twitt_Container extends Component {
         this.state = {
             tweetData: [],
             tweet: [],
-            tweetUserId: '',
             tweetCounter: '',
             userId: '',
             modalTweet: false,
@@ -40,14 +39,8 @@ class Twitt_Container extends Component {
     }
 
     componentWillMount() {
-        const userId = this.props.userId;
-        const tweetUserId = this.props.TweetUserId
-        this.setState({
-            userId: userId,
-            tweetUserId: tweetUserId
-        });
-
         if (this.props.TweetUserId) {
+            console.log("VAMOS: ",this.props.userId);
             this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
@@ -61,6 +54,7 @@ class Twitt_Container extends Component {
         }
     }
 
+
     showUserProfileFromTweets(TweetUserId) {
         axios.get('/api/tweet/profiletweet/' + TweetUserId + '?perPage=5&page=1')
 
@@ -71,7 +65,7 @@ class Twitt_Container extends Component {
                     totalLengthData: res.data.total,
                     lengthData: res.data.docs.length,
                     isLoading:false
-                });
+                })
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.total)
                 // maksudnya dikirim ke profilepage, tweetCounter di profilepage
@@ -90,6 +84,7 @@ class Twitt_Container extends Component {
                     })
             });
     }
+
 
     fetchMoreData() {
 
@@ -137,7 +132,6 @@ class Twitt_Container extends Component {
       if(this.state.isLoading){
         return null
       }
-      console.log(this.state.tweetData);
 
       return (
       <div id="scrollableDiv" style={{ overflow: "auto" }}>
@@ -148,12 +142,11 @@ class Twitt_Container extends Component {
                 >
                   {this.state.tweetData.map(tweet =>
                   <TweetComponent tweet={tweet}
-                                  key={tweet._id}
                                   history={this.props.history}
                                   userId={this.props.userId}
                                   profilePicture={this.props.profilePicture}
                                   located="home"/>
-        )}
+                  )}
         </InfiniteScroll>
       </div>
     );
