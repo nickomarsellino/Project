@@ -15,7 +15,6 @@ import openSocket from 'socket.io-client';
 // Ini yang nge buat dia connect sama si backend nya
 const socket = openSocket('http://10.183.28.155:8000');
 
-const Timestamp = require('react-timestamp');
 
 class Twitt_Container extends Component {
 
@@ -45,7 +44,7 @@ class Twitt_Container extends Component {
         if (this.props.TweetUserId) {
             console.log("BUKA PROFILE");
             console.log("Ini ID Profile: ",this.props.TweetUserId);
-            this.showUserProfileFromTweets();
+            this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
             console.log("BUKA HOME");
@@ -60,18 +59,17 @@ class Twitt_Container extends Component {
     }
 
 
-    showUserProfileFromTweets() {
-        axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=1')
+    showUserProfileFromTweets(TweetUserId) {
+        axios.get('/api/tweet/profiletweet/' + TweetUserId + '?perPage=5&page=1')
 
             .then(res => {
-            console.log(res.data.docs);
-
                 this.setState({
                     tweetData: res.data.docs,
                     tweetCounter: res.data.length,
                     totalLengthData: res.data.total,
-                    lengthData: res.data.docs.length
-                });
+                    lengthData: res.data.docs.length,
+                    isLoading:false
+                })
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.total)
                 // maksudnya dikirim ke profilepage, tweetCounter di profilepage
@@ -138,7 +136,6 @@ class Twitt_Container extends Component {
       if(this.state.isLoading){
         return null
       }
-      console.log(this.state.tweetData);
 
       return (
       <div id="scrollableDiv" style={{ overflow: "auto" }}>

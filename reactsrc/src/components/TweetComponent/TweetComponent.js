@@ -318,9 +318,6 @@ class TweetComponent extends Component {
     }
 
     render() {
-        console.log(this.props.userId);
-        console.log(this.state.tweet);
-
         const tweet = this.props.tweet;
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
