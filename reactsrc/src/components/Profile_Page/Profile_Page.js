@@ -17,7 +17,8 @@ class Edit_Profile extends Component {
     constructor() {
         super();
         this.state = {
-            userId: '',
+            userLoginId: '',
+            tweetUserId:'',
             username: '',
             timestamp: '',
             email: '',
@@ -58,7 +59,8 @@ class Edit_Profile extends Component {
                     profilePicture: user.profilePicture
                 });
             });
-            this.setState({userId: this.props.userId})
+            this.setState({tweetUserId: this.props.userId,
+                userLoginId:this.props.userId})
         }
 
         //Jika ia Klik DI container tweetnya
@@ -73,7 +75,7 @@ class Edit_Profile extends Component {
                     profilePicture: user.profilePicture
                 });
             });
-            this.setState({userId: this.props.userIdProfile.userId})
+            this.setState({tweetUserId: this.props.userIdProfile.userId, userLoginId:this.props.userLoginId})
         }
     }
 
@@ -96,16 +98,15 @@ class Edit_Profile extends Component {
             ReactDOM.render(
             <FadeIn>
             <Twitt_Container history={this.props.history}
-                            TweetUserId={this.state.userId}
-                            userId={this.props.userId}
+                            TweetUserId={this.state.tweetUserId}
+                             userId={this.state.userLoginId}
                             tweetCounter={this.getTweetCounter}
                             profilePicture={this.props.profilePicture}
                             located="profile"
             />
             </FadeIn>, document.getElementById('profileInfo'));
         }
-        console.log(this.state.userId);
-        console.log(this.props.TweetUserId);
+        console.log(this.state.tweetUserId);
     }
 
 
@@ -178,8 +179,8 @@ class Edit_Profile extends Component {
                     <FadeIn>
                         <div className="userProfile" id="profileInfo">
                             <Twitt_Container history={this.props.history}
-                                            TweetUserId={this.state.userId}
-                                            userId={this.props.userId}
+                                            TweetUserId={this.state.tweetUserId}
+                                            userId={this.state.userLoginId}
                                             tweetCounter={this.getTweetCounter}
                                             profilePicture={this.props.profilePicture}
                                             located="profile"

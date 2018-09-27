@@ -98,6 +98,7 @@ class Home extends Component {
 
         const profile = () => (
             <ProfilePage userIdProfile={this.props.location.state}
+                         userLoginId={localStorage.getItem("myThings")}
                          history={this.props.history}
                          profilePicture={this.state.profilePicture}
             />

@@ -16,7 +16,10 @@ class Modal_Twitt extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tweet: []
+            userLoginId: '',
+            tweet: [],
+            checkLikes: false,
+            black: "blackColor"
         };
         this.openModal = this.openModal.bind(this);
     }
@@ -27,6 +30,36 @@ class Modal_Twitt extends Component {
             this.setState({
                 tweet: nextProps.tweet
             });
+            console.log(nextProps.tweet)
+        }
+    }
+
+    likeIkonColor() {
+        if (this.state.likes === null) {
+            if (this.props.tweet.likes.includes(this.props.userId)) {
+                // IF yang ini, cek kondisi skrg, kalo [] mengadung, maka warna nya merah
+                this.setState({
+                    black: "redColor"
+                })
+            }
+            else {
+                this.setState({
+                    black: "blackColor"
+                })
+            }
+        }
+        else {
+            if (this.state.likes.includes(this.props.userId)) {
+                // Ini cek state likes nya mengandung id dia ga atau ada ga id dia di sana?
+                this.setState({
+                    black: "redColor"
+                })
+            }
+            else {
+                this.setState({
+                    black: "blackColor"
+                })
+            }
         }
     }
 
