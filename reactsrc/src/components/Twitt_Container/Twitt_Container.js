@@ -40,7 +40,6 @@ class Twitt_Container extends Component {
 
     componentWillMount() {
         if (this.props.TweetUserId) {
-            console.log("VAMOS: ",this.props.userId);
             this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
@@ -142,6 +141,7 @@ class Twitt_Container extends Component {
                 >
                   {this.state.tweetData.map(tweet =>
                   <TweetComponent tweet={tweet}
+                                  key={tweet._id}
                                   history={this.props.history}
                                   userId={this.props.userId}
                                   profilePicture={this.props.profilePicture}
