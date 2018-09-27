@@ -227,6 +227,7 @@ class Tweet_Result extends Component {
     }
 
     render() {
+      console.log(this.state.tweetResults);
         return (
             <FadeIn>
                 <InfiniteScroll
@@ -235,7 +236,6 @@ class Tweet_Result extends Component {
                     hasMore={this.state.hasMore}
                     // loader={<img id="loadingGif" src={loading} alt="loading..."/>}
                 >
-                console.log("result ",tweetResult);
                     <div style={{marginTop: "2%"}}>
                         {this.state.tweetResults.map(tweet =>
                             <Card className="Tweet_Result" id="text-warp" key={tweet._id}>
@@ -256,9 +256,8 @@ class Tweet_Result extends Component {
                                                 <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
                                                 <div className="buttonGroup">
-                                                <Icon.Group className={this.state.black} >
-                                                    <Icon name='like'>
-                                                  1 likes</Icon>
+                                                <Icon.Group className="tweetResult" >
+                                                    <Icon name='like'/> {tweet.likes.length} Like
                                                 </Icon.Group>
                                                     <Icon.Group className="commentsIcon">
                                                         {" "}<Icon name='comments'/> {" "} 10 Comments

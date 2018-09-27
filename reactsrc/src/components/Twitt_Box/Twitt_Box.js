@@ -146,6 +146,7 @@ class Twitt_Box extends Component {
 
     render() {
         console.log(this.state.userTweet);
+        console.log(this.state.selectedFile);
 
         let imageUrl = this.props.profilePicture;
         let imagedisplay

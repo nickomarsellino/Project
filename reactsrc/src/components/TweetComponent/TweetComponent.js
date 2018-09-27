@@ -43,9 +43,6 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
-    componentWillMount() {
-        //console.log("WILL: ", this.props.tweet)
-    }
 
     componentDidMount() {
         this.setState({
@@ -327,9 +324,9 @@ class TweetComponent extends Component {
                                         >
                                             <Icon name='like'/>
                                                 {!this.state.likes ?
-                                                    tweet.likes.length + " Likes"
+                                                    tweet.likes.length + " Like"
                                                     :
-                                                    this.state.likes.length + " Likes"
+                                                    this.state.likes.length + " Like"
                                                 }
                                         </Icon.Group>
                                         <Icon.Group className="commentsIcon">
