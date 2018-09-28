@@ -11,6 +11,7 @@ import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import openSocket from 'socket.io-client';
+
 const socket = openSocket('http://10.183.28.153:8000');
 const Timestamp = require('react-timestamp');
 
@@ -22,7 +23,8 @@ class Tweet_Result extends Component {
         this.state = {
             tweetResults: [],
             tweet: [],
-            likes:'',
+            likes: null,
+            black: "blackColor",
             modalDelete: false,
             hasMore: true,
             lengthData: '',
@@ -39,9 +41,62 @@ class Tweet_Result extends Component {
         this.getTweetSearch();
 
         this.setState({
-          tweet: this.props.tweet,
+            tweet: this.props.tweet,
         })
 
+    }
+
+    likeIcon(likes) {
+        if (likes.length === 0) {
+            return (
+                <div className="buttonGroup">
+                    <Icon.Group className="blackColor"
+                                id="likesIcon"
+                        //onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
+                    >
+                        <Icon name='like'/>{likes.length}{" "}Likes
+
+                    </Icon.Group>
+                    <Icon.Group className="commentsIcon">
+                        {" "}<Icon name='comments'/> {" "} 0 Comments
+                    </Icon.Group>
+                </div>
+            );
+        }
+        else {
+            if (likes.includes(this.props.userId)) {
+                return(
+                    <div className="buttonGroup">
+                        <Icon.Group className="redColor"
+                                    id="likesIcon"
+                            //onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
+                        >
+                            <Icon name='like'/>{likes.length}{" "}Likes
+
+                        </Icon.Group>
+                        <Icon.Group className="commentsIcon">
+                            {" "}<Icon name='comments'/> {" "} 0 Comments
+                        </Icon.Group>
+                    </div>
+                );
+            }
+            else {
+                return (
+                    <div className="buttonGroup">
+                        <Icon.Group className="blackColor"
+                                    id="likesIcon"
+                            //onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
+                        >
+                            <Icon name='like'/>{likes.length}{" "}Likes
+
+                        </Icon.Group>
+                        <Icon.Group className="commentsIcon">
+                            {" "}<Icon name='comments'/> {" "} 0 Comments
+                        </Icon.Group>
+                    </div>
+                );
+            }
+        }
     }
 
     viewUserProfile(username, userId) {
@@ -80,7 +135,6 @@ class Tweet_Result extends Component {
             tweetResults: this.props.tweetResult
         });
     }
-
 
     openModalDelete(tweetId) {
         axios.get('/api/tweet/tweet/' + tweetId)
@@ -163,7 +217,7 @@ class Tweet_Result extends Component {
         }
     }
 
-    clickLikeButton(userId, tweetId){
+    clickLikeButton(userId, tweetId) {
         const likeData = {
             userId: this.props.userId,
             tweetId: this.props.tweet._id
@@ -171,39 +225,39 @@ class Tweet_Result extends Component {
         console.log(this.state.tweet);
         const tweetLikesLength = this.state.likes;
         const checkValidID = tweetLikesLength.includes(userId);
-      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
         // Udabener ini
-        if(checkValidID){
-          console.log('UNLIKE');
-                  axios({
-                      method: 'PUT',
-                      responseType: 'json',
-                      url: `/api/tweet/unlikeTweet/` + this.state.tweet._id,
-                      data: likeData
-                  })
-                  .then(res => {
-                      this.setState({
-                          checkLikes: false,
-                          black: true
-                      });
-                      socket.emit('unlike', likeData)
-                  })
+        if (checkValidID) {
+            console.log('UNLIKE');
+            axios({
+                method: 'PUT',
+                responseType: 'json',
+                url: `/api/tweet/unlikeTweet/` + this.state.tweet._id,
+                data: likeData
+            })
+                .then(res => {
+                    this.setState({
+                        checkLikes: false,
+                        black: true
+                    });
+                    socket.emit('unlike', likeData)
+                })
         }
-        else{
-          console.log('LIKE');
-                  axios({
-                      method: 'PUT',
-                      responseType: 'json',
-                      url: `/api/tweet/likeTweet/` + this.state.tweet._id,
-                      data: likeData
-                  })
-                  .then(res => {
-                      this.setState({
-                          checkLikes: true,
-                          black: false
-                      });
-                      socket.emit('sendLike', likeData)
-                  })
+        else {
+            console.log('LIKE');
+            axios({
+                method: 'PUT',
+                responseType: 'json',
+                url: `/api/tweet/likeTweet/` + this.state.tweet._id,
+                data: likeData
+            })
+                .then(res => {
+                    this.setState({
+                        checkLikes: true,
+                        black: false
+                    });
+                    socket.emit('sendLike', likeData)
+                })
         }
 
     }
@@ -212,7 +266,7 @@ class Tweet_Result extends Component {
         if (this.state.lengthData === this.props.tweetSearchLength) {
             this.setState({hasMore: false});
         }
-        else{
+        else {
             setTimeout(() => {
                 axios.get('/api/tweet/searchByTweets/' + this.props.searchValue + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
                     .then(res => {
@@ -227,7 +281,7 @@ class Tweet_Result extends Component {
     }
 
     render() {
-      console.log(this.state.tweetResults);
+        console.log(this.state.tweetResults);
         return (
             <FadeIn>
                 <InfiniteScroll
@@ -255,14 +309,7 @@ class Tweet_Result extends Component {
 
                                                 <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
 
-                                                <div className="buttonGroup">
-                                                <Icon.Group className="tweetResult" >
-                                                    <Icon name='like'/> {tweet.likes.length} Like
-                                                </Icon.Group>
-                                                    <Icon.Group className="commentsIcon">
-                                                        {" "}<Icon name='comments'/> {" "} 10 Comments
-                                                    </Icon.Group>
-                                                </div>
+                                                {this.likeIcon(tweet.likes)}
 
                                             </Feed.Content>
 
