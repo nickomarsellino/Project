@@ -1,15 +1,17 @@
 import React, {Component} from "react";
-import {Card, CardBody} from "mdbreact"
-import {Feed, Icon} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
+import Loading from '../../LoadingGif.gif';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 //load another component
-import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
-import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
+import TweetComponent from '../TweetComponent/TweetComponent';
 
-const Timestamp = require('react-timestamp');
+import openSocket from 'socket.io-client';
+
+// Ini yang nge buat dia connect sama si backend nya
+const socket = openSocket('http://10.183.28.155:8000');
 
 
 class Twitt_Container extends Component {
@@ -19,137 +21,137 @@ class Twitt_Container extends Component {
         this.state = {
             tweetData: [],
             tweet: [],
+            tweetCounter: '',
+            userId: '',
             modalTweet: false,
-            modalDelete: false
+            modalDelete: false,
+            checkLikes: false,
+            isLoading:true,
+            userProfilePicture: '',
+            hasMore: true,
+            lengthData: '',
+            totalLengthData: '',
+            pagesData: 1
         };
-
         this.getTweetData = this.getTweetData.bind(this);
-        this.getTweetUser = this.getTweetUser.bind(this);
-        this.openModalTweet = this.openModalTweet.bind(this);
-        this.openModalDelete = this.openModalDelete.bind(this);
-        this.closeModalTweet = this.closeModalTweet.bind(this);
-        this.closeModalDelete = this.closeModalDelete.bind(this);
+        this.showUserProfileFromTweets = this.showUserProfileFromTweets.bind(this);
+        this.fetchMoreData = this.fetchMoreData.bind(this);
     }
 
     componentWillMount() {
-
-        if(this.props.TweetUserId){
-            this.getTweetUser();
+        if (this.props.TweetUserId) {
+            this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
             this.getTweetData();
+            socket.on('getData', namavariabel => {
+                const allTweetData = this.state.tweetData;
+                const newTweetData = [namavariabel].concat(allTweetData);
+
+                this.setState({tweetData: newTweetData});
+            })
         }
     }
 
-    getTweetUser() {
-        axios.get('/api/users/profiletweet/'+this.props.TweetUserId)
+
+    showUserProfileFromTweets(TweetUserId) {
+        axios.get('/api/tweet/profiletweet/' + TweetUserId + '?perPage=5&page=1')
+
             .then(res => {
                 this.setState({
-                    tweetData: res.data
-                });
+                    tweetData: res.data.docs,
+                    tweetCounter: res.data.length,
+                    totalLengthData: res.data.total,
+                    lengthData: res.data.docs.length,
+                    isLoading:false
+                })
+                // get berapa banyak data tweet nya
+                this.props.tweetCounter(res.data.total)
+                // maksudnya dikirim ke profilepage, tweetCounter di profilepage
             });
     }
 
     getTweetData() {
-        axios.get('/api/users/tweets')
+        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
             .then(res => {
-                this.setState({
-                    tweetData: res.data
-                });
-                console.log("tweetData ", this.state.tweetData);
+                this.setState(
+                    {
+                        tweetData: res.data.docs,
+                        totalLengthData: res.data.total,
+                        lengthData: res.data.docs.length,
+                        isLoading:false
+                    })
             });
     }
 
-    openModalTweet(tweetId) {
-        axios.get('/api/users/tweet/' + tweetId)
-            .then(res => {
-                this.setState({
-                    tweet: res.data,
-                    modalTweet: true
-                });
-            });
-    }
 
-    openModalDelete(tweetId) {
-        axios.get('/api/users/tweet/' + tweetId)
-            .then(res => {
-                this.setState({
-                    tweet: res.data,
-                    modalDelete: true
-                });
-            });
-    }
+    fetchMoreData() {
 
-    closeModalTweet(isOpen) {
-        if (isOpen) {
-              this.setState({
-                  modalTweet: false
-              })
+        if(this.props.located === "profile") {
+            if (this.state.lengthData === this.state.totalLengthData) {
+                this.setState({hasMore: false});
+            }
+            else {
+                setTimeout(() => {
+                    axios.get('/api/tweet/profiletweet/' + this.props.TweetUserId + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                        .then(res => {
+                            const joined = this.state.tweetData.concat(res.data.docs);
+                            this.setState({
+                                tweetData: joined,
+                                lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                                pagesData: parseInt(this.state.pagesData + 1, 10)
+                            });
+                        });
+                }, 2000);
+            }
+        }
+
+        else if (this.props.located === "home"){
+            if (this.state.lengthData === this.state.totalLengthData) {
+                this.setState({hasMore: false, lengthData: '', totalLengthData: ''});
+            }
+            else {
+                setTimeout(() => {
+                    axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                        .then(res => {
+                            const joined = this.state.tweetData.concat(res.data.docs);
+                            this.setState({
+                                tweetData: joined,
+                                lengthData: parseInt(this.state.lengthData + res.data.docs.length, 10),
+                                pagesData: parseInt(this.state.pagesData + 1, 10)
+                            });
+                        });
+                }, 2000);
+            }
         }
     }
 
-    closeModalDelete(isOpen) {
-        if (isOpen) {
-              this.setState({
-                  modalDelete: false
-              })
-        }
-    }
-
-    buttonDelete(userId, tweetId) {
-        if (userId === this.props.userId) {
-            return (
-                <Icon
-                    size='large' name='trash'
-                    id="recycleIcon"
-                    onClick={() => this.openModalDelete(tweetId)}
-                />
-            );
-        }
-    }
 
     render() {
-        return (
-            <div>
-                {this.state.tweetData.map(tweet =>
-                    <Card className="Tweet_Container text-warp">
-                        <CardBody className="Tweet">
-                            <Feed>
-                                <Feed.Event>
-                                    <Feed.Label image={profile} style={{width: "10%", padding: "5px 0"}}/>
-                                    <Feed.Content onClick={() => this.openModalTweet(tweet._id)}>
-                                        <div className="Tweet-Content">
-                                            <Feed.Summary content={tweet.username}/>
-                                        </div>
-                                        <Feed.Extra text content={tweet.tweetText}/> <br/>
-                                        <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>} />
-                                    </Feed.Content>
+      if(this.state.isLoading){
+        return null
+      }
 
-                                    <Feed.Label className="Tweet-Delete">
-                                        {this.buttonDelete(tweet.userId, tweet._id)}
-                                    </Feed.Label>
+      return (
+      <div id="scrollableDiv" style={{ overflow: "auto" }}>
+           <InfiniteScroll
+                    dataLength={this.state.lengthData}
+                    next={this.fetchMoreData}
+                    hasMore={this.state.hasMore}
+                >
+                  {this.state.tweetData.map(tweet =>
+                  <TweetComponent tweet={tweet}
+                                  key={tweet._id}
+                                  history={this.props.history}
+                                  userId={this.props.userId}
+                                  profilePicture={this.props.profilePicture}
+                                  located="home"/>
+                  )}
+        </InfiniteScroll>
+      </div>
+    );
+  }
 
-                                </Feed.Event>
-                            </Feed>
-                        </CardBody>
-                    </Card>
-                )}
-
-                <ModalTwitt
-                    isOpen={this.state.modalTweet}
-                    tweet={this.state.tweet}
-                    isClose={this.closeModalTweet}
-                />
-
-                <ModalDelete
-                    isOpen={this.state.modalDelete}
-                    tweet={this.state.tweet}
-                    isClose={this.closeModalDelete}
-                />
-
-            </div>
-        );
-    }
 }
 
 export default Twitt_Container;
