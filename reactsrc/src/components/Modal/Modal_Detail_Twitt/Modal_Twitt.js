@@ -30,7 +30,6 @@ class Modal_Twitt extends Component {
             this.setState({
                 tweet: nextProps.tweet
             });
-            console.log(nextProps.tweet)
         }
     }
 

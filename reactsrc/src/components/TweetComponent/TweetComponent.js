@@ -120,6 +120,7 @@ class TweetComponent extends Component {
     }
 
     viewUserProfile(username, userId) {
+
         if (this.props.located === "home") {
             //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
             if (userId === this.props.userId) {
@@ -146,7 +147,22 @@ class TweetComponent extends Component {
     }
 
     viewTweetPicture(tweetPicture, userId) {
-        if (this.props.located === "profile") {
+        const name = this.props.tweet.username.replace(' ', '');
+
+        if (window.location.href === "http://localhost:3001/home/profile/"+name) {
+            if (tweetPicture) {
+                return (
+                    <center>
+                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                               id="tweetImage"
+                               onClick={() => this.openModalTweet(userId)}
+                        />
+                    </center>
+                );
+            }
+        }
+
+        else if (window.location.href === "http://localhost:3001/home/myProfile/"+name){
             if (tweetPicture) {
                 return (
                     <center>

@@ -1,20 +1,14 @@
 import React, {Component} from "react";
-import {Card, CardBody} from "mdbreact"
-import {Feed, Icon, Image} from 'semantic-ui-react';
-import profile from '../../../../src/daniel.jpg';
 import loading from '../../../loading.gif'
 import axios from 'axios';
 import './Tweet_Result.css';
 import FadeIn from 'react-fade-in';
-import {Link} from 'react-router-dom';
-import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
 import InfiniteScroll from "react-infinite-scroll-component";
+import Tweet_Result_Container from "./Tweet_Result_Container";
 
 import openSocket from 'socket.io-client';
 
 const socket = openSocket('http://10.183.28.153:8000');
-const Timestamp = require('react-timestamp');
-
 
 class Tweet_Result extends Component {
 
@@ -32,8 +26,6 @@ class Tweet_Result extends Component {
         };
 
         this.getTweetSearch = this.getTweetSearch.bind(this);
-        this.openModalDelete = this.openModalDelete.bind(this);
-        this.closeModalDelete = this.closeModalDelete.bind(this);
         this.fetchMoreData = this.fetchMoreData.bind(this);
     }
 
@@ -46,89 +38,6 @@ class Tweet_Result extends Component {
 
     }
 
-    likeIcon(likes) {
-        if (likes.length === 0) {
-            return (
-                <div className="buttonGroup">
-                    <Icon.Group className="blackColor"
-                                id="likesIcon"
-                        //onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
-                    >
-                        <Icon name='like'/>{likes.length}{" "}Likes
-
-                    </Icon.Group>
-                    <Icon.Group className="commentsIcon">
-                        {" "}<Icon name='comments'/> {" "} 0 Comments
-                    </Icon.Group>
-                </div>
-            );
-        }
-        else {
-            if (likes.includes(this.props.userId)) {
-                return(
-                    <div className="buttonGroup">
-                        <Icon.Group className="redColor"
-                                    id="likesIcon"
-                            //onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
-                        >
-                            <Icon name='like'/>{likes.length}{" "}Likes
-
-                        </Icon.Group>
-                        <Icon.Group className="commentsIcon">
-                            {" "}<Icon name='comments'/> {" "} 0 Comments
-                        </Icon.Group>
-                    </div>
-                );
-            }
-            else {
-                return (
-                    <div className="buttonGroup">
-                        <Icon.Group className="blackColor"
-                                    id="likesIcon"
-                            //onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
-                        >
-                            <Icon name='like'/>{likes.length}{" "}Likes
-
-                        </Icon.Group>
-                        <Icon.Group className="commentsIcon">
-                            {" "}<Icon name='comments'/> {" "} 0 Comments
-                        </Icon.Group>
-                    </div>
-                );
-            }
-        }
-    }
-
-    viewUserProfile(username, userId) {
-        if (window.location.href === "http://localhost:3001/home/search/?" + this.props.searchValue) {
-            if (userId === this.props.userId) {
-                return (
-                    <Link to={{
-                        pathname: `/home/myProfile/${username}`.replace(' ', ''),
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
-                );
-            }
-            else {
-                return (
-                    <Link to={{
-                        pathname: `/home/profile/${username}`.replace(' ', ''),
-                        state: {
-                            userId: userId
-                        }
-                    }}>
-                        <div>
-                            <Feed.Summary content={username}/>
-                        </div>
-                    </Link>
-                );
-            }
-        }
-    }
-
     getTweetSearch() {
         this.setState({
             lengthData: this.props.tweetResult.length,
@@ -136,131 +45,6 @@ class Tweet_Result extends Component {
         });
     }
 
-    openModalDelete(tweetId) {
-        axios.get('/api/tweet/tweet/' + tweetId)
-            .then(res => {
-                this.setState({
-                    tweet: res.data,
-                    modalDelete: true
-                });
-            });
-    }
-
-    closeModalDelete(isOpen) {
-        if (isOpen) {
-            this.setState({
-                modalDelete: false
-            })
-        }
-    }
-
-    buttonDelete(userId, tweetId) {
-        if (userId === this.props.userId) {
-            return (
-                <Icon
-                    size='large' name='trash'
-                    id="recycleIcon"
-                    onClick={() => this.openModalDelete(tweetId)}
-                />
-            );
-        }
-    }
-
-    onClickedImage(userId, username) {
-        if (this.props.userId === userId) {
-            this.props.history.push({
-                pathname: `/home/myProfile/${username}`.replace(' ', ''),
-            })
-        }
-        else {
-            this.props.history.push({
-                pathname: `/home/profile/${username}`.replace(' ', ''),
-                state: {
-                    userId: userId
-                }
-            })
-        }
-    }
-
-    setProfileImage(profilePicture, userId, username) {
-        let imageUrl = profilePicture;
-
-        if (imageUrl) {
-            return (
-                <img alt=" "
-                     src={require(`../../../uploads/${imageUrl}`)}
-                     id="profilePictureTweet"
-                     onClick={() => this.onClickedImage(userId, username)}
-                />
-            );
-        }
-        else {
-            return (
-                <img alt=" "
-                     src={profile}
-                     id="profilePictureTweet"
-                     onClick={() => this.onClickedImage(userId, username)}
-                />
-            );
-        }
-    }
-
-    viewTweetPicture(tweetPicture, userId) {
-        if (tweetPicture) {
-            return (
-                <center>
-                    <Image src={require(`../../../tweetImage/${tweetPicture}`)}
-                           id="tweetImage"
-                    />
-                </center>
-            );
-        }
-    }
-
-    clickLikeButton(userId, tweetId) {
-        const likeData = {
-            userId: this.props.userId,
-            tweetId: this.props.tweet._id
-        };
-        console.log(this.state.tweet);
-        const tweetLikesLength = this.state.likes;
-        const checkValidID = tweetLikesLength.includes(userId);
-        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
-        // Udabener ini
-        if (checkValidID) {
-            console.log('UNLIKE');
-            axios({
-                method: 'PUT',
-                responseType: 'json',
-                url: `/api/tweet/unlikeTweet/` + this.state.tweet._id,
-                data: likeData
-            })
-                .then(res => {
-                    this.setState({
-                        checkLikes: false,
-                        black: true
-                    });
-                    socket.emit('unlike', likeData)
-                })
-        }
-        else {
-            console.log('LIKE');
-            axios({
-                method: 'PUT',
-                responseType: 'json',
-                url: `/api/tweet/likeTweet/` + this.state.tweet._id,
-                data: likeData
-            })
-                .then(res => {
-                    this.setState({
-                        checkLikes: true,
-                        black: false
-                    });
-                    socket.emit('sendLike', likeData)
-                })
-        }
-
-    }
 
     fetchMoreData() {
         if (this.state.lengthData === this.props.tweetSearchLength) {
@@ -281,7 +65,6 @@ class Tweet_Result extends Component {
     }
 
     render() {
-        console.log(this.state.tweetResults);
         return (
             <FadeIn>
                 <InfiniteScroll
@@ -292,44 +75,15 @@ class Tweet_Result extends Component {
                 >
                     <div style={{marginTop: "2%"}}>
                         {this.state.tweetResults.map(tweet =>
-                            <Card className="Tweet_Result" id="text-warp" key={tweet._id}>
-                                <CardBody className="Tweet">
-                                    <Feed>
-                                        <Feed.Event>
-                                            <Feed.Label style={{width: "60px", padding: "8px 0"}}>
-                                                {this.setProfileImage(tweet.profilePicture, tweet.userId, tweet.username)}
-                                            </Feed.Label>
-                                            <Feed.Content className="Tweet-Content">
-
-                                                {this.viewUserProfile(tweet.username, tweet.userId)}
-
-                                                <Feed.Extra id="tweetText" text content={tweet.tweetText}/> <br/>
-
-                                                {this.viewTweetPicture(tweet.tweetPicture, tweet._id)}
-
-                                                <Feed.Date content={<Timestamp time={tweet.timestamp} precision={1}/>}/>
-
-                                                {this.likeIcon(tweet.likes)}
-
-                                            </Feed.Content>
-
-                                            <Feed.Label className="Tweet-Delete">
-                                                {this.buttonDelete(tweet.userId, tweet._id)}
-                                            </Feed.Label>
-
-                                        </Feed.Event>
-                                    </Feed>
-                                </CardBody>
-                            </Card>
+                            <Tweet_Result_Container
+                                resultData={tweet}
+                                userId={this.props.userId}
+                                history={this.props.history}
+                                searchValue={this.props.searchValue}
+                            />
                         )}
                     </div>
                 </InfiniteScroll>
-
-                <ModalDelete
-                    isOpen={this.state.modalDelete}
-                    tweet={this.state.tweet}
-                    isClose={this.closeModalDelete}
-                />
             </FadeIn>
         );
     }

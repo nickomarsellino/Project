@@ -48,6 +48,11 @@
     width: 72%;
 }
 
+#tweetImage{
+    width: 60%;
+    margin-bottom: 10px;
+}
+
 .buttonTweetBox {
     text-align: left;
 }

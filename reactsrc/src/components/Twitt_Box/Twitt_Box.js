@@ -44,8 +44,6 @@ class Twitt_Box extends Component {
     }
 
     handleInputChange(event) {
-        console.log(event.target.value);
-
         if (this.state.charCounter > 70) {
             this.setState({
                 tweetStatus: '#4db6ac'
@@ -145,8 +143,6 @@ class Twitt_Box extends Component {
     };
 
     render() {
-        console.log(this.state.userTweet);
-        console.log(this.state.selectedFile);
 
         let imageUrl = this.props.profilePicture;
         let imagedisplay
