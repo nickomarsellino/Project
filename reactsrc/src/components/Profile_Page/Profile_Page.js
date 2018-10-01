@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import axios from "axios/index";
 import profile from '../../daniel.jpg';
 import './Profile_Page.css';
-import Twitt_Container from "../Twitt_Container/Twitt_Container";
+import TwittContainer from "../Twitt_Container/Twitt_Container";
 import UserAccountContainer from '../UserAccountContainer/UserAccountContainer'
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
@@ -97,7 +97,7 @@ class Edit_Profile extends Component {
             //Render Validation box message
             ReactDOM.render(
             <FadeIn>
-            <Twitt_Container history={this.props.history}
+            <TwittContainer history={this.props.history}
                             TweetUserId={this.state.tweetUserId}
                              userId={this.state.userLoginId}
                             tweetCounter={this.getTweetCounter}
@@ -106,7 +106,6 @@ class Edit_Profile extends Component {
             />
             </FadeIn>, document.getElementById('profileInfo'));
         }
-        console.log(this.state.tweetUserId);
     }
 
 
@@ -178,7 +177,7 @@ class Edit_Profile extends Component {
 
                     <FadeIn>
                         <div className="userProfile" id="profileInfo">
-                            <Twitt_Container history={this.props.history}
+                            <TwittContainer history={this.props.history}
                                             TweetUserId={this.state.tweetUserId}
                                             userId={this.state.userLoginId}
                                             tweetCounter={this.getTweetCounter}

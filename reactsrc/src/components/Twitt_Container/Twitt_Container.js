@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
-import Loading from '../../LoadingGif.gif';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 //load another component
@@ -140,7 +139,9 @@ class Twitt_Container extends Component {
                     hasMore={this.state.hasMore}
                 >
                     {this.state.tweetData.map(tweet =>
-                        <TweetComponent tweet={tweet}
+                        <TweetComponent
+                                        key={tweet._id}
+                                        tweet={tweet}
                                         history={this.props.history}
                                         userId={this.props.userId}
                                         profilePicture={this.props.profilePicture}

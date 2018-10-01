@@ -43,7 +43,7 @@ class Tweet_Result_Component extends Component {
         socket.on(this.props.resultData._id + "unlike", bebas => {
             let likeList = []
             for (var unlike in this.state.likes) {
-                if (this.state.likes[unlike] != bebas.userId) {
+                if (this.state.likes[unlike] !== bebas.userId) {
                     likeList.push(this.state.likes[unlike])
                 }
             }

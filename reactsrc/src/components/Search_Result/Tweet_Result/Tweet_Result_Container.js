@@ -1,14 +1,10 @@
 import React, {Component} from "react";
-import loading from '../../../loading.gif'
 import axios from 'axios';
 import './Tweet_Result.css';
 import FadeIn from 'react-fade-in';
 import InfiniteScroll from "react-infinite-scroll-component";
-import Tweet_Result_Component from "./Tweet_Result_Component";
+import TweetResult from "./Tweet_Result_Component";
 
-import openSocket from 'socket.io-client';
-
-const socket = openSocket('http://10.183.28.153:8000');
 
 class Tweet_Result_Container extends Component {
 
@@ -75,7 +71,7 @@ class Tweet_Result_Container extends Component {
                 >
                     <div style={{marginTop: "2%"}}>
                         {this.state.tweetResults.map(tweet =>
-                            <Tweet_Result_Component
+                            <TweetResult
                                 resultData={tweet}
                                 userId={this.props.userId}
                                 history={this.props.history}

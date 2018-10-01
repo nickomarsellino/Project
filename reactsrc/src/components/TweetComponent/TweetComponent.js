@@ -4,7 +4,6 @@ import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './TweetComponent.css';
-import Loading from '../../LoadingGif.gif';
 
 
 //load another component
@@ -62,7 +61,7 @@ class TweetComponent extends Component {
         socket.on(this.props.tweet._id + "unlike", bebas => {
             let likeList = []
             for (var unlike in this.state.likes) {
-                if (this.state.likes[unlike] != bebas.userId) {
+                if (this.state.likes[unlike] !== bebas.userId) {
                     likeList.push(this.state.likes[unlike])
                 }
             }
