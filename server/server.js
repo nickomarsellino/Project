@@ -65,14 +65,16 @@ io.on('connection', (socket) => {
 
   socket.on('sendLike', (data) => {
     console.log("Masuk?1");
+    socket.broadcast.emit(data.tweetId+'like', data)
     socket.emit(data.tweetId+'like', data);
   });
 
   socket.on('unlike', (data) => {
     console.log("Masuk?2");
+    socket.broadcast.emit(data.tweetId+"unlike", data)
     socket.emit(data.tweetId+"unlike", data);
   });
-  
+
 });
 
 io.listen(8000);

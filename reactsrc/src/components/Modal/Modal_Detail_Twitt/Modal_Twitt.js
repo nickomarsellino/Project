@@ -2,12 +2,16 @@ import React, {Component} from "react";
 import {Container, Modal, ModalBody, ModalHeader} from 'mdbreact';
 import {Image, Icon} from 'semantic-ui-react';
 import profile from '../../../daniel.jpg';
-import './Modal_Twitt.css'
+import './Modal_Twitt.css';
+import axios from 'axios';
 
 
 //load another component
 import CommentsBox from "../../Comments_Box/Comments_Box";
+import openSocket from 'socket.io-client';
 
+// Ini yang nge buat dia connect sama si backend nya
+const socket = openSocket('http://10.183.28.153:8000');
 const Timestamp = require('react-timestamp');
 
 
@@ -19,46 +23,116 @@ class Modal_Twitt extends Component {
             userLoginId: '',
             tweet: [],
             checkLikes: false,
-            black: "blackColor"
+            black: 'greenColor',
+            likes: this.props.likes
         };
         this.openModal = this.openModal.bind(this);
+        this.likeIkonColor=this.likeIkonColor.bind(this);
     }
 
+    componentDidMount(){
+      console.log("this.props.tweet.likes.length ",this.props.tweet);
+
+        this.setState({
+            userLoginId: localStorage.getItem("myThings"),
+            tweet: this.props.tweet,
+            likes: this.props.tweet.likes
+        })
+
+        socket.on(this.props.tweet._id + 'like', bebas => {
+          console.log("modal");
+            this.setState({
+                likes: this.state.likes.concat(bebas.userId)
+            });
+            this.likeIkonColor();
+        });
+
+        //  Untuk UNLIKE
+        socket.on(this.props.tweet._id + "unlike", bebas => {
+            let likeList = []
+            for (var unlike in this.state.likes) {
+                if (this.state.likes[unlike] != bebas.userId) {
+                    likeList.push(this.state.likes[unlike])
+                }
+            }
+            this.setState({
+                likes: likeList
+            });
+            this.likeIkonColor();
+        });
+        this.likeIkonColor();
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.tweet !== this.props.tweet) {
             this.setState({
                 tweet: nextProps.tweet
             });
-            console.log(nextProps.tweet)
+        }
+    }
+
+    clickLikeButton(userId) {
+        const likeData = {
+            userId: this.state.userLoginId,
+            tweetId: this.props.tweet._id
+        };
+
+        const tweetLikesLength = this.state.likes;
+        const checkValidID = tweetLikesLength.includes(userId);
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+        // Udabener ini
+        if (checkValidID) {
+            console.log('UNLIKE');
+            axios({
+                method: 'PUT',
+                responseType: 'json',
+                url: `/api/tweet/unlikeTweet/` + this.props.tweet._id,
+                data: likeData
+            })
+                .then(res => {
+                    this.setState({
+                        checkLikes: false,
+                    });
+                    socket.emit('unlike', likeData)
+                })
+        }
+        else {
+            console.log('LIKE');
+            axios({
+                method: 'PUT',
+                responseType: 'json',
+                url: `/api/tweet/likeTweet/` + this.props.tweet._id,
+                data: likeData
+            })
+                .then(res => {
+                    this.setState({
+                        checkLikes: true,
+                    });
+                    socket.emit('sendLike', likeData)
+                })
         }
     }
 
     likeIkonColor() {
         if (this.state.likes === null) {
-            if (this.props.tweet.likes.includes(this.props.userId)) {
-                // IF yang ini, cek kondisi skrg, kalo [] mengadung, maka warna nya merah
-                this.setState({
-                    black: "redColor"
-                })
-            }
-            else {
                 this.setState({
                     black: "blackColor"
                 })
-            }
+                console.log("IJO");
         }
         else {
-            if (this.state.likes.includes(this.props.userId)) {
+            if (this.state.likes.includes(this.state.userLoginId)) {
                 // Ini cek state likes nya mengandung id dia ga atau ada ga id dia di sana?
                 this.setState({
-                    black: "redColor"
+                    black: "greenColor"
                 })
+                console.log("Ijo di ELSE");
             }
             else {
                 this.setState({
                     black: "blackColor"
                 })
+                console.log("Item di ELSE");
             }
         }
     }
@@ -66,6 +140,9 @@ class Modal_Twitt extends Component {
     openModal() {
         //Akses Fungsi yang di Twitt_Container.js
         this.props.isClose(this.props.isOpen);
+        this.setState({
+            likes: this.props.likes
+        })
     }
 
     setProfileImage(profilePicture) {
@@ -94,6 +171,8 @@ class Modal_Twitt extends Component {
     }
 
     render() {
+      console.log("this.state.likes ",this.state.black);
+      console.log(this.props.likes);
         return (
             <Container>
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
@@ -114,9 +193,15 @@ class Modal_Twitt extends Component {
                     <ModalBody className="text-Timestamp">
                         <Timestamp time={this.state.tweet.timestamp} format='full' includeDay/>
 
-                        <div id="buttonGroup">
-                            <Icon.Group className="likesIcon">
-                                <Icon name='like'/> {" "} 10 Likes
+                        <div className="buttonGroup">
+                            <Icon.Group className={this.state.black} id="likesIcon" onClick={() => this.clickLikeButton(this.state.userLoginId, this.props.tweetId)}
+                            >
+                              <Icon name='like'/>
+                              {!this.props.likes ?
+                                this.props.tweet.likes.length + " Likes"
+                                :
+                                this.state.likes.length + " Likes"
+                              }
                             </Icon.Group>
                             <Icon.Group className="commentsIcon">
                                 {" "}<Icon name='comments'/> {" "} 10 Comments

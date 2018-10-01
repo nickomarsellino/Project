@@ -52,6 +52,7 @@ class TweetComponent extends Component {
 
         // Untuk Like
         socket.on(this.props.tweet._id + 'like', bebas => {
+          console.log("com");
             this.setState({
                 likes: this.state.likes.concat(bebas.userId)
             });
@@ -224,7 +225,6 @@ class TweetComponent extends Component {
             userId: this.props.userId,
             tweetId: this.props.tweet._id
         };
-        console.log(this.props.userId);
         const tweetLikesLength = this.state.likes;
         const checkValidID = tweetLikesLength.includes(userId);
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
@@ -240,7 +240,6 @@ class TweetComponent extends Component {
                 .then(res => {
                     this.setState({
                         checkLikes: false,
-                        black: true
                     });
                     socket.emit('unlike', likeData)
                 })
@@ -256,7 +255,6 @@ class TweetComponent extends Component {
                 .then(res => {
                     this.setState({
                         checkLikes: true,
-                        black: false
                     });
                     socket.emit('sendLike', likeData)
                 })
@@ -268,7 +266,7 @@ class TweetComponent extends Component {
             if (this.props.tweet.likes.includes(this.props.userId)) {
                 // IF yang ini, cek kondisi skrg, kalo [] mengadung, maka warna nya merah
                 this.setState({
-                    black: "redColor"
+                    black: "cyanColor"
                 })
             }
             else {
@@ -281,7 +279,7 @@ class TweetComponent extends Component {
             if (this.state.likes.includes(this.props.userId)) {
                 // Ini cek state likes nya mengandung id dia ga atau ada ga id dia di sana?
                 this.setState({
-                    black: "redColor"
+                    black: "cyanColor"
                 })
             }
             else {
@@ -322,11 +320,11 @@ class TweetComponent extends Component {
                                                     onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
                                         >
                                             <Icon name='like'/>
-                                                {!this.state.likes ?
-                                                    tweet.likes.length + " Likes"
-                                                    :
-                                                    this.state.likes.length + " Likes"
-                                                }
+                                        {!this.state.likes ?
+                                          tweet.likes.length + " Likes"
+                                          :
+                                          this.state.likes.length + " Likes"
+                                        }
                                         </Icon.Group>
                                         <Icon.Group className="commentsIcon">
                                             {" "}<Icon name='comments'/> {" "} 0 Comments
@@ -345,7 +343,8 @@ class TweetComponent extends Component {
                 </Card>
                 <ModalTwitt
                     isOpen={this.state.modalTweet}
-                    tweet={this.state.tweet}
+                    tweet={this.props.tweet}
+                    likes={this.state.likes}
                     isClose={this.closeModalTweet}
                     profilePicture={this.props.profilePicture}
                 />
