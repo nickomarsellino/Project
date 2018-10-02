@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
+import Loading from '../../LoadingGif.gif';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 //load another component
@@ -47,6 +48,9 @@ class Twitt_Container extends Component {
                 const allTweetData = this.state.tweetData;
                 const newTweetData = [namavariabel].concat(allTweetData);
 
+                console.log("INPUTAN DATA: ",namavariabel.likes);
+                console.log("DATA YANG SEKARANG: ",newTweetData);
+
                 this.setState({tweetData: newTweetData});
             })
         }
@@ -80,6 +84,7 @@ class Twitt_Container extends Component {
                         lengthData: res.data.docs.length,
                         isLoading:false
                     })
+                console.log("DATANYA: ", res.data.docs);
             });
     }
 
@@ -139,9 +144,7 @@ class Twitt_Container extends Component {
                     hasMore={this.state.hasMore}
                 >
                     {this.state.tweetData.map(tweet =>
-                        <TweetComponent
-                                        key={tweet._id}
-                                        tweet={tweet}
+                        <TweetComponent tweet={tweet}
                                         history={this.props.history}
                                         userId={this.props.userId}
                                         profilePicture={this.props.profilePicture}

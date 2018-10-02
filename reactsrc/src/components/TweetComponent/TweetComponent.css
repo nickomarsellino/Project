@@ -16,6 +16,7 @@
 }
 
 #tweetText {
+    white-space: pre;
     word-wrap: break-word;
     max-width: 840px;
 }
