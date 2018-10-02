@@ -53,6 +53,9 @@ class Twitt_Container extends Component {
                 const allTweetData = this.state.tweetData;
                 const newTweetData = [namavariabel].concat(allTweetData);
 
+                console.log("INPUTAN DATA: ",namavariabel.likes);
+                console.log("DATA YANG SEKARANG: ",newTweetData);
+
                 this.setState({tweetData: newTweetData});
             })
         }
@@ -86,6 +89,7 @@ class Twitt_Container extends Component {
                         lengthData: res.data.docs.length,
                         isLoading:false
                     })
+                console.log("DATANYA: ", res.data.docs);
             });
     }
 
@@ -133,28 +137,28 @@ class Twitt_Container extends Component {
 
 
     render() {
-      if(this.state.isLoading){
-        return null
-      }
+        if(this.state.isLoading){
+            return null
+        }
 
-      return (
-      <div id="scrollableDiv" style={{ overflow: "auto" }}>
-           <InfiniteScroll
+        return (
+            <div id="scrollableDiv" style={{ overflow: "auto" }}>
+                <InfiniteScroll
                     dataLength={this.state.lengthData}
                     next={this.fetchMoreData}
                     hasMore={this.state.hasMore}
                 >
-                  {this.state.tweetData.map(tweet =>
-                  <TweetComponent tweet={tweet}
-                                  history={this.props.history}
-                                  userId={this.props.userId}
-                                  profilePicture={this.props.profilePicture}
-                                  located="home"/>
-                  )}
-        </InfiniteScroll>
-      </div>
-    );
-  }
+                    {this.state.tweetData.map(tweet =>
+                        <TweetComponent tweet={tweet}
+                                        history={this.props.history}
+                                        userId={this.props.userId}
+                                        profilePicture={this.props.profilePicture}
+                                        located="home"/>
+                    )}
+                </InfiniteScroll>
+            </div>
+        );
+    }
 
 }
 

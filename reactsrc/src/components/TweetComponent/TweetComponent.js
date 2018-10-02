@@ -4,7 +4,6 @@ import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './TweetComponent.css';
-import Loading from '../../LoadingGif.gif';
 
 
 //load another component
@@ -14,7 +13,7 @@ import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 const Timestamp = require('react-timestamp');
 
@@ -45,6 +44,7 @@ class TweetComponent extends Component {
 
 
     componentDidMount() {
+        console.log("DATANYA COMPONENT: ", this.props.tweet);
         this.setState({
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
@@ -63,7 +63,7 @@ class TweetComponent extends Component {
         socket.on(this.props.tweet._id + "unlike", bebas => {
             let likeList = []
             for (var unlike in this.state.likes) {
-                if (this.state.likes[unlike] != bebas.userId) {
+                if (this.state.likes[unlike] !== bebas.userId) {
                     likeList.push(this.state.likes[unlike])
                 }
             }
@@ -121,6 +121,7 @@ class TweetComponent extends Component {
     }
 
     viewUserProfile(username, userId) {
+
         if (this.props.located === "home") {
             //Jika id di container sam dengan yang login sekarang akan ke page "My Profile"
             if (userId === this.props.userId) {
@@ -147,7 +148,22 @@ class TweetComponent extends Component {
     }
 
     viewTweetPicture(tweetPicture, userId) {
-        if (this.props.located === "profile") {
+        const name = this.props.tweet.username.replace(' ', '');
+
+        if (window.location.href === "http://localhost:3001/home/profile/"+name) {
+            if (tweetPicture) {
+                return (
+                    <center>
+                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                               id="tweetImage"
+                               onClick={() => this.openModalTweet(userId)}
+                        />
+                    </center>
+                );
+            }
+        }
+
+        else if (window.location.href === "http://localhost:3001/home/myProfile/"+name){
             if (tweetPicture) {
                 return (
                     <center>

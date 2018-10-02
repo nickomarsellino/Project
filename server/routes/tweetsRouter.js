@@ -69,8 +69,8 @@ router.post('/posting', (req, res, next) => {
             username: result.username,
             tweetText: result.tweetText,
             timestamp: new Date(),
-            checkLikes: '',
-            result:result,
+            checkLikes: result.checkLikes,
+            likes:result.likes,
             message: 'Tweet posted successfully..!',
             profilePicture: result.profilePicture
         });

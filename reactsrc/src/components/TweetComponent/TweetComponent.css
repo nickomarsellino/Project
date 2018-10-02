@@ -16,6 +16,7 @@
 }
 
 #tweetText {
+    white-space: pre;
     word-wrap: break-word;
     max-width: 840px;
     white-space: pre;
@@ -47,6 +48,11 @@
     display: inline-block;
     word-wrap: break-word;
     width: 72%;
+}
+
+#tweetImage{
+    width: 60%;
+    margin-bottom: 10px;
 }
 
 .buttonTweetBox {
