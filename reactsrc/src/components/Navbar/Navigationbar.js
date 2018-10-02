@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Icon} from 'semantic-ui-react'
 import logo from '../../logo.png';
 import {Link} from 'react-router-dom';
 import {
@@ -23,33 +24,35 @@ class Navigationbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isSearch : false,
             userName: "",
             userId: "",
             collapse: false,
             isWideEnough: false,
-            dropdownOpen: false
+            dropdownOpen: false,
+            profilePicture: ""
         };
         this.onClick = this.onClick.bind(this);
         this.toggle = this.toggle.bind(this);
         this.logout = this.logout.bind(this);
+        this.searchClicked = this.searchClicked.bind(this);
     }
 
-    getData() {
-        // console.log(this.props.userId);
+    getProfilePicture() {
         axios.get('/api/users', {
-            credentials: 'include',
             withCredentials: true
         })
             .then(res => {
                 this.setState({
                     userName: res.data.username,
-                    userId: res.data._id
+                    userId: res.data._id,
+                    profilePicture: res.data.profilePicture
                 });
             });
     }
 
     componentWillMount() {
-        this.getData();
+        this.getProfilePicture();
     }
 
     onClick() {
@@ -68,33 +71,94 @@ class Navigationbar extends Component {
         axios.get('/api/users/logout');
     }
 
+    searchClicked(){
+        this.setState({ isSearch: !this.state.isSearch });
+    }
+
+    isSearch(){
+
+
+        if(window.location.href === "http://localhost:3001/home/search/"){
+            if (this.state.isSearch) {
+                return (
+                    <Link to={'/home'} >
+                        <Icon name='cancel'
+                              size='large'
+                              id="cancelIcon"
+                              onClick={this.searchClicked}/>
+                    </Link>
+                );
+            }
+            else{
+                return (
+                    <Link to={'/home/search/'} >
+                        <Icon name='search'
+                              size='large'
+                              id="searchIcon"
+                              onClick={this.searchClicked}/>
+                    </Link>
+                );
+            }
+        }
+        else{
+            return (
+                <Link to={'/home/search/'} >
+                    <Icon name='search'
+                          size='large'
+                          id="searchIcon"
+                          onClick={this.searchClicked}/>
+                </Link>
+            );
+        }
+    }
+
+
     render() {
+
+        let imageUrl = this.state.profilePicture;
+      let imagedisplay
+
+      if(imageUrl){
+          imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+      }
+      else{
+        imagedisplay = <img alt=" " src={profile} />
+      }
+
         if (this.props.success) {
             return (
                 <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
-                    <NavbarBrand href="/">
+                    <NavbarBrand href="/home">
                         <img src={logo} alt="" height="30px"/>
-                        Friend Zone ?
+                        Media Social
                     </NavbarBrand>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>
-                                <Link to={'/home/profile/' + this.state.userName}>
-                                    <Image className="navProfile" src={profile} avatar={true}/>
-                                    <span className="navProfile">{this.state.userName}</span>
+                                <div className="buttonContainer">
+                                    {this.isSearch(this.state.isSearch)}
+                                </div>
+                            </NavItem>
+
+                            <NavItem>
+                                <Link to={'/home/myProfile/' + this.state.userName.replace(' ', '')}>
+                                    <Image className="navProfile" id="ProfilePicture" src={profile} avatar={true}>
+                                        {imagedisplay}
+                                    </Image>
+                                    <span className="navProfile" id="ProfileName">{this.state.userName}</span>
                                 </Link>
 
                                 <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                    <DropdownToggle nav={true} caret={true}></DropdownToggle>
+                                    <DropdownToggle nav={true} caret={true}/>
                                     <DropdownMenu>
 
                                         <DropdownItem>
-                                            <Link to={'/home/editProfile/' + this.state.userName}>
+                                            <Link to={'/home/editProfile/' + this.state.userName.replace(' ', '')}>
                                                 Edit Profile
                                             </Link>
                                         </DropdownItem>
                                         <DropdownItem>
-                                            <Link to={'/home/changePassword/' + this.state.userName}>
+                                            <Link to={'/home/changePassword/' + this.state.userName.replace(' ', '')}>
                                                 Change Password
                                             </Link>
                                         </DropdownItem>
@@ -112,7 +176,7 @@ class Navigationbar extends Component {
         }
         else {
             return (<Navbar light={true} color="teal lighten-2" dark={true} expand="md" scrolling={true}>
-                <NavbarBrand href="/">
+                <NavbarBrand href="/home">
                     <img src={logo} alt="" height="40px"/>
                     Friend Zone ?
                 </NavbarBrand>
