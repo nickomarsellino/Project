@@ -59,7 +59,8 @@ class Edit_Profile extends Component {
                     profilePicture: user.profilePicture
                 });
             });
-            this.setState({tweetUserId: this.props.userId,
+            this.setState({
+                tweetUserId: this.props.userId,
                 userLoginId:this.props.userId})
         }
 
@@ -75,7 +76,10 @@ class Edit_Profile extends Component {
                     profilePicture: user.profilePicture
                 });
             });
-            this.setState({tweetUserId: this.props.userIdProfile.userId, userLoginId:this.props.userLoginId})
+            this.setState({
+                tweetUserId: this.props.userIdProfile.userId,
+                userLoginId:this.props.userLoginId
+            })
         }
     }
 
@@ -126,6 +130,8 @@ class Edit_Profile extends Component {
 
 
     render() {
+        console.log(this.state.tweetUserId);
+        console.log(this.state.userLoginId);
 
         let imageUrl = this.state.profilePicture;
         let imagedisplay

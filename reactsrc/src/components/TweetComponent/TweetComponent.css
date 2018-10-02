@@ -18,6 +18,7 @@
 #tweetText {
     word-wrap: break-word;
     max-width: 840px;
+    white-space: pre;
 }
 
 #tweetText:hover {

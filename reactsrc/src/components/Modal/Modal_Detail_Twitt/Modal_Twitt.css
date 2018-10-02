@@ -10,6 +10,25 @@
 
 #nameBox{
     color: black;
+    font-size: 20px;
+}
+
+.blackColor{
+   color: black;
+}
+
+.redColor{
+   color: red;
+}
+
+#likesIcon{
+    font-style: italic;
+    margin-right: 5px;
+}
+
+#likesIcon:hover{
+    color: #f70010;
+    cursor: pointer;
 }
 
 #buttonGroup{
@@ -17,6 +36,9 @@
     opacity: 0.6;
 }
 
+.text-warp{
+    white-space: pre;
+}
 
 .commentBox{
     margin-top: 10px;
