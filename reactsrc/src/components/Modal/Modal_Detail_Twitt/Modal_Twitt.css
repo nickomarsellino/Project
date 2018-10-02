@@ -17,8 +17,8 @@
    color: black;
 }
 
-.greenColor{
-   color: green;
+.redColor{
+   color: red;
 }
 
 #likesIcon{
@@ -36,6 +36,9 @@
     opacity: 0.6;
 }
 
+.text-warp{
+    white-space: pre;
+}
 
 .commentBox{
     margin-top: 10px;

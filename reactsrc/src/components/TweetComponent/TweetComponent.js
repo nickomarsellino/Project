@@ -266,7 +266,7 @@ class TweetComponent extends Component {
             if (this.props.tweet.likes.includes(this.props.userId)) {
                 // IF yang ini, cek kondisi skrg, kalo [] mengadung, maka warna nya merah
                 this.setState({
-                    black: "cyanColor"
+                    black: "redColor"
                 })
             }
             else {
@@ -279,7 +279,7 @@ class TweetComponent extends Component {
             if (this.state.likes.includes(this.props.userId)) {
                 // Ini cek state likes nya mengandung id dia ga atau ada ga id dia di sana?
                 this.setState({
-                    black: "cyanColor"
+                    black: "redColor"
                 })
             }
             else {
@@ -346,6 +346,7 @@ class TweetComponent extends Component {
                     tweet={this.props.tweet}
                     likes={this.state.likes}
                     isClose={this.closeModalTweet}
+                    userId={this.props.userId}
                     profilePicture={this.props.profilePicture}
                 />
 

@@ -23,7 +23,7 @@ class Modal_Twitt extends Component {
             userLoginId: '',
             tweet: [],
             checkLikes: false,
-            black: 'greenColor',
+            black: 'blackColor',
             likes: this.props.likes
         };
         this.openModal = this.openModal.bind(this);
@@ -31,8 +31,6 @@ class Modal_Twitt extends Component {
     }
 
     componentDidMount(){
-      console.log("this.props.tweet.likes.length ",this.props.tweet);
-
         this.setState({
             userLoginId: localStorage.getItem("myThings"),
             tweet: this.props.tweet,
@@ -40,7 +38,6 @@ class Modal_Twitt extends Component {
         })
 
         socket.on(this.props.tweet._id + 'like', bebas => {
-          console.log("modal");
             this.setState({
                 likes: this.state.likes.concat(bebas.userId)
             });
@@ -115,24 +112,33 @@ class Modal_Twitt extends Component {
 
     likeIkonColor() {
         if (this.state.likes === null) {
+            if (this.props.tweet.likes.includes(this.props.userId)) {
+                // IF yang ini, cek kondisi skrg, kalo [] mengadung, maka warna nya merah
                 this.setState({
-                    black: "blackColor"
+                    black: "redColor"
                 })
-                console.log("IJO");
-        }
-        else {
-            if (this.state.likes.includes(this.state.userLoginId)) {
-                // Ini cek state likes nya mengandung id dia ga atau ada ga id dia di sana?
-                this.setState({
-                    black: "greenColor"
-                })
-                console.log("Ijo di ELSE");
+                console.log("1");
             }
             else {
                 this.setState({
                     black: "blackColor"
                 })
-                console.log("Item di ELSE");
+                console.log("2");
+            }
+        }
+        else {
+            if (this.state.likes.includes(this.props.userId)) {
+                // Ini cek state likes nya mengandung id dia ga atau ada ga id dia di sana?
+                this.setState({
+                    black: "redColor"
+                })
+                console.log("3");
+            }
+            else {
+                this.setState({
+                    black: "blackColor"
+                })
+                console.log("4");
             }
         }
     }
@@ -171,8 +177,6 @@ class Modal_Twitt extends Component {
     }
 
     render() {
-      console.log("this.state.likes ",this.state.black);
-      console.log(this.props.likes);
         return (
             <Container>
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal}>
