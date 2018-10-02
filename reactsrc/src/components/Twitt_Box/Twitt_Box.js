@@ -115,7 +115,7 @@ class Twitt_Box extends Component {
                         //     tweetPicture : result.data.tweetPicture
                         // }
                         //
-                        // socket.emit('sendTheData', tweetDataAndImage);
+                        // socket.emit('sendTheData', result.data);
                     })
                     .catch(() => {
                         socket.emit('sendTheData', response.data);
@@ -128,6 +128,7 @@ class Twitt_Box extends Component {
     }
 
     fileSelectedHandler = event => {
+
         // Check kalo ada file nya (image)
         if (event.target.files != null || event.target.files[0] != null) {
             // ini buat get image nya
@@ -137,10 +138,17 @@ class Twitt_Box extends Component {
         }
         else {
             this.setState({
-                selectedFile: ''
+                selectedFile: event.target.files[0]
             });
         }
     };
+
+    handleCancel(){
+        this.setState({
+            selectedFile: ''
+        });
+    }
+
 
     render() {
 
@@ -183,7 +191,15 @@ class Twitt_Box extends Component {
                                         <Icon corner name='add'/>
                                     </Icon.Group>
                                     <span>
-                                        <p id="imageName">{this.state.selectedFile.name}</p>
+                                        <p id="imageName">
+                                            {!this.state.selectedFile.name?
+                                                this.state.selectedFile.name
+                                                :
+                                                <p>{this.state.selectedFile.name}
+                                                    {" "}<Icon link name='cancel' id="cancelPicture" onClick={this.handleCancel.bind(this)}/>
+                                                </p>
+                                            }
+                                        </p>
                                     </span>
                                 </div>
                                 <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />

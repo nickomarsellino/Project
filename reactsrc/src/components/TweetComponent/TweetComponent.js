@@ -44,7 +44,6 @@ class TweetComponent extends Component {
 
 
     componentDidMount() {
-        console.log("DATANYA COMPONENT: ", this.props.tweet);
         this.setState({
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
@@ -52,7 +51,6 @@ class TweetComponent extends Component {
 
         // Untuk Like
         socket.on(this.props.tweet._id + 'like', bebas => {
-          console.log("com");
             this.setState({
                 likes: this.state.likes.concat(bebas.userId)
             });
