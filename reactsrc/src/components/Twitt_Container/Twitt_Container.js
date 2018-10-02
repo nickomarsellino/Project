@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {Card, CardBody} from "mdbreact"
+import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
@@ -11,7 +13,7 @@ import TweetComponent from '../TweetComponent/TweetComponent';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 
 class Twitt_Container extends Component {
@@ -40,9 +42,12 @@ class Twitt_Container extends Component {
 
     componentWillMount() {
         if (this.props.TweetUserId) {
+            console.log("BUKA PROFILE");
+            console.log("Ini ID Profile: ",this.props.TweetUserId);
             this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
+            console.log("BUKA HOME");
             this.getTweetData();
             socket.on('getData', namavariabel => {
                 const allTweetData = this.state.tweetData;
