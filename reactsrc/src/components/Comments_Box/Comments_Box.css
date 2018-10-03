@@ -39,3 +39,8 @@
     width: 2.5em;
     height: 2.5em;
 }
+
+.ui.comments {
+    margin: 0 0;
+    max-width: 650px;
+}

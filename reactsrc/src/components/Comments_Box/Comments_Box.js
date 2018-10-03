@@ -111,7 +111,7 @@ class Comments_Box extends Component {
                     maxLength="160"
                     control={TextArea}
                     placeholder="Write A Comment..."
-                    style={{maxHeight: "60px", minHeight: "50px", marginBottom: "10px"}}
+                    style={{maxHeight: "60px", minHeight: "50px"}}
                     name="userTweet"
                     onChange={this.handleInputChange}
                 />
