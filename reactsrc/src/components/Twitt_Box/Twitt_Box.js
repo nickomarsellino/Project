@@ -10,7 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Twitt_Box extends Component {
 
@@ -115,7 +115,7 @@ class Twitt_Box extends Component {
                         //     tweetPicture : result.data.tweetPicture
                         // }
                         //
-                        // socket.emit('sendTheData', result.data);
+                       // socket.emit('sendTheData', response.data);
                     })
                     .catch(() => {
                         socket.emit('sendTheData', response.data);

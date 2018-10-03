@@ -6,7 +6,6 @@ import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 
-
 class Comments_Box extends Component {
 
     constructor(props) {
@@ -145,6 +144,8 @@ class Comments_Box extends Component {
                         </div>
                     </span>
                 </div>
+
+
             </Form>
         );
     }
