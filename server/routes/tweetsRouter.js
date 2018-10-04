@@ -108,7 +108,6 @@ router.put('/postingImage/:id', upload.single('tweetPicture'), (req, res) => {
 
 
 router.delete('/tweet/:id', (req, res, next) => {
-
     Tweet.find({_id: req.params.id}, 'tweetPicture').then((result) => {
         if(result[0].tweetPicture.length === 0){
             Tweet.findByIdAndRemove({_id: req.params.id}).then((result) => {
@@ -207,5 +206,33 @@ router.put('/unlikeTweet/:id', (req,res) => {
       res.json(user);
     });
   })
+
+  router.put('/commentTweet/:id', (req,res) => {
+      Tweet.findByIdAndUpdate( {_id: req.params.id},
+        {$push: {
+            comments: {
+              'userId': req.body.userId,
+              'username': req.body.username,
+              'commentText': req.body.commentText,
+              'profilePicture': req.body.profilePicture,
+              'timstamp': new Date()
+            }
+        }}, {new: true}, function (err, user) {
+        if (err) {
+          return res.send(err)
+        };
+        res.json(user);
+      });
+    })
+
+  router.put('/deleteCommentTweet/:id', (req,res) => {
+      Tweet.findByIdAndUpdate( {_id: req.params.id},
+        {$pull: {comments:  { _id: req.body._id} }}, {new: true}, function (err, user) {
+        if (err) {
+          return res.send(err)
+        };
+        res.json(user);
+      });
+    })
 
 module.exports = router;
