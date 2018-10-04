@@ -44,7 +44,6 @@ class TweetComponent extends Component {
     }
 
     componentDidMount() {
-        console.log("DATANYA COMPONENT: ", this.props.tweet);
         this.setState({
             tweet: this.props.tweet,
             likes: this.props.tweet.likes

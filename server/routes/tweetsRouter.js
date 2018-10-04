@@ -97,8 +97,10 @@ router.put('/postingImage/:id', upload.single('tweetPicture'), (req, res) => {
     }).exec();
 
     if (req.file.filename){
-        res.send({
-            tweetPicture : req.file.filename
+        Tweet.findById(req.params.id).then((result) => {
+            res.json(result);
+        }).catch((err) => {
+            res.status(404).json({success: false, msg: `No such tweets.`});
         });
     }
 });

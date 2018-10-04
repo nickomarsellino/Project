@@ -121,6 +121,7 @@ class Comments_Box extends Component {
                     placeholder="Write A Comment..."
                     style={{maxHeight: "60px", minHeight: "50px", marginBottom: "10px"}}
                     name="commentText"
+
                     onChange={this.handleInputChange}
                     onKeyPress={event => {
                         if (event.key === "Enter") {
@@ -157,6 +158,8 @@ class Comments_Box extends Component {
                         </div>
                     </span>
                 </div>
+
+
             </Form>
         );
     }
