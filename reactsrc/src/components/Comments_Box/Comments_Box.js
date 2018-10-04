@@ -4,8 +4,7 @@ import profile from '../../daniel.jpg';
 import './Comments_Box.css'
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-
-
+import axios from "axios/index";
 
 class Comments_Box extends Component {
 
@@ -13,21 +12,21 @@ class Comments_Box extends Component {
         super(props);
         this.state = {
             tweetStatus: '#4db6ac',
-            charCounter: 160,
-            userId: '',
-            username: '',
-            userTweet: '',
-            profilePicture: '',
+            charCounter: 100,
+            userId: this.props.userId,
+            username: this.props.username,
+            commentText: '',
+            profilePicture: this.props.profilePicture,
+            timstamp: '',
+            allComments: this.props.tweet.comments,
             tweetImage: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentWillMount() {
         const userId = this.props.userId;
         const username = this.props.username;
-
         this.setState({
             userId: userId,
             username: username,
@@ -36,51 +35,37 @@ class Comments_Box extends Component {
     }
 
     handleInputChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value,
-            charCounter: 160 - e.target.value.length
-        });
-
-        if (this.state.charCounter > 70) {
+        if (this.state.charCounter > 50) {
             this.setState({
                 tweetStatus: '#4db6ac'
             });
         }
-        if (this.state.charCounter < 70) {
+        if (this.state.charCounter < 50) {
             this.setState({
                 tweetStatus: '#ffbe76'
             });
         }
-        if (this.state.charCounter < 30) {
+        if (this.state.charCounter < 50) {
             this.setState({
                 tweetStatus: '#ff7675'
             });
         }
-        if (this.state.charCounter === 160) {
+        if (this.state.charCounter === 100) {
             this.setState({
-                userTweet: '',
+                commentText: '',
                 tweetStatus: '#4db6ac'
             });
         }
-        if (e.target.value.length > 160) {
+        if (e.target.value.length > 100) {
             this.setState({
-                userTweet: '',
+                commentText: '',
                 tweetStatus: '#ff7675'
             });
         }
-    }
-
-    handleSubmit(e) {
-
-        e.preventDefault();
-
-        const tweetData = {
-            tweetText: this.state.userTweet,
-            profilePicture: this.props.profilePicture
-        };
-
-        console.log(tweetData);
-
+        this.setState({
+            [e.target.name]: e.target.value,
+            charCounter: 100 - e.target.value.length
+        });
     }
 
     setProfileImage(profilePicture) {
@@ -98,7 +83,29 @@ class Comments_Box extends Component {
         }
     }
 
+    comment() {
+        const commentData = {
+            userId: this.props.userId,
+            username: this.props.username,
+            commentText: this.state.commentText,
+            profilePicture: this.props.profilePicture,
+            timestamp: new Date()
+        };
+        axios({
+            method: 'PUT',
+            responseType: 'json',
+            url: `api/tweet/commentTweet/` + this.props.tweet._id,
+            data: commentData
+        })
+        .then(res => {
+            this.setState({
+                commentText: ''
+            });
+        })
+    }
+
     render() {
+      console.log(this.state.allComments);
         return (
             <Form id="Comment_Container" onSubmit={this.handleSubmit}>
                 <Image avatar id="avatarBoxComment">
@@ -106,15 +113,20 @@ class Comments_Box extends Component {
                 </Image>
 
                 <Form.Field
-                    value={this.state.userTweet}
+                    value={this.state.commentText}
                     id='boxComment'
                     type="text"
-                    maxLength="160"
+                    maxLength="100"
                     control={TextArea}
                     placeholder="Write A Comment..."
                     style={{maxHeight: "60px", minHeight: "50px", marginBottom: "10px"}}
-                    name="userTweet"
+                    name="commentText"
                     onChange={this.handleInputChange}
+                    onKeyPress={event => {
+                        if (event.key === "Enter") {
+                            this.comment();
+                        }
+                    }}
                 />
 
                 <div className="buttonCommentBox">

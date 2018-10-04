@@ -81,6 +81,9 @@
     opacity: 0.6;
 }
 
+.blueColor{
+  color: #008ef7;
+}
 
 .blackColor{
    color: black;
@@ -96,7 +99,6 @@
 }
 
 #likesIcon:hover{
-    color: #f70010;
     cursor: pointer;
 }
 
@@ -108,16 +110,16 @@
 
 
 
-.commentsIcon{
+#commentsIcon{
     margin-left: 15px;
 }
 
-.commentsIcon:hover{
+#commentsIcon:hover{
     color: #008ef7;
     cursor: pointer;
 }
 
-.commentsIcon:active{
+#commentsIcon:active{
     position: relative;
     top: 1px;
 }

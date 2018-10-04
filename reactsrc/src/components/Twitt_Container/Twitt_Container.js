@@ -136,7 +136,6 @@ class Twitt_Container extends Component {
       if(this.state.isLoading){
         return null
       }
-
       return (
       <div id="scrollableDiv" style={{ overflow: "auto" }}>
            <InfiniteScroll
@@ -149,6 +148,7 @@ class Twitt_Container extends Component {
                                   history={this.props.history}
                                   userId={this.props.userId}
                                   profilePicture={this.props.profilePicture}
+                                  username={this.props.username}
                                   located="home"/>
                   )}
         </InfiniteScroll>
