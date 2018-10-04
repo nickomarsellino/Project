@@ -139,29 +139,28 @@ class Twitt_Container extends Component {
 
 
     render() {
-        if(this.state.isLoading){
-            return null
-        }
-
-        return (
-            <div id="scrollableDiv" style={{ overflow: "auto" }}>
-                <InfiniteScroll
+      if(this.state.isLoading){
+        return null
+      }
+      return (
+      <div id="scrollableDiv" style={{ overflow: "auto" }}>
+           <InfiniteScroll
                     dataLength={this.state.lengthData}
                     next={this.fetchMoreData}
                     hasMore={this.state.hasMore}
                 >
-                    {this.state.tweetData.map(tweet =>
-                        <TweetComponent tweet={tweet}
-                                        history={this.props.history}
-                                        userId={this.props.userId}
-                                        profilePicture={this.props.profilePicture}
-                                        located="home"/>
-                    )}
-                </InfiniteScroll>
-            </div>
-        );
-    }
-
+                  {this.state.tweetData.map(tweet =>
+                  <TweetComponent tweet={tweet}
+                                  history={this.props.history}
+                                  userId={this.props.userId}
+                                  profilePicture={this.props.profilePicture}
+                                  username={this.props.username}
+                                  located="home"/>
+                  )}
+        </InfiniteScroll>
+      </div>
+    );
+  }
 }
 
 export default Twitt_Container;
