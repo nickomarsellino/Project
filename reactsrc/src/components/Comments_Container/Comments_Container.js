@@ -29,7 +29,6 @@ class Comments_Container extends Component {
 
                     <Icon name='trash' id="trashIcon"/>
                 </Comment>
-                <hr/>
               )}
           </Comment.Group>
         )
