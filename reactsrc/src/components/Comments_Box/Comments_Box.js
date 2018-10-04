@@ -105,7 +105,6 @@ class Comments_Box extends Component {
     }
 
     render() {
-      console.log(this.state.allComments);
         return (
             <Form id="Comment_Container" onSubmit={this.handleSubmit}>
                 <Image avatar id="avatarBoxComment">
@@ -121,6 +120,7 @@ class Comments_Box extends Component {
                     placeholder="Write A Comment..."
                     style={{maxHeight: "60px", minHeight: "50px", marginBottom: "10px"}}
                     name="commentText"
+
                     onChange={this.handleInputChange}
                     onKeyPress={event => {
                         if (event.key === "Enter") {
@@ -157,6 +157,8 @@ class Comments_Box extends Component {
                         </div>
                     </span>
                 </div>
+
+
             </Form>
         );
     }

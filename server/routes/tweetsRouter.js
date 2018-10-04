@@ -97,8 +97,10 @@ router.put('/postingImage/:id', upload.single('tweetPicture'), (req, res) => {
     }).exec();
 
     if (req.file.filename){
-        res.send({
-            tweetPicture : req.file.filename
+        Tweet.findById(req.params.id).then((result) => {
+            res.json(result);
+        }).catch((err) => {
+            res.status(404).json({success: false, msg: `No such tweets.`});
         });
     }
 });
@@ -213,7 +215,7 @@ router.put('/unlikeTweet/:id', (req,res) => {
               'username': req.body.username,
               'commentText': req.body.commentText,
               'profilePicture': req.body.profilePicture,
-              'timstamp': new Date()
+              'commentTimestamp': Date.now()
             }
         }}, {new: true}, function (err, user) {
         if (err) {

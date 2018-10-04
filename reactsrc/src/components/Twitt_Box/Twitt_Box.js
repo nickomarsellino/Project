@@ -10,7 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Twitt_Box extends Component {
 
@@ -115,7 +115,7 @@ class Twitt_Box extends Component {
                         //     tweetPicture : result.data.tweetPicture
                         // }
                         //
-                        // socket.emit('sendTheData', tweetDataAndImage);
+                       // socket.emit('sendTheData', response.data);
                     })
                     .catch(() => {
                         socket.emit('sendTheData', response.data);
@@ -128,6 +128,7 @@ class Twitt_Box extends Component {
     }
 
     fileSelectedHandler = event => {
+
         // Check kalo ada file nya (image)
         if (event.target.files != null || event.target.files[0] != null) {
             // ini buat get image nya
@@ -137,10 +138,17 @@ class Twitt_Box extends Component {
         }
         else {
             this.setState({
-                selectedFile: ''
+                selectedFile: event.target.files[0]
             });
         }
     };
+
+    handleCancel(){
+        this.setState({
+            selectedFile: ''
+        });
+    }
+
 
     render() {
 
@@ -183,7 +191,15 @@ class Twitt_Box extends Component {
                                         <Icon corner name='add'/>
                                     </Icon.Group>
                                     <span>
-                                        <p id="imageName">{this.state.selectedFile.name}</p>
+                                        <p id="imageName">
+                                            {!this.state.selectedFile.name?
+                                                this.state.selectedFile.name
+                                                :
+                                                <p>{this.state.selectedFile.name}
+                                                    {" "}<Icon link name='cancel' id="cancelPicture" onClick={this.handleCancel.bind(this)}/>
+                                                </p>
+                                            }
+                                        </p>
                                     </span>
                                 </div>
                                 <input type="file" id="tweetImage" ref="fileUploader" style={{display: "none"}} onChange={this.fileSelectedHandler} />
