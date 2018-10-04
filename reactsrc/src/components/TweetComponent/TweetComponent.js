@@ -31,7 +31,7 @@ class TweetComponent extends Component {
             modalDelete: false,
             checkLikes: false,
             black: "blackColor",
-            commentColor: "blueColor"
+            commentColor: "blackColor"
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -280,19 +280,22 @@ class TweetComponent extends Component {
     }
 
     commentIkonColor(){
-        if(this.props.tweet.comments.length > 0 ){
-            this.setState({
-                commentColor: "blueColor"
-            })
-        }
-        else{
-            this.setState({
-                commentColor: "blackColor"
-            })
+
+        console.log("Ini Komen: ",this.props.tweet.comments);
+        console.log("userId: ",this.props.userId);
+
+        for(let i=0; i < this.props.tweet.comments.length; i++){
+            if(this.props.tweet.comments[i].userId.includes(this.props.userId)){
+                this.setState({
+                    commentColor: "blueColor"
+                })
+            }
         }
     }
 
     likeIkonColor() {
+        console.log("Ini Like: ",this.props.tweet.likes);
+
         if (this.state.likes === null) {
             if (this.props.tweet.likes.includes(this.props.userId)) {
                 // IF yang ini, cek kondisi skrg, kalo [] mengadung, maka warna nya merah

@@ -13,6 +13,14 @@ class Comments_Container extends Component {
         };
     }
 
+    buttonDeleteComment(id, userId){
+        if(localStorage.getItem("myThings") === userId){
+            return(
+                <Icon name='trash' id="trashIcon"/>
+            );
+        }
+    }
+
     render() {
       console.log(this.state.commentData);
         return (
@@ -28,7 +36,7 @@ class Comments_Container extends Component {
                          <Comment.Text>{comment.commentText}</Comment.Text>
                     </Comment.Content>
 
-                    <Icon name='trash' id="trashIcon"/>
+                    {this.buttonDeleteComment(comment._id, comment.userId)}
                     <hr/>
                 </Comment>
               )}
