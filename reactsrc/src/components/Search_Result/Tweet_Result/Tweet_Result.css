@@ -1,0 +1,73 @@
+.Tweet_Result {
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-top: 3px;
+    margin-bottom: 2px;
+}
+
+#text-warp{
+    word-wrap: break-word;
+}
+
+.ui.feed>.event>.label img {
+    border-radius: 50%;
+    width: 100%;
+    height: 60px;
+}
+
+#tweetText {
+    word-wrap: break-word;
+    max-width: 840px;
+}
+
+.Tweet-Delete {
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.Tweet_Container:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.Tweet {
+    padding: 10px;
+}
+
+.Tweet-Content {
+    display: inline-block;
+    word-wrap: break-word;
+    width: 72%;
+}
+
+.buttonTweetBox {
+    text-align: left;
+}
+
+#commentIcon {
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.5;
+    margin-right: 50px;
+}
+
+#recycleIcon {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#recycleIcon:hover {
+    color: #f70010;
+}
+
+#recycleIcon:active {
+    position: relative;
+    top: 1px;
+}
+
+#loadingGif{
+    width: 80px;
+}
+
+#tweetImage{
+    margin-bottom: 10px;
+}
