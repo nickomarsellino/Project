@@ -58,7 +58,7 @@ class Edit_Profile extends Component {
     }
 
     fileSelectedHandler = event => {
-        console.log(event.target.files[0]);
+        // console.log(event.target.files[0]);
 
         // Check kalo ada file nya (image)
         if (event.target.files != null || event.target.files[0] != null){
@@ -110,12 +110,11 @@ class Edit_Profile extends Component {
                 });
 
                 let formData = new FormData();
-
-                console.log("PAS CLICK SUBMIT: ", this.state.selectedFile);
-
                 formData.append('profilePicture', this.state.selectedFile);
 
-                console.log("PAS CLICK SUBMIT: ", formData);
+                // console.log("PAS CLICK SUBMIT: ", this.state.selectedFile);
+
+                // console.log("PAS CLICK SUBMIT: ", formData);
 
                 axios.put('/api/users/editProfilePicture/'+this.state.userId, formData)
                     .then((result) => {
@@ -166,7 +165,6 @@ class Edit_Profile extends Component {
         <h2 className="lead">No Image</h2>
       }
 
-{console.log("imageurl ", imageUrl);}
         return (
 
             <FadeIn>

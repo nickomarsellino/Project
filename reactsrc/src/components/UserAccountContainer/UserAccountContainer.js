@@ -66,8 +66,8 @@ class UserAccountContainer extends Component {
         return (
             <div className="peopleCards">
                 {this.state.userData.map(user =>
-                    <div className="col-lg-3 col-lg-offset-4 user-Container">
-                        <Card key={user._id}>
+                    <div className="col-lg-3 col-lg-offset-4 user-Container" key={user._id}>
+                        <Card>
                             <center>
                                 <Image style={{margin: "20px"}}
                                        onClick={() => this.viewUserProfile(user.username,user._id)}>
