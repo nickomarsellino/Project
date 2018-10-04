@@ -34,7 +34,7 @@ const TweetSchema = Schema({
         profilePicture:{
             type: String
         },
-        timstamp: {
+        commentTimestamp: {
             type: Date,
             default: Date.now()
         }

@@ -3,60 +3,36 @@ import {Comment, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
 import "./Comments_Container.css"
 
+const Timestamp = require('react-timestamp');
+
 class Comments_Container extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            commentData: '',
+            commentData: this.props.tweet.comments,
         };
     }
 
     render() {
+      console.log(this.state.commentData);
         return (
-            <Comment.Group size='small'>
+          <Comment.Group size='small'>
+              {this.state.commentData.map(comment =>
                 <Comment id="commentsContainer">
-                    <Comment.Avatar as='a' src={profile} id="commentAvatar"/>
+                    <Comment.Avatar as='a' src={comment.profilePicture} id="commentAvatar"/>
                     <Comment.Content>
-                        <Comment.Author as='a'>Matt</Comment.Author>
+                        <Comment.Author as='a'>{comment.username}</Comment.Author>
                         <Comment.Metadata>
-                            <span>Today at 5:42PM</span>
+                            <span>{<Timestamp time={comment.commentTimestamp} format='full'/>}</span>
                         </Comment.Metadata>
-                        <Comment.Text>How artistic!</Comment.Text>
+                         <Comment.Text>{comment.commentText}</Comment.Text>
                     </Comment.Content>
 
                     <Icon name='trash' id="trashIcon"/>
                 </Comment>
                 <hr/>
-
-                <Comment id="commentsContainer">
-                    <Comment.Avatar as='a' src={profile} id="commentAvatar"/>
-                    <Comment.Content>
-                        <Comment.Author as='a'>Matt</Comment.Author>
-                        <Comment.Metadata>
-                            <span>Today at 5:42PM</span>
-                        </Comment.Metadata>
-                        <Comment.Text>How artistic!</Comment.Text>
-                    </Comment.Content>
-
-                    <Icon name='trash' id="trashIcon"/>
-                </Comment>
-                <hr/>
-
-                <Comment id="commentsContainer">
-                    <Comment.Avatar as='a' src={profile} id="commentAvatar"/>
-                    <Comment.Content>
-                        <Comment.Author as='a'>Matt</Comment.Author>
-                        <Comment.Metadata>
-                            <span>Today at 5:42PM</span>
-                        </Comment.Metadata>
-                        <Comment.Text>How artistic!</Comment.Text>
-                    </Comment.Content>
-
-                    <Icon name='trash' id="trashIcon"/>
-                </Comment>
-                <hr/>
-
-            </Comment.Group>
+              )}
+          </Comment.Group>
         )
     }
 }

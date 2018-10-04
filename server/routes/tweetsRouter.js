@@ -215,7 +215,7 @@ router.put('/unlikeTweet/:id', (req,res) => {
               'username': req.body.username,
               'commentText': req.body.commentText,
               'profilePicture': req.body.profilePicture,
-              'timstamp': new Date()
+              'commentTimestamp': Date.now()
             }
         }}, {new: true}, function (err, user) {
         if (err) {
