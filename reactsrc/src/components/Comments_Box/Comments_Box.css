@@ -27,7 +27,7 @@
 }
 
 #avatarBoxComment{
-    width: 2.5em;
+    width: 3.5em;
     height: 4.0em;
 }
 
@@ -36,8 +36,8 @@
 }
 
 #avatarBoxComment img{
-    width: 2.5em;
-    height: 2.5em;
+    width: 3em;
+    height: 3em;
 }
 
 .ui.comments {
@@ -50,6 +50,7 @@
 
 .ui.comments .comment>.avatar~.content {
     margin-left: 1.5em;
+    padding-top: 5px;
 }
 
 .ui.comments .comment>.content {
@@ -72,4 +73,8 @@
 #trashIcon:active {
     position: relative;
     top: 1px;
+}
+
+#commentAvatar {
+    width: 8%;
 }
