@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Comment, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
+import "./Comments_Container.css"
 
 const Timestamp = require('react-timestamp');
 
@@ -28,8 +29,8 @@ class Comments_Container extends Component {
                     </Comment.Content>
 
                     <Icon name='trash' id="trashIcon"/>
+                    <hr/>
                 </Comment>
-                <hr/>
               )}
           </Comment.Group>
         )

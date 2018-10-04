@@ -44,37 +44,3 @@
     margin: 0 0;
     max-width: 650px;
 }
-
-#commentsContainer{
-}
-
-.ui.comments .comment>.avatar~.content {
-    margin-left: 1.5em;
-    padding-top: 5px;
-}
-
-.ui.comments .comment>.content {
-    display: inline-table;
-}
-
-#trashIcon{
-    margin-left: 275px;
-}
-
-#trashIcon {
-    cursor: pointer;
-    opacity: 0.5;
-}
-
-#trashIcon:hover {
-    color: #f70010;
-}
-
-#trashIcon:active {
-    position: relative;
-    top: 1px;
-}
-
-#commentAvatar {
-    width: 8%;
-}
