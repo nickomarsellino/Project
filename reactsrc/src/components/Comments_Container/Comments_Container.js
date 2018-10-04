@@ -13,7 +13,7 @@ class Comments_Container extends Component {
     render() {
         return (
             <Comment.Group size='small'>
-                <Comment>
+                <Comment id="commentsContainer">
                     <Comment.Avatar as='a' src={profile}/>
                     <Comment.Content>
                         <Comment.Author as='a'>Matt</Comment.Author>
@@ -24,7 +24,7 @@ class Comments_Container extends Component {
                     </Comment.Content>
                 </Comment>
 
-                <Comment>
+                <Comment id="commentsContainer">
                     <Comment.Avatar as='a' src={profile}/>
                     <Comment.Content>
                         <Comment.Author as='a'>Matt</Comment.Author>
@@ -35,7 +35,7 @@ class Comments_Container extends Component {
                     </Comment.Content>
                 </Comment>
 
-                <Comment>
+                <Comment id="commentsContainer">
                     <Comment.Avatar as='a' src={profile}/>
                     <Comment.Content>
                         <Comment.Author as='a'>Matt</Comment.Author>
