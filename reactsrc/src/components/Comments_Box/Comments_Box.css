@@ -45,8 +45,31 @@
     max-width: 650px;
 }
 
-/*#commentsContainer{*/
-    /*border-bottom-style: solid;*/
-    /*border-bottom-width: 0.2px;*/
-    /*border-bottom-color: #828282;*/
-/*}*/
+#commentsContainer{
+}
+
+.ui.comments .comment>.avatar~.content {
+    margin-left: 1.5em;
+}
+
+.ui.comments .comment>.content {
+    display: inline-table;
+}
+
+#trashIcon{
+    margin-left: 275px;
+}
+
+#trashIcon {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#trashIcon:hover {
+    color: #f70010;
+}
+
+#trashIcon:active {
+    position: relative;
+    top: 1px;
+}
