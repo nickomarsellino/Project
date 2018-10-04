@@ -24,7 +24,8 @@ class Modal_Twitt extends Component {
             tweet: [],
             checkLikes: false,
             black: 'blackColor',
-            likes: this.props.likes
+            likes: this.props.likes,
+            commentColor: "blueColor"
         };
         this.openModal = this.openModal.bind(this);
         this.likeIkonColor=this.likeIkonColor.bind(this);
@@ -36,6 +37,7 @@ class Modal_Twitt extends Component {
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
         })
+        this.commentIkonColor();
 
         socket.on(this.props.tweet._id + 'like', bebas => {
             this.setState({
@@ -110,6 +112,19 @@ class Modal_Twitt extends Component {
         }
     }
 
+    commentIkonColor(){
+        if(this.props.tweet.comments.length > 0 ){
+            this.setState({
+                commentColor: "blueColor"
+            })
+        }
+        else{
+            this.setState({
+                commentColor: "blackColor"
+            })
+        }
+    }
+
     likeIkonColor() {
         if (this.state.likes === null) {
             if (this.props.tweet.likes.includes(this.props.userId)) {
@@ -117,13 +132,11 @@ class Modal_Twitt extends Component {
                 this.setState({
                     black: "redColor"
                 })
-                console.log("1");
             }
             else {
                 this.setState({
                     black: "blackColor"
                 })
-                console.log("2");
             }
         }
         else {
@@ -132,7 +145,6 @@ class Modal_Twitt extends Component {
                 this.setState({
                     black: "redColor"
                 })
-                console.log("3");
             }
             else {
                 this.setState({
@@ -207,14 +219,19 @@ class Modal_Twitt extends Component {
                                 this.state.likes.length + " Likes"
                               }
                             </Icon.Group>
-                            <Icon.Group className="commentsIcon">
-                                {" "}<Icon name='comments'/> {" "} 10 Comments
+                            <Icon.Group  className={this.state.commentColor} id="commentsIcon">
+                                <Icon name='comments'/>{this.props.tweet.comments.length} Comments
                             </Icon.Group>
                         </div>
                         <hr/>
 
                         <div className="commentBox">
-                            <CommentsBox profilePicture={this.props.profilePicture}/>
+                            <CommentsBox
+                                profilePicture={this.props.profilePicture}
+                                userId={this.props.userId}
+                                username={this.props.username}
+                                tweet={this.props.tweet}
+                            />
                         </div>
 
                     </ModalBody>

@@ -92,6 +92,7 @@ class Home extends Component {
                                 located="home"
                                 history={this.props.history}
                                 profilePicture={this.state.profilePicture}
+                                username={this.state.username}
                 />
             </Container>
         );
