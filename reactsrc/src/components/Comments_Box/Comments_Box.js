@@ -105,7 +105,6 @@ class Comments_Box extends Component {
     }
 
     render() {
-      console.log(this.state.allComments);
         return (
             <Form id="Comment_Container" onSubmit={this.handleSubmit}>
                 <Image avatar id="avatarBoxComment">

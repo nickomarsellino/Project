@@ -323,7 +323,6 @@ class TweetComponent extends Component {
 
     render() {
         const tweet = this.props.tweet;
-        console.log(this.state.commentColor);
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
                 <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
