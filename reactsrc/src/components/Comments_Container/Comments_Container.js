@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Comment, Icon} from 'semantic-ui-react'
 import profile from '../../daniel.jpg';
+import "./Comments_Container.css"
 
 class Comments_Container extends Component {
     constructor(props) {
