@@ -129,9 +129,6 @@ class Edit_Profile extends Component {
 
 
     render() {
-        console.log(this.state.tweetUserId);
-        console.log(this.state.userLoginId);
-
         let imageUrl = this.state.profilePicture;
         let imagedisplay
 

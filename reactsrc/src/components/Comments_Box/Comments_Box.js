@@ -6,7 +6,6 @@ import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 
-
 class Comments_Box extends Component {
 
     constructor(props) {
@@ -112,7 +111,7 @@ class Comments_Box extends Component {
                     maxLength="160"
                     control={TextArea}
                     placeholder="Write A Comment..."
-                    style={{maxHeight: "60px", minHeight: "50px", marginBottom: "10px"}}
+                    style={{maxHeight: "60px", minHeight: "50px"}}
                     name="userTweet"
                     onChange={this.handleInputChange}
                 />
@@ -145,6 +144,8 @@ class Comments_Box extends Component {
                         </div>
                     </span>
                 </div>
+
+
             </Form>
         );
     }

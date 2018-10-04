@@ -8,10 +8,11 @@ import axios from 'axios';
 
 //load another component
 import CommentsBox from "../../Comments_Box/Comments_Box";
+import CommentsContainer from "../../Comments_Container/Comments_Container";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 const Timestamp = require('react-timestamp');
 
 
@@ -48,7 +49,7 @@ class Modal_Twitt extends Component {
         socket.on(this.props.tweet._id + "unlike", bebas => {
             let likeList = []
             for (var unlike in this.state.likes) {
-                if (this.state.likes[unlike] != bebas.userId) {
+                if (this.state.likes[unlike] !== bebas.userId) {
                     likeList.push(this.state.likes[unlike])
                 }
             }
@@ -79,7 +80,6 @@ class Modal_Twitt extends Component {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
         // Udabener ini
         if (checkValidID) {
-            console.log('UNLIKE');
             axios({
                 method: 'PUT',
                 responseType: 'json',
@@ -94,7 +94,6 @@ class Modal_Twitt extends Component {
                 })
         }
         else {
-            console.log('LIKE');
             axios({
                 method: 'PUT',
                 responseType: 'json',
@@ -117,13 +116,11 @@ class Modal_Twitt extends Component {
                 this.setState({
                     black: "redColor"
                 })
-                console.log("1");
             }
             else {
                 this.setState({
                     black: "blackColor"
                 })
-                console.log("2");
             }
         }
         else {
@@ -132,13 +129,11 @@ class Modal_Twitt extends Component {
                 this.setState({
                     black: "redColor"
                 })
-                console.log("3");
             }
             else {
                 this.setState({
                     black: "blackColor"
                 })
-                console.log("4");
             }
         }
     }
@@ -215,10 +210,10 @@ class Modal_Twitt extends Component {
 
                         <div className="commentBox">
                             <CommentsBox profilePicture={this.props.profilePicture}/>
+                            <CommentsContainer/>
                         </div>
 
                     </ModalBody>
-
                 </Modal>
             </Container>
         );
