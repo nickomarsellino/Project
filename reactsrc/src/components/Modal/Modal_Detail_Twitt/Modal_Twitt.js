@@ -230,7 +230,9 @@ class Modal_Twitt extends Component {
                                 username={this.props.username}
                                 tweet={this.props.tweet}
                             />
-                            <CommentsContainer/>
+                            <CommentsContainer
+                                tweet={this.props.tweet}
+                            />
                         </div>
 
                     </ModalBody>

@@ -1,0 +1,34 @@
+
+#commentsContainer{
+}
+
+.ui.comments .comment>.avatar~.content {
+    margin-left: 1.5em;
+    padding-top: 5px;
+}
+
+.ui.comments .comment>.content {
+    display: inline-table;
+}
+
+#trashIcon{
+    float: right;
+}
+
+#trashIcon {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#trashIcon:hover {
+    color: #f70010;
+}
+
+#trashIcon:active {
+    position: relative;
+    top: 1px;
+}
+
+#commentAvatar {
+    width: 8%;
+}
