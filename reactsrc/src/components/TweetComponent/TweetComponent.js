@@ -30,7 +30,8 @@ class TweetComponent extends Component {
             modalTweet: false,
             modalDelete: false,
             checkLikes: false,
-            black: "blackColor"
+            black: "blackColor",
+            commentColor: "blueColor"
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -42,12 +43,14 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
-
     componentDidMount() {
         this.setState({
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
         })
+
+        this.commentIkonColor();
+        this.likeIkonColor();
 
         // Untuk Like
         socket.on(this.props.tweet._id + 'like', bebas => {
@@ -70,7 +73,8 @@ class TweetComponent extends Component {
             });
             this.likeIkonColor();
         });
-        this.likeIkonColor();
+
+
     }
 
     onClickedImage(userId, username) {
@@ -275,6 +279,19 @@ class TweetComponent extends Component {
         }
     }
 
+    commentIkonColor(){
+        if(this.props.tweet.comments.length > 0 ){
+            this.setState({
+                commentColor: "blueColor"
+            })
+        }
+        else{
+            this.setState({
+                commentColor: "blackColor"
+            })
+        }
+    }
+
     likeIkonColor() {
         if (this.state.likes === null) {
             if (this.props.tweet.likes.includes(this.props.userId)) {
@@ -306,6 +323,7 @@ class TweetComponent extends Component {
 
     render() {
         const tweet = this.props.tweet;
+        console.log(this.state.commentColor);
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
                 <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
@@ -340,8 +358,8 @@ class TweetComponent extends Component {
                                           this.state.likes.length + " Likes"
                                         }
                                         </Icon.Group>
-                                        <Icon.Group className="commentsIcon">
-                                            {" "}<Icon name='comments'/> {" "} 0 Comments
+                                        <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
+                                            <Icon name='comments'/>{this.props.tweet.comments.length} Comments
                                         </Icon.Group>
                                     </div>
 
@@ -362,6 +380,7 @@ class TweetComponent extends Component {
                     isClose={this.closeModalTweet}
                     userId={this.props.userId}
                     profilePicture={this.props.profilePicture}
+                    username={this.props.username}
                 />
 
                 <ModalDelete

@@ -20,6 +20,25 @@ const TweetSchema = Schema({
         type: Schema.ObjectId,
         ref: 'User'
     }],
+    comments:[{
+        userId: {
+            type: Schema.ObjectId,
+            ref: 'User'
+        },
+        username: {
+            type: String
+        },
+        commentText: {
+            type: String
+        },
+        profilePicture:{
+            type: String
+        },
+        timstamp: {
+            type: Date,
+            default: Date.now()
+        }
+    }],
     tweetPicture: {
         type: String
     },
