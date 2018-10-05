@@ -189,11 +189,6 @@ router.put('/editProfile', (req, res) => {
 // Edit Profile PICTURE
 router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res) => {
 
-    console.log("Id nya: ", req.params.id);
-    console.log("originalname: ", req.file.originalname);
-    console.log("path: ", req.file.path);
-    console.log("filename: ", req.file.filename);
-
     jimp.read(req.file.path, function (err, image) {
         if (err) {
             console.log("Gagal cuuu!");
@@ -221,6 +216,13 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
             profilePicture: req.file.filename
         }
         }).exec();
+
+    Tweet.updateMany({'comments.userId': req.params.id}, {
+        $set: {
+            'comments.$.profilePicture': req.file.filename
+        }
+    }).exec();
+
 });
 
 
