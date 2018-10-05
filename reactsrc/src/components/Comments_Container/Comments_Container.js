@@ -29,6 +29,14 @@ class Comments_Container extends Component {
         }
     }
 
+    buttonDeleteComment(commentId, userId){
+        if(localStorage.getItem("myThings") === userId){
+            return(
+                <Icon name='trash' id="trashIcon" onClick={() => this.deleteComment(commentId)/>
+            );
+        }
+    }
+
     deleteComment(commentId){
         const  id = {
            _id: commentId
@@ -57,7 +65,8 @@ class Comments_Container extends Component {
                          <Comment.Text>{comment.commentText}</Comment.Text>
                     </Comment.Content>
 
-                    <Icon name='trash' id="trashIcon" onClick={() => this.deleteComment(comment._id)}/>
+                    {this.buttonDeleteComment(comment._id, comment.userId)}
+
                     <hr/>
                 </Comment>
               )}
