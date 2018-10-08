@@ -1,10 +1,5 @@
-
-#commentsContainer{
-}
-
 .ui.comments .comment>.avatar~.content {
     margin-left: 1.5em;
-    padding-top: 5px;
 }
 
 .ui.comments .comment>.content {
@@ -29,6 +24,15 @@
     top: 1px;
 }
 
-#commentAvatar {
-    width: 8%;
+#commentAvatar{
+    width: 40px;
+    height: 40px;
+}
+
+.ui.comments .comment .avatar {
+    display: block;
+    width: 2.5em;
+    height: auto;
+    float: left;
+    margin: 0 0 0;
 }

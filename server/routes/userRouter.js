@@ -189,11 +189,6 @@ router.put('/editProfile', (req, res) => {
 // Edit Profile PICTURE
 router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res) => {
 
-    console.log("Id nya: ", req.params.id);
-    console.log("originalname: ", req.file.originalname);
-    console.log("path: ", req.file.path);
-    console.log("filename: ", req.file.filename);
-
     jimp.read(req.file.path, function (err, image) {
         if (err) {
             console.log("Gagal cuuu!");
@@ -221,6 +216,39 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
             profilePicture: req.file.filename
         }
         }).exec();
+
+
+    Tweet.find({'comments.userId': req.params.id}).then((result) => {
+        for (var i = 0; i < result.length; ++i) {
+            for (var j = 0; j < result[i].comments.length; j++){
+                let comments = []
+                let userId = req.params.id
+
+                comments = result[i].comments[j]
+
+                if(comments.userId == userId){
+                    console.log("H4SIL:",userId);
+
+                    let query = 'comments.'+[j]+'.profilePicture'
+                    let condition = 'comments.'+[j]+'.userId'
+
+                    Tweet.updateMany({[condition]: req.params.id}, {
+                        $set: {
+                            [query]: req.file.filename
+                        }
+                    }).exec();
+                }
+            }
+        }
+    });
+
+
+    // Tweet.updateMany({'comments.userId': req.params.id}, {
+    //     $set: {
+    //         'comments.$.profilePicture': req.file.filename
+    //     }
+    // }).exec();
+
 });
 
 

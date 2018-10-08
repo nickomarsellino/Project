@@ -130,7 +130,9 @@ router.delete('/tweet/:id', (req, res, next) => {
 
 // get all tweets
 router.get('/tweets', (req, res, next) => {
-    const query = Tweet.find({}).sort({timestamp: 'descending'});
+    const query = Tweet.find({}).sort(
+      {timestamp: 'descending'}
+    );
     const { page, perPage } = req.query;
     const options = {
         page: parseInt(page, 10),

@@ -285,7 +285,7 @@ class TweetComponent extends Component {
         console.log("userId: ",this.props.userId);
 
         for(let i=0; i < this.props.tweet.comments.length; i++){
-            if(this.props.tweet.comments[i].userId.includes(this.props.userId)){
+            if(this.props.tweet.comments[i].userId === this.props.userId){
                 this.setState({
                     commentColor: "blueColor"
                 })
