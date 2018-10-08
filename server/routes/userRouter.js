@@ -217,11 +217,37 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
         }
         }).exec();
 
-    Tweet.updateMany({'comments.userId': req.params.id}, {
-        $set: {
-            'comments.$.profilePicture': req.file.filename
+
+    Tweet.find({'comments.userId': req.params.id}).then((result) => {
+        for (var i = 0; i < result.length; ++i) {
+            for (var j = 0; j < result[i].comments.length; j++){
+                let comments = []
+                let userId = req.params.id
+
+                comments = result[i].comments[j]
+
+                if(comments.userId == userId){
+                    console.log("H4SIL:",userId);
+
+                    let query = 'comments.'+[j]+'.profilePicture'
+                    let condition = 'comments.'+[j]+'.userId'
+
+                    Tweet.updateMany({[condition]: req.params.id}, {
+                        $set: {
+                            [query]: req.file.filename
+                        }
+                    }).exec();
+                }
+            }
         }
-    }).exec();
+    });
+
+
+    // Tweet.updateMany({'comments.userId': req.params.id}, {
+    //     $set: {
+    //         'comments.$.profilePicture': req.file.filename
+    //     }
+    // }).exec();
 
 });
 
