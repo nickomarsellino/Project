@@ -26,7 +26,8 @@ class Modal_Twitt extends Component {
             checkLikes: false,
             black: 'blackColor',
             likes: this.props.likes,
-            commentColor: "blackColor"
+            commentColor: "blackColor",
+            commentplus:0
         };
         this.openModal = this.openModal.bind(this);
         this.likeIkonColor=this.likeIkonColor.bind(this);
@@ -183,6 +184,13 @@ class Modal_Twitt extends Component {
         }
     }
 
+    commentplus = () =>{
+      this.props.pluscomment('aasdasdwd')
+      this.setState({
+        commentplus:this.state.commentplus+1
+      })
+    }
+
     render() {
         return (
             <Container>
@@ -215,7 +223,7 @@ class Modal_Twitt extends Component {
                               }
                             </Icon.Group>
                             <Icon.Group  className={this.state.commentColor} id="commentsIcon">
-                                <Icon name='comments'/>{this.props.tweet.comments.length} Comments
+                                <Icon name='comments'/>{this.props.tweet.comments.length+this.state.commentplus} Comments
                             </Icon.Group>
                         </div>
                         <hr/>
@@ -229,6 +237,7 @@ class Modal_Twitt extends Component {
                             />
                             <CommentsContainer
                                 tweet={this.props.tweet}
+                                pluscomment={this.commentplus}
                             />
                         </div>
 
