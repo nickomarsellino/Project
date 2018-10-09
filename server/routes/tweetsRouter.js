@@ -209,8 +209,8 @@ router.put('/unlikeTweet/:id', (req,res) => {
     });
   })
 
-  router.put('/commentTweet/:id', (req,res) => {
-      Tweet.findByIdAndUpdate( {_id: req.params.id},
+router.put('/commentTweet/:id', (req,res) => {
+    Tweet.findByIdAndUpdate( {_id: req.params.id},
         {$push: {
             comments: {
               'userId': req.body.userId,
@@ -223,18 +223,26 @@ router.put('/unlikeTweet/:id', (req,res) => {
         if (err) {
           return res.send(err)
         };
+        console.log("USER: ",user.comments);
         res.json(user);
       });
-    })
+})
 
-  router.put('/deleteCommentTweet/:id', (req,res) => {
-      Tweet.findByIdAndUpdate( {_id: req.params.id},
-        {$pull: {comments:  { _id: req.body._id} }}, {new: true}, function (err, user) {
-        if (err) {
-          return res.send(err)
-        };
-        res.json(user);
-      });
+router.put('/deleteCommentTweet/:id', (req,res) => {
+    Tweet.findByIdAndUpdate( {_id: req.params.id},
+      {$pull: {comments:  { _id: req.body._id} }}, {new: true}, function (err, user) {
+      if (err) {
+        return res.send(err)
+      };
+      res.json(user);
+    });
+})
+
+router.get('/getComment/:id', (req,res) => {
+    Tweet.findById({ _id : req.params.id})
+    .then((result) => {
+        res.send(result);
     })
+})
 
 module.exports = router;

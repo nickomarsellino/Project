@@ -280,10 +280,6 @@ class TweetComponent extends Component {
     }
 
     commentIkonColor(){
-
-        console.log("Ini Komen: ",this.props.tweet.comments);
-        console.log("userId: ",this.props.userId);
-
         for(let i=0; i < this.props.tweet.comments.length; i++){
             if(this.props.tweet.comments[i].userId.includes(this.props.userId)){
                 this.setState({
@@ -294,8 +290,6 @@ class TweetComponent extends Component {
     }
 
     likeIkonColor() {
-        console.log("Ini Like: ",this.props.tweet.likes);
-
         if (this.state.likes === null) {
             if (this.props.tweet.likes.includes(this.props.userId)) {
                 // IF yang ini, cek kondisi skrg, kalo [] mengadung, maka warna nya merah
@@ -361,7 +355,8 @@ class TweetComponent extends Component {
                                         }
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
-                                            <Icon name='comments'/>{this.props.tweet.comments.length} Comments
+                                          <Icon name='comments'/>
+                                          {this.props.tweet.comments.length} Comments
                                         </Icon.Group>
                                     </div>
 
