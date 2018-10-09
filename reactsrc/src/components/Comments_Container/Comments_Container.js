@@ -14,7 +14,7 @@ class Comments_Container extends Component {
         super(props);
         this.state = {
             commentData: [],
-            commentList: []
+            commentId:''
         };
     }
 
@@ -25,12 +25,21 @@ class Comments_Container extends Component {
             const newComment = [bebasnamavariabel].concat(allComment);
             this.setState({
                 commentData: newComment
-            })
-        })
+            });
+            console.log(this.state.commentId);
+        });
 
-        socket.on('getNewComment', bebasnamavariabel => {
-
-        })
+        socket.on("deleteComment", bebasnamavariabel => {
+            let newCommentList = [];
+            for( var deleteComment in this.state.commentData){
+                if(this.state.commentData[deleteComment]._id !== this.state.commentId._id){
+                    newCommentList.push(this.state.commentData[deleteComment])
+                }
+            }
+            this.setState({
+                commentData: newCommentList
+            });
+        });
 
     }
 
@@ -40,7 +49,6 @@ class Comments_Container extends Component {
             this.setState({
                 commentData: res.data.comments
             })
-            console.log(this.state.commentData);
         })
     }
 
@@ -76,12 +84,16 @@ class Comments_Container extends Component {
             url: `api/tweet/deleteCommentTweet/` + this.props.tweet._id,
             data: idComment
         })
+        this.setState({
+            commentId : idComment
+        })
         socket.emit('deleteComment', idComment)
-        alert("Berhasil delete...!");
+        // alert("Berhasil delete...!");
     }
 
     render() {
-      console.log(this.state.commentData);
+        console.log(this.state.commentData.length);
+        console.log(this.state.commentId);
         return (
           <Comment.Group size='small'>
               {this.state.commentData.map(comment =>
