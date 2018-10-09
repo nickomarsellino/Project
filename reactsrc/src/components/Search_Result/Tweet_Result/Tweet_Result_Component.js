@@ -53,6 +53,17 @@ class Tweet_Result_Component extends Component {
             this.likeIkonColor();
         });
         this.likeIkonColor();
+        this.commentIkonColor();
+    }
+
+    commentIkonColor(){
+        for(let i=0; i < this.props.resultData.comments.length; i++){
+            if(this.props.resultData.comments[i].userId === localStorage.getItem("myThings")){
+                this.setState({
+                    commentColor: "blueColor"
+                })
+            }
+        }
     }
 
     likeIkonColor() {
@@ -323,8 +334,9 @@ class Tweet_Result_Component extends Component {
                                             this.state.likes.length + " Likes"
                                         }
                                     </Icon.Group>
-                                    <Icon.Group className="commentsIcon">
-                                        {" "}<Icon name='comments'/> {" "} 0 Comments
+                                    <Icon.Group className={this.state.commentColor} id="commentsIcon">
+                                        <Icon name='comments'/>
+                                        {this.state.resultData.comments.length} Comments
                                     </Icon.Group>
                                 </div>
 
