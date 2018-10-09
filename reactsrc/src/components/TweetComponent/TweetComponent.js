@@ -369,12 +369,8 @@ class TweetComponent extends Component {
                                         }
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
-                                          <Icon name='comments'/>
-                                          {!this.state.commentLength ?
-                                            tweet.likes.length + " Comments"
-                                            :
-                                            this.state.commentLength.length + " Comments"
-                                          }
+                                            <Icon name='comments'/>
+                                            {this.props.tweet.comments.length} Comments
                                         </Icon.Group>
                                     </div>
 
