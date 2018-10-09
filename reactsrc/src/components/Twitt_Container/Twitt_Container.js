@@ -64,6 +64,18 @@ class Twitt_Container extends Component {
         }
     }
 
+        getTweetData() {
+            axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
+                .then(res => {
+                    this.setState(
+                        {
+                            tweetData: res.data.docs,
+                            totalLengthData: res.data.total,
+                            lengthData: res.data.docs.length,
+                            isLoading:false
+                        })
+                });
+        }
 
     showUserProfileFromTweets(TweetUserId) {
         axios.get('/api/tweet/profiletweet/' + TweetUserId + '?perPage=5&page=1')
@@ -79,19 +91,6 @@ class Twitt_Container extends Component {
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.total)
                 // maksudnya dikirim ke profilepage, tweetCounter di profilepage
-            });
-    }
-
-    getTweetData() {
-        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
-            .then(res => {
-                this.setState(
-                    {
-                        tweetData: res.data.docs,
-                        totalLengthData: res.data.total,
-                        lengthData: res.data.docs.length,
-                        isLoading:false
-                    })
             });
     }
 

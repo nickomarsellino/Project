@@ -5,6 +5,10 @@ import './Comments_Box.css'
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios/index";
+import openSocket from 'socket.io-client';
+
+// Ini yang nge buat dia connect sama si backend nya
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Comments_Box extends Component {
 
@@ -84,24 +88,26 @@ class Comments_Box extends Component {
     }
 
     comment() {
-        const commentData = {
-            userId: this.props.userId,
-            username: this.props.username,
-            commentText: this.state.commentText,
-            profilePicture: this.props.profilePicture,
-            timestamp: new Date()
-        };
-        axios({
-            method: 'PUT',
-            responseType: 'json',
-            url: `api/tweet/commentTweet/` + this.props.tweet._id,
-            data: commentData
-        })
-        .then(res => {
-            this.setState({
-                commentText: ''
-            });
-        })
+      const commentData = {
+          userId: this.props.userId,
+          username: this.props.username,
+          commentText: this.state.commentText,
+          profilePicture: this.props.profilePicture,
+          commentTimestamp: new Date(),
+          tweetId: this.props.tweet._id
+      };
+          axios({
+              method: 'PUT',
+              responseType: 'json',
+              url: `api/tweet/commentTweet/` + this.props.tweet._id,
+              data: commentData
+          })
+          .then(res => {
+              this.setState({
+                  commentText: ''
+              });
+              socket.emit('sendComment', commentData);
+          })
     }
 
     render() {

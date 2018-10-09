@@ -12,7 +12,7 @@ import CommentsContainer from "../../Comments_Container/Comments_Container";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 const Timestamp = require('react-timestamp');
 
 
@@ -26,7 +26,7 @@ class Modal_Twitt extends Component {
             checkLikes: false,
             black: 'blackColor',
             likes: this.props.likes,
-            commentColor: "blueColor"
+            commentColor: "blackColor"
         };
         this.openModal = this.openModal.bind(this);
         this.likeIkonColor=this.likeIkonColor.bind(this);
@@ -112,15 +112,12 @@ class Modal_Twitt extends Component {
     }
 
     commentIkonColor(){
-        if(this.props.tweet.comments.length > 0 ){
-            this.setState({
-                commentColor: "blueColor"
-            })
-        }
-        else{
-            this.setState({
-                commentColor: "blackColor"
-            })
+        for(let i=0; i < this.props.tweet.comments.length; i++){
+            if(this.props.tweet.comments[i].userId.includes(this.props.userId)){
+                this.setState({
+                    commentColor: "blueColor"
+                })
+            }
         }
     }
 
