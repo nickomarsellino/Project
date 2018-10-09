@@ -34,6 +34,7 @@ class Comments_Box extends Component {
         this.setState({
             userId: userId,
             username: username,
+            commentId: []
         });
 
     }
@@ -103,10 +104,11 @@ class Comments_Box extends Component {
               data: commentData
           })
           .then(res => {
+              // console.log("diwebnih bro",res);
               this.setState({
                   commentText: ''
               });
-              socket.emit('sendComment', commentData);
+              socket.emit('sendComment', res.data);
           })
     }
 

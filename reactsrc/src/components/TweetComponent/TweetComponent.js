@@ -31,7 +31,8 @@ class TweetComponent extends Component {
             modalDelete: false,
             checkLikes: false,
             black: "blackColor",
-            commentColor: "blackColor"
+            commentColor: "blackColor",
+            commentLength: ''
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -48,6 +49,8 @@ class TweetComponent extends Component {
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
         })
+
+        this.getAllComment();
 
         this.commentIkonColor();
         this.likeIkonColor();
@@ -318,8 +321,19 @@ class TweetComponent extends Component {
         }
     }
 
+    getAllComment(){
+        axios.get('/api/tweet/getComment/' + this.props.tweet._id)
+        .then(res => {
+            this.setState({
+                commentLength: res.data.comments.length
+            })
+        })
+    }
+
     render() {
         const tweet = this.props.tweet;
+        console.log(this.state.commentLength);
+        // console.log(this.state.likes.length);
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
                 <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
@@ -356,7 +370,11 @@ class TweetComponent extends Component {
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
                                           <Icon name='comments'/>
-                                          {this.props.tweet.comments.length} Comments
+                                          {!this.state.commentLength ?
+                                            tweet.likes.length + " Comments"
+                                            :
+                                            this.state.commentLength.length + " Comments"
+                                          }
                                         </Icon.Group>
                                     </div>
 

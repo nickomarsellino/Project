@@ -223,8 +223,17 @@ router.put('/commentTweet/:id', (req,res) => {
         if (err) {
           return res.send(err)
         };
-        console.log("USER: ",user.comments);
-        res.json(user);
+        let temp = user.comments.length - 1
+        res.json({
+          // Supaya ke kirim _idnya
+          _id : user.comments[temp]._id,
+          userId: req.body.userId,
+          username: req.body.username,
+          commentText: req.body.commentText,
+          profilePicture: req.body.profilePicture,
+          commentTimestamp: new Date(),
+          tweetId: req.body.tweetId
+        });
       });
 })
 

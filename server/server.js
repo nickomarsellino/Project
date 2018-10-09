@@ -83,8 +83,8 @@ io.on('connection', (socket) => {
 
   socket.on('deleteComment', (data) => {
     console.log("Delete comment!",data);
-    socket.broadcast.emit('getNewComment', data)
-    socket.emit('getNewComment', data);
+    socket.broadcast.emit("deleteComment" ,data)
+    socket.emit("deleteComment", data);
   });
 
 });
