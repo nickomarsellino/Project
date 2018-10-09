@@ -32,7 +32,7 @@ class Comments_Container extends Component {
     buttonDeleteComment(commentId, userId){
         if(localStorage.getItem("myThings") === userId){
             return(
-                <Icon name='trash' id="trashIcon" onClick={() => this.deleteComment(commentId)/>
+                <Icon name='trash' id="trashIcon" onClick={() => this.deleteComment(commentId)}/>
             );
         }
     }
