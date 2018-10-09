@@ -64,15 +64,27 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sendLike', (data) => {
-    console.log("Masuk?1");
+    console.log("Masuk?1",data);
     socket.broadcast.emit(data.tweetId+'like', data)
     socket.emit(data.tweetId+'like', data);
   });
 
   socket.on('unlike', (data) => {
-    console.log("Masuk?2");
+    console.log("Masuk?2",data);
     socket.broadcast.emit(data.tweetId+"unlike", data)
     socket.emit(data.tweetId+"unlike", data);
+  });
+
+  socket.on('sendComment', (data) => {
+    console.log("Masuk 3?",data);
+    socket.broadcast.emit('getComment', data)
+    socket.emit('getComment', data);
+  });
+
+  socket.on('deleteComment', (data) => {
+    console.log("Delete comment!",data);
+    socket.broadcast.emit('getNewComment', data)
+    socket.emit('getNewComment', data);
   });
 
 });

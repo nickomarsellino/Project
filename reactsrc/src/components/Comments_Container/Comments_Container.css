@@ -6,6 +6,11 @@
     display: inline-table;
 }
 
+#commentAvatar{
+    height: 40px;
+    width: 40px;
+}
+
 #trashIcon{
     float: right;
 }
