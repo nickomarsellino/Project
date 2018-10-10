@@ -32,7 +32,6 @@ class TweetComponent extends Component {
             checkLikes: false,
             black: "blackColor",
             commentColor: "blackColor",
-            commentplus:0
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -319,13 +318,6 @@ class TweetComponent extends Component {
         }
     }
 
-    commentplus = (asd) =>{
-      console.log(asd);
-      this.setState({
-        commentplus: this.state.commentplus +1
-      })
-    }
-
     render() {
         const tweet = this.props.tweet;
         return (
@@ -364,7 +356,7 @@ class TweetComponent extends Component {
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
                                             <Icon name='comments'/>
-                                                {this.props.tweet.comments.length+this.state.commentplus} Comments
+                                                {this.props.tweet.comments.length} Comments
                                             </Icon.Group>
                                     </div>
 
@@ -386,7 +378,6 @@ class TweetComponent extends Component {
                     userId={this.props.userId}
                     profilePicture={this.props.profilePicture}
                     username={this.props.username}
-                    pluscomment = {this.commentplus}
                 />
 
                 <ModalDelete
