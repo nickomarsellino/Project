@@ -13,7 +13,7 @@ import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 const Timestamp = require('react-timestamp');
 
@@ -32,6 +32,7 @@ class TweetComponent extends Component {
             checkLikes: false,
             black: "blackColor",
             commentColor: "blackColor",
+            commentLength: ''
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -54,6 +55,8 @@ class TweetComponent extends Component {
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
         })
+
+        this.getAllComment();
 
         this.commentIkonColor();
         this.likeIkonColor();
@@ -287,7 +290,7 @@ class TweetComponent extends Component {
 
     commentIkonColor(){
         for(let i=0; i < this.props.tweet.comments.length; i++){
-            if(this.props.tweet.comments[i].userId.includes(this.props.userId)){
+            if(this.props.tweet.comments[i].userId === this.props.userId){
                 this.setState({
                     commentColor: "blueColor"
                 })
@@ -324,8 +327,18 @@ class TweetComponent extends Component {
         }
     }
 
+    getAllComment(){
+        axios.get('/api/tweet/getComment/' + this.props.tweet._id)
+        .then(res => {
+            this.setState({
+                commentLength: res.data.comments.length
+            })
+        })
+    }
+
     render() {
         const tweet = this.props.tweet;
+        // console.log(this.state.likes.length);
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
                 <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
@@ -353,11 +366,11 @@ class TweetComponent extends Component {
                                                     id="likesIcon"
                                                     onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
                                         >
-                                        <Icon name='like'/>
+                                            <Icon name='like'/>
                                         {!this.state.likes ?
-                                            tweet.likes.length + " Likes"
-                                            :
-                                            this.state.likes.length + " Likes"
+                                          tweet.likes.length + " Likes"
+                                          :
+                                          this.state.likes.length + " Likes"
                                         }
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
