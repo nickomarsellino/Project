@@ -26,7 +26,7 @@ class Twitt_Container extends Component {
             modalTweet: false,
             modalDelete: false,
             checkLikes: false,
-            isLoading:true,
+            isLoading: true,
             userProfilePicture: '',
             hasMore: true,
             lengthData: '',
@@ -50,10 +50,10 @@ class Twitt_Container extends Component {
                 //
                 // this.setState({tweetData: newTweetData});
 
-                if(namavariabel.tweetPicture){
+                if (namavariabel.tweetPicture) {
                     console.log("JALAN: ", namavariabel.tweetPicture);
                 }
-                else{
+                else {
                     console.log("JALAN BOR");
                     this.setState({
                         isLoading: true
@@ -64,18 +64,18 @@ class Twitt_Container extends Component {
         }
     }
 
-        getTweetData() {
-            axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
-                .then(res => {
-                    this.setState(
-                        {
-                            tweetData: res.data.docs,
-                            totalLengthData: res.data.total,
-                            lengthData: res.data.docs.length,
-                            isLoading:false
-                        })
-                });
-        }
+    getTweetData() {
+        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
+            .then(res => {
+                this.setState(
+                    {
+                        tweetData: res.data.docs,
+                        totalLengthData: res.data.total,
+                        lengthData: res.data.docs.length,
+                        isLoading: false
+                    })
+            });
+    }
 
     showUserProfileFromTweets(TweetUserId) {
         axios.get('/api/tweet/profiletweet/' + TweetUserId + '?perPage=5&page=1')
@@ -86,7 +86,7 @@ class Twitt_Container extends Component {
                     tweetCounter: res.data.length,
                     totalLengthData: res.data.total,
                     lengthData: res.data.docs.length,
-                    isLoading:false
+                    isLoading: false
                 })
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.total)
@@ -97,7 +97,7 @@ class Twitt_Container extends Component {
 
     fetchMoreData() {
 
-        if(this.props.located === "profile") {
+        if (this.props.located === "profile") {
             if (this.state.lengthData === this.state.totalLengthData) {
                 this.setState({hasMore: false});
             }
@@ -116,7 +116,7 @@ class Twitt_Container extends Component {
             }
         }
 
-        else if (this.props.located === "home"){
+        else if (this.props.located === "home") {
             if (this.state.lengthData === this.state.totalLengthData) {
                 this.setState({hasMore: false, lengthData: '', totalLengthData: ''});
             }
@@ -138,28 +138,30 @@ class Twitt_Container extends Component {
 
 
     render() {
-      if(this.state.isLoading){
-        return null
-      }
-      return (
-      <div id="scrollableDiv" style={{ overflow: "auto" }}>
-           <InfiniteScroll
+        if (this.state.isLoading) {
+            return null
+        }
+        return (
+            <div id="scrollableDiv" style={{overflow: "auto"}}>
+                <InfiniteScroll
                     dataLength={this.state.lengthData}
                     next={this.fetchMoreData}
                     hasMore={this.state.hasMore}
                 >
-                  {this.state.tweetData.map(tweet =>
-                  <TweetComponent tweet={tweet}
-                                  history={this.props.history}
-                                  userId={this.props.userId}
-                                  profilePicture={this.props.profilePicture}
-                                  username={this.props.username}
-                                  located="home"/>
-                  )}
-        </InfiniteScroll>
-      </div>
-    );
-  }
+                    {this.state.tweetData.map(tweet =>
+                        <TweetComponent tweet={tweet}
+                                        history={this.props.history}
+                                        userId={this.props.userId}
+                                        profilePicture={this.props.profilePicture}
+                                        username={this.props.username}
+                                        located="home"
+                                        getTweetData={this.getTweetData}
+                        />
+                    )}
+                </InfiniteScroll>
+            </div>
+        );
+    }
 }
 
 export default Twitt_Container;

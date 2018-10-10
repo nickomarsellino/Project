@@ -88,12 +88,11 @@ class Comments_Container extends Component {
             commentId : idComment
         })
         socket.emit('deleteComment', idComment)
+        this.props.getTweetData();
         // alert("Berhasil delete...!");
     }
 
     render() {
-        console.log(this.state.commentData.length);
-        console.log(this.state.commentId);
         return (
           <Comment.Group size='small'>
               {this.state.commentData.map(comment =>

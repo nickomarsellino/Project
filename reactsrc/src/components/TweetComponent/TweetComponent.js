@@ -44,6 +44,12 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
+    // componentWillReceiveProps(newProps){
+    //     if( newProps.tweet.comments.length !== this.props.tweet.comments.length ){
+    //         this.commentIkonColor();
+    //     }
+    // }
+
     componentDidMount() {
         this.setState({
             tweet: this.props.tweet,
@@ -332,7 +338,6 @@ class TweetComponent extends Component {
 
     render() {
         const tweet = this.props.tweet;
-        console.log(this.state.commentLength);
         // console.log(this.state.likes.length);
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
@@ -392,6 +397,7 @@ class TweetComponent extends Component {
                     userId={this.props.userId}
                     profilePicture={this.props.profilePicture}
                     username={this.props.username}
+                    getTweetData={this.props.getTweetData}
                 />
 
                 <ModalDelete

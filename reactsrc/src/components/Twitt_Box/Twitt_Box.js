@@ -96,7 +96,8 @@ class Twitt_Box extends Component {
         })
             .then((response) => {
                 this.setState({
-                    userTweet: ''
+                    userTweet: '',
+                    charCounter: 160
                 });
                 //Upload Image ke table tweet
                 let formData = new FormData();
