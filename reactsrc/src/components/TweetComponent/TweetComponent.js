@@ -43,6 +43,12 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
+    // componentWillReceiveProps(newProps){
+    //     if( newProps.tweet.comments.length !== this.props.tweet.comments.length ){
+    //         this.commentIkonColor();
+    //     }
+    // }
+
     componentDidMount() {
         this.setState({
             tweet: this.props.tweet,
@@ -356,8 +362,8 @@ class TweetComponent extends Component {
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
                                             <Icon name='comments'/>
-                                                {this.props.tweet.comments.length} Comments
-                                            </Icon.Group>
+                                            {this.props.tweet.comments.length} Comments
+                                        </Icon.Group>
                                     </div>
 
                                 </Feed.Content>
@@ -378,6 +384,10 @@ class TweetComponent extends Component {
                     userId={this.props.userId}
                     profilePicture={this.props.profilePicture}
                     username={this.props.username}
+                    getTweetData={this.props.getTweetData}
+                    showUserProfileFromTweets={this.props.showUserProfileFromTweets}
+                    isHome={this.props.isHome}
+                    isProfile={this.props.isProfile}
                 />
 
                 <ModalDelete

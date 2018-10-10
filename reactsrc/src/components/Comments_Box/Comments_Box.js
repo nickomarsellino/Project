@@ -89,6 +89,8 @@ class Comments_Box extends Component {
     }
 
     comment() {
+        console.log(this.props.username);
+
       const commentData = {
           userId: this.props.userId,
           username: this.props.username,
@@ -99,14 +101,22 @@ class Comments_Box extends Component {
       };
           axios({
               method: 'PUT',
-              responseType: 'json',
-              url: `api/tweet/commentTweet/` + this.props.tweet._id,
+              url: `http://localhost:3001/api/tweet/commentTweet/` + this.props.tweet._id,
               data: commentData
           })
           .then(res => {
               // console.log("diwebnih bro",res);
+
+              if(this.props.isHome){
+                  this.props.getTweetData();
+              }
+              else if(this.props.isProfile){
+                  this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
+              }
+
               this.setState({
-                  commentText: ''
+                  commentText: '',
+                  charCounter: 100
               });
               socket.emit('sendComment', res.data);
           })
