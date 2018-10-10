@@ -155,7 +155,10 @@ class Twitt_Container extends Component {
                                         profilePicture={this.props.profilePicture}
                                         username={this.props.username}
                                         located="home"
+                                        isHome={this.props.isHome}
+                                        isProfile={this.props.isProfile}
                                         getTweetData={this.getTweetData}
+                                        showUserProfileFromTweets={this.showUserProfileFromTweets}
                         />
                     )}
                 </InfiniteScroll>

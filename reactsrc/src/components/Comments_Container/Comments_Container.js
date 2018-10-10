@@ -81,14 +81,22 @@ class Comments_Container extends Component {
         axios({
             method: 'PUT',
             responseType: 'json',
-            url: `api/tweet/deleteCommentTweet/` + this.props.tweet._id,
+            url: `http://localhost:3001/api/tweet/deleteCommentTweet/` + this.props.tweet._id,
             data: idComment
         })
         this.setState({
             commentId : idComment
         })
         socket.emit('deleteComment', idComment)
-        this.props.getTweetData();
+
+        if(this.props.isHome){
+            this.props.getTweetData();
+        }
+        else if(this.props.isProfile){
+            this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
+        }
+        // this.props.getTweetData();
+        // this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
         // alert("Berhasil delete...!");
     }
 

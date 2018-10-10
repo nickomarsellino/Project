@@ -227,10 +227,16 @@ class Modal_Twitt extends Component {
                                 username={this.props.username}
                                 tweet={this.props.tweet}
                                 getTweetData={this.props.getTweetData}
+                                isHome={this.props.isHome}
+                                isProfile={this.props.isProfile}
+                                showUserProfileFromTweets={this.props.showUserProfileFromTweets}
                             />
                             <CommentsContainer
                                 getTweetData={this.props.getTweetData}
                                 tweet={this.props.tweet}
+                                isHome={this.props.isHome}
+                                isProfile={this.props.isProfile}
+                                showUserProfileFromTweets={this.props.showUserProfileFromTweets}
                             />
                         </div>
 

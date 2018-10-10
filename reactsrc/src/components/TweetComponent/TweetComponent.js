@@ -398,6 +398,9 @@ class TweetComponent extends Component {
                     profilePicture={this.props.profilePicture}
                     username={this.props.username}
                     getTweetData={this.props.getTweetData}
+                    showUserProfileFromTweets={this.props.showUserProfileFromTweets}
+                    isHome={this.props.isHome}
+                    isProfile={this.props.isProfile}
                 />
 
                 <ModalDelete

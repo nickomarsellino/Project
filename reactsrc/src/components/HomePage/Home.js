@@ -90,6 +90,7 @@ class Home extends Component {
                 />
                 <TwittContainer userId={this.state.userId}
                                 located="home"
+                                isHome="home"
                                 history={this.props.history}
                                 profilePicture={this.state.profilePicture}
                                 username={this.state.username}
@@ -100,6 +101,7 @@ class Home extends Component {
         const profile = () => (
             <ProfilePage userIdProfile={this.props.location.state}
                          userLoginId={localStorage.getItem("myThings")}
+                         username={this.state.username}
                          history={this.props.history}
                          profilePicture={this.state.profilePicture}
             />
