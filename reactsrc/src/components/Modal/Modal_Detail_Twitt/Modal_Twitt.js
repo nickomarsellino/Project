@@ -215,7 +215,7 @@ class Modal_Twitt extends Component {
                               }
                             </Icon.Group>
                             <Icon.Group  className={this.state.commentColor} id="commentsIcon">
-                                <Icon name='comments'/>{this.props.tweet.comments.length} Comments
+                                <Icon name='comments'/>{this.props.tweet.comments} Comments
                             </Icon.Group>
                         </div>
                         <hr/>

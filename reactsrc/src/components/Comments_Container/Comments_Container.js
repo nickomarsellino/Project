@@ -6,7 +6,7 @@ import axios from "axios/index";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 const Timestamp = require('react-timestamp');
 
 class Comments_Container extends Component {
@@ -20,12 +20,14 @@ class Comments_Container extends Component {
 
     componentDidMount(){
         this.getAllComment();
+
         socket.on('getComment', bebasnamavariabel => {
             const allComment = this.state.commentData;
             const newComment = [bebasnamavariabel].concat(allComment);
             this.setState({
                 commentData: newComment
             });
+            this.props.pluscomment()
             console.log(this.state.commentId);
         });
 
@@ -40,7 +42,30 @@ class Comments_Container extends Component {
                 commentData: newCommentList
             });
         });
+    }
 
+    componentWillUnmount(){
+        socket.on('getComment', bebasnamavariabel => {
+            const allComment = this.state.commentData;
+            const newComment = [bebasnamavariabel].concat(allComment);
+            this.setState({
+                commentData: newComment
+            });
+            this.props.pluscomment()
+            console.log(this.state.commentId);
+        });
+
+        socket.on("deleteComment", bebasnamavariabel => {
+            let newCommentList = [];
+            for( var deleteComment in this.state.commentData){
+                if(this.state.commentData[deleteComment]._id !== this.state.commentId._id){
+                    newCommentList.push(this.state.commentData[deleteComment])
+                }
+            }
+            this.setState({
+                commentData: newCommentList
+            });
+        });
     }
 
     getAllComment(){
