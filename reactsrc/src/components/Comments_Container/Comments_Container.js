@@ -93,7 +93,7 @@ class Comments_Container extends Component {
             this.props.getTweetData();
         }
         else if(this.props.isProfile){
-            this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
+            this.props.showUserProfileFromTweets(this.props.tweet.userId);
         }
         // this.props.getTweetData();
         // this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));

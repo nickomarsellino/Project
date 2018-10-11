@@ -104,7 +104,9 @@ class Edit_Profile extends Component {
             <TwittContainer history={this.props.history}
                             TweetUserId={this.state.tweetUserId}
                              userId={this.state.userLoginId}
+                            username={this.state.username}
                             tweetCounter={this.getTweetCounter}
+                            isProfile="profile"
                             profilePicture={this.props.profilePicture}
                             located="profile"
             />
@@ -180,14 +182,14 @@ class Edit_Profile extends Component {
 
                     <FadeIn>
                         <div className="userProfile" id="profileInfo">
-                            <TwittContainer history={this.props.history}
-                                            username={this.props.username}
-                                            TweetUserId={this.state.tweetUserId}
-                                            userId={this.state.userLoginId}
-                                            tweetCounter={this.getTweetCounter}
-                                            profilePicture={this.props.profilePicture}
-                                            isProfile="profile"
-                            />
+                            {/*<TwittContainer history={this.props.history}*/}
+                                            {/*username={this.state.username}*/}
+                                            {/*TweetUserId={this.state.tweetUserId}*/}
+                                            {/*userId={this.state.userLoginId}*/}
+                                            {/*tweetCounter={this.getTweetCounter}*/}
+                                            {/*profilePicture={this.props.profilePicture}*/}
+                                            {/*isProfile="profile"*/}
+                            {/*/>*/}
                         </div>
                     </FadeIn>
                 </div>
