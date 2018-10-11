@@ -1,3 +1,49 @@
 .text-warp{
     word-wrap: break-word;
 }
+
+.text-Timestamp{
+    font-style: italic;
+    size: 18px;
+    opacity: 0.9;
+}
+
+#nameBox{
+    color: black;
+    font-size: 20px;
+}
+
+.blueColor{
+  color: #008ef7;
+}
+
+.blackColor{
+   color: black;
+}
+
+.redColor{
+   color: red;
+}
+
+#likesIcon{
+    font-style: italic;
+    margin-right: 5px;
+}
+
+#likesIcon:hover{
+    color: #f70010;
+    cursor: pointer;
+}
+
+#buttonGroup{
+    margin-top: 10px;
+    opacity: 0.6;
+}
+
+.text-warp{
+    white-space: pre;
+}
+
+.commentBox{
+    margin-top: 10px;
+}
