@@ -33,12 +33,12 @@ class Modal_Twitt extends Component {
     }
 
     componentDidMount(){
+        this.commentIkonColor();
         this.setState({
             userLoginId: localStorage.getItem("myThings"),
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
         })
-        this.commentIkonColor();
 
         socket.on(this.props.tweet._id + 'like', bebas => {
             this.setState({
@@ -113,9 +113,9 @@ class Modal_Twitt extends Component {
 
     commentIkonColor(){
         for(let i=0; i < this.props.tweet.comments.length; i++){
-            if(this.props.tweet.comments[i].userId.includes(this.props.userId)){
+            if(this.props.tweet.comments[i].userId === '0'){
                 this.setState({
-                    commentColor: "blueColor"
+                    commentColor: "blackColor"
                 })
             }
         }

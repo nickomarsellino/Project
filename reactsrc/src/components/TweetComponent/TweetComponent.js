@@ -31,8 +31,7 @@ class TweetComponent extends Component {
             modalDelete: false,
             checkLikes: false,
             black: "blackColor",
-            commentColor: "blackColor",
-            commentLength: ''
+            commentColor: "blackColor"
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -58,7 +57,6 @@ class TweetComponent extends Component {
 
         this.getAllComment();
 
-        this.commentIkonColor();
         this.likeIkonColor();
 
         // Untuk Like
@@ -288,16 +286,6 @@ class TweetComponent extends Component {
         }
     }
 
-    commentIkonColor(){
-        for(let i=0; i < this.props.tweet.comments.length; i++){
-            if(this.props.tweet.comments[i].userId === this.props.userId){
-                this.setState({
-                    commentColor: "blueColor"
-                })
-            }
-        }
-    }
-
     likeIkonColor() {
         if (this.state.likes === null) {
             if (this.props.tweet.likes.includes(this.props.userId)) {
@@ -336,9 +324,22 @@ class TweetComponent extends Component {
         })
     }
 
+    getTweetDataForCheckCommentsColor() {
+        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
+            .then(res => {
+                this.setState(
+                    {
+                        tweetData: res.data.docs,
+                        totalLengthData: res.data.total,
+                        lengthData: res.data.docs.length,
+                        isLoading: false
+                    })
+            });
+            this.commentIkonColor();
+    }
+
     render() {
         const tweet = this.props.tweet;
-        // console.log(this.state.likes.length);
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
                 <Card className="Tweet_Container" id="text-warp" key={tweet._id}>

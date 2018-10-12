@@ -91,21 +91,20 @@ class Comments_Box extends Component {
     comment() {
         console.log(this.props.username);
 
-      const commentData = {
-          userId: this.props.userId,
-          username: this.props.username,
-          commentText: this.state.commentText,
-          profilePicture: this.props.profilePicture,
-          commentTimestamp: new Date(),
-          tweetId: this.props.tweet._id
-      };
+        const commentData = {
+            userId: this.props.userId,
+            username: this.props.username,
+            commentText: this.state.commentText,
+            profilePicture: this.props.profilePicture,
+            commentTimestamp: new Date(),
+            tweetId: this.props.tweet._id
+        };
           axios({
               method: 'PUT',
               url: `http://localhost:3001/api/tweet/commentTweet/` + this.props.tweet._id,
               data: commentData
           })
           .then(res => {
-              // console.log("diwebnih bro",res);
 
               if(this.props.isHome){
                   this.props.getTweetData();

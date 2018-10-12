@@ -31,11 +31,16 @@ class Twitt_Container extends Component {
             hasMore: true,
             lengthData: '',
             totalLengthData: '',
-            pagesData: 1
+            pagesData: 1,
+            commentColor: ""
         };
         this.getTweetData = this.getTweetData.bind(this);
         this.showUserProfileFromTweets = this.showUserProfileFromTweets.bind(this);
         this.fetchMoreData = this.fetchMoreData.bind(this);
+    }
+
+    componentWillUpdate(){
+
     }
 
     componentWillMount() {
@@ -94,7 +99,6 @@ class Twitt_Container extends Component {
             });
     }
 
-
     fetchMoreData() {
 
         if (this.props.located === "profile") {
@@ -136,6 +140,17 @@ class Twitt_Container extends Component {
         }
     }
 
+    checkCommentColor(tweet){
+        // console.log(tweet.comments.length);
+        for( let x = 0 ; x < tweet.comments.length ; x++){
+            // console.log(tweet.comments[x].userId);
+            if(tweet.comments[x].userId.includes(this.props.userId)){
+                this.setState({
+                    commentColor: "blueColor"
+                })
+            }
+        }
+    }
 
     render() {
         if (this.state.isLoading) {
@@ -159,7 +174,9 @@ class Twitt_Container extends Component {
                                         isProfile={this.props.isProfile}
                                         getTweetData={this.getTweetData}
                                         showUserProfileFromTweets={this.showUserProfileFromTweets}
-                        />
+                        >
+                        {this.checkCommentColor(tweet)}
+                        </TweetComponent>
                     )}
                 </InfiniteScroll>
             </div>
