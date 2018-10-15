@@ -38,7 +38,8 @@ class Modal_Twitt extends Component {
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
         })
-        this.commentIkonColor();
+
+        this.commentIkonColor(this.props.tweet);
 
         socket.on(this.props.tweet._id + 'like', bebas => {
             this.setState({
@@ -65,9 +66,15 @@ class Modal_Twitt extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.tweet !== this.props.tweet) {
+            this.commentIkonColor(nextProps.tweet);
             this.setState({
                 tweet: nextProps.tweet
             });
+        }
+        else{
+            this.setState({
+                commentColor: "blackColor"
+            })
         }
     }
 
@@ -111,8 +118,8 @@ class Modal_Twitt extends Component {
         }
     }
 
-    commentIkonColor() {
-        if (this.props.tweet.comments.length > 0) {
+    commentIkonColor(tweet) {
+        if (tweet.comments.length > 0) {
             this.setState({
                 commentColor: "blueColor"
             })
