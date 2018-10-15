@@ -9,8 +9,15 @@ class UserAccountContainer extends Component {
     constructor() {
         super();
         this.state = {
-            userData: []
+            userData: [],
+            isFollow: false,
+            buttonFollowText: "Follow",
+            butttonFollowCondition: "followButton"
         };
+
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseLeave = this.mouseLeave.bind(this);
+        this.onButtonClicked = this.onButtonClicked.bind(this);
     }
 
     componentWillMount() {
@@ -62,6 +69,36 @@ class UserAccountContainer extends Component {
         }
     }
 
+    mouseEnter() {
+        if(this.state.isFollow){
+            this.setState({buttonFollowText: "Unfollow"})
+        }
+        else {
+            this.setState({buttonFollowText: "Follow"})
+        }
+
+    }
+
+    mouseLeave() {
+        if(this.state.isFollow){
+            this.setState({buttonFollowText: "Followed"})
+        }
+        else {
+            this.setState({buttonFollowText: "Follow"})
+        }
+    }
+
+    onButtonClicked(){
+        this.setState({ isFollow: !this.state.isFollow });
+
+        if(this.state.isFollow){
+            this.setState({ butttonFollowCondition: "followButton"})
+        }
+        else{
+            this.setState({ butttonFollowCondition: "followedButton"})
+        }
+    }
+
     render() {
         return (
             <div className="peopleCards">
@@ -80,13 +117,18 @@ class UserAccountContainer extends Component {
                                                  onClick={() => this.viewUserProfile(user.username,user._id)}>
                                         {user.username}
                                     </Card.Header>
-                                    <Card.Description id="followButton">
+                                    <Card.Description
+                                        id={this.state.butttonFollowCondition}
+                                        onMouseEnter={this.mouseEnter}
+                                        onMouseLeave={this.mouseLeave}
+                                        onClick={() => this.onButtonClicked(this.state.isFollow)}
+                                    >
                                         <Icon
                                             size='large'
                                             name='handshake'
                                             id='iconFollow'
                                         />
-                                        {' '}Follow
+                                        {' '}{this.state.buttonFollowText}
                                     </Card.Description>
                                 </center>
                             </Card.Content>
