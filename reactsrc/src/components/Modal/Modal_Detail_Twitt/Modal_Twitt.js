@@ -71,11 +71,11 @@ class Modal_Twitt extends Component {
                 tweet: nextProps.tweet
             });
         }
-        else{
-            this.setState({
-                commentColor: "blackColor"
-            })
-        }
+        // else{
+        //     this.setState({
+        //         commentColor: "blackColor"
+        //     })
+        // }
     }
 
     clickLikeButton(userId) {

@@ -53,7 +53,7 @@ class TweetComponent extends Component {
 
         this.getAllComment();
 
-        this.commentIkonColor();
+        //this.commentIkonColor();
         this.likeIkonColor();
 
         // Untuk Like
@@ -283,15 +283,15 @@ class TweetComponent extends Component {
         }
     }
 
-    commentIkonColor(){
-        for(let i=0; i < this.props.tweet.comments.length; i++){
-            if(this.props.tweet.comments[i].userId === this.props.userId){
-                this.setState({
-                    commentColor: "blueColor"
-                })
-            }
-        }
-    }
+    // commentIkonColor(){
+    //     for(let i=0; i < this.props.tweet.comments.length; i++){
+    //         if(this.props.tweet.comments[i].userId === this.props.userId){
+    //             this.setState({
+    //                 commentColor: "blueColor"
+    //             })
+    //         }
+    //     }
+    // }
 
     likeIkonColor() {
         if (this.state.likes === null) {
