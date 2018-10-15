@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios/index";
 import profile from '../../daniel.jpg';
+import {Icon} from 'semantic-ui-react';
 import './Profile_Page.css';
 import TwittContainer from "../Twitt_Container/Twitt_Container";
 import UserAccountContainer from '../UserAccountContainer/UserAccountContainer'
@@ -28,13 +29,19 @@ class Edit_Profile extends Component {
             tweetItem: true,
             followingItem: false,
             followerItem: false,
-            modalProfilePicture: false
+            modalProfilePicture: false,
+            isFollow: false,
+            buttonFollowText: "Follow",
+            butttonFollowCondition: "followButtonProfile"
         };
 
         this.getTweetCounter = this.getTweetCounter.bind(this);
         this.handleItemClicked = this.handleItemClicked.bind(this);
         this.openProfilePicture = this.openProfilePicture.bind(this);
         this.closeProfilePicture = this.closeProfilePicture.bind(this);
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseLeave = this.mouseLeave.bind(this);
+        this.onButtonClicked = this.onButtonClicked.bind(this);
     }
 
 
@@ -129,7 +136,35 @@ class Edit_Profile extends Component {
         }
     }
 
+    mouseEnter() {
+        if(this.state.isFollow){
+            this.setState({buttonFollowText: "Unfollow"})
+        }
+        else {
+            this.setState({buttonFollowText: "Follow"})
+        }
 
+    }
+
+    mouseLeave() {
+        if(this.state.isFollow){
+            this.setState({buttonFollowText: "Followed"})
+        }
+        else {
+            this.setState({buttonFollowText: "Follow"})
+        }
+    }
+
+    onButtonClicked(){
+        this.setState({ isFollow: !this.state.isFollow });
+
+        if(this.state.isFollow){
+            this.setState({ butttonFollowCondition: "followButtonProfile"})
+        }
+        else{
+            this.setState({ butttonFollowCondition: "followedButtonProfile"})
+        }
+    }
     render() {
         let imageUrl = this.state.profilePicture;
         let imagedisplay
@@ -167,6 +202,22 @@ class Edit_Profile extends Component {
                             <div className="description">
                                 <i className="phone icon"/>{this.state.phone}
                             </div>
+                        </div>
+
+                        <div
+                            id={this.state.butttonFollowCondition}
+                            onMouseEnter={this.mouseEnter}
+                            onMouseLeave={this.mouseLeave}
+                            onClick={() => this.onButtonClicked(this.state.isFollow)}
+                        >
+                            <center>
+                                <Icon
+                                    size='large'
+                                    name='handshake'
+                                    id='iconFollow'
+                                />
+                                {' '}{this.state.buttonFollowText}
+                            </center>
                         </div>
                     </div>
 
