@@ -44,11 +44,6 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
-    // componentWillReceiveProps(newProps){
-    //     if( newProps.tweet.comments.length !== this.props.tweet.comments.length ){
-    //         this.commentIkonColor();
-    //     }
-    // }
 
     componentDidMount() {
         this.setState({
@@ -373,7 +368,7 @@ class TweetComponent extends Component {
                                           this.state.likes.length + " Likes"
                                         }
                                         </Icon.Group>
-                                        <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
+                                        <Icon.Group onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
                                             <Icon name='comments'/>
                                             {this.props.tweet.comments.length} Comments
                                         </Icon.Group>

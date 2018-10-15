@@ -29,10 +29,10 @@ class Modal_Twitt extends Component {
             commentColor: "blackColor"
         };
         this.openModal = this.openModal.bind(this);
-        this.likeIkonColor=this.likeIkonColor.bind(this);
+        this.likeIkonColor = this.likeIkonColor.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
             userLoginId: localStorage.getItem("myThings"),
             tweet: this.props.tweet,
@@ -111,13 +111,11 @@ class Modal_Twitt extends Component {
         }
     }
 
-    commentIkonColor(){
-        for(let i=0; i < this.props.tweet.comments.length; i++){
-            if(this.props.tweet.comments[i].userId.includes(this.props.userId)){
-                this.setState({
-                    commentColor: "blueColor"
-                })
-            }
+    commentIkonColor() {
+        if (this.props.tweet.comments.length > 0) {
+            this.setState({
+                commentColor: "blueColor"
+            })
         }
     }
 
@@ -190,9 +188,9 @@ class Modal_Twitt extends Component {
                     <ModalHeader toggle={this.openModal}>
                         <div className="profileBox">
                             <Image avatar id="avatarBox">
-                                    {this.setProfileImage(this.state.tweet.profilePicture)}
-                                    </Image>
-                                <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
+                                {this.setProfileImage(this.state.tweet.profilePicture)}
+                            </Image>
+                            <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
                         </div>
                     </ModalHeader>
 
@@ -205,16 +203,17 @@ class Modal_Twitt extends Component {
                         <Timestamp time={this.state.tweet.timestamp} format='full' includeDay/>
 
                         <div className="buttonGroup">
-                            <Icon.Group className={this.state.black} id="likesIcon" onClick={() => this.clickLikeButton(this.state.userLoginId, this.props.tweetId)}
+                            <Icon.Group className={this.state.black} id="likesIcon"
+                                        onClick={() => this.clickLikeButton(this.state.userLoginId, this.props.tweetId)}
                             >
-                              <Icon name='like'/>
-                              {!this.props.likes ?
-                                this.props.tweet.likes.length + " Likes"
-                                :
-                                this.state.likes.length + " Likes"
-                              }
+                                <Icon name='like'/>
+                                {!this.props.likes ?
+                                    this.props.tweet.likes.length + " Likes"
+                                    :
+                                    this.state.likes.length + " Likes"
+                                }
                             </Icon.Group>
-                            <Icon.Group  className={this.state.commentColor} id="commentsIcon">
+                            <Icon.Group className={this.state.commentColor} id="commentsIcon">
                                 <Icon name='comments'/>{this.props.tweet.comments.length} Comments
                             </Icon.Group>
                         </div>
