@@ -344,31 +344,43 @@ router.get('/profile/:id', (req, res) => {
 });
 
 router.put('/follow/:id', (req,res) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
     User.findByIdAndUpdate( {_id: req.params.id},
         {$push:
-            {followers: req.body.userId}
+            {followers: userData.userId}
         }, {new: true}, function (err, user) {
         if (err) {
             return res.send(err)
         };
         res.json(user);
     });
-    User.updateMany({_id: req.body.userId},
+    User.updateMany({_id: userData.userId},
         {$push: {following: req.params.id}}
     ).exec();
 })
 
 router.put('/unfollow/:id', (req,res) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
     User.findByIdAndUpdate( {_id: req.params.id},
         {$pull:
-            {followers: req.body.userId}
+            {followers: userData.userId}
         }, {new: true}, function (err, user) {
         if (err) {
             return res.send(err)
         };
         res.json(user);
     });
-    User.updateMany({_id: req.body.userId},
+    User.updateMany({_id: userData.userId},
         {$pull: {following: req.params.id}}
     ).exec();
 })

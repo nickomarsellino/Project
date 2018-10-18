@@ -42,6 +42,7 @@ class Edit_Profile extends Component {
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
         this.onButtonClicked = this.onButtonClicked.bind(this);
+        this.followButton = this.followButton.bind(this);
     }
 
 
@@ -85,8 +86,20 @@ class Edit_Profile extends Component {
             });
             this.setState({
                 tweetUserId: this.props.userIdProfile.userId,
-                userLoginId:this.props.userLoginId
-            })
+                userLoginId: this.props.userLoginId
+            });
+
+            //buat bandingin udh pernah follow atau belum
+            axios.get('/api/users/profile/' + this.props.userLoginId).then(res => {
+                const user = res.data[0];
+                if(user.following.includes(this.props.userIdProfile.userId)){
+                    this.setState({
+                        isFollow: true,
+                        buttonFollowText: "Followed",
+                        butttonFollowCondition: "followedButtonProfile"
+                    });
+                }
+            });
         }
     }
 
@@ -159,12 +172,41 @@ class Edit_Profile extends Component {
         this.setState({ isFollow: !this.state.isFollow });
 
         if(this.state.isFollow){
-            this.setState({ butttonFollowCondition: "followButtonProfile"})
+            axios.put('/api/users/unfollow/' + this.props.userIdProfile.userId).then(res => {
+                this.setState({ butttonFollowCondition: "followButtonProfile"})
+            });
         }
         else{
-            this.setState({ butttonFollowCondition: "followedButtonProfile"})
+            axios.put('/api/users/follow/' + this.props.userIdProfile.userId).then(res => {
+                this.setState({ butttonFollowCondition: "followedButtonProfile"})
+            });
         }
     }
+
+
+    followButton(userId){
+
+        if(userId !== localStorage.getItem("myThings")){
+            return (
+                <div
+                    id={this.state.butttonFollowCondition}
+                    onMouseEnter={this.mouseEnter}
+                    onMouseLeave={this.mouseLeave}
+                    onClick={() => this.onButtonClicked(this.state.isFollow)}
+                >
+                    <center>
+                        <Icon
+                            size='large'
+                            name='handshake'
+                            id='iconFollow'
+                        />
+                        {' '}{this.state.buttonFollowText}
+                    </center>
+                </div>
+            );
+        }
+    }
+
     render() {
         let imageUrl = this.state.profilePicture;
         let imagedisplay
@@ -204,21 +246,8 @@ class Edit_Profile extends Component {
                             </div>
                         </div>
 
-                        <div
-                            id={this.state.butttonFollowCondition}
-                            onMouseEnter={this.mouseEnter}
-                            onMouseLeave={this.mouseLeave}
-                            onClick={() => this.onButtonClicked(this.state.isFollow)}
-                        >
-                            <center>
-                                <Icon
-                                    size='large'
-                                    name='handshake'
-                                    id='iconFollow'
-                                />
-                                {' '}{this.state.buttonFollowText}
-                            </center>
-                        </div>
+                        {this.followButton(this.state.tweetUserId)}
+
                     </div>
 
                     <div id="navDetail" className="ui three item menu">
