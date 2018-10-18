@@ -111,7 +111,7 @@ class Twitt_Container extends Component {
                                 pagesData: parseInt(this.state.pagesData + 1, 10)
                             });
                         });
-                }, 2000);
+                }, 1000);
             }
         }
 
@@ -130,7 +130,7 @@ class Twitt_Container extends Component {
                                 pagesData: parseInt(this.state.pagesData + 1, 10)
                             });
                         });
-                }, 2000);
+                }, 1000);
             }
         }
     }

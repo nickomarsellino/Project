@@ -43,11 +43,6 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
-    // componentWillReceiveProps(newProps){
-    //     if( newProps.tweet.comments.length !== this.props.tweet.comments.length ){
-    //         this.commentIkonColor();
-    //     }
-    // }
 
     componentDidMount() {
         this.setState({
@@ -56,7 +51,9 @@ class TweetComponent extends Component {
         })
 
         this.getAllComment();
-        this.getTweetDataForCheckCommentsColor();
+
+        //this.commentIkonColor();
+
         this.likeIkonColor();
 
         // Untuk Like
@@ -283,6 +280,16 @@ class TweetComponent extends Component {
                 })
         }
     }
+
+    // commentIkonColor(){
+    //     for(let i=0; i < this.props.tweet.comments.length; i++){
+    //         if(this.props.tweet.comments[i].userId === this.props.userId){
+    //             this.setState({
+    //                 commentColor: "blueColor"
+    //             })
+    //         }
+    //     }
+    // }
 
     likeIkonColor() {
         if (this.state.likes === null) {
