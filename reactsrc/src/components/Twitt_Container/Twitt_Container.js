@@ -11,7 +11,7 @@ import TweetComponent from '../TweetComponent/TweetComponent';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 
 class Twitt_Container extends Component {
@@ -31,7 +31,7 @@ class Twitt_Container extends Component {
             hasMore: true,
             lengthData: '',
             totalLengthData: '',
-            pagesData: 1
+            pagesData: 1,
         };
         this.getTweetData = this.getTweetData.bind(this);
         this.showUserProfileFromTweets = this.showUserProfileFromTweets.bind(this);
@@ -94,7 +94,6 @@ class Twitt_Container extends Component {
             });
     }
 
-
     fetchMoreData() {
 
         if (this.props.located === "profile") {
@@ -136,8 +135,20 @@ class Twitt_Container extends Component {
         }
     }
 
+    // checkCommentColor(tweet){
+    //     // console.log(tweet.comments.length);
+    //     for( let x = 0 ; x < tweet.comments.length ; x++){
+    //         // console.log(tweet.comments[x].userId);
+    //         if(tweet.comments[x].userId.includes(this.props.userId)){
+    //             this.setState({
+    //                 commentColor: "blueColor"
+    //             })
+    //         }
+    //     }
+    // }
 
     render() {
+      console.log(this.state.lengthData);
         if (this.state.isLoading) {
             return null
         }
@@ -150,6 +161,7 @@ class Twitt_Container extends Component {
                 >
                     {this.state.tweetData.map(tweet =>
                         <TweetComponent tweet={tweet}
+                                        lengthData={this.state.length}
                                         history={this.props.history}
                                         userId={this.props.userId}
                                         profilePicture={this.props.profilePicture}
@@ -159,7 +171,8 @@ class Twitt_Container extends Component {
                                         isProfile={this.props.isProfile}
                                         getTweetData={this.getTweetData}
                                         showUserProfileFromTweets={this.showUserProfileFromTweets}
-                        />
+                        >
+                        </TweetComponent>
                     )}
                 </InfiniteScroll>
             </div>

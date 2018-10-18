@@ -13,7 +13,7 @@ import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 const Timestamp = require('react-timestamp');
 
@@ -31,8 +31,7 @@ class TweetComponent extends Component {
             modalDelete: false,
             checkLikes: false,
             black: "blackColor",
-            commentColor: "blackColor",
-            commentLength: ''
+            commentColor: ""
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -54,6 +53,7 @@ class TweetComponent extends Component {
         this.getAllComment();
 
         //this.commentIkonColor();
+
         this.likeIkonColor();
 
         // Untuk Like
@@ -77,8 +77,6 @@ class TweetComponent extends Component {
             });
             this.likeIkonColor();
         });
-
-
     }
 
     onClickedImage(userId, username) {
@@ -331,9 +329,29 @@ class TweetComponent extends Component {
         })
     }
 
+    getTweetDataForCheckCommentsColor(){
+        console.log(this.props.tweet.comments);
+        if(this.props.tweet.comments.length === 0){
+            this.setState({
+                commentColor: "blueColor"
+            })
+        }
+          // for( let cek = 0 ; cek < this.props.lengthData ; cek++){
+              // if(this.props.tweet.comments[cek].userId.includes(this.props.userId)){
+              //     this.setState({
+              //         commentColor: "blueColor"
+              //     })
+              // }
+              // else{
+              //     this.setState({
+              //         commentColor: "blackColor"
+              //     })
+              // }
+          // }
+    }
+
     render() {
         const tweet = this.props.tweet;
-        // console.log(this.state.likes.length);
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
                 <Card className="Tweet_Container" id="text-warp" key={tweet._id}>

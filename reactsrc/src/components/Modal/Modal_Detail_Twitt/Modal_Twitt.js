@@ -117,7 +117,7 @@ class Modal_Twitt extends Component {
                 })
         }
     }
-
+  
     commentIkonColor(tweet) {
         if (tweet.comments.length > 0) {
             this.setState({

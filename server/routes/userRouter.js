@@ -343,5 +343,34 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
+router.put('/follow/:id', (req,res) => {
+    User.findByIdAndUpdate( {_id: req.params.id},
+        {$push:
+            {followers: req.body.userId}
+        }, {new: true}, function (err, user) {
+        if (err) {
+            return res.send(err)
+        };
+        res.json(user);
+    });
+    User.updateMany({_id: req.body.userId},
+        {$push: {following: req.params.id}}
+    ).exec();
+})
+
+router.put('/unfollow/:id', (req,res) => {
+    User.findByIdAndUpdate( {_id: req.params.id},
+        {$pull:
+            {followers: req.body.userId}
+        }, {new: true}, function (err, user) {
+        if (err) {
+            return res.send(err)
+        };
+        res.json(user);
+    });
+    User.updateMany({_id: req.body.userId},
+        {$pull: {following: req.params.id}}
+    ).exec();
+})
 
 module.exports = router;
