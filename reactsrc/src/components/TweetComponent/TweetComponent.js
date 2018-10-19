@@ -31,7 +31,7 @@ class TweetComponent extends Component {
             modalDelete: false,
             checkLikes: false,
             black: "blackColor",
-            commentColor: "blackColor"
+            commentColor: ""
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -43,11 +43,6 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
-    // componentWillReceiveProps(newProps){
-    //     if( newProps.tweet.comments.length !== this.props.tweet.comments.length ){
-    //         this.commentIkonColor();
-    //     }
-    // }
 
     componentDidMount() {
         this.setState({
@@ -56,6 +51,8 @@ class TweetComponent extends Component {
         })
 
         this.getAllComment();
+
+        //this.commentIkonColor();
 
         this.likeIkonColor();
 
@@ -80,8 +77,6 @@ class TweetComponent extends Component {
             });
             this.likeIkonColor();
         });
-
-
     }
 
     onClickedImage(userId, username) {
@@ -255,7 +250,6 @@ class TweetComponent extends Component {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
         // Udabener ini
         if (checkValidID) {
-            console.log('UNLIKE');
             axios({
                 method: 'PUT',
                 responseType: 'json',
@@ -270,7 +264,6 @@ class TweetComponent extends Component {
                 })
         }
         else {
-            console.log('LIKE');
             axios({
                 method: 'PUT',
                 responseType: 'json',
@@ -285,6 +278,16 @@ class TweetComponent extends Component {
                 })
         }
     }
+
+    // commentIkonColor(){
+    //     for(let i=0; i < this.props.tweet.comments.length; i++){
+    //         if(this.props.tweet.comments[i].userId === this.props.userId){
+    //             this.setState({
+    //                 commentColor: "blueColor"
+    //             })
+    //         }
+    //     }
+    // }
 
     likeIkonColor() {
         if (this.state.likes === null) {
@@ -324,18 +327,25 @@ class TweetComponent extends Component {
         })
     }
 
-    getTweetDataForCheckCommentsColor() {
-        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
-            .then(res => {
-                this.setState(
-                    {
-                        tweetData: res.data.docs,
-                        totalLengthData: res.data.total,
-                        lengthData: res.data.docs.length,
-                        isLoading: false
-                    })
-            });
-            this.commentIkonColor();
+    getTweetDataForCheckCommentsColor(){
+        console.log(this.props.tweet.comments);
+        if(this.props.tweet.comments.length === 0){
+            this.setState({
+                commentColor: "blueColor"
+            })
+        }
+          // for( let cek = 0 ; cek < this.props.lengthData ; cek++){
+              // if(this.props.tweet.comments[cek].userId.includes(this.props.userId)){
+              //     this.setState({
+              //         commentColor: "blueColor"
+              //     })
+              // }
+              // else{
+              //     this.setState({
+              //         commentColor: "blackColor"
+              //     })
+              // }
+          // }
     }
 
     render() {

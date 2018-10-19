@@ -4,13 +4,22 @@ import {Card, Icon, Image} from 'semantic-ui-react';
 import './UserAccountContainer.css';
 import profile from '../../daniel.jpg';
 
+import UserAccountComponent from '../UserAccountComponent/UserAccountComponent'
+
 class UserAccountContainer extends Component {
 
     constructor() {
         super();
         this.state = {
-            userData: []
+            userData: [],
+            isFollow: false,
+            buttonFollowText: "Follow",
+            butttonFollowCondition: "followButton"
         };
+
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseLeave = this.mouseLeave.bind(this);
+        this.onButtonClicked = this.onButtonClicked.bind(this);
     }
 
     componentWillMount() {
@@ -62,36 +71,45 @@ class UserAccountContainer extends Component {
         }
     }
 
+    mouseEnter() {
+        if(this.state.isFollow){
+            this.setState({buttonFollowText: "Unfollow"})
+        }
+        else {
+            this.setState({buttonFollowText: "Follow"})
+        }
+
+    }
+
+    mouseLeave() {
+        if(this.state.isFollow){
+            this.setState({buttonFollowText: "Followed"})
+        }
+        else {
+            this.setState({buttonFollowText: "Follow"})
+        }
+    }
+
+    onButtonClicked(){
+        this.setState({ isFollow: !this.state.isFollow });
+
+        if(this.state.isFollow){
+            this.setState({ butttonFollowCondition: "followButton"})
+        }
+        else{
+            this.setState({ butttonFollowCondition: "followedButton"})
+        }
+    }
+
     render() {
         return (
             <div className="peopleCards">
                 {this.state.userData.map(user =>
-                    <div className="col-lg-3 col-lg-offset-4 user-Container" key={user._id}>
-                        <Card>
-                            <center>
-                                <Image style={{margin: "20px"}}
-                                       onClick={() => this.viewUserProfile(user.username,user._id)}>
-                                    {this.setProfileImage(user.profilePicture)}
-                                </Image>
-                            </center>
-                            <Card.Content>
-                                <center>
-                                    <Card.Header className="profileName"
-                                                 onClick={() => this.viewUserProfile(user.username,user._id)}>
-                                        {user.username}
-                                    </Card.Header>
-                                    <Card.Description id="followButton">
-                                        <Icon
-                                            size='large'
-                                            name='handshake'
-                                            id='iconFollow'
-                                        />
-                                        {' '}Follow
-                                    </Card.Description>
-                                </center>
-                            </Card.Content>
-                        </Card>
-                    </div>
+
+                    <UserAccountComponent
+                        userData = {user}
+                        history = {this.props.history}
+                    />
                 )}
             </div>
         );
