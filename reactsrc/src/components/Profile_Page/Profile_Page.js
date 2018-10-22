@@ -46,7 +46,7 @@ class Edit_Profile extends Component {
         this.onButtonClicked = this.onButtonClicked.bind(this);
     }
 
-    // Kenapa sih ini?!
+    // Kenapa sih ini?!// Kenapa sih ini?!// Kenapa sih ini?!// Kenapa sih ini?!
 
     componentWillMount() {
         this.getProfileData();
