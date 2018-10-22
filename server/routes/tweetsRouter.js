@@ -138,7 +138,7 @@ router.get('/tweets', (req, res, next) => {
 
     User.find({_id: userData.userId}).then((result) => {
 
-        const query = Tweet.find({userId: { $in : result[0].following }}).sort(
+        const query = Tweet.find({userId: { $in : result[0].following.concat(userData.userId) }}).sort(
             {timestamp: 'descending'}
         );
         const { page, perPage } = req.query;
