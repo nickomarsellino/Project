@@ -345,7 +345,7 @@ router.get('/profile/:id', (req, res) => {
 
 router.put('/follow/:id', (req,res) => {
     User.findByIdAndUpdate( {_id: req.params.id},
-        {$push:
+        {$push: 
             {followers: req.body.userId}
         }, {new: true}, function (err, user) {
         if (err) {
@@ -371,6 +371,19 @@ router.put('/unfollow/:id', (req,res) => {
     User.updateMany({_id: req.body.userId},
         {$pull: {following: req.params.id}}
     ).exec();
+})
+
+
+router.get('/followingData/:id', (req,res) => {
+    User.findById({ _id : req.params.id}).then((result) => {
+        res.json({result});
+    });
+})
+
+router.get('/followersData/:id', (req,res) => {
+    User.findById({ _id : req.params.id}).then((result) => {
+        res.json(result);
+    });
 })
 
 module.exports = router;
