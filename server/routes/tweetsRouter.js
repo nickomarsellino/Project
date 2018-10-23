@@ -130,17 +130,28 @@ router.delete('/tweet/:id', (req, res, next) => {
 
 // get all tweets
 router.get('/tweets', (req, res, next) => {
-    const query = Tweet.find({}).sort(
-      {timestamp: 'descending'}
-    );
-    const { page, perPage } = req.query;
-    const options = {
-        page: parseInt(page, 10),
-        limit: parseInt(perPage, 10),
-    };
 
-    Tweet.paginate(query, options).then(function(result) {
-        res.send(result);
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    User.find({_id: userData.userId}).then((result) => {
+
+        const query = Tweet.find({userId: { $in : result[0].following.concat(userData.userId) }}).sort(
+            {timestamp: 'descending'}
+        );
+        const { page, perPage } = req.query;
+        const options = {
+            page: parseInt(page, 10),
+            limit: parseInt(perPage, 10),
+        };
+
+        Tweet.paginate(query, options).then(function(result) {
+            res.send(result);
+        });
+
+
     });
 });
 
