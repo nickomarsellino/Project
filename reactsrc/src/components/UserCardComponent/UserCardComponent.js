@@ -23,7 +23,6 @@ class UserCardComponent extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.userData);
         this.setState({
             userData: this.props.userData
         });
@@ -56,10 +55,10 @@ class UserCardComponent extends Component {
         axios.get('/api/users/profile/'+this.props.userData)
             .then(res => {
                 this.setState({
-                    hasilGet: res.data[0]
+                    userData: res.data[0]
                 });
+            });
                 this.followCondition();
-        });
     }
 
    setProfileImage(profilePicture) {

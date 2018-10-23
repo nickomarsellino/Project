@@ -47,8 +47,6 @@ class Edit_Profile extends Component {
         this.followButton = this.followButton.bind(this);
     }
 
-    // Kenapa sih ini?!// Kenapa sih ini?!// Kenapa sih ini?!// Kenapa sih ini?!
-
     componentWillMount() {
         this.getProfileData();
     }
@@ -115,7 +113,6 @@ class Edit_Profile extends Component {
                     followingData: user.following,
                     followersData: user.followers
                 });
-                console.log(user);
             });
             this.setState({
                 tweetUserId: this.props.userId,
@@ -137,7 +134,6 @@ class Edit_Profile extends Component {
                     followingData: user.following,
                     followersData: user.followers
                 });
-                console.log(user);
             });
             this.setState({
                 tweetUserId: this.props.userIdProfile.userId,
@@ -159,7 +155,6 @@ class Edit_Profile extends Component {
     }
 
     handleItemClicked(item) {
-        console.log("ININYA: ", item);
         if (item === "Follower") {
             //Render Validation box message
             ReactDOM.render(<FadeIn>
@@ -317,9 +312,9 @@ class Edit_Profile extends Component {
                            onClick={() => this.handleItemClicked("Tweets")}> Tweets <br/><br/>{this.state.tweetCount}
                         </a>
                         <a className="item"
-                           onClick={() => this.handleItemClicked("Following")}>Following <br/><br/>15</a>
+                           onClick={() => this.handleItemClicked("Following")}>Following <br/><br/>{this.state.followingData.length}</a>
                         <a className="item"
-                           onClick={() => this.handleItemClicked("Follower")}>Followers <br/><br/>15</a>
+                           onClick={() => this.handleItemClicked("Follower")}>Followers <br/><br/>{this.state.followersData.length}</a>
                     </div>
 
                     <FadeIn>

@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
-import Loading from '../../LoadingGif.gif';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 //load another component
@@ -51,10 +49,9 @@ class Twitt_Container extends Component {
                 // this.setState({tweetData: newTweetData});
 
                 if (namavariabel.tweetPicture) {
-                    console.log("JALAN: ", namavariabel.tweetPicture);
+
                 }
                 else {
-                    console.log("JALAN BOR");
                     this.setState({
                         isLoading: true
                     });
@@ -65,7 +62,7 @@ class Twitt_Container extends Component {
     }
 
     getTweetData() {
-        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
+        axios.get('/api/tweet/tweets?perPage=5&page=1')
             .then(res => {
                 this.setState(
                     {
@@ -121,7 +118,7 @@ class Twitt_Container extends Component {
             }
             else {
                 setTimeout(() => {
-                    axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                    axios.get('/api/tweet/tweets?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
                         .then(res => {
                             const joined = this.state.tweetData.concat(res.data.docs);
                             this.setState({
@@ -148,7 +145,6 @@ class Twitt_Container extends Component {
     // }
 
     render() {
-      console.log(this.state.lengthData);
         if (this.state.isLoading) {
             return null
         }
