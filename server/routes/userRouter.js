@@ -385,4 +385,17 @@ router.put('/unfollow/:id', (req,res) => {
     ).exec();
 })
 
+
+router.get('/followingData/:id', (req,res) => {
+    User.findById({ _id : req.params.id}).then((result) => {
+        res.json({result});
+    });
+})
+
+router.get('/followersData/:id', (req,res) => {
+    User.findById({ _id : req.params.id}).then((result) => {
+        res.json(result);
+    });
+})
+
 module.exports = router;
