@@ -197,7 +197,7 @@ router.put('/likeTweet/:id', (req,res) => {
       };
       res.json(user);
     });
-  })
+})
 
 router.put('/unlikeTweet/:id', (req,res) => {
     Tweet.findByIdAndUpdate( {_id: req.params.id}, {$pull: {likes: req.body.userId}}, {new: true}, function (err, user) {
@@ -206,7 +206,7 @@ router.put('/unlikeTweet/:id', (req,res) => {
       };
       res.json(user);
     });
-  })
+})
 
 router.put('/commentTweet/:id', (req,res) => {
     Tweet.findByIdAndUpdate( {_id: req.params.id},
@@ -238,7 +238,7 @@ router.put('/commentTweet/:id', (req,res) => {
 
 router.put('/deleteCommentTweet/:id', (req,res) => {
     Tweet.findByIdAndUpdate( {_id: req.params.id},
-      {$pull: {comments:  { _id: req.body._id} }}, {new: true}, function (err, user) {
+      {$pull: {comments:  { _id: req.body._id, userId: req.body.userId} }}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)
       };

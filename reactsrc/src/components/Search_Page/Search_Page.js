@@ -7,7 +7,7 @@ import axios from 'axios';
 //Load another component
 import SearchBar from "../Search_Bar/Search_Bar";
 import TweetResult from "../Search_Result/Tweet_Result/Tweet_Result_Container";
-import UserAccountContainer from '../UserAccountContainer/UserAccountContainer'
+import UserCardContainer from '../UserCardContainer/UserCardContainer'
 
 class Search_Page extends Component {
     constructor(props) {
@@ -229,7 +229,7 @@ class Search_Page extends Component {
                                     </a>
                                 </div>
 
-                                <UserAccountContainer
+                                <UserCardContainer
                                     userSearch={this.state.userSearch}
                                     history={this.props.history}
                                 />
