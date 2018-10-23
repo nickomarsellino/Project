@@ -55,6 +55,50 @@ class Edit_Profile extends Component {
         this.setState({tweetCount: tweet});
     }
 
+    onButtonClicked(){
+      this.setState({ isFollow: !this.state.isFollow });
+
+      if(this.state.isFollow){
+          axios.put('/api/users/unfollow/' + this.props.userData).then(res => {
+              this.setState({
+                  butttonFollowCondition: "followButtonProfile"
+              })
+              console.log("Unfollow ",this.props.userData);
+          });
+      }
+      else{
+          axios.put('/api/users/follow/' + this.props.userData).then(res => {
+              this.setState({
+                  butttonFollowCondition: "followedButtonProfile",
+                  buttonFollowText: "Unfollow"
+              })
+              console.log("Follow ",this.props.userData);
+          });
+      }
+    }
+
+    followButton(userId){
+        if(userId !== localStorage.getItem("myThings")){
+            return (
+                <div
+                    id={this.state.butttonFollowCondition}
+                    onMouseEnter={this.mouseEnter}
+                    onMouseLeave={this.mouseLeave}
+                    onClick={() => this.onButtonClicked(this.state.isFollow)}
+                >
+                    <center>
+                        <Icon
+                            size='large'
+                            name='handshake'
+                            id='iconFollow'
+                        />
+                        {' '}{this.state.buttonFollowText}
+                    </center>
+                </div>
+            );
+        }
+    }
+
     getProfileData() {
         //Jika ia klik My Profile
         if (this.props.userId) {
@@ -111,7 +155,6 @@ class Edit_Profile extends Component {
     }
 
     handleItemClicked(item) {
-
         if (item === "Follower") {
             //Render Validation box message
             ReactDOM.render(<FadeIn>
@@ -222,6 +265,7 @@ class Edit_Profile extends Component {
     }
 
     render() {
+      console.log(this.state.followingData);
         let imageUrl = this.state.profilePicture;
         let imagedisplay
 
@@ -259,7 +303,6 @@ class Edit_Profile extends Component {
                                 <i className="phone icon"/>{this.state.phone}
                             </div>
                         </div>
-
                         {this.followButton(this.state.tweetUserId)}
 
                     </div>

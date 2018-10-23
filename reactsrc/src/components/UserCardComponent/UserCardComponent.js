@@ -26,8 +26,29 @@ class UserCardComponent extends Component {
         this.setState({
             userData: this.props.userData
         });
-
         this.getSpecificFollowingUser();
+    }
+
+    onButtonClicked(){
+        this.setState({ isFollow: !this.state.isFollow });
+
+        if(this.state.isFollow){
+            axios.put('/api/users/unfollow/' + this.props.userData).then(res => {
+                this.setState({
+                    butttonFollowCondition: "followButtonProfile"
+                })
+                console.log("Unfollow ",this.props.userData);
+            });
+        }
+        else{
+            axios.put('/api/users/follow/' + this.props.userData).then(res => {
+                this.setState({
+                    butttonFollowCondition: "followedButtonProfile",
+                    buttonFollowText: "Unfollow"
+                })
+                console.log("Follow ",this.props.userData);
+            });
+        }
     }
 
     getSpecificFollowingUser(){
@@ -37,9 +58,10 @@ class UserCardComponent extends Component {
                     userData: res.data[0]
                 });
             });
+                this.followCondition();
     }
 
-    setProfileImage(profilePicture) {
+   setProfileImage(profilePicture) {
        let imageUrl = profilePicture;
 
        if (imageUrl) {
@@ -52,7 +74,7 @@ class UserCardComponent extends Component {
                <img alt=" " src={profile} id="ProfileImage"/>
            );
        }
-   }
+     }
 
    viewUserProfile(username, userId) {
        if (localStorage.getItem("myThings") === userId) {
@@ -66,6 +88,16 @@ class UserCardComponent extends Component {
                state: {
                    userId: userId
                }
+           })
+       }
+   }
+
+   followCondition(){
+       if(this.props.userData.includes(this.state.hasilGet._id)){
+           this.setState({
+              buttonFollowText: "Unfollow",
+              isFollow: true,
+              butttonFollowCondition: "followedButton"
            })
        }
    }
@@ -89,32 +121,21 @@ class UserCardComponent extends Component {
        }
    }
 
-   onButtonClicked() {
-       this.setState({isFollow: !this.state.isFollow});
-
-       if (this.state.isFollow) {
-           this.setState({butttonFollowCondition: "followButton"})
-       }
-       else {
-           this.setState({butttonFollowCondition: "followedButton"})
-       }
-   }
-
    render() {
        return (
-           <div className="col-lg-3 col-lg-offset-4 user-Container" key={this.state.userData._id}>
+           <div className="col-lg-3 col-lg-offset-4 user-Container" key={this.state.hasilGet._id}>
                <Card>
                    <center>
                        <Image style={{margin: "20px"}}
-                              onClick={() => this.viewUserProfile(this.state.userData.username, this.state.userData._id)}>
-                           {this.setProfileImage(this.state.userData.profilePicture)}
+                              onClick={() => this.viewUserProfile(this.state.hasilGet.username, this.state.hasilGet._id)}>
+                           {this.setProfileImage(this.state.hasilGet.profilePicture)}
                        </Image>
                    </center>
                    <Card.Content>
                        <center>
                            <Card.Header className="profileName"
-                                        onClick={() => this.viewUserProfile(this.state.userData.username, this.state.userData._id)}>
-                               {this.state.userData.username}
+                                        onClick={() => this.viewUserProfile(this.state.hasilGet.username, this.state.hasilGet._id)}>
+                               {this.state.hasilGet.username}
                            </Card.Header>
                            <Card.Description
                                id={this.state.butttonFollowCondition}
