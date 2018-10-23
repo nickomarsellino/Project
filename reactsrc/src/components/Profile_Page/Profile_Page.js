@@ -269,9 +269,9 @@ class Edit_Profile extends Component {
                            onClick={() => this.handleItemClicked("Tweets")}> Tweets <br/><br/>{this.state.tweetCount}
                         </a>
                         <a className="item"
-                           onClick={() => this.handleItemClicked("Following")}>Following <br/><br/>15</a>
+                           onClick={() => this.handleItemClicked("Following")}>Following <br/><br/>{this.state.followingData.length}</a>
                         <a className="item"
-                           onClick={() => this.handleItemClicked("Follower")}>Followers <br/><br/>15</a>
+                           onClick={() => this.handleItemClicked("Follower")}>Followers <br/><br/>{this.state.followersData.length}</a>
                     </div>
 
                     <FadeIn>
