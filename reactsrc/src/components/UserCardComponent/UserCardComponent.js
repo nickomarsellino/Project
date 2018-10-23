@@ -23,7 +23,6 @@ class UserCardComponent extends Component {
     }
 
     componentDidMount() {
-        console.log("APAKAH DATANYA 1: ", this.props.userData);
         this.setState({
             userData: this.props.userData
         });
@@ -35,9 +34,8 @@ class UserCardComponent extends Component {
         axios.get('/api/users/profile/'+this.props.userData)
             .then(res => {
                 this.setState({
-                    hasilGet: res.data
+                    userData: res.data[0]
                 });
-                console.log(this.state.hasilGet);
             });
     }
 

@@ -47,8 +47,6 @@ class Edit_Profile extends Component {
         this.followButton = this.followButton.bind(this);
     }
 
-    // Kenapa sih ini?!// Kenapa sih ini?!// Kenapa sih ini?!// Kenapa sih ini?!
-
     componentWillMount() {
         this.getProfileData();
     }
@@ -71,7 +69,6 @@ class Edit_Profile extends Component {
                     followingData: user.following,
                     followersData: user.followers
                 });
-                console.log(user);
             });
             this.setState({
                 tweetUserId: this.props.userId,
@@ -93,7 +90,6 @@ class Edit_Profile extends Component {
                     followingData: user.following,
                     followersData: user.followers
                 });
-                console.log(user);
             });
             this.setState({
                 tweetUserId: this.props.userIdProfile.userId,
@@ -115,8 +111,6 @@ class Edit_Profile extends Component {
     }
 
     handleItemClicked(item) {
-
-console.log("ININYA: ", item);
 
         if (item === "Follower") {
             //Render Validation box message

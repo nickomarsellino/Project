@@ -1,7 +1,5 @@
 import axios from "axios/index";
 import React, {Component} from "react";
-import {Card, Icon, Image} from 'semantic-ui-react';
-import profile from '../../daniel.jpg';
 
 import UserCardComponent from '../UserCardComponent/UserCardComponent'
 
@@ -41,45 +39,15 @@ class UserCardContainer extends Component {
 
    componentDidMount(){
         if(this.props.followingData){
-            // console.log(this.props.followingData);
             this.setState({
                 userData: this.props.followingData
             })
         }
-        // else if(this.props.followersData){
-        //     console.log(this.props.followersData);
-        // }
-   }
-
-   setProfileImage(profilePicture) {
-       let imageUrl = profilePicture;
-
-       if (imageUrl) {
-           return (
-               <img alt=" " id="ProfileImage" src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
-           );
-       }
-       else {
-           return (
-               <img alt=" " src={profile} id="ProfileImage"/>
-           );
-       }
-   }
-
-   viewUserProfile(username, userId) {
-       if(localStorage.getItem("myThings") === userId){
-           this.props.history.push({
-               pathname: `/home/myProfile/${username}`.replace(' ', ''),
-           })
-       }
-       else {
-           this.props.history.push({
-               pathname: `/home/profile/${username}`.replace(' ', ''),
-               state: {
-                   userId: userId
-               }
-           })
-       }
+        else if(this.props.followersData){
+            this.setState({
+                userData: this.props.followersData
+            })
+        }
    }
 
    mouseEnter() {
