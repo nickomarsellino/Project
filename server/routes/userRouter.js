@@ -350,7 +350,6 @@ router.put('/follow/:id', (req,res) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
     console.log(userData);
-
     User.findByIdAndUpdate( {_id: req.params.id},
         {$push:
             {followers: userData.userId}
