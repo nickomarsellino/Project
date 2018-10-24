@@ -150,8 +150,6 @@ router.get('/tweets', (req, res, next) => {
         Tweet.paginate(query, options).then(function(result) {
             res.send(result);
         });
-
-
     });
 });
 

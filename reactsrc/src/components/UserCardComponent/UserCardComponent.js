@@ -23,6 +23,8 @@ class UserCardComponent extends Component {
     }
 
     componentDidMount() {
+      console.log(this.props.userData);
+      console.log(this.state.isFollow);
         this.setState({
             userData: this.props.userData
         });
@@ -58,7 +60,6 @@ class UserCardComponent extends Component {
                     userData: res.data[0]
                 });
             });
-                this.followCondition();
     }
 
    setProfileImage(profilePicture) {
@@ -92,15 +93,6 @@ class UserCardComponent extends Component {
        }
    }
 
-   followCondition(){
-       if(this.props.userData.includes(this.state.hasilGet._id)){
-           this.setState({
-              buttonFollowText: "Unfollow",
-              isFollow: true,
-              butttonFollowCondition: "followedButton"
-           })
-       }
-   }
 
    mouseEnter() {
        if (this.state.isFollow) {
@@ -109,7 +101,6 @@ class UserCardComponent extends Component {
        else {
            this.setState({buttonFollowText: "Follow"})
        }
-
    }
 
    mouseLeave() {
@@ -123,19 +114,19 @@ class UserCardComponent extends Component {
 
    render() {
        return (
-           <div className="col-lg-3 col-lg-offset-4 user-Container" key={this.state.hasilGet._id}>
+           <div className="col-lg-3 col-lg-offset-4 user-Container" key={this.state.userData._id}>
                <Card>
                    <center>
                        <Image style={{margin: "20px"}}
-                              onClick={() => this.viewUserProfile(this.state.hasilGet.username, this.state.hasilGet._id)}>
-                           {this.setProfileImage(this.state.hasilGet.profilePicture)}
+                              onClick={() => this.viewUserProfile(this.state.userData.username, this.state.userData._id)}>
+                           {this.setProfileImage(this.state.userData.profilePicture)}
                        </Image>
                    </center>
                    <Card.Content>
                        <center>
                            <Card.Header className="profileName"
-                                        onClick={() => this.viewUserProfile(this.state.hasilGet.username, this.state.hasilGet._id)}>
-                               {this.state.hasilGet.username}
+                                        onClick={() => this.viewUserProfile(this.state.userData.username, this.state.userData._id)}>
+                               {this.state.userData.username}
                            </Card.Header>
                            <Card.Description
                                id={this.state.butttonFollowCondition}

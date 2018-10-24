@@ -34,7 +34,8 @@ class Edit_Profile extends Component {
             modalProfilePicture: false,
             isFollow: false,
             buttonFollowText: "Follow",
-            butttonFollowCondition: "followButtonProfile"
+            butttonFollowCondition: "followButtonProfile",
+            userFollowingLoginData: ''
         };
 
         this.getTweetCounter = this.getTweetCounter.bind(this);
@@ -150,6 +151,10 @@ class Edit_Profile extends Component {
                         butttonFollowCondition: "followedButtonProfile"
                     });
                 }
+                this.setState({
+                    userFollowingLoginData: user.following
+                })
+                console.log("USER LOGIN FOLLOWING ", this.state.userFollowingLoginData);
             });
         }
     }
@@ -170,6 +175,7 @@ class Edit_Profile extends Component {
               <UserCardContainer
                   history={this.props.history}
                   followingData={this.state.followingData}
+
               />
             </FadeIn>, document.getElementById('profileInfo'));
         }
@@ -240,7 +246,6 @@ class Edit_Profile extends Component {
         }
     }
 
-
     followButton(userId){
 
         if(userId !== localStorage.getItem("myThings")){
@@ -265,7 +270,7 @@ class Edit_Profile extends Component {
     }
 
     render() {
-      console.log(this.state.followingData);
+        console.log(this.state.followingData);
         let imageUrl = this.state.profilePicture;
         let imagedisplay
 
