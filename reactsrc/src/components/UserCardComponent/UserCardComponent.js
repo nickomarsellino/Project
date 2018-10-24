@@ -20,6 +20,7 @@ class UserCardComponent extends Component {
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
         this.onButtonClicked = this.onButtonClicked.bind(this);
+        this.followButton = this.followButton.bind(this);
     }
 
     componentDidMount() {
@@ -29,28 +30,6 @@ class UserCardComponent extends Component {
         this.getSpecificFollowingUser();
     }
 
-    onButtonClicked(){
-        this.setState({ isFollow: !this.state.isFollow });
-
-        if(this.state.isFollow){
-            axios.put('/api/users/unfollow/' + this.props.userData).then(res => {
-                this.setState({
-                    butttonFollowCondition: "followButtonProfile"
-                })
-                console.log("Unfollow ",this.props.userData);
-            });
-        }
-        else{
-            axios.put('/api/users/follow/' + this.props.userData).then(res => {
-                this.setState({
-                    butttonFollowCondition: "followedButtonProfile",
-                    buttonFollowText: "Unfollow"
-                })
-                console.log("Follow ",this.props.userData);
-            });
-        }
-    }
-
     getSpecificFollowingUser(){
         axios.get('/api/users/profile/'+this.props.userData)
             .then(res => {
@@ -58,7 +37,15 @@ class UserCardComponent extends Component {
                     userData: res.data[0]
                 });
             });
-                this.followCondition();
+
+        //Check apakah user tersebut memfollow yang sedang login
+        if(this.props.userLoginFollowingData.includes(this.props.userData)){
+            this.setState({
+                isFollow: true,
+                buttonFollowText: "Followed",
+                butttonFollowCondition: "followedButton"
+            });
+        }
     }
 
    setProfileImage(profilePicture) {
@@ -92,15 +79,6 @@ class UserCardComponent extends Component {
        }
    }
 
-   followCondition(){
-       if(this.props.userData.includes(this.state.hasilGet._id)){
-           this.setState({
-              buttonFollowText: "Unfollow",
-              isFollow: true,
-              butttonFollowCondition: "followedButton"
-           })
-       }
-   }
 
    mouseEnter() {
        if (this.state.isFollow) {
@@ -121,35 +99,70 @@ class UserCardComponent extends Component {
        }
    }
 
+    onButtonClicked(userId){
+        this.setState({ isFollow: !this.state.isFollow });
+
+        if(this.state.isFollow){
+            axios.put('/api/users/unfollow/' + userId).then(res => {
+                this.setState({ butttonFollowCondition: "followButton"})
+            });
+        }
+        else{
+            axios.put('/api/users/follow/' + userId).then(res => {
+                this.setState({ butttonFollowCondition: "followedButton"})
+            });
+        }
+    }
+
+
+    followButton(userId){
+
+        if(userId !== localStorage.getItem("myThings")){
+            return (
+                <div
+                    id={this.state.butttonFollowCondition}
+                    onMouseEnter={this.mouseEnter}
+                    onMouseLeave={this.mouseLeave}
+                    onClick={() => this.onButtonClicked(userId)}
+                >
+                    <center>
+                        <Icon
+                            size='large'
+                            name='handshake'
+                            id='iconFollow'
+                        />
+                        {' '}{this.state.buttonFollowText}
+                    </center>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div id="isUserAccount"/>
+            );
+        }
+    }
+
+
    render() {
        return (
-           <div className="col-lg-3 col-lg-offset-4 user-Container" key={this.state.hasilGet._id}>
+           <div className="col-lg-3 col-lg-offset-4 user-Container" key={this.state.userData._id}>
                <Card>
                    <center>
                        <Image style={{margin: "20px"}}
-                              onClick={() => this.viewUserProfile(this.state.hasilGet.username, this.state.hasilGet._id)}>
-                           {this.setProfileImage(this.state.hasilGet.profilePicture)}
+                              onClick={() => this.viewUserProfile(this.state.userData.username, this.state.userData._id)}>
+                           {this.setProfileImage(this.state.userData.profilePicture)}
                        </Image>
                    </center>
                    <Card.Content>
                        <center>
                            <Card.Header className="profileName"
-                                        onClick={() => this.viewUserProfile(this.state.hasilGet.username, this.state.hasilGet._id)}>
-                               {this.state.hasilGet.username}
+                                        onClick={() => this.viewUserProfile(this.state.userData.username, this.state.userData._id)}>
+                               {this.state.userData.username}
                            </Card.Header>
-                           <Card.Description
-                               id={this.state.butttonFollowCondition}
-                               onMouseEnter={this.mouseEnter}
-                               onMouseLeave={this.mouseLeave}
-                               onClick={() => this.onButtonClicked(this.state.isFollow)}
-                           >
-                               <Icon
-                                   size='large'
-                                   name='handshake'
-                                   id='iconFollow'
-                               />
-                               {' '}{this.state.buttonFollowText}
-                           </Card.Description>
+
+                           {this.followButton(this.state.userData._id)}
+
                        </center>
                    </Card.Content>
                </Card>

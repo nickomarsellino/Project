@@ -4,10 +4,13 @@
     border-width: 1.2px;
     border-color: rgb(77, 182, 172);
     margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    padding-right: 20px;
+    padding-left: 20px;
     padding-top: 6px;
     padding-bottom: 6px;
-    padding-left: 20px;
-    padding-right: 20px;
     border-radius: 5px;
     cursor: pointer;
     color: rgb(77, 182, 172);
@@ -17,13 +20,17 @@
     display: inline-block;
     background: rgba(77, 182, 172, 0.11);
     margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
     padding-top: 6px;
     padding-bottom: 6px;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-bottom: 5px;
+    border-radius: 5px;
     border-radius: 5px;
     opacity: 1;
 }
+
+
 
 #followedButton{
     display: inline-block;
@@ -31,10 +38,13 @@
     border-width: 1.2px;
     background: rgb(77, 182, 172);
     margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    padding-right: 20px;
+    padding-left: 20px;
     padding-top: 6px;
     padding-bottom: 6px;
-    padding-left: 20px;
-    padding-right: 20px;
     border-radius: 5px;
     cursor: pointer;
     color: rgb(242, 242, 242);
@@ -44,10 +54,11 @@
     display: inline-block;
     background: rgb(204, 118, 122);
     margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
     padding-top: 6px;
     padding-bottom: 6px;
-    padding-left: 20px;
-    padding-right: 20px;
     border-radius: 5px;
     opacity: 1;
 }
@@ -88,4 +99,8 @@
 
 .profileName:hover{
     cursor: pointer;
+}
+
+#isUserAccount{
+    margin-top: 48px;
 }
