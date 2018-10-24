@@ -13,16 +13,10 @@ class UserCardContainer extends Component {
             buttonFollowText: "Follow",
             butttonFollowCondition: "followButton"
         };
-
-        this.mouseEnter = this.mouseEnter.bind(this);
-        this.mouseLeave = this.mouseLeave.bind(this);
-        this.onButtonClicked = this.onButtonClicked.bind(this);
     }
 
     componentWillMount() {
-
        if(this.props.userSearch){
-          console.log("this.props.userSearch: ", this.props.userSearch);
            this.setState({
                userData: this.props.userSearch
            });
@@ -50,43 +44,14 @@ class UserCardContainer extends Component {
         }
    }
 
-   mouseEnter() {
-       if(this.state.isFollow){
-           this.setState({buttonFollowText: "Unfollow"})
-       }
-       else {
-           this.setState({buttonFollowText: "Follow"})
-       }
-
-   }
-
-   mouseLeave() {
-       if(this.state.isFollow){
-           this.setState({buttonFollowText: "Followed"})
-       }
-       else {
-           this.setState({buttonFollowText: "Follow"})
-       }
-   }
-
-   onButtonClicked(){
-       this.setState({ isFollow: !this.state.isFollow });
-
-       if(this.state.isFollow){
-           this.setState({ butttonFollowCondition: "followButton"})
-       }
-       else{
-           this.setState({ butttonFollowCondition: "followedButton"})
-       }
-   }
 
    render() {
        return (
            <div className="peopleCards">
                {this.state.userData.map(user =>
                    <UserCardComponent
+                       userLoginFollowingData = {this.props.userLoginFollowingData}
                        userData = {user}
-                       followingData={user}
                        history = {this.props.history}
                    />
                )}
