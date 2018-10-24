@@ -5,6 +5,7 @@ import {Icon} from 'semantic-ui-react';
 import './Profile_Page.css';
 import TwittContainer from "../Twitt_Container/Twitt_Container";
 import UserCardContainer from '../UserCardContainer/UserCardContainer'
+
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
 
@@ -35,7 +36,7 @@ class Edit_Profile extends Component {
             isFollow: false,
             buttonFollowText: "Follow",
             butttonFollowCondition: "followButtonProfile",
-            userFollowingLoginData: ''
+            userLoginFollowingData: ''
         };
 
         this.getTweetCounter = this.getTweetCounter.bind(this);
@@ -49,55 +50,12 @@ class Edit_Profile extends Component {
     }
 
     componentWillMount() {
+
         this.getProfileData();
     }
 
     getTweetCounter(tweet) {
         this.setState({tweetCount: tweet});
-    }
-
-    onButtonClicked(){
-      this.setState({ isFollow: !this.state.isFollow });
-
-      if(this.state.isFollow){
-          axios.put('/api/users/unfollow/' + this.props.userData).then(res => {
-              this.setState({
-                  butttonFollowCondition: "followButtonProfile"
-              })
-              console.log("Unfollow ",this.props.userData);
-          });
-      }
-      else{
-          axios.put('/api/users/follow/' + this.props.userData).then(res => {
-              this.setState({
-                  butttonFollowCondition: "followedButtonProfile",
-                  buttonFollowText: "Unfollow"
-              })
-              console.log("Follow ",this.props.userData);
-          });
-      }
-    }
-
-    followButton(userId){
-        if(userId !== localStorage.getItem("myThings")){
-            return (
-                <div
-                    id={this.state.butttonFollowCondition}
-                    onMouseEnter={this.mouseEnter}
-                    onMouseLeave={this.mouseLeave}
-                    onClick={() => this.onButtonClicked(this.state.isFollow)}
-                >
-                    <center>
-                        <Icon
-                            size='large'
-                            name='handshake'
-                            id='iconFollow'
-                        />
-                        {' '}{this.state.buttonFollowText}
-                    </center>
-                </div>
-            );
-        }
     }
 
     getProfileData() {
@@ -112,7 +70,8 @@ class Edit_Profile extends Component {
                     phone: user.phone,
                     profilePicture: user.profilePicture,
                     followingData: user.following,
-                    followersData: user.followers
+                    followersData: user.followers,
+                    userLoginFollowingData: user.following
                 });
             });
             this.setState({
@@ -152,9 +111,9 @@ class Edit_Profile extends Component {
                     });
                 }
                 this.setState({
-                    userFollowingLoginData: user.following
-                })
-                console.log("USER LOGIN FOLLOWING ", this.state.userFollowingLoginData);
+                    userLoginFollowingData: user.following
+                });
+                console.log("COBA:",this.state.userLoginFollowingData);
             });
         }
     }
@@ -162,8 +121,10 @@ class Edit_Profile extends Component {
     handleItemClicked(item) {
         if (item === "Follower") {
             //Render Validation box message
+            console.log("FOLLOWERS");
             ReactDOM.render(<FadeIn>
                 <UserCardContainer
+                    userLoginFollowingData = {this.state.userLoginFollowingData}
                     history={this.props.history}
                     followersData={this.state.followersData}
                 />
@@ -171,11 +132,12 @@ class Edit_Profile extends Component {
         }
         else if (item === "Following") {
             //Render Validation box message
+            console.log("FOLLOWING");
             ReactDOM.render(<FadeIn>
               <UserCardContainer
+                  userLoginFollowingData = {this.state.userLoginFollowingData}
                   history={this.props.history}
                   followingData={this.state.followingData}
-
               />
             </FadeIn>, document.getElementById('profileInfo'));
         }
@@ -270,7 +232,6 @@ class Edit_Profile extends Component {
     }
 
     render() {
-        console.log(this.state.followingData);
         let imageUrl = this.state.profilePicture;
         let imagedisplay
 
