@@ -24,10 +24,26 @@ class UserCardComponent extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            userData: this.props.userData
-        });
-        this.getSpecificFollowingUser();
+        if(this.props.located === "inSearchPage"){
+            this.setState({
+                userData: this.props.userData
+            });
+            // //Check apakah user tersebut memfollow yang sedang login
+            axios.get('/api/users/profile/' + localStorage.getItem("myThings")).then(res => {
+                const user = res.data[0];
+                if(user.following.includes(this.props.userData._id)){
+                    this.setState({
+                        isFollow: true,
+                        buttonFollowText: "Followed",
+                        butttonFollowCondition: "followedButton"
+                    });
+                }
+            });
+        }
+        else {
+            console.log(this.props.userLoginFollowingData);
+            this.getSpecificFollowingUser();
+        }
     }
 
     getSpecificFollowingUser(){

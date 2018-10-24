@@ -113,7 +113,6 @@ class Edit_Profile extends Component {
                 this.setState({
                     userLoginFollowingData: user.following
                 });
-                console.log("COBA:",this.state.userLoginFollowingData);
             });
         }
     }
@@ -123,6 +122,7 @@ class Edit_Profile extends Component {
             //Render Validation box message
             ReactDOM.render(<FadeIn>
                 <UserCardContainer
+                    located="inProfilePage"
                     userLoginFollowingData = {this.state.userLoginFollowingData}
                     history={this.props.history}
                     followersData={this.state.followersData}
@@ -133,6 +133,7 @@ class Edit_Profile extends Component {
             //Render Validation box message
             ReactDOM.render(<FadeIn>
               <UserCardContainer
+                  located="inProfilePage"
                   userLoginFollowingData = {this.state.userLoginFollowingData}
                   history={this.props.history}
                   followingData={this.state.followingData}

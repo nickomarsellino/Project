@@ -46,10 +46,11 @@ class UserCardContainer extends Component {
 
 
    render() {
-       return (
+      return (
            <div className="peopleCards">
                {this.state.userData.map(user =>
                    <UserCardComponent
+                       located = {this.props.located}
                        userLoginFollowingData = {this.props.userLoginFollowingData}
                        userData = {user}
                        history = {this.props.history}

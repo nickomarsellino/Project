@@ -20,7 +20,8 @@ class Search_Page extends Component {
             isSearch: false,
             searchValue: '',
             isTweetSearch: '',
-            isUserSearch: ''
+            isUserSearch: '',
+            userLoginFollowingData: ''
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
         this.isSearched = this.isSearched.bind(this);
@@ -230,6 +231,7 @@ class Search_Page extends Component {
                                 </div>
 
                                 <UserCardContainer
+                                    located="inSearchPage"
                                     userSearch={this.state.userSearch}
                                     history={this.props.history}
                                 />
