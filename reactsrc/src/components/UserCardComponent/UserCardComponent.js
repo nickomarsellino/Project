@@ -45,6 +45,7 @@ class UserCardComponent extends Component {
         }
     }
 
+
     getSpecificFollowingUser() {
         axios.get('/api/users/profile/' + this.props.userData)
             .then(res => {

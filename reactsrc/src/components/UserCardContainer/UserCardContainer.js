@@ -1,5 +1,6 @@
 import axios from "axios/index";
 import React, {Component} from "react";
+import equal from 'fast-deep-equal'
 
 import UserCardComponent from '../UserCardComponent/UserCardComponent'
 
@@ -44,6 +45,32 @@ class UserCardContainer extends Component {
         }
    }
 
+    componentDidUpdate(prevProps) {
+        console.log()
+    }
+
+    componentDidUpdate(prevProps) {
+
+        if(this.props.followingData){
+            if(!equal(this.props.followingData, prevProps.followingData)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+            {
+                console.log("INI NOW following: ",this.props.followingData);
+                this.setState({
+                    userData: this.state.userData.concat(this.props.followingData)
+                });
+            }
+        }
+
+        else if(this.props.followersData){
+            if (!equal(this.props.followersData, prevProps.followersData)){
+                console.log("INI NOW follower: ",this.props.followersData);
+                this.setState({
+                    userData: this.state.userData.concat(this.props.followersData)
+                });
+            }
+        }
+
+    }
 
    render() {
       return (

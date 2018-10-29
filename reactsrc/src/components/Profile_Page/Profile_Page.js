@@ -20,13 +20,13 @@ class Edit_Profile extends Component {
         super();
         this.state = {
             userLoginId: '',
-            tweetUserId:'',
+            tweetUserId: '',
             username: '',
             timestamp: '',
             email: '',
             phone: '',
             profilePicture: '',
-            followingData:'',
+            followingData: '',
             followersData: '',
             tweetCount: '',
             tweetItem: true,
@@ -34,6 +34,9 @@ class Edit_Profile extends Component {
             followerItem: false,
             modalProfilePicture: false,
             isFollow: false,
+            tweetsTabClicked: true,
+            followingTabClicked: false,
+            followerTabClicked: false,
             buttonFollowText: "Follow",
             butttonFollowCondition: "followButtonProfile",
             userLoginFollowingData: ''
@@ -76,7 +79,7 @@ class Edit_Profile extends Component {
             });
             this.setState({
                 tweetUserId: this.props.userId,
-                userLoginId:this.props.userId
+                userLoginId: this.props.userId
             })
         }
 
@@ -103,7 +106,7 @@ class Edit_Profile extends Component {
             //buat bandingin udh pernah follow atau belum
             axios.get('/api/users/profile/' + this.props.userLoginId).then(res => {
                 const user = res.data[0];
-                if(user.following.includes(this.props.userIdProfile.userId)){
+                if (user.following.includes(this.props.userIdProfile.userId)) {
                     this.setState({
                         isFollow: true,
                         buttonFollowText: "Followed",
@@ -116,48 +119,6 @@ class Edit_Profile extends Component {
             });
         }
     }
-
-    handleItemClicked(item) {
-        if (item === "Follower") {
-            //Render Validation box message
-            ReactDOM.render(<FadeIn>
-                <UserCardContainer
-                    located="inProfilePage"
-                    userLoginFollowingData = {this.state.userLoginFollowingData}
-                    history={this.props.history}
-                    followersData={this.state.followersData}
-                />
-            </FadeIn>, document.getElementById('profileInfo'));
-        }
-        else if (item === "Following") {
-            //Render Validation box message
-            ReactDOM.render(<FadeIn>
-              <UserCardContainer
-                  located="inProfilePage"
-                  userLoginFollowingData = {this.state.userLoginFollowingData}
-                  history={this.props.history}
-                  followingData={this.state.followingData}
-              />
-            </FadeIn>, document.getElementById('profileInfo'));
-        }
-
-        else if (item === "Tweets") {
-            //Render Validation box message
-            ReactDOM.render(
-            <FadeIn>
-            <TwittContainer history={this.props.history}
-                            TweetUserId={this.state.tweetUserId}
-                             userId={this.state.userLoginId}
-                            username={this.state.username}
-                            tweetCounter={this.getTweetCounter}
-                            isProfile="profile"
-                            profilePicture={this.props.profilePicture}
-                            located="profile"
-            />
-            </FadeIn>, document.getElementById('profileInfo'));
-        }
-    }
-
 
     openProfilePicture() {
         this.setState({
@@ -174,7 +135,7 @@ class Edit_Profile extends Component {
     }
 
     mouseEnter() {
-        if(this.state.isFollow){
+        if (this.state.isFollow) {
             this.setState({buttonFollowText: "Unfollow"})
         }
         else {
@@ -184,7 +145,7 @@ class Edit_Profile extends Component {
     }
 
     mouseLeave() {
-        if(this.state.isFollow){
+        if (this.state.isFollow) {
             this.setState({buttonFollowText: "Followed"})
         }
         else {
@@ -192,25 +153,24 @@ class Edit_Profile extends Component {
         }
     }
 
-    onButtonClicked(){
-        this.setState({ isFollow: !this.state.isFollow });
+    onButtonClicked() {
+        this.setState({isFollow: !this.state.isFollow});
 
-        if(this.state.isFollow){
+        if (this.state.isFollow) {
             axios.put('/api/users/unfollow/' + this.props.userIdProfile.userId).then(res => {
-                this.setState({ butttonFollowCondition: "followButtonProfile"})
+                this.setState({butttonFollowCondition: "followButtonProfile"})
             });
         }
-        else{
+        else {
             axios.put('/api/users/follow/' + this.props.userIdProfile.userId).then(res => {
-                this.setState({ butttonFollowCondition: "followedButtonProfile"})
+                this.setState({butttonFollowCondition: "followedButtonProfile"})
             });
         }
     }
 
+    followButton(userId) {
 
-    followButton(userId){
-
-        if(userId !== localStorage.getItem("myThings")){
+        if (userId !== localStorage.getItem("myThings")) {
             return (
                 <div
                     id={this.state.butttonFollowCondition}
@@ -231,35 +191,130 @@ class Edit_Profile extends Component {
         }
     }
 
-    render() {
-        let imageUrl = this.state.profilePicture;
-        let imagedisplay
+    setProfileImage(profilePicture) {
+        let imageUrl = profilePicture;
 
         if (imageUrl) {
-            imagedisplay = <img alt=" "
-                                id="profileImage"
-                                src={require(`../../uploads/${imageUrl}`)}
-                                className="float-right"
-                                onClick={() => this.openProfilePicture()}/>
+            return (
+                <img alt=" "
+                     id="profileImage"
+                     src={require(`../../uploads/${imageUrl}`)}
+                     className="float-right"
+                     onClick={() => this.openProfilePicture()}/> );
         }
         else {
-            imagedisplay = <img alt=" "
-                                src={profile}
-                                id="profileImage"
-                                onClick={() => this.openProfilePicture()}/>
+            return (
+                <img alt=" "
+                     src={profile}
+                     id="profileImage"
+                     onClick={() => this.openProfilePicture()}/>
+            );
         }
+    }
+
+    handleItemClicked(item) {
+        if (item === "Follower") {
+            // //Render Validation box message
+            // ReactDOM.render(<FadeIn>
+            //     <UserCardContainer
+            //         located="inProfilePage"
+            //         userLoginFollowingData = {this.state.userLoginFollowingData}
+            //         history={this.props.history}
+            //         followersData={this.state.followersData}
+            //     />
+            // </FadeIn>, document.getElementById('profileInfo'));
+
+            this.setState({
+                tweetsTabClicked: false,
+                followingTabClicked: false,
+                followerTabClicked: true,
+            });
+
+        }
+        else if (item === "Following") {
+            // //Render Validation box message
+            // ReactDOM.render(<FadeIn>
+            //   <UserCardContainer
+            //       located="inProfilePage"
+            //       userLoginFollowingData = {this.state.userLoginFollowingData}
+            //       history={this.props.history}
+            //       followingData={this.state.followingData}
+            //   />
+            // </FadeIn>, document.getElementById('profileInfo'));
+
+            this.setState({
+                tweetsTabClicked: false,
+                followingTabClicked: true,
+                followerTabClicked: false,
+            });
+        }
+
+        else if (item === "Tweets") {
+            // //Render Validation box message
+            // ReactDOM.render(
+            // <FadeIn>
+            // <TwittContainer history={this.props.history}
+            //                 TweetUserId={this.state.tweetUserId}
+            //                  userId={this.state.userLoginId}
+            //                 username={this.state.username}
+            //                 tweetCounter={this.getTweetCounter}
+            //                 isProfile="profile"
+            //                 profilePicture={this.props.profilePicture}
+            //                 located="profile"
+            // />
+            // </FadeIn>, document.getElementById('profileInfo'));
+
+            this.setState({
+                tweetsTabClicked: true,
+                followingTabClicked: false,
+                followerTabClicked: false,
+            });
+
+        }
+    }
+
+    render() {
+
+        let content;
+
+        if (this.state.tweetsTabClicked ) {
+            content =  <TwittContainer history={this.props.history}
+                                   TweetUserId={this.state.tweetUserId}
+                                   userId={this.state.userLoginId}
+                                   username={this.state.username}
+                                   tweetCounter={this.getTweetCounter}
+                                   isProfile="profile"
+                                   profilePicture={this.props.profilePicture}
+                                   located="profile"
+            />;
+        } else if (this.state.followingTabClicked) {
+            content = <UserCardContainer
+                located="inProfilePage"
+                userLoginFollowingData={this.state.userLoginFollowingData}
+                history={this.props.history}
+                followingData={this.state.followingData}
+            />;
+        } else if (this.state.followerTabClicked){
+            content = <UserCardContainer
+                located="inProfilePage"
+                userLoginFollowingData={this.state.userLoginFollowingData}
+                history={this.props.history}
+                followersData={this.state.followersData}
+            />;
+        }
+
         return (
             <FadeIn>
                 <div className="profile">
                     <div id="detailProfile" className="ui card">
                         <div className="image" id="profilePicture">
-                            {imagedisplay}
+                            {this.setProfileImage(this.state.profilePicture)}
                         </div>
                         <div className="content">
                             <a className="header"><i className="user icon"/>{this.state.username}</a>
                             <div className="description">
                                 <i className="calendar icon"/>Joined on <Timestamp time={this.state.timestamp}
-                                format="date"/>
+                                                                                   format="date"/>
                             </div>
                             <div className="description">
                                 <i className="envelope outline icon"/>
@@ -278,22 +333,16 @@ class Edit_Profile extends Component {
                            onClick={() => this.handleItemClicked("Tweets")}> Tweets <br/><br/>{this.state.tweetCount}
                         </a>
                         <a className="item"
-                           onClick={() => this.handleItemClicked("Following")}>Following <br/><br/>{this.state.followingData.length}</a>
+                           onClick={() => this.handleItemClicked("Following")}>Following <br/><br/>{this.state.followingData.length}
+                        </a>
                         <a className="item"
-                           onClick={() => this.handleItemClicked("Follower")}>Followers <br/><br/>{this.state.followersData.length}</a>
+                           onClick={() => this.handleItemClicked("Follower")}>Followers <br/><br/>{this.state.followersData.length}
+                        </a>
                     </div>
 
                     <FadeIn>
                         <div className="userProfile" id="profileInfo">
-                          <TwittContainer history={this.props.history}
-                                          TweetUserId={this.state.tweetUserId}
-                                           userId={this.state.userLoginId}
-                                          username={this.state.username}
-                                          tweetCounter={this.getTweetCounter}
-                                          isProfile="profile"
-                                          profilePicture={this.props.profilePicture}
-                                          located="profile"
-                          />
+                            {content}
                         </div>
                     </FadeIn>
                 </div>

@@ -248,8 +248,14 @@ router.put('/commentTweet/:id', (req,res) => {
 })
 
 router.put('/deleteCommentTweet/:id', (req,res) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
     Tweet.findByIdAndUpdate( {_id: req.params.id},
-      {$pull: {comments:  { _id: req.body._id, userId: req.body.userId} }}, {new: true}, function (err, user) {
+      {$pull: {comments:  { _id: req.body._id, userId: userData.userId} }}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)
       };
