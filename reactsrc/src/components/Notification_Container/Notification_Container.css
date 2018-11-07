@@ -15,13 +15,6 @@
     top: 1px;
 }
 
+#navNotificationContainer{
 
-.ui.dropdown .notificationContainer {
-    margin-top: 14px;
-    right: 0;
-    width: 335px;
-}
-
-.ui.dropdown .menu {
-    left: -310px;
 }

@@ -26,7 +26,6 @@ class Comments_Container extends Component {
             this.setState({
                 commentData: newComment
             });
-            console.log(this.state.commentId);
         });
 
         socket.on("deleteComment", bebasnamavariabel => {

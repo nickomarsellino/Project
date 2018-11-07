@@ -141,7 +141,7 @@ class Navigationbar extends Component {
                                 </div>
                             </NavItem>
 
-                            <NavItem>
+                            <NavItem id="profileContainer">
                                 <Link to={'/home/myProfile/' + this.state.userName.replace(' ', '')}>
                                     <Image className="navProfile" id="ProfilePicture" src={profile} avatar={true}>
                                         {imagedisplay}

@@ -12,7 +12,7 @@ import CommentsContainer from "../../Comments_Container/Comments_Container";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 const Timestamp = require('react-timestamp');
 
 
@@ -96,6 +96,9 @@ class Modal_Twitt extends Component {
                 data: likeData
             })
                 .then(res => {
+                    if(this.props.isHome){
+                        this.props.getTweetData();
+                    }
                     this.setState({
                         checkLikes: false,
                     });
@@ -110,6 +113,9 @@ class Modal_Twitt extends Component {
                 data: likeData
             })
                 .then(res => {
+                    if(this.props.isHome){
+                        this.props.getTweetData();
+                    }
                     this.setState({
                         checkLikes: true,
                     });
@@ -214,11 +220,7 @@ class Modal_Twitt extends Component {
                                         onClick={() => this.clickLikeButton(this.state.userLoginId, this.props.tweetId)}
                             >
                                 <Icon name='like'/>
-                                {!this.props.likes ?
-                                    this.props.tweet.likes.length + " Likes"
-                                    :
-                                    this.state.likes.length + " Likes"
-                                }
+                                {this.props.tweet.likes.length} Likes
                             </Icon.Group>
                             <Icon.Group className={this.state.commentColor} id="commentsIcon">
                                 <Icon name='comments'/>{this.props.tweet.comments.length} Comments

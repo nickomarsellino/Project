@@ -22,20 +22,12 @@ class UserCardContainer extends Component {
                userData: this.props.userSearch
            });
        }
-       else {
-           axios.get('/api/users/profile/')
-               .then(res => {
-                   this.setState({
-                       userData: res.data
-                   });
-               });
-       }
    }
 
    componentDidMount(){
         if(this.props.followingData){
             this.setState({
-                userData: this.props.followingData
+                userData: this.props.followingData,
             })
         }
         else if(this.props.followersData){
@@ -45,32 +37,25 @@ class UserCardContainer extends Component {
         }
    }
 
-    componentDidUpdate(prevProps) {
-        console.log()
-    }
-
-    componentDidUpdate(prevProps) {
-
-        if(this.props.followingData){
-            if(!equal(this.props.followingData, prevProps.followingData)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-            {
-                console.log("INI NOW following: ",this.props.followingData);
+    componentWillReceiveProps(nextProps){
+        if(nextProps.followingData){
+            if(!equal(nextProps.followingData, this.state.userData)){
                 this.setState({
-                    userData: this.state.userData.concat(this.props.followingData)
+                    userData: nextProps.followingData
                 });
             }
         }
 
-        else if(this.props.followersData){
-            if (!equal(this.props.followersData, prevProps.followersData)){
-                console.log("INI NOW follower: ",this.props.followersData);
+        else if(nextProps.followersData){
+            if(!equal(nextProps.followersData, this.state.userData)){
                 this.setState({
-                    userData: this.state.userData.concat(this.props.followersData)
+                    userData: nextProps.followersData
                 });
             }
         }
 
     }
+
 
    render() {
       return (
