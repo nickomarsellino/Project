@@ -53,7 +53,6 @@ class Edit_Profile extends Component {
     }
 
     componentWillMount() {
-
         this.getProfileData();
     }
 
@@ -97,6 +96,8 @@ class Edit_Profile extends Component {
                     followingData: user.following,
                     followersData: user.followers
                 });
+
+                console.log(user);
             });
             this.setState({
                 tweetUserId: this.props.userIdProfile.userId,
@@ -200,7 +201,7 @@ class Edit_Profile extends Component {
                      id="profileImage"
                      src={require(`../../uploads/${imageUrl}`)}
                      className="float-right"
-                     onClick={() => this.openProfilePicture()}/> );
+                     onClick={() => this.openProfilePicture()}/>);
         }
         else {
             return (
@@ -214,16 +215,6 @@ class Edit_Profile extends Component {
 
     handleItemClicked(item) {
         if (item === "Follower") {
-            // //Render Validation box message
-            // ReactDOM.render(<FadeIn>
-            //     <UserCardContainer
-            //         located="inProfilePage"
-            //         userLoginFollowingData = {this.state.userLoginFollowingData}
-            //         history={this.props.history}
-            //         followersData={this.state.followersData}
-            //     />
-            // </FadeIn>, document.getElementById('profileInfo'));
-
             this.setState({
                 tweetsTabClicked: false,
                 followingTabClicked: false,
@@ -232,16 +223,6 @@ class Edit_Profile extends Component {
 
         }
         else if (item === "Following") {
-            // //Render Validation box message
-            // ReactDOM.render(<FadeIn>
-            //   <UserCardContainer
-            //       located="inProfilePage"
-            //       userLoginFollowingData = {this.state.userLoginFollowingData}
-            //       history={this.props.history}
-            //       followingData={this.state.followingData}
-            //   />
-            // </FadeIn>, document.getElementById('profileInfo'));
-
             this.setState({
                 tweetsTabClicked: false,
                 followingTabClicked: true,
@@ -250,19 +231,35 @@ class Edit_Profile extends Component {
         }
 
         else if (item === "Tweets") {
-            // //Render Validation box message
-            // ReactDOM.render(
-            // <FadeIn>
-            // <TwittContainer history={this.props.history}
-            //                 TweetUserId={this.state.tweetUserId}
-            //                  userId={this.state.userLoginId}
-            //                 username={this.state.username}
-            //                 tweetCounter={this.getTweetCounter}
-            //                 isProfile="profile"
-            //                 profilePicture={this.props.profilePicture}
-            //                 located="profile"
-            // />
-            // </FadeIn>, document.getElementById('profileInfo'));
+
+            if (this.props.userId) {
+                this.props.history.replace({
+                    pathname: '/home/myProfile/' + this.state.username.replace(' ', '-'),
+                    state: {
+                        TweetUserId: this.state.tweetUserId,
+                        userId: this.state.userLoginId,
+                        username: this.state.username,
+                        isProfile: "profile",
+                        profilePicture: this.props.profilePicture,
+                        located: "profile",
+                    }
+                })
+            }
+
+            else {
+                this.props.history.replace({
+                    pathname: '/home/profile/' + this.state.username.replace(' ', '-'),
+                    state: {
+                        TweetUserId: this.state.tweetUserId,
+                        userId: this.state.userLoginId,
+                        username: this.state.username,
+                        isProfile: "profile",
+                        profilePicture: this.props.profilePicture,
+                        located: "profile",
+                    }
+                })
+            }
+
 
             this.setState({
                 tweetsTabClicked: true,
@@ -277,15 +274,15 @@ class Edit_Profile extends Component {
 
         let content;
 
-        if (this.state.tweetsTabClicked ) {
-            content =  <TwittContainer history={this.props.history}
-                                   TweetUserId={this.state.tweetUserId}
-                                   userId={this.state.userLoginId}
-                                   username={this.state.username}
-                                   tweetCounter={this.getTweetCounter}
-                                   isProfile="profile"
-                                   profilePicture={this.props.profilePicture}
-                                   located="profile"
+        if (this.state.tweetsTabClicked) {
+            content = <TwittContainer history={this.props.history}
+                                      TweetUserId={this.state.tweetUserId}
+                                      userId={this.state.userLoginId}
+                                      username={this.state.username}
+                                      tweetCounter={this.getTweetCounter}
+                                      isProfile="profile"
+                                      profilePicture={this.props.profilePicture}
+                                      located="profile"
             />;
         } else if (this.state.followingTabClicked) {
             content = <UserCardContainer
@@ -294,7 +291,7 @@ class Edit_Profile extends Component {
                 history={this.props.history}
                 followingData={this.state.followingData}
             />;
-        } else if (this.state.followerTabClicked){
+        } else if (this.state.followerTabClicked) {
             content = <UserCardContainer
                 located="inProfilePage"
                 userLoginFollowingData={this.state.userLoginFollowingData}

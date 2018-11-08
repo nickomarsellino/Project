@@ -47,9 +47,9 @@ class Twitt_Container extends Component {
 
                 }
                 else {
-                    this.setState({
-                        isLoading: true
-                    });
+                    // this.setState({
+                    //     isLoading: true
+                    // });
 
                     // const allComment = this.state.tweetData;
                     // const newComment = [namavariabel].concat(allComment);

@@ -107,6 +107,8 @@ class Home extends Component {
             />
         );
 
+
+        console.log(this.props.location.state);
         const myProfile = () => (
             <MyProfilePage userId={localStorage.getItem("myThings")}
                            history={this.props.history}

@@ -23,6 +23,7 @@ class TweetComponent extends Component {
         super();
         this.state = {
             likes: null,
+            comments: null,
             tweet: [],
             tweetCounter: '',
             userId: '',
@@ -48,9 +49,11 @@ class TweetComponent extends Component {
     // }
 
     componentDidMount() {
+
         this.setState({
             tweet: this.props.tweet,
-            likes: this.props.tweet.likes
+            likes: this.props.tweet.likes,
+            comments: this.props.tweet.comments.length
         })
 
         this.getAllComment();
@@ -64,6 +67,15 @@ class TweetComponent extends Component {
             this.likeIkonColor();
         });
 
+        //Untuk Comments
+        socket.on(this.props.tweet._id + 'getCommentLength', bebas => {
+            const comments = this.state.comments + 1;
+            this.setState({
+                comments: comments
+            });
+        });
+
+
         //  Untuk UNLIKE
         socket.on(this.props.tweet._id + "unlike", bebas => {
             let likeList = []
@@ -76,6 +88,15 @@ class TweetComponent extends Component {
                 likes: likeList
             });
             this.likeIkonColor();
+        });
+
+
+        //Untuk UnComments
+        socket.on(this.props.tweet._id + 'deleteCommentLength', bebas => {
+            const comments = this.state.comments - 1;
+            this.setState({
+                comments: comments
+            });
         });
     }
 
@@ -257,14 +278,6 @@ class TweetComponent extends Component {
                 data: likeData
             })
                 .then(res => {
-                    if(this.props.isHome){
-                        this.props.getTweetData();
-                    }
-                    else if(this.props.isProfile){
-                        if(this.props.tweetUserId){
-                            this.props.showUserProfileFromTweets(this.props.tweetUserId)
-                        }
-                    }
                     this.setState({
                         checkLikes: false,
                     });
@@ -279,14 +292,14 @@ class TweetComponent extends Component {
                 data: likeData
             })
                 .then(res => {
-                    if(this.props.isHome){
-                        this.props.getTweetData();
-                    }
-                    else if(this.props.isProfile){
-                        if(this.props.tweetUserId){
-                            this.props.showUserProfileFromTweets(this.props.tweetUserId)
-                        }
-                    }
+                    // if(this.props.isHome){
+                    //     this.props.getTweetData();
+                    // }
+                    // else if(this.props.isProfile){
+                    //     if(this.props.tweetUserId){
+                    //         this.props.showUserProfileFromTweets(this.props.tweetUserId)
+                    //     }
+                    // }
                     this.setState({
                         checkLikes: true,
                     });
@@ -365,11 +378,20 @@ class TweetComponent extends Component {
                                                     onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
                                         >
                                             <Icon name='like'/>
-                                            {this.props.tweet.likes.length} Likes
+                                            {!this.state.likes ?
+                                                tweet.likes.length + " Likes"
+                                                :
+                                                this.state.likes.length + " Likes"
+                                            }
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
                                             <Icon name='comments'/>
-                                            {this.props.tweet.comments.length} Comments
+                                            {!this.state.comments ?
+                                                tweet.comments.length + " Comments"
+                                                :
+                                                this.state.comments + " Comments"
+                                            }
+
                                         </Icon.Group>
                                     </div>
 

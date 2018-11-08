@@ -74,7 +74,6 @@ class Search_Page extends Component {
 
     handleItemClicked(item) {
         if (item === "Tweets") {
-            //console.log(this.state.tweetSearch);
             this.props.history.replace({
                 pathname: '/home/search/',
                 search: this.state.searchValue.replace(' ', '-'),
@@ -89,7 +88,6 @@ class Search_Page extends Component {
             })
         }
         else if (item === "Peoples") {
-            //console.log(this.state.userSearch);
             this.props.history.replace({
                 pathname: '/home/search/',
                 search: this.state.searchValue.replace(' ', '-'),
@@ -242,13 +240,6 @@ class Search_Page extends Component {
                 }
 
             }
-        }
-        else {
-            return (
-                <FadeIn>
-                    <h1>Search Everything :)</h1>
-                </FadeIn>
-            );
         }
     }
 

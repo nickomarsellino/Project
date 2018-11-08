@@ -75,7 +75,8 @@ class Comments_Container extends Component {
 
     deleteComment(commentId){
         const idComment = {
-           _id: commentId
+           _id: commentId,
+            tweetId: this.props.tweet._id
         };
         axios({
             method: 'PUT',
@@ -88,15 +89,12 @@ class Comments_Container extends Component {
         })
         socket.emit('deleteComment', idComment)
 
-        if(this.props.isHome){
-            this.props.getTweetData();
-        }
-        else if(this.props.isProfile){
-            this.props.showUserProfileFromTweets(this.props.tweet.userId);
-        }
-        // this.props.getTweetData();
-        // this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
-        // alert("Berhasil delete...!");
+        // if(this.props.isHome){
+        //     this.props.getTweetData();
+        // }
+        // else if(this.props.isProfile){
+        //     this.props.showUserProfileFromTweets(this.props.tweet.userId);
+        // }
     }
 
     render() {

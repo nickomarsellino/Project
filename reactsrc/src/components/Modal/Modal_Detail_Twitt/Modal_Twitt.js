@@ -25,7 +25,8 @@ class Modal_Twitt extends Component {
             tweet: [],
             checkLikes: false,
             black: 'blackColor',
-            likes: this.props.likes,
+            likes: null,
+            comments: null,
             commentColor: "blackColor"
         };
         this.openModal = this.openModal.bind(this);
@@ -36,17 +37,30 @@ class Modal_Twitt extends Component {
         this.setState({
             userLoginId: localStorage.getItem("myThings"),
             tweet: this.props.tweet,
-            likes: this.props.tweet.likes
-        })
+            likes: this.props.tweet.likes,
+            comments: this.props.tweet.comments.length
+        });
 
-        this.commentIkonColor(this.props.tweet);
+        this.likeIkonColor();
+        this.commentIkonColor(this.props.tweet.comments.length);
 
+        //  Untuk LIKE
         socket.on(this.props.tweet._id + 'like', bebas => {
             this.setState({
                 likes: this.state.likes.concat(bebas.userId)
             });
             this.likeIkonColor();
         });
+
+        //Untuk Comments
+        socket.on(this.props.tweet._id + 'getCommentLength', bebas => {
+            const comments = this.state.comments + 1;
+            this.setState({
+                comments: comments
+            });
+            this.commentIkonColor(this.state.comments);
+        });
+
 
         //  Untuk UNLIKE
         socket.on(this.props.tweet._id + "unlike", bebas => {
@@ -61,7 +75,15 @@ class Modal_Twitt extends Component {
             });
             this.likeIkonColor();
         });
-        this.likeIkonColor();
+
+        //Untuk UnComments
+        socket.on(this.props.tweet._id + 'deleteCommentLength', bebas => {
+            const comments = this.state.comments - 1;
+            this.setState({
+                comments: comments
+            });
+            this.commentIkonColor(this.state.comments);
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -96,9 +118,6 @@ class Modal_Twitt extends Component {
                 data: likeData
             })
                 .then(res => {
-                    if(this.props.isHome){
-                        this.props.getTweetData();
-                    }
                     this.setState({
                         checkLikes: false,
                     });
@@ -113,9 +132,6 @@ class Modal_Twitt extends Component {
                 data: likeData
             })
                 .then(res => {
-                    if(this.props.isHome){
-                        this.props.getTweetData();
-                    }
                     this.setState({
                         checkLikes: true,
                     });
@@ -124,10 +140,15 @@ class Modal_Twitt extends Component {
         }
     }
 
-    commentIkonColor(tweet) {
-        if (tweet.comments.length > 0) {
+    commentIkonColor(comments) {
+        if (comments > 0) {
             this.setState({
                 commentColor: "blueColor"
+            })
+        }
+        else{
+            this.setState({
+                commentColor: "blackColor"
             })
         }
     }
@@ -220,10 +241,19 @@ class Modal_Twitt extends Component {
                                         onClick={() => this.clickLikeButton(this.state.userLoginId, this.props.tweetId)}
                             >
                                 <Icon name='like'/>
-                                {this.props.tweet.likes.length} Likes
+                                {!this.props.likes ?
+                                    this.props.tweet.likes.length + " Likes"
+                                    :
+                                    this.state.likes.length + " Likes"
+                                }
                             </Icon.Group>
                             <Icon.Group className={this.state.commentColor} id="commentsIcon">
-                                <Icon name='comments'/>{this.props.tweet.comments.length} Comments
+                                <Icon name='comments'/>
+                                {!this.state.comments ?
+                                    this.props.tweet.comments.length + " Comments"
+                                    :
+                                    this.state.comments + " Comments"
+                                }
                             </Icon.Group>
                         </div>
                         <hr/>
@@ -238,7 +268,6 @@ class Modal_Twitt extends Component {
                                 isHome={this.props.isHome}
                                 isProfile={this.props.isProfile}
                                 showUserProfileFromTweets={this.props.showUserProfileFromTweets}
-                                commentIkonColor={this.commentIkonColor}
                             />
                             <CommentsContainer
                                 getTweetData={this.props.getTweetData}
