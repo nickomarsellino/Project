@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import {Card, Icon, Image} from 'semantic-ui-react';
 import './UserCardComponent.css';
 import profile from '../../daniel.jpg';
+import equal from "fast-deep-equal";
 
 class UserCardComponent extends Component {
 
@@ -32,6 +33,29 @@ class UserCardComponent extends Component {
             axios.get('/api/users/profile/' + localStorage.getItem("myThings")).then(res => {
                 const user = res.data[0];
                 if (user.following.includes(this.props.userData._id)) {
+                    this.setState({
+                        isFollow: true,
+                        buttonFollowText: "Followed",
+                        butttonFollowCondition: "followedButton"
+                    });
+                }
+            });
+        }
+        else {
+            this.getSpecificFollowingUser();
+        }
+    }
+
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.located === "inSearchPage") {
+            this.setState({
+                userData: nextProps.userData
+            });
+            // //Check apakah user tersebut memfollow yang sedang login
+            axios.get('/api/users/profile/' + localStorage.getItem("myThings")).then(res => {
+                const user = res.data[0];
+                if (user.following.includes(nextProps.userData._id)) {
                     this.setState({
                         isFollow: true,
                         buttonFollowText: "Followed",

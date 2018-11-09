@@ -31,6 +31,8 @@ class UserCardContainer extends Component {
             })
         }
         else if(this.props.followersData){
+            console.log(this.props.followersData)
+            console.log(this.props.userLoginFollowingData)
             this.setState({
                 userData: this.props.followersData
             })
@@ -39,6 +41,8 @@ class UserCardContainer extends Component {
 
     componentWillReceiveProps(nextProps){
         if(nextProps.followingData){
+            console.log(nextProps.followingData)
+            console.log(this.props.userLoginFollowingData)
             if(!equal(nextProps.followingData, this.state.userData)){
                 this.setState({
                     userData: nextProps.followingData
@@ -47,6 +51,8 @@ class UserCardContainer extends Component {
         }
 
         else if(nextProps.followersData){
+            console.log(nextProps.followersData)
+            console.log(this.props.userLoginFollowingData)
             if(!equal(nextProps.followersData, this.state.userData)){
                 this.setState({
                     userData: nextProps.followersData

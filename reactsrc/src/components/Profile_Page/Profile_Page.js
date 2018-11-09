@@ -53,6 +53,37 @@ class Edit_Profile extends Component {
     }
 
     componentWillMount() {
+
+        if(this.props.tabClicked){
+            if(this.props.tabClicked.tweetsTabClicked){
+                this.setState({
+                    tweetsTabClicked: true,
+                    followingTabClicked: false,
+                    followerTabClicked: false,
+                });
+                this.getProfileData();
+            }
+
+            else if(this.props.tabClicked.followingTabClicked){
+                console.log(this.props)
+                this.setState({
+                    tweetsTabClicked: false,
+                    followingTabClicked: true,
+                    followerTabClicked: false,
+                });
+                this.getProfileData();
+            }
+
+            else if(this.props.tabClicked.followerTabClicked){
+                this.setState({
+                    tweetsTabClicked: false,
+                    followingTabClicked: false,
+                    followerTabClicked: true,
+                });
+                this.getProfileData();
+            }
+        }
+
         this.getProfileData();
     }
 
@@ -105,6 +136,7 @@ class Edit_Profile extends Component {
             //buat bandingin udh pernah follow atau belum
             axios.get('/api/users/profile/' + this.props.userLoginId).then(res => {
                 const user = res.data[0];
+
                 if (user.following.includes(this.props.userIdProfile.userId)) {
                     this.setState({
                         isFollow: true,
@@ -117,10 +149,6 @@ class Edit_Profile extends Component {
                 });
             });
         }
-
-
-        //Jika ia Klik DI Tab tweet di profile page
-
     }
 
     openProfilePicture() {
@@ -217,33 +245,12 @@ class Edit_Profile extends Component {
 
     handleItemClicked(item) {
         if (item === "Follower") {
-            this.setState({
-                tweetsTabClicked: false,
-                followingTabClicked: false,
-                followerTabClicked: true,
-            });
-
-        }
-        else if (item === "Following") {
-            this.setState({
-                tweetsTabClicked: false,
-                followingTabClicked: true,
-                followerTabClicked: false,
-            });
-        }
-
-        else if (item === "Tweets") {
-
             if (this.props.userId) {
                 this.props.history.replace({
                     pathname: '/home/myProfile/' + this.state.username.replace(' ', '-'),
                     state: {
-                        TweetUserId: this.state.tweetUserId,
                         userId: this.state.userLoginId,
-                        username: this.state.username,
-                        isProfile: "profile",
-                        profilePicture: this.props.profilePicture,
-                        located: "profile",
+                        followerTabClicked: true
                     }
                 })
             }
@@ -252,23 +259,57 @@ class Edit_Profile extends Component {
                 this.props.history.replace({
                     pathname: '/home/profile/' + this.state.username.replace(' ', '-'),
                     state: {
-                        TweetUserId: this.state.tweetUserId,
                         userId: this.props.userIdProfile.userId,
-                        username: this.state.username,
-                        isProfile: "profile",
-                        profilePicture: this.props.profilePicture,
-                        located: "profile",
+                        followerTabClicked: true
+                    }
+                })
+            }
+        }
+        else if (item === "Following") {
+            if (this.props.userId) {
+                console.log(this.props.userId)
+                this.props.history.replace({
+                    pathname: '/home/myProfile/' + this.state.username.replace(' ', '-'),
+                    state: {
+                        userId: this.state.userLoginId,
+                        followingTabClicked: true
                     }
                 })
             }
 
+            else if(this.props.userIdProfile.userId){
+                console.log(this.props.userIdProfile.userId)
+                this.props.history.replace({
+                    pathname: '/home/profile/' + this.state.username.replace(' ', '-'),
+                    state: {
+                        userId: this.props.userIdProfile.userId,
+                        followingTabClicked: true
+                    }
+                })
+            }
+        }
 
-            this.setState({
-                tweetsTabClicked: true,
-                followingTabClicked: false,
-                followerTabClicked: false,
-            });
+        else if (item === "Tweets") {
 
+            if (this.props.userId) {
+                this.props.history.replace({
+                    pathname: '/home/myProfile/' + this.state.username.replace(' ', '-'),
+                    state: {
+                        userId: this.state.userLoginId,
+                        tweetsTabClicked: true
+                    }
+                })
+            }
+
+            else if(this.props.userIdProfile.userId){
+                this.props.history.replace({
+                    pathname: '/home/profile/' + this.state.username.replace(' ', '-'),
+                    state: {
+                        userId: this.props.userIdProfile.userId,
+                        tweetsTabClicked: true
+                    }
+                })
+            }
         }
     }
 
@@ -287,6 +328,7 @@ class Edit_Profile extends Component {
                                       located="profile"
             />;
         } else if (this.state.followingTabClicked) {
+            console.log(this.state.followingData)
             content = <UserCardContainer
                 located="inProfilePage"
                 userLoginFollowingData={this.state.userLoginFollowingData}
