@@ -65,11 +65,11 @@ class Edit_Profile extends Component {
             }
 
             else if(this.props.tabClicked.followingTabClicked){
-                console.log(this.props)
                 this.setState({
                     tweetsTabClicked: false,
                     followingTabClicked: true,
                     followerTabClicked: false,
+                    tweetCount: this.props.tabClicked.tweetCount
                 });
                 this.getProfileData();
             }
@@ -79,6 +79,7 @@ class Edit_Profile extends Component {
                     tweetsTabClicked: false,
                     followingTabClicked: false,
                     followerTabClicked: true,
+                    tweetCount: this.props.tabClicked.tweetCount
                 });
                 this.getProfileData();
             }
@@ -250,6 +251,7 @@ class Edit_Profile extends Component {
                     pathname: '/home/myProfile/' + this.state.username.replace(' ', '-'),
                     state: {
                         userId: this.state.userLoginId,
+                        tweetCount: this.state.tweetCount,
                         followerTabClicked: true
                     }
                 })
@@ -260,6 +262,7 @@ class Edit_Profile extends Component {
                     pathname: '/home/profile/' + this.state.username.replace(' ', '-'),
                     state: {
                         userId: this.props.userIdProfile.userId,
+                        tweetCount: this.state.tweetCount,
                         followerTabClicked: true
                     }
                 })
@@ -267,11 +270,11 @@ class Edit_Profile extends Component {
         }
         else if (item === "Following") {
             if (this.props.userId) {
-                console.log(this.props.userId)
                 this.props.history.replace({
                     pathname: '/home/myProfile/' + this.state.username.replace(' ', '-'),
                     state: {
                         userId: this.state.userLoginId,
+                        tweetCount: this.state.tweetCount,
                         followingTabClicked: true
                     }
                 })
@@ -283,6 +286,7 @@ class Edit_Profile extends Component {
                     pathname: '/home/profile/' + this.state.username.replace(' ', '-'),
                     state: {
                         userId: this.props.userIdProfile.userId,
+                        tweetCount: this.state.tweetCount,
                         followingTabClicked: true
                     }
                 })
@@ -328,7 +332,6 @@ class Edit_Profile extends Component {
                                       located="profile"
             />;
         } else if (this.state.followingTabClicked) {
-            console.log(this.state.followingData)
             content = <UserCardContainer
                 located="inProfilePage"
                 userLoginFollowingData={this.state.userLoginFollowingData}
