@@ -96,8 +96,6 @@ class Edit_Profile extends Component {
                     followingData: user.following,
                     followersData: user.followers
                 });
-
-                console.log(user);
             });
             this.setState({
                 tweetUserId: this.props.userIdProfile.userId,
@@ -119,6 +117,10 @@ class Edit_Profile extends Component {
                 });
             });
         }
+
+
+        //Jika ia Klik DI Tab tweet di profile page
+
     }
 
     openProfilePicture() {
@@ -246,12 +248,12 @@ class Edit_Profile extends Component {
                 })
             }
 
-            else {
+            else if(this.props.userIdProfile.userId){
                 this.props.history.replace({
                     pathname: '/home/profile/' + this.state.username.replace(' ', '-'),
                     state: {
                         TweetUserId: this.state.tweetUserId,
-                        userId: this.state.userLoginId,
+                        userId: this.props.userIdProfile.userId,
                         username: this.state.username,
                         isProfile: "profile",
                         profilePicture: this.props.profilePicture,
