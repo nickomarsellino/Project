@@ -100,6 +100,7 @@ class Home extends Component {
 
         const profile = () => (
             <ProfilePage userIdProfile={this.props.location.state}
+                         tabClicked={this.props.location.state}
                          userLoginId={localStorage.getItem("myThings")}
                          username={this.state.username}
                          history={this.props.history}
@@ -109,6 +110,7 @@ class Home extends Component {
 
         const myProfile = () => (
             <MyProfilePage userId={localStorage.getItem("myThings")}
+                           tabClicked={this.props.location.state}
                            history={this.props.history}
                            profilePicture={this.state.profilePicture}
             />

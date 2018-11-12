@@ -89,8 +89,6 @@ class Comments_Box extends Component {
     }
 
     comment() {
-        console.log(this.props.username);
-
         const commentData = {
             userId: this.props.userId,
             username: this.props.username,
@@ -107,10 +105,10 @@ class Comments_Box extends Component {
           .then(res => {
 
               if(this.props.isHome){
-                  this.props.getTweetData();
+                 // this.props.getTweetData();
               }
               else if(this.props.isProfile){
-                  this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
+                  this.props.showUserProfileFromTweets(this.props.tweet.userId);
               }
 
               this.setState({

@@ -19,12 +19,14 @@ import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
 import './Navbar.css'
 
+import NotificationContainer from '../Notification_Container/Notification_Container';
+
 class Navigationbar extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            isSearch : false,
+            isSearch: false,
             userName: "",
             userId: "",
             collapse: false,
@@ -71,17 +73,15 @@ class Navigationbar extends Component {
         axios.get('/api/users/logout');
     }
 
-    searchClicked(){
-        this.setState({ isSearch: !this.state.isSearch });
+    searchClicked() {
+        this.setState({isSearch: !this.state.isSearch});
     }
 
-    isSearch(){
-
-
-        if(window.location.href === "http://localhost:3001/home/search/"){
+    isSearch() {
+        if (window.location.href === "http://localhost:3001/home/search/") {
             if (this.state.isSearch) {
                 return (
-                    <Link to={'/home'} >
+                    <Link to={'/home'}>
                         <Icon name='cancel'
                               size='large'
                               id="cancelIcon"
@@ -89,9 +89,9 @@ class Navigationbar extends Component {
                     </Link>
                 );
             }
-            else{
+            else {
                 return (
-                    <Link to={'/home/search/'} >
+                    <Link to={'/home/search/'}>
                         <Icon name='search'
                               size='large'
                               id="searchIcon"
@@ -100,9 +100,9 @@ class Navigationbar extends Component {
                 );
             }
         }
-        else{
+        else {
             return (
-                <Link to={'/home/search/'} >
+                <Link to={'/home/search/'}>
                     <Icon name='search'
                           size='large'
                           id="searchIcon"
@@ -116,31 +116,32 @@ class Navigationbar extends Component {
     render() {
 
         let imageUrl = this.state.profilePicture;
-      let imagedisplay
+        let imagedisplay
 
-      if(imageUrl){
-          imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
-      }
-      else{
-        imagedisplay = <img alt=" " src={profile} />
-      }
+        if (imageUrl) {
+            imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
+        }
+        else {
+            imagedisplay = <img alt=" " src={profile}/>
+        }
 
         if (this.props.success) {
             return (
                 <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
-                    <NavbarBrand href="/home">
+                    <NavbarBrand href="/home" id="logoText">
                         <img src={logo} alt="" height="30px"/>
-                        Media Social
+                        {' '}Media Social
                     </NavbarBrand>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>
                                 <div className="buttonContainer">
                                     {this.isSearch(this.state.isSearch)}
+                                    <NotificationContainer/>
                                 </div>
                             </NavItem>
 
-                            <NavItem>
+                            <NavItem id="profileContainer">
                                 <Link to={'/home/myProfile/' + this.state.userName.replace(' ', '')}>
                                     <Image className="navProfile" id="ProfilePicture" src={profile} avatar={true}>
                                         {imagedisplay}
@@ -150,7 +151,7 @@ class Navigationbar extends Component {
 
                                 <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                     <DropdownToggle nav={true} caret={true}/>
-                                    <DropdownMenu>
+                                    <DropdownMenu id="navProfileContainer">
 
                                         <DropdownItem>
                                             <Link to={'/home/editProfile/' + this.state.userName.replace(' ', '')}>

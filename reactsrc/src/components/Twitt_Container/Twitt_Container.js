@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './Twiit_Container.css';
-import Loading from '../../LoadingGif.gif';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 //load another component
@@ -32,15 +30,10 @@ class Twitt_Container extends Component {
             lengthData: '',
             totalLengthData: '',
             pagesData: 1,
-            commentColor: ""
         };
         this.getTweetData = this.getTweetData.bind(this);
         this.showUserProfileFromTweets = this.showUserProfileFromTweets.bind(this);
         this.fetchMoreData = this.fetchMoreData.bind(this);
-    }
-
-    componentWillUpdate(){
-
     }
 
     componentWillMount() {
@@ -50,27 +43,39 @@ class Twitt_Container extends Component {
         else {
             this.getTweetData();
             socket.on('getData', namavariabel => {
-                // const allTweetData = this.state.tweetData;
-                // const newTweetData = [namavariabel].concat(allTweetData);
-                //
-                // this.setState({tweetData: newTweetData});
-
                 if (namavariabel.tweetPicture) {
-                    console.log("JALAN: ", namavariabel.tweetPicture);
+
                 }
                 else {
-                    console.log("JALAN BOR");
-                    this.setState({
-                        isLoading: true
-                    });
-                    this.getTweetData();
+                    // this.setState({
+                    //     isLoading: true
+                    // });
+
+                    // const allComment = this.state.tweetData;
+                    // const newComment = [namavariabel].concat(allComment);
+                    // this.setState({
+                    //     tweetData: newComment
+                    // });
+
+                   this.getTweetData();
                 }
             })
         }
     }
 
+
+    // componentWillUpdate(nextProps, nextState) {
+    //     if(nextState.tweetData !== this.state.tweetData){
+    //         this.setState({
+    //             tweetData: nextState.tweetData
+    //         });
+    //     }
+    //     console.log(nextState.tweetData); //will show the new state
+    //     console.log(this.state.tweetData); //will show the previous state
+    // }
+
     getTweetData() {
-        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
+        axios.get('/api/tweet/tweets?perPage=5&page=1')
             .then(res => {
                 this.setState(
                     {
@@ -116,7 +121,7 @@ class Twitt_Container extends Component {
                                 pagesData: parseInt(this.state.pagesData + 1, 10)
                             });
                         });
-                }, 2000);
+                }, 1000);
             }
         }
 
@@ -126,7 +131,7 @@ class Twitt_Container extends Component {
             }
             else {
                 setTimeout(() => {
-                    axios.get('/api/tweet/tweets' + '?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
+                    axios.get('/api/tweet/tweets?perPage=5&page=' + parseInt(this.state.pagesData + 1, 10))
                         .then(res => {
                             const joined = this.state.tweetData.concat(res.data.docs);
                             this.setState({
@@ -135,19 +140,7 @@ class Twitt_Container extends Component {
                                 pagesData: parseInt(this.state.pagesData + 1, 10)
                             });
                         });
-                }, 2000);
-            }
-        }
-    }
-
-    checkCommentColor(tweet){
-        // console.log(tweet.comments.length);
-        for( let x = 0 ; x < tweet.comments.length ; x++){
-            // console.log(tweet.comments[x].userId);
-            if(tweet.comments[x].userId.includes(this.props.userId)){
-                this.setState({
-                    commentColor: "blueColor"
-                })
+                }, 1000);
             }
         }
     }
@@ -165,8 +158,10 @@ class Twitt_Container extends Component {
                 >
                     {this.state.tweetData.map(tweet =>
                         <TweetComponent tweet={tweet}
+                                        lengthData={this.state.length}
                                         history={this.props.history}
                                         userId={this.props.userId}
+                                        tweetUserId={this.props.TweetUserId}
                                         profilePicture={this.props.profilePicture}
                                         username={this.props.username}
                                         located="home"
@@ -175,7 +170,6 @@ class Twitt_Container extends Component {
                                         getTweetData={this.getTweetData}
                                         showUserProfileFromTweets={this.showUserProfileFromTweets}
                         >
-                        {this.checkCommentColor(tweet)}
                         </TweetComponent>
                     )}
                 </InfiniteScroll>
