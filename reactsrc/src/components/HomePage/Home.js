@@ -127,7 +127,7 @@ class Home extends Component {
         );
 
         const inbox = () => (
-          <InboxPage/>
+          <InboxPage />
         );
 
         if(this.state.isLoading){

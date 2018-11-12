@@ -1,0 +1,18 @@
+.inboxCard{
+    margin-top: 5%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+}
+
+#inboxCardId
+{
+    height: 550px;
+    background-color: #f8f8f8;
+}
+
+#inboxProfileContainer{
+    width: 30%;
+    float: left;
+    display: inline-block;
+}

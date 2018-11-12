@@ -1,0 +1,20 @@
+#profileNameBox{
+    float: left;
+}
+
+#listProfileContainer{
+
+    overflow-y: auto;
+    height: 510px;
+    width: 100%;
+    float: left;
+}
+
+#listItemProfile{
+    width: 100%;
+    float: left;
+}
+
+#avatarItemProfile{
+
+}
