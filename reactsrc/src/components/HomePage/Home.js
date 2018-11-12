@@ -16,6 +16,7 @@ import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
 import SearchPage from '../Search/Search_Page/Search_Page'
+import InboxPage from '../Inbox/Inbox_Page/Inbox_Page'
 
 
 class Home extends Component {
@@ -83,19 +84,21 @@ class Home extends Component {
         );
 
         const home = () => (
-            <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
-                <TwittBox username={this.state.username}
-                          userId={this.state.userId}
-                          profilePicture={this.state.profilePicture}
-                />
-                <TwittContainer userId={this.state.userId}
-                                located="home"
-                                isHome="home"
-                                history={this.props.history}
-                                profilePicture={this.state.profilePicture}
-                                username={this.state.username}
-                />
-            </Container>
+            <FadeIn>
+                <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
+                    <TwittBox username={this.state.username}
+                              userId={this.state.userId}
+                              profilePicture={this.state.profilePicture}
+                    />
+                    <TwittContainer userId={this.state.userId}
+                                    located="home"
+                                    isHome="home"
+                                    history={this.props.history}
+                                    profilePicture={this.state.profilePicture}
+                                    username={this.state.username}
+                    />
+                </Container>
+            </FadeIn>
         );
 
         const profile = () => (
@@ -121,6 +124,10 @@ class Home extends Component {
                       history={this.props.history}
                       searchData={this.props.location.state}
           />
+        );
+
+        const inbox = () => (
+          <InboxPage/>
         );
 
         if(this.state.isLoading){
@@ -153,6 +160,9 @@ class Home extends Component {
                         <Route path={this.props.match.url + '/profile'} component={profile}/>
 
                         <Route path={this.props.match.url + '/search'} component={search}/>
+
+                        <Route path={this.props.match.url + '/inbox'} component={inbox}/>
+
 
                     </div>
                 </FadeIn>

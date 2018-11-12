@@ -19,7 +19,7 @@ import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
 import './Navbar.css'
 
-import NotificationContainer from '../Notification_Container/Notification_Container';
+import NotificationContainer from '../Inbox/Inbox_Container/Inbox_Container';
 
 class Navigationbar extends Component {
 
@@ -27,6 +27,7 @@ class Navigationbar extends Component {
         super(props);
         this.state = {
             isSearch: false,
+            isInbox: false,
             userName: "",
             userId: "",
             collapse: false,
@@ -38,6 +39,7 @@ class Navigationbar extends Component {
         this.toggle = this.toggle.bind(this);
         this.logout = this.logout.bind(this);
         this.searchClicked = this.searchClicked.bind(this);
+        this.inboxClicked = this.inboxClicked.bind(this);
     }
 
     getProfilePicture() {
@@ -112,6 +114,34 @@ class Navigationbar extends Component {
         }
     }
 
+    inboxClicked() {
+        this.setState({isInbox: !this.state.isInbox});
+    }
+
+    isInbox() {
+        if (this.state.isInbox) {
+            return (
+                <Link to={'/home'}>
+                    <Icon name='envelope open outline'
+                          size='large'
+                          id="notificationIcon"
+                          onClick={this.inboxClicked}
+                    />
+                </Link>
+            );
+        }
+        else {
+            return (
+                <Link to={'/home/inbox'}>
+                    <Icon name='envelope open outline'
+                          size='large'
+                          id="notificationIcon"
+                          onClick={this.inboxClicked}
+                    />
+                </Link>
+            );
+        }
+    }
 
     render() {
 
@@ -137,10 +167,7 @@ class Navigationbar extends Component {
                             <NavItem>
                                 <div className="buttonContainer">
                                     {this.isSearch(this.state.isSearch)}
-                                    <Icon name='envelope open outline'
-                                          size='large'
-                                          id="notificationIcon"
-                                    />
+                                    {this.isInbox(this.state.isInbox)}
                                 </div>
                             </NavItem>
 
