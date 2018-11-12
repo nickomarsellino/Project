@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
 import {Feed, Icon, Image} from 'semantic-ui-react';
-import profile from '../../daniel.jpg';
+import profile from '../../../daniel.jpg';
 import axios from 'axios';
 import './TweetComponent.css';
 
 
 //load another component
-import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
-import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
+import ModalTwitt from '../../Modal/Modal_Detail_Twitt/Modal_Twitt';
+import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
 
 import openSocket from 'socket.io-client';
 
@@ -128,7 +128,7 @@ class TweetComponent extends Component {
         if (imageUrl) {
             return (
                 <img alt=" "
-                     src={require(`../../uploads/${imageUrl}`)}
+                     src={require(`../../../uploads/${imageUrl}`)}
                      id="profilePictureTweet"
                      onClick={() => this.onClickedImage(userId, username)}
                 />
@@ -179,7 +179,7 @@ class TweetComponent extends Component {
             if (tweetPicture) {
                 return (
                     <center>
-                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                        <Image src={require(`../../../../src/tweetImage/${tweetPicture}`)}
                                id="tweetImage"
                                onClick={() => this.openModalTweet(userId)}
                         />
@@ -192,7 +192,7 @@ class TweetComponent extends Component {
             if (tweetPicture) {
                 return (
                     <center>
-                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                        <Image src={require(`../../../../src/tweetImage/${tweetPicture}`)}
                                id="tweetImage"
                                onClick={() => this.openModalTweet(userId)}
                         />
@@ -203,7 +203,7 @@ class TweetComponent extends Component {
         else {
             if (tweetPicture) {
                 return (
-                    <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
+                    <Image src={require(`../../../../src/tweetImage/${tweetPicture}`)}
                            fluid
                            style={{marginBottom: "20px", cursor: "pointer"}}
                            onClick={() => this.openModalTweet(userId)}

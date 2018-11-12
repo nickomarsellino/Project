@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Comment, Icon} from 'semantic-ui-react'
-import profile from '../../daniel.jpg';
+import profile from '../../../daniel.jpg';
 import "./Comments_Container.css"
 import axios from "axios/index";
 import openSocket from 'socket.io-client';
@@ -55,7 +55,7 @@ class Comments_Container extends Component {
         let imageUrl = profilePicture;
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../../src/uploads/${imageUrl}`)} />
+                <img alt=" " src={require(`../../../../src/uploads/${imageUrl}`)} />
             );
         }
         else {

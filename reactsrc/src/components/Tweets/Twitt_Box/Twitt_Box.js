@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Card, CardBody, Button} from "mdbreact"
 import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
-import profile from '../../daniel.jpg';
+import profile from '../../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
 import CircularProgressbar from "react-circular-progressbar";
@@ -157,7 +157,7 @@ class Twitt_Box extends Component {
         let imagedisplay
 
         if(imageUrl){
-            imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+            imagedisplay = <img alt=" " src={require(`../../../uploads/${imageUrl}`)} className="float-right" />
         }
         else{
             imagedisplay = <img alt=" "  src={profile} />
