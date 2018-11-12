@@ -7,7 +7,7 @@ import axios from 'axios';
 //Load another component
 import SearchBar from "../Search_Bar/Search_Bar";
 import TweetResult from "../Search_Result/Tweet_Result/Tweet_Result_Container";
-import UserCardContainer from '../UserCardContainer/UserCardContainer'
+import UserCardContainer from '../../UserCard/UserCardContainer/UserCardContainer'
 
 class Search_Page extends Component {
     constructor(props) {

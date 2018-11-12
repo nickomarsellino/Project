@@ -7,8 +7,8 @@ import axios from 'axios';
 
 
 //load another component
-import CommentsBox from "../../Comments_Box/Comments_Box";
-import CommentsContainer from "../../Comments_Container/Comments_Container";
+import CommentsBox from "../../Comments/Comments_Box/Comments_Box";
+import CommentsContainer from "../../Comments/Comments_Container/Comments_Container";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya

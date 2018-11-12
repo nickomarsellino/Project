@@ -137,7 +137,10 @@ class Navigationbar extends Component {
                             <NavItem>
                                 <div className="buttonContainer">
                                     {this.isSearch(this.state.isSearch)}
-                                    <NotificationContainer/>
+                                    <Icon name='envelope open outline'
+                                          size='large'
+                                          id="notificationIcon"
+                                    />
                                 </div>
                             </NavItem>
 

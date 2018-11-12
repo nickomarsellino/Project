@@ -10,12 +10,12 @@ import LoadingGif from '../../LoadingGif.gif';
 import Navbar from "../Navbar/Navigationbar";
 import Profile from '../Form_editProfile/Edit_Profile'
 import ChangePassword from '../Form_Change_Password/Change_Password'
-import TwittBox from "../Twitt_Box/Twitt_Box";
-import TwittContainer from "../Twitt_Container/Twitt_Container";
+import TwittBox from "../Tweets/Twitt_Box/Twitt_Box";
+import TwittContainer from "../Tweets/Twitt_Container/Twitt_Container";
 import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
-import SearchPage from '../Search_Page/Search_Page'
+import SearchPage from '../Search/Search_Page/Search_Page'
 
 
 class Home extends Component {

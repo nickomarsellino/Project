@@ -3,8 +3,8 @@ import axios from "axios/index";
 import profile from '../../daniel.jpg';
 import {Icon} from 'semantic-ui-react';
 import './Profile_Page.css';
-import TwittContainer from "../Twitt_Container/Twitt_Container";
-import UserCardContainer from '../UserCardContainer/UserCardContainer'
+import TwittContainer from "../Tweets/Twitt_Container/Twitt_Container";
+import UserCardContainer from '../UserCard/UserCardContainer/UserCardContainer'
 
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
