@@ -19,7 +19,7 @@ import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
 import './Navbar.css'
 
-import NotificationContainer from '../Inbox/Inbox_Container/Inbox_Container';
+import NotificationContainer from '../Inbox/Inbox_Chat_Container/Inbox_Chat_Container';
 
 class Navigationbar extends Component {
 
@@ -119,16 +119,29 @@ class Navigationbar extends Component {
     }
 
     isInbox() {
-        if (this.state.isInbox) {
-            return (
-                <Link to={'/home'}>
-                    <Icon name='envelope open outline'
-                          size='large'
-                          id="notificationIcon"
-                          onClick={this.inboxClicked}
-                    />
-                </Link>
-            );
+        if (window.location.href === "http://localhost:3001/home/inbox") {
+            if (this.state.isInbox) {
+                return (
+                    <Link to={'/home'}>
+                        <Icon name='envelope open outline'
+                              size='large'
+                              id="notificationIcon"
+                              onClick={this.inboxClicked}
+                        />
+                    </Link>
+                );
+            }
+            else {
+                return (
+                    <Link to={'/home/inbox'}>
+                        <Icon name='envelope open outline'
+                              size='large'
+                              id="notificationIcon"
+                              onClick={this.inboxClicked}
+                        />
+                    </Link>
+                );
+            }
         }
         else {
             return (
@@ -141,6 +154,7 @@ class Navigationbar extends Component {
                 </Link>
             );
         }
+
     }
 
     render() {
