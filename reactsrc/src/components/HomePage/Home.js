@@ -15,7 +15,8 @@ import TwittContainer from "../Twitt_Container/Twitt_Container";
 import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
-import SearchPage from '../Search_Page/Search_Page'
+import SearchPage from '../Search_Page/Search_Page';
+// import Inbox_Page from '../inbox/'
 
 
 class Home extends Component {
@@ -124,6 +125,14 @@ class Home extends Component {
           />
         );
 
+        const inbox = () => (
+          // <SearchPage userId={this.state.userId}
+          //             history={this.props.history}
+          //             searchData={this.props.location.state}
+          // />
+          <h1>asdf</h1>
+        );
+
         if(this.state.isLoading){
           return(
             <center>
@@ -154,6 +163,8 @@ class Home extends Component {
                         <Route path={this.props.match.url + '/profile'} component={profile}/>
 
                         <Route path={this.props.match.url + '/search'} component={search}/>
+
+                        <Route path={this.props.match.url + '/inbox'} component={inbox}/>
 
                     </div>
                 </FadeIn>

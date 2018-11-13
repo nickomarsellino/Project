@@ -75,7 +75,15 @@ router.delete('/endChatMessage/:id', (req, res, next) => {
     Message.findByIdAndRemove({_id: req.params.id })
 });
 
-router.get('/message', (req, res, next) => {
+// Get isi chat nya, id ini diambil dari yang sudah terbuat di atas ketika post pas klik Inbox pada FE
+router.get('/chatDetail/:id', (req, res, next) => {
+    Message.findById({_id: req.params.id}).then((result) => {
+        res.send(result.messages);
+    })
+})
+
+// Get detail namanya kayak lagi chat sama siapa
+router.get('/listContactInbox', (req, res, next) => {
     Message.find({userSenderId: '1234'}).then((result) => {
         res.send(result);
     });
