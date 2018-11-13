@@ -26,15 +26,28 @@
     font-family: 'myKeepCalm', sans-serif;
 }
 
-#inboxProfileContainer{
-
-    width: 30%;
+#inboxProfileContainer {
+    width: 20%;
     float: left;
     display: inline-block;
 }
 
 #headerContainerInbox{
+    width: 100%;
     padding: 10px;
     display: -ms-flexbox;
     display: flex;
+}
+
+#inboxMessageContainer {
+    float: right;
+    width: 80%;
+}
+
+#inboxChatContainer {
+    height: 400px;
+}
+
+#inboxBoxAreaContainer {
+    margin-left: 10px;
 }

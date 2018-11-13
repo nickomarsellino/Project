@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class Inbox_Container extends Component {
+class Inbox_Chat_Container extends Component {
 
 
     render() {
@@ -10,4 +10,4 @@ class Inbox_Container extends Component {
     }
 }
 
-export default Inbox_Container;
+export default Inbox_Chat_Container;
