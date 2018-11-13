@@ -108,7 +108,7 @@ class Comments_Container extends Component {
                         <Comment.Metadata>
                             <span>{<Timestamp time={comment.commentTimestamp} format='full'/>}</span>
                         </Comment.Metadata>
-                         <Comment.Text>{comment.commentText}</Comment.Text>
+                         <Comment.Text id="commentText">{comment.commentText}</Comment.Text>
                     </Comment.Content>
 
                     {this.showButtonDeleteComment(comment._id, comment.userId)}

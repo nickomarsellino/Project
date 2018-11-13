@@ -44,9 +44,6 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     console.log(nextState.tweet); //will show the new state
-    // }
 
     componentDidMount() {
 
