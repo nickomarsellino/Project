@@ -26,7 +26,10 @@ class Home extends Component {
             userId: '',
             username: '',
             profilePicture: '',
-            isLoading:true
+            isLoading:true,
+            tweetData:'',
+            totalLengthData:'',
+            lengthData:''
         };
     }
 
@@ -47,7 +50,6 @@ class Home extends Component {
                 })
             });
     }
-
 
     verify() {
         axios.get('/api/authentication/verify', {
@@ -87,6 +89,7 @@ class Home extends Component {
                 <TwittBox username={this.state.username}
                           userId={this.state.userId}
                           profilePicture={this.state.profilePicture}
+                          isHome="home"
                 />
                 <TwittContainer userId={this.state.userId}
                                 located="home"

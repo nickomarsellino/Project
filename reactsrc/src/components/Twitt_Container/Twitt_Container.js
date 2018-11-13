@@ -9,7 +9,7 @@ import TweetComponent from '../TweetComponent/TweetComponent';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 
 class Twitt_Container extends Component {
@@ -24,12 +24,11 @@ class Twitt_Container extends Component {
             modalTweet: false,
             modalDelete: false,
             checkLikes: false,
-            isLoading: true,
             userProfilePicture: '',
             hasMore: true,
             lengthData: '',
             totalLengthData: '',
-            pagesData: 1,
+            pagesData: 1
         };
         this.getTweetData = this.getTweetData.bind(this);
         this.showUserProfileFromTweets = this.showUserProfileFromTweets.bind(this);
@@ -37,27 +36,21 @@ class Twitt_Container extends Component {
     }
 
     componentWillMount() {
+        this.getTweetData();
         if (this.props.TweetUserId) {
             this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
-            this.getTweetData();
             socket.on('getData', namavariabel => {
-                // const allTweetData = this.state.tweetData;
-                // const newTweetData = [namavariabel].concat(allTweetData);
-                //
-                // this.setState({tweetData: newTweetData});
-
-                if (namavariabel.tweetPicture) {
-
-                }
-                else {
-                    this.setState({
-                        isLoading: true
-                    });
-                    this.getTweetData();
-                }
-            })
+                this.getTweetData();
+                const allTweetData = this.state.tweetData;
+                const newTweetData = [namavariabel].concat(allTweetData);
+                this.setState({
+                    tweetData: newTweetData
+                });
+                this.getTweetData();
+            });
+            this.getTweetData();
         }
     }
 
@@ -69,7 +62,6 @@ class Twitt_Container extends Component {
                         tweetData: res.data.docs,
                         totalLengthData: res.data.total,
                         lengthData: res.data.docs.length,
-                        isLoading: false
                     })
             });
     }
@@ -83,7 +75,6 @@ class Twitt_Container extends Component {
                     tweetCounter: res.data.length,
                     totalLengthData: res.data.total,
                     lengthData: res.data.docs.length,
-                    isLoading: false
                 })
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.total)
@@ -145,9 +136,6 @@ class Twitt_Container extends Component {
     // }
 
     render() {
-        if (this.state.isLoading) {
-            return null
-        }
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
                 <InfiniteScroll

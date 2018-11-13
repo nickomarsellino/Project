@@ -11,6 +11,11 @@
     width: 40px;
 }
 
+#commentText{
+    word-wrap: break-word;
+    white-space:pre-wrap;
+}
+
 #trashIcon{
     float: right;
 }
