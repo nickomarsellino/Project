@@ -119,16 +119,29 @@ class Navigationbar extends Component {
     }
 
     isInbox() {
-        if (this.state.isInbox) {
-            return (
-                <Link to={'/home'}>
-                    <Icon name='envelope open outline'
-                          size='large'
-                          id="notificationIcon"
-                          onClick={this.inboxClicked}
-                    />
-                </Link>
-            );
+        if (window.location.href === "http://localhost:3001/home/inbox") {
+            if (this.state.isInbox) {
+                return (
+                    <Link to={'/home'}>
+                        <Icon name='envelope open outline'
+                              size='large'
+                              id="notificationIcon"
+                              onClick={this.inboxClicked}
+                        />
+                    </Link>
+                );
+            }
+            else {
+                return (
+                    <Link to={'/home/inbox'}>
+                        <Icon name='envelope open outline'
+                              size='large'
+                              id="notificationIcon"
+                              onClick={this.inboxClicked}
+                        />
+                    </Link>
+                );
+            }
         }
         else {
             return (
@@ -141,6 +154,7 @@ class Navigationbar extends Component {
                 </Link>
             );
         }
+
     }
 
     render() {

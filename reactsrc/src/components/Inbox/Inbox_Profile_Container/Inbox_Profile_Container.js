@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { List, Image } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
-
+import {Icon} from 'semantic-ui-react'
 
 import './Inbox_Profile_Container.css';
 
@@ -18,125 +18,99 @@ class Inbox_Profile_Container extends Component {
         return (
             <List id="listProfileContainer">
                 <List.Item id="listItemProfile">
-                    <Image avatar>
+                    <Image avatar id="avatarItemContainer">
                         <img src={profile} alt="" id="avatarItemProfile"/>
                     </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-
-                <List.Item id="listItemProfile">
-                    <Image avatar>
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-
-                <List.Item id="listItemProfile">
-                    <Image avatar>
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-
-                <List.Item id="listItemProfile">
-                    <Image avatar>
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-
-                <List.Item id="listItemProfile">
-                    <Image avatar>
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-
-                <List.Item id="listItemProfile">
-                    <Image avatar>
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-
-                <List.Item id="listItemProfile">
-                    <Image avatar>
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-
-                <List.Item id="listItemProfile">
-                    <Image avatar>
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
+                    <List.Content id="contentItemContainer">
+                        <List.Header id="profileNameBox">Rachel</List.Header>
+                        <Icon name='cancel'
+                              size='large'
+                              id="closeButton"/>
+                        <br/>
                     </List.Content>
                     <hr/>
                 </List.Item>
 
                 <List.Item id="listItemProfile">
-                    <Image avatar>
+                    <Image avatar id="avatarItemContainer">
                         <img src={profile} alt="" id="avatarItemProfile"/>
                     </Image>
-                    <List.Content>
-                        <List.Header as='a' id="profileNameBox">Rachel</List.Header> <br/>
-                        <List.Description>
-                            Last Minute Ago
-                        </List.Description>
+                    <List.Content id="contentItemContainer">
+                        <List.Header id="profileNameBox">Rachel</List.Header>
+                        <Icon name='cancel'
+                              size='large'
+                              id="closeButton"/>
+                        <br/>
+                    </List.Content>
+                    <hr/>
+                </List.Item>
+
+                <List.Item id="listItemProfile">
+                    <Image avatar id="avatarItemContainer">
+                        <img src={profile} alt="" id="avatarItemProfile"/>
+                    </Image>
+                    <List.Content id="contentItemContainer">
+                        <List.Header id="profileNameBox">Rachel</List.Header>
+                        <Icon name='cancel'
+                              size='large'
+                              id="closeButton"/>
+                        <br/>
+                    </List.Content>
+                    <hr/>
+                </List.Item>
+
+                <List.Item id="listItemProfile">
+                    <Image avatar id="avatarItemContainer">
+                        <img src={profile} alt="" id="avatarItemProfile"/>
+                    </Image>
+                    <List.Content id="contentItemContainer">
+                        <List.Header id="profileNameBox">Rachel</List.Header>
+                        <Icon name='cancel'
+                              size='large'
+                              id="closeButton"/>
+                        <br/>
+                    </List.Content>
+                    <hr/>
+                </List.Item>
+
+                <List.Item id="listItemProfile">
+                    <Image avatar id="avatarItemContainer">
+                        <img src={profile} alt="" id="avatarItemProfile"/>
+                    </Image>
+                    <List.Content id="contentItemContainer">
+                        <List.Header id="profileNameBox">Rachel</List.Header>
+                        <Icon name='cancel'
+                              size='large'
+                              id="closeButton"/>
+                        <br/>
+                    </List.Content>
+                    <hr/>
+                </List.Item>
+
+                <List.Item id="listItemProfile">
+                    <Image avatar id="avatarItemContainer">
+                        <img src={profile} alt="" id="avatarItemProfile"/>
+                    </Image>
+                    <List.Content id="contentItemContainer">
+                        <List.Header id="profileNameBox">Rachel</List.Header>
+                        <Icon name='cancel'
+                              size='large'
+                              id="closeButton"/>
+                        <br/>
+                    </List.Content>
+                    <hr/>
+                </List.Item>
+
+                <List.Item id="listItemProfile">
+                    <Image avatar id="avatarItemContainer">
+                        <img src={profile} alt="" id="avatarItemProfile"/>
+                    </Image>
+                    <List.Content id="contentItemContainer">
+                        <List.Header id="profileNameBox">Rachel</List.Header>
+                        <Icon name='cancel'
+                              size='large'
+                              id="closeButton"/>
+                        <br/>
                     </List.Content>
                     <hr/>
                 </List.Item>

@@ -1,18 +1,40 @@
+@font-face {
+
+    font-family: 'myKeepCalm' ;
+    src: url('KeepCalm-Medium.ttf');
+
+}
+
 .inboxCard{
     margin-top: 5%;
     margin-right: 10%;
     margin-left: 10%;
     margin-bottom: 5%;
-}
-
-#inboxCardId
-{
     height: 550px;
     background-color: #f8f8f8;
 }
 
+#headerIcon{
+    color: #4DB6AC;
+}
+
+#headerText{
+    margin-left: 10px;
+    font-size: 20px;
+    color: #4DB6AC;
+    padding-top: 4px;
+    font-family: 'myKeepCalm', sans-serif;
+}
+
 #inboxProfileContainer{
+
     width: 30%;
     float: left;
     display: inline-block;
+}
+
+#headerContainerInbox{
+    padding: 10px;
+    display: -ms-flexbox;
+    display: flex;
 }
