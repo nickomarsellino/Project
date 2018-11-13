@@ -121,6 +121,7 @@ class Edit_Profile extends Component {
     handleItemClicked(item) {
         if (item === "Follower") {
             //Render Validation box message
+            console.log("FOLLOWERS");
             ReactDOM.render(<FadeIn>
                 <UserCardContainer
                     userLoginFollowingData = {this.state.userLoginFollowingData}
@@ -131,6 +132,7 @@ class Edit_Profile extends Component {
         }
         else if (item === "Following") {
             //Render Validation box message
+            console.log("FOLLOWING");
             ReactDOM.render(<FadeIn>
               <UserCardContainer
                   userLoginFollowingData = {this.state.userLoginFollowingData}
@@ -205,7 +207,6 @@ class Edit_Profile extends Component {
             });
         }
     }
-
 
     followButton(userId){
 

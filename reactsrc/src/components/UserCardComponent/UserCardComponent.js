@@ -24,6 +24,8 @@ class UserCardComponent extends Component {
     }
 
     componentDidMount() {
+      console.log(this.props.userData);
+      console.log(this.state.isFollow);
         this.setState({
             userData: this.props.userData
         });
@@ -87,7 +89,6 @@ class UserCardComponent extends Component {
        else {
            this.setState({buttonFollowText: "Follow"})
        }
-
    }
 
    mouseLeave() {

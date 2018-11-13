@@ -13,7 +13,7 @@ import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 const Timestamp = require('react-timestamp');
 
@@ -29,9 +29,9 @@ class TweetComponent extends Component {
             likeId: '',
             modalTweet: false,
             modalDelete: false,
-            checkLikes: false,
             black: "blackColor",
-            commentColor: ""
+            commentColor: "",
+            tweetData: []
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -43,24 +43,27 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
-
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             tweet: this.props.tweet,
             likes: this.props.tweet.likes
         })
 
+        this.props.getTweetData();
         this.getAllComment();
-
         //this.commentIkonColor();
 
         this.likeIkonColor();
 
         // Untuk Like
         socket.on(this.props.tweet._id + 'like', bebas => {
+            const allLikes = this.state.likes;
+            const newLikes = [bebas.userId].concat(allLikes);
             this.setState({
-                likes: this.state.likes.concat(bebas.userId)
+                likes: newLikes
             });
+            console.log(this.state.likes);
+            {console.log(bebas);}
             this.likeIkonColor();
         });
 
@@ -78,6 +81,17 @@ class TweetComponent extends Component {
             this.likeIkonColor();
         });
     }
+
+    // componentDidMount(){
+    //     socket.on('getData', namavariabel => {
+    //         this.getTweetData();
+    //         const allTweetData = this.state.tweetData;
+    //         const newTweetData = [namavariabel].concat(allTweetData);
+    //         this.setState({
+    //             tweetData: newTweetData
+    //         });
+    //     });
+    // }
 
     onClickedImage(userId, username) {
 
@@ -245,11 +259,14 @@ class TweetComponent extends Component {
             userId: this.props.userId,
             tweetId: this.props.tweet._id
         };
+        // console.log(this.props.tweet.likes);
         const tweetLikesLength = this.state.likes;
+        // console.log(this.state.likes);
         const checkValidID = tweetLikesLength.includes(userId);
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
         // Udabener ini
         if (checkValidID) {
+            console.log("UNlike nih");
             axios({
                 method: 'PUT',
                 responseType: 'json',
@@ -257,6 +274,10 @@ class TweetComponent extends Component {
                 data: likeData
             })
                 .then(res => {
+                    if(this.props.isHome){
+                        this.props.getTweetData();
+                        console.log("UNNNNNNNNN");
+                    }
                     this.setState({
                         checkLikes: false,
                     });
@@ -264,6 +285,7 @@ class TweetComponent extends Component {
                 })
         }
         else {
+            console.log("LIKE nih");
             axios({
                 method: 'PUT',
                 responseType: 'json',
@@ -271,23 +293,17 @@ class TweetComponent extends Component {
                 data: likeData
             })
                 .then(res => {
+                    if(this.props.isHome){
+                        this.props.getTweetData();
+                        console.log("LIIIII");
+                    }
                     this.setState({
-                        checkLikes: true,
+                        checkLikes: true
                     });
                     socket.emit('sendLike', likeData)
                 })
         }
     }
-
-    // commentIkonColor(){
-    //     for(let i=0; i < this.props.tweet.comments.length; i++){
-    //         if(this.props.tweet.comments[i].userId === this.props.userId){
-    //             this.setState({
-    //                 commentColor: "blueColor"
-    //             })
-    //         }
-    //     }
-    // }
 
     likeIkonColor() {
         if (this.state.likes === null) {
@@ -378,11 +394,7 @@ class TweetComponent extends Component {
                                                     onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
                                         >
                                             <Icon name='like'/>
-                                        {!this.state.likes ?
-                                          tweet.likes.length + " Likes"
-                                          :
-                                          this.state.likes.length + " Likes"
-                                        }
+                                            {this.props.tweet.likes.length} LIKE
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
                                             <Icon name='comments'/>
