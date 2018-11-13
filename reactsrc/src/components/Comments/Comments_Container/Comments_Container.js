@@ -89,19 +89,15 @@ class Comments_Container extends Component {
         })
         socket.emit('deleteComment', idComment)
 
-        if(this.props.isHome){
-            this.props.getTweetData();
-        }
-        else if(this.props.isProfile){
-            this.props.showUserProfileFromTweets(this.props.tweet.userId);
-        }
-        // this.props.getTweetData();
-        // this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
-        // alert("Berhasil delete...!");
+        // if(this.props.isHome){
+        //     this.props.getTweetData();
+        // }
+        // else if(this.props.isProfile){
+        //     this.props.showUserProfileFromTweets(this.props.tweet.userId);
+        // }
     }
 
     render() {
-        console.log(this.state.commentData);
         return (
           <Comment.Group size='small'>
               {this.state.commentData.map(comment =>

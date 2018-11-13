@@ -16,11 +16,8 @@
     white-space:pre-wrap;
 }
 
-#trashIcon{
-    float: right;
-}
-
 #trashIcon {
+    float: right;
     cursor: pointer;
     opacity: 0.5;
 }
