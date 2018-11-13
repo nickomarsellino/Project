@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Form, TextArea, Image} from 'semantic-ui-react'
-import profile from '../../daniel.jpg';
+import profile from '../../../daniel.jpg';
 import './Comments_Box.css'
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -78,7 +78,7 @@ class Comments_Box extends Component {
 
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../../src/uploads/${imageUrl}`)} id="profilePicComment"/>
+                <img alt=" " src={require(`../../../../src/uploads/${imageUrl}`)} id="profilePicComment"/>
             );
         }
         else {
@@ -89,8 +89,6 @@ class Comments_Box extends Component {
     }
 
     comment() {
-        console.log(this.props.username);
-
         const commentData = {
             userId: this.props.userId,
             username: this.props.username,
@@ -107,10 +105,10 @@ class Comments_Box extends Component {
           .then(res => {
 
               if(this.props.isHome){
-                  this.props.getTweetData();
+                 // this.props.getTweetData();
               }
               else if(this.props.isProfile){
-                  this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
+                  this.props.showUserProfileFromTweets(this.props.tweet.userId);
               }
 
               this.setState({

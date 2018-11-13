@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Comment, Icon} from 'semantic-ui-react'
-import profile from '../../daniel.jpg';
+import profile from '../../../daniel.jpg';
 import "./Comments_Container.css"
 import axios from "axios/index";
 import openSocket from 'socket.io-client';
@@ -26,7 +26,6 @@ class Comments_Container extends Component {
             this.setState({
                 commentData: newComment
             });
-            console.log(this.state.commentId);
         });
 
         socket.on("deleteComment", bebasnamavariabel => {
@@ -56,7 +55,7 @@ class Comments_Container extends Component {
         let imageUrl = profilePicture;
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../../src/uploads/${imageUrl}`)} />
+                <img alt=" " src={require(`../../../../src/uploads/${imageUrl}`)} />
             );
         }
         else {
@@ -76,7 +75,8 @@ class Comments_Container extends Component {
 
     deleteComment(commentId){
         const idComment = {
-           _id: commentId
+           _id: commentId,
+            tweetId: this.props.tweet._id
         };
         axios({
             method: 'PUT',
@@ -89,15 +89,12 @@ class Comments_Container extends Component {
         })
         socket.emit('deleteComment', idComment)
 
-        if(this.props.isHome){
-            this.props.getTweetData();
-        }
-        else if(this.props.isProfile){
-            this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
-        }
-        // this.props.getTweetData();
-        // this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
-        // alert("Berhasil delete...!");
+        // if(this.props.isHome){
+        //     this.props.getTweetData();
+        // }
+        // else if(this.props.isProfile){
+        //     this.props.showUserProfileFromTweets(this.props.tweet.userId);
+        // }
     }
 
     render() {

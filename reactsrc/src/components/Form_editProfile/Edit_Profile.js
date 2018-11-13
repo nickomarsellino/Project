@@ -112,10 +112,6 @@ class Edit_Profile extends Component {
                 let formData = new FormData();
                 formData.append('profilePicture', this.state.selectedFile);
 
-                // console.log("PAS CLICK SUBMIT: ", this.state.selectedFile);
-
-                // console.log("PAS CLICK SUBMIT: ", formData);
-
                 axios.put('/api/users/editProfilePicture/'+this.state.userId, formData)
                     .then((result) => {
 

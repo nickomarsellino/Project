@@ -7,8 +7,8 @@ import axios from 'axios';
 
 
 //load another component
-import CommentsBox from "../../Comments_Box/Comments_Box";
-import CommentsContainer from "../../Comments_Container/Comments_Container";
+import CommentsBox from "../../Comments/Comments_Box/Comments_Box";
+import CommentsContainer from "../../Comments/Comments_Container/Comments_Container";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
@@ -25,27 +25,42 @@ class Modal_Twitt extends Component {
             tweet: [],
             checkLikes: false,
             black: 'blackColor',
-            likes: this.props.likes,
+            likes: null,
+            comments: null,
             commentColor: "blackColor"
         };
         this.openModal = this.openModal.bind(this);
-        this.likeIkonColor=this.likeIkonColor.bind(this);
+        this.likeIkonColor = this.likeIkonColor.bind(this);
     }
 
-    componentDidMount(){
-        this.commentIkonColor();
+    componentDidMount() {
         this.setState({
             userLoginId: localStorage.getItem("myThings"),
             tweet: this.props.tweet,
-            likes: this.props.tweet.likes
-        })
+            likes: this.props.tweet.likes,
+            comments: this.props.tweet.comments.length
+        });
 
+        this.likeIkonColor();
+        this.commentIkonColor(this.props.tweet.comments.length);
+
+        //  Untuk LIKE
         socket.on(this.props.tweet._id + 'like', bebas => {
             this.setState({
                 likes: this.state.likes.concat(bebas.userId)
             });
             this.likeIkonColor();
         });
+
+        //Untuk Comments
+        socket.on(this.props.tweet._id + 'getCommentLength', bebas => {
+            const comments = this.state.comments + 1;
+            this.setState({
+                comments: comments
+            });
+            this.commentIkonColor(this.state.comments);
+        });
+
 
         //  Untuk UNLIKE
         socket.on(this.props.tweet._id + "unlike", bebas => {
@@ -60,15 +75,29 @@ class Modal_Twitt extends Component {
             });
             this.likeIkonColor();
         });
-        this.likeIkonColor();
+
+        //Untuk UnComments
+        socket.on(this.props.tweet._id + 'deleteCommentLength', bebas => {
+            const comments = this.state.comments - 1;
+            this.setState({
+                comments: comments
+            });
+            this.commentIkonColor(this.state.comments);
+        });
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.tweet !== this.props.tweet) {
+            this.commentIkonColor(nextProps.tweet);
             this.setState({
                 tweet: nextProps.tweet
             });
         }
+        // else{
+        //     this.setState({
+        //         commentColor: "blackColor"
+        //     })
+        // }
     }
 
     clickLikeButton(userId) {
@@ -111,13 +140,16 @@ class Modal_Twitt extends Component {
         }
     }
 
-    commentIkonColor(){
-        for(let i=0; i < this.props.tweet.comments.length; i++){
-            if(this.props.tweet.comments[i].userId === '0'){
-                this.setState({
-                    commentColor: "blackColor"
-                })
-            }
+    commentIkonColor(comments) {
+        if (comments > 0) {
+            this.setState({
+                commentColor: "blueColor"
+            })
+        }
+        else{
+            this.setState({
+                commentColor: "blackColor"
+            })
         }
     }
 
@@ -190,9 +222,9 @@ class Modal_Twitt extends Component {
                     <ModalHeader toggle={this.openModal}>
                         <div className="profileBox">
                             <Image avatar id="avatarBox">
-                                    {this.setProfileImage(this.state.tweet.profilePicture)}
-                                    </Image>
-                                <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
+                                {this.setProfileImage(this.state.tweet.profilePicture)}
+                            </Image>
+                            <span><h5 id="nameBox">{this.state.tweet.username}</h5></span>
                         </div>
                     </ModalHeader>
 
@@ -205,17 +237,23 @@ class Modal_Twitt extends Component {
                         <Timestamp time={this.state.tweet.timestamp} format='full' includeDay/>
 
                         <div className="buttonGroup">
-                            <Icon.Group className={this.state.black} id="likesIcon" onClick={() => this.clickLikeButton(this.state.userLoginId, this.props.tweetId)}
+                            <Icon.Group className={this.state.black} id="likesIcon"
+                                        onClick={() => this.clickLikeButton(this.state.userLoginId, this.props.tweetId)}
                             >
-                              <Icon name='like'/>
-                              {!this.props.likes ?
-                                this.props.tweet.likes.length + " Likes"
-                                :
-                                this.state.likes.length + " Likes"
-                              }
+                                <Icon name='like'/>
+                                {!this.props.likes ?
+                                    this.props.tweet.likes.length + " Likes"
+                                    :
+                                    this.state.likes.length + " Likes"
+                                }
                             </Icon.Group>
-                            <Icon.Group  className={this.state.commentColor} id="commentsIcon">
-                                <Icon name='comments'/>{this.props.tweet.comments.length} Comments
+                            <Icon.Group className={this.state.commentColor} id="commentsIcon">
+                                <Icon name='comments'/>
+                                {!this.state.comments ?
+                                    this.props.tweet.comments.length + " Comments"
+                                    :
+                                    this.state.comments + " Comments"
+                                }
                             </Icon.Group>
                         </div>
                         <hr/>

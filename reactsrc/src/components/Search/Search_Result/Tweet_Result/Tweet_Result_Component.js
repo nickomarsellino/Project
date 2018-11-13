@@ -3,8 +3,8 @@ import axios from "axios/index";
 import {Card, CardBody} from "mdbreact"
 import {Feed, Icon, Image} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import profile from '../../../../src/daniel.jpg';
-import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
+import profile from '../../../../../src/daniel.jpg';
+import ModalDelete from '../../../Modal/Modal_Delete/Modal_Delete';
 import openSocket from "socket.io-client";
 
 const Timestamp = require('react-timestamp');
@@ -101,7 +101,7 @@ class Tweet_Result_Component extends Component {
         if (imageUrl) {
             return (
                 <img alt=" "
-                     src={require(`../../../uploads/${imageUrl}`)}
+                     src={require(`../../../../uploads/${imageUrl}`)}
                      id="profilePictureTweet"
                      onClick={() => this.onClickedImage(userId, username)}
                 />
@@ -122,7 +122,7 @@ class Tweet_Result_Component extends Component {
         if (tweetPicture) {
             return (
                 <center>
-                    <Image src={require(`../../../tweetImage/${tweetPicture}`)}
+                    <Image src={require(`../../../../tweetImage/${tweetPicture}`)}
                            id="tweetImage"
                     />
                 </center>
