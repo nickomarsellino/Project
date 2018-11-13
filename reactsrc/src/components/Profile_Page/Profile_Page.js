@@ -34,6 +34,7 @@ class Edit_Profile extends Component {
             followerItem: false,
             modalProfilePicture: false,
             isFollow: false,
+            isButtonInbox: false,
             tweetsTabClicked: true,
             followingTabClicked: false,
             followerTabClicked: false,
@@ -50,6 +51,7 @@ class Edit_Profile extends Component {
         this.mouseLeave = this.mouseLeave.bind(this);
         this.onButtonClicked = this.onButtonClicked.bind(this);
         this.followButton = this.followButton.bind(this);
+        this.buttonInbox = this.buttonInbox.bind(this);
     }
 
     componentWillMount() {
@@ -141,6 +143,7 @@ class Edit_Profile extends Component {
                 if (user.following.includes(this.props.userIdProfile.userId)) {
                     this.setState({
                         isFollow: true,
+                        isButtonInbox: true,
                         buttonFollowText: "Followed",
                         butttonFollowCondition: "followedButtonProfile"
                     });
@@ -317,6 +320,25 @@ class Edit_Profile extends Component {
         }
     }
 
+    buttonInbox(){
+        if(this.state.isButtonInbox){
+            return (
+                <div
+                    id="inboxButtonContainer"
+                >
+                    <center>
+                        <Icon
+                            size='large'
+                            name='envelope outline'
+                            id='iconInbox'
+                        />
+                        {' '} Inbox
+                    </center>
+                </div>
+            );
+        }
+    }
+
     render() {
 
         let content;
@@ -368,6 +390,9 @@ class Edit_Profile extends Component {
                                 <i className="phone icon"/>{this.state.phone}
                             </div>
                         </div>
+
+                        {this.buttonInbox()}
+
                         {this.followButton(this.state.tweetUserId)}
 
                     </div>
