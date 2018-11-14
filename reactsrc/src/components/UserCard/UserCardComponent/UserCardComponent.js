@@ -46,7 +46,6 @@ class UserCardComponent extends Component {
         }
     }
 
-
     componentWillReceiveProps(nextProps){
         if (nextProps.located === "inSearchPage") {
             this.setState({

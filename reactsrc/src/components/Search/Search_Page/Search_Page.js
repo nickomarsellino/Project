@@ -241,6 +241,13 @@ class Search_Page extends Component {
 
             }
         }
+        else {
+            return (
+                <FadeIn>
+                    <h1>Search Everything :)</h1>
+                </FadeIn>
+            );
+        }
     }
 
     render() {

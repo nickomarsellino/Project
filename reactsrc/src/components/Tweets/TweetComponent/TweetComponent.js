@@ -18,7 +18,6 @@ const socket = openSocket('http://10.183.28.155:8000');
 const Timestamp = require('react-timestamp');
 
 class TweetComponent extends Component {
-
     constructor() {
         super();
         this.state = {

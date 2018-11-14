@@ -27,7 +27,7 @@ class UserCardContainer extends Component {
    componentDidMount(){
         if(this.props.followingData){
             this.setState({
-                userData: this.props.followingData,
+                userData: this.props.followingData
             })
         }
         else if(this.props.followersData){

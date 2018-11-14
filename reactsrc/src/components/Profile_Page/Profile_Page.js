@@ -86,7 +86,6 @@ class Edit_Profile extends Component {
                 this.getProfileData();
             }
         }
-
         this.getProfileData();
     }
 
@@ -139,7 +138,6 @@ class Edit_Profile extends Component {
             //buat bandingin udh pernah follow atau belum
             axios.get('/api/users/profile/' + this.props.userLoginId).then(res => {
                 const user = res.data[0];
-
                 if (user.following.includes(this.props.userIdProfile.userId)) {
                     this.setState({
                         isFollow: true,
@@ -203,9 +201,8 @@ class Edit_Profile extends Component {
         }
     }
 
-    followButton(userId) {
-
-        if (userId !== localStorage.getItem("myThings")) {
+    followButton(userId){
+        if(userId !== localStorage.getItem("myThings")){
             return (
                 <div
                     id={this.state.butttonFollowCondition}
@@ -247,7 +244,7 @@ class Edit_Profile extends Component {
         }
     }
 
-    handleItemClicked(item) {
+   handleItemClicked(item) {
         if (item === "Follower") {
             if (this.props.userId) {
                 this.props.history.replace({
@@ -369,8 +366,8 @@ class Edit_Profile extends Component {
             />;
         }
 
-        return (
-            <FadeIn>
+          return (
+              <FadeIn>
                 <div className="profile">
                     <div id="detailProfile" className="ui card">
                         <div className="image" id="profilePicture">
@@ -416,17 +413,17 @@ class Edit_Profile extends Component {
                     </FadeIn>
                 </div>
 
-                <ModalProfilePicture
-                    isOpen={this.state.modalProfilePicture}
-                    profilePicture={this.state.profilePicture}
-                    username={this.state.username}
-                    isClose={this.closeProfilePicture}
-                />
+                  <ModalProfilePicture
+                      isOpen={this.state.modalProfilePicture}
+                      profilePicture={this.state.profilePicture}
+                      username={this.state.username}
+                      isClose={this.closeProfilePicture}
+                  />
 
 
-            </FadeIn>
-        );
-    }
-}
+              </FadeIn>
+          );
+      }
+  }
 
-export default Edit_Profile;
+  export default Edit_Profile;

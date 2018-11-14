@@ -8,7 +8,7 @@ import axios from "axios/index";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Comments_Box extends Component {
 
@@ -34,7 +34,7 @@ class Comments_Box extends Component {
     }
 
     componentWillUnmount(){
-        document.removeEventListener("keydown", this.enterPressKey, false)
+      document.removeEventListener("keydown", this.enterPressKey, false)
     }
 
     componentWillMount() {
@@ -119,7 +119,7 @@ class Comments_Box extends Component {
           .then(res => {
 
               if(this.props.isHome){
-                 // this.props.getTweetData();
+                  // this.props.getTweetData();
               }
               else if(this.props.isProfile){
                   this.props.showUserProfileFromTweets(this.props.tweet.userId);
