@@ -14,6 +14,10 @@
     background-color: #f8f8f8;
 }
 
+.inboxCardContainer{
+    display: flex;
+}
+
 #headerIcon{
     color: #4DB6AC;
 }
@@ -27,9 +31,17 @@
 }
 
 #inboxProfileContainer {
-    width: 20%;
+    width: 100%;
     float: left;
     display: inline-block;
+}
+
+#inboxCardContainerRight{
+    width: 20%;
+}
+
+#inboxCardContainerLeft{
+
 }
 
 #headerContainerInbox{
@@ -40,12 +52,13 @@
 }
 
 #inboxMessageContainer {
-    float: right;
-    width: 80%;
+    float: left;
+    width: 100%;
 }
 
 #inboxChatContainer {
-    height: 400px;
+    margin-left: 10px;
+    height: 450px;
 }
 
 #inboxBoxAreaContainer {

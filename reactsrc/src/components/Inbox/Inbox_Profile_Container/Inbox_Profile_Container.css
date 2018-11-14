@@ -17,6 +17,10 @@
     float: left;
 }
 
+#avatarProfileContainer{
+    display: flex;
+}
+
 #avatarItemProfile {
     width: 100%;
     height: 43px;

@@ -17,7 +17,6 @@ class Inbox_BoxArea extends Component {
                     control={TextArea}
                     placeholder="Write Your Message..."
                     style={{maxHeight: "60px", minHeight: "50px", width: "836px"}}
-                    // onChange={this.handleInputChange}
                 />
 
                 <Button color="default"
