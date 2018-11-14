@@ -1,0 +1,17 @@
+.inboxChatContainer{
+
+}
+
+#avatarProfileUserContainer{
+    display: flex;
+}
+
+#avatarProfileUser {
+    height: 55px;
+    width: 55px;
+}
+
+#avatarProfileUser img{
+    width: 100%;
+    height: 100%;
+}

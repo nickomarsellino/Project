@@ -125,3 +125,35 @@
     opacity: 1;
 }
 
+
+#inboxButtonContainer{
+    display: inline-block;
+    background: rgb(130, 178, 247);
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    opacity: 1;
+    color: rgb(242, 242, 242);
+}
+
+#inboxButtonContainer:hover{
+    display: inline-block;
+    cursor: pointer;
+    background: rgb(125, 173, 241);
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    opacity: 1;
+    color: rgb(242, 242, 242);
+}
+
+#iconInbox{
+    color: rgb(242, 242, 242);
+}
+

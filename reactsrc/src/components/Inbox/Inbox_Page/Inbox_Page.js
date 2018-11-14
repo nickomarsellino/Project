@@ -5,7 +5,7 @@ import {Icon} from 'semantic-ui-react'
 
 import InboxProfile from '../Inbox_Profile_Container/Inbox_Profile_Container'
 import InboxBoxArea from '../Inbox_BoxArea/Inbox_BoxArea'
-import InboxChat from '../Inbox_Chat_Container/Inbox_Chat_Container'
+import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container'
 
 import './Inbox_Page.css';
 
@@ -15,26 +15,30 @@ class Inbox_Page extends Component {
             <FadeIn id="InboxPage">
                 <Card className="inboxCard">
                     <CardBody>
-                        <div id="inboxCardContainer">
-                            <div id="headerContainerInbox">
-                                <Icon name='envelope open outline'
-                                      size='big'
-                                      id="headerIcon"
-                                />
-                                <p id="headerText">Your Inbox</p>
-                            </div>
-
-                            <div id="inboxProfileContainer">
-                                <InboxProfile/>
-                            </div>
-
-                            <div id="inboxMessageContainer">
-                                <div id="inboxChatContainer">
-                                    <InboxChat/>
+                        <div className="inboxCardContainer">
+                            <div id="inboxCardContainerRight">
+                                <div id="headerContainerInbox">
+                                    <Icon name='envelope open outline'
+                                          size='big'
+                                          id="headerIcon"
+                                    />
+                                    <p id="headerText">Your Inbox</p>
                                 </div>
 
-                                <div id="inboxBoxAreaContainer">
-                                    <InboxBoxArea/>
+                                <div id="inboxProfileContainer">
+                                    <InboxProfile/>
+                                </div>
+                            </div>
+
+                            <div id="inboxCardContainerLeft">
+                                <div id="inboxMessageContainer">
+                                    <div id="inboxChatContainer">
+                                        <InboxChatContainer/>
+                                    </div>
+
+                                    <div id="inboxBoxAreaContainer">
+                                        <InboxBoxArea/>
+                                    </div>
                                 </div>
                             </div>
                         </div>

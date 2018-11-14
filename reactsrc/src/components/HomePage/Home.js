@@ -27,7 +27,10 @@ class Home extends Component {
             userId: '',
             username: '',
             profilePicture: '',
-            isLoading:true
+            isLoading:true,
+            tweetData:'',
+            totalLengthData:'',
+            lengthData:''
         };
     }
 
@@ -48,7 +51,6 @@ class Home extends Component {
                 })
             });
     }
-
 
     verify() {
         axios.get('/api/authentication/verify', {

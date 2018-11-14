@@ -7,9 +7,11 @@
     display: flex;
 }
 
-#inboxButton{
+#inboxButton {
+    font-size: 15px;
     margin-bottom: 10px;
     border-radius: 10px;
     margin-left: 8px;
     width: 85px;
+    font-style: italic;
 }

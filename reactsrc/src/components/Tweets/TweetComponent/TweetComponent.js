@@ -18,7 +18,6 @@ const socket = openSocket('http://10.183.28.155:8000');
 const Timestamp = require('react-timestamp');
 
 class TweetComponent extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -44,9 +43,6 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     console.log(nextState.tweet); //will show the new state
-    // }
 
     componentDidMount() {
 

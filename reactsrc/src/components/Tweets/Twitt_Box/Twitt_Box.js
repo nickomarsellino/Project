@@ -10,7 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Twitt_Box extends Component {
 
@@ -20,12 +20,16 @@ class Twitt_Box extends Component {
             tweetStatus: '#4db6ac',
             charCounter: 160,
             userId: '',
+            tweetId:'',
             username: '',
             userTweet: '',
             profilePicture: '',
             likes: null,
             selectedFile: [],
-            tweetImage: null
+            tweetImage: null,
+            tweetData:'',
+            totalLengthData: '',
+            lengthData: ''
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -106,7 +110,6 @@ class Twitt_Box extends Component {
 
                 axios.put('/api/tweet/postingImage/'+response.data._id, formData)
                     .then((result) => {
-
                         // const tweetDataAndImage ={
                         //     tweetText: this.state.userTweet,
                         //     username: this.state.username,
