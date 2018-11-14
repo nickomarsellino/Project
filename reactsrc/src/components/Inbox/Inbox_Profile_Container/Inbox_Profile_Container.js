@@ -14,6 +14,8 @@ class Inbox_Profile_Container extends Component {
             activeItem: 'home',
             inboxPeopleList: []
         };
+
+        this.endChatMessage = this.endChatMessage.bind(this);
     }
 
     componentDidMount(){
@@ -32,7 +34,6 @@ class Inbox_Profile_Container extends Component {
 
     setProfileImage(profilePicture) {
         let imageUrl = profilePicture;
-
         if (imageUrl) {
             return (
                 <img alt=" "
@@ -51,6 +52,17 @@ class Inbox_Profile_Container extends Component {
         }
     }
 
+    endChatMessage(chatId){
+        axios.delete('/api/inbox/endChatMessage/' + chatId)
+            .then(res => {
+                this.setState({
+                    inboxPeopleList: res.data
+                });
+            });
+        alert("Berhasil di delete...!!")
+        console.log(chatId);
+    }
+
     render() {
         console.log(this.props.userLoginId);
         return (
@@ -64,7 +76,9 @@ class Inbox_Profile_Container extends Component {
                           <List.Header id="profileNameBox">{people.userReceiverName}</List.Header>
                           <Icon name='cancel'
                                 size='large'
-                                id="closeButton"/>
+                                id="closeButton"
+                                onClick={() => this.endChatMessage(people._id)}
+                          />
                           <br/>
                       </List.Content>
                       <hr/>
