@@ -2,6 +2,10 @@
     margin-top: 2%;
 }
 
+#messageValidation{
+    width: 100%;
+}
+
 .Submit_Button {
     margin-top: 3%;
 }

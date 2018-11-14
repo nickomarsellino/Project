@@ -72,7 +72,6 @@ router.post('/posting', (req, res, next) => {
             checkLikes: result.checkLikes,
             likes:result.likes,
             comments: result.comments,
-            message: 'Tweet posted successfully..!',
             profilePicture: result.profilePicture
         });
     });

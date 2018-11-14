@@ -1,0 +1,53 @@
+#profileNameBox{
+    font-size: 17px;
+    float: left;
+    margin-top: 11px;
+    cursor: pointer;
+}
+
+#listProfileContainer {
+    overflow-y: auto;
+    height: 455px;
+    width: 100%;
+    float: left;
+}
+
+#listItemProfile{
+    width: 100%;
+    float: left;
+}
+
+#avatarProfileContainer{
+    display: flex;
+}
+
+#avatarItemProfile {
+    width: 100%;
+    height: 43px;
+}
+
+#avatarItemContainer {
+    height: 30px;
+    width: 53px;
+}
+
+#contentItemContainer{
+    width: 78%;
+}
+
+#closeButton{
+    float: right;
+    margin-top: 5%;
+    color: #ff7986;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+
+#closeButton:hover{
+    float: right;
+    margin-top: 5%;
+    color: #ff7986;
+    opacity: 0.8;
+    cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Comment, Icon} from 'semantic-ui-react'
-import profile from '../../daniel.jpg';
+import profile from '../../../daniel.jpg';
 import "./Comments_Container.css"
 import axios from "axios/index";
 import openSocket from 'socket.io-client';
@@ -18,6 +18,7 @@ class Comments_Container extends Component {
         };
     }
 
+
     componentWillMount(){
         this.getAllComment();
         socket.on('getComment', bebasnamavariabel => {
@@ -26,7 +27,6 @@ class Comments_Container extends Component {
             this.setState({
                 commentData: newComment
             });
-            console.log("asf ", this.state.commentData);
         });
         socket.on("deleteComment", bebasnamavariabel => {
             let newCommentList = [];
@@ -48,7 +48,6 @@ class Comments_Container extends Component {
             this.setState({
                 commentData: res.data.comments
             })
-            console.log(this.state.commentData);
         })
     }
 
@@ -56,7 +55,7 @@ class Comments_Container extends Component {
         let imageUrl = profilePicture;
         if (imageUrl) {
             return (
-                <img alt=" " src={require(`../../../src/uploads/${imageUrl}`)} />
+                <img alt=" " src={require(`../../../../src/uploads/${imageUrl}`)} />
             );
         }
         else {
@@ -76,7 +75,8 @@ class Comments_Container extends Component {
 
     deleteComment(commentId){
         const idComment = {
-           _id: commentId
+           _id: commentId,
+            tweetId: this.props.tweet._id
         };
         axios({
             method: 'PUT',

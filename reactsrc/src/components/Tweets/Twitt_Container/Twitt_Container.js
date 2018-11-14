@@ -11,7 +11,6 @@ import openSocket from 'socket.io-client';
 // Ini yang nge buat dia connect sama si backend nya
 const socket = openSocket('http://10.183.28.153:8000');
 
-
 class Twitt_Container extends Component {
 
     constructor() {
@@ -24,6 +23,7 @@ class Twitt_Container extends Component {
             modalTweet: false,
             modalDelete: false,
             checkLikes: false,
+            isLoading: true,
             userProfilePicture: '',
             hasMore: true,
             lengthData: '',
@@ -41,18 +41,28 @@ class Twitt_Container extends Component {
             this.showUserProfileFromTweets(this.props.TweetUserId);
         }
         else {
-            socket.on('getData', namavariabel => {
-                this.getTweetData();
-                const allTweetData = this.state.tweetData;
-                const newTweetData = [namavariabel].concat(allTweetData);
-                this.setState({
-                    tweetData: newTweetData
-                });
-                this.getTweetData();
-            });
             this.getTweetData();
+            socket.on('getData', namavariabel => {
+                if (namavariabel.tweetPicture) {
+
+                }
+                else {
+                    // this.setState({
+                    //     isLoading: true
+                    // });
+
+                    // const allComment = this.state.tweetData;
+                    // const newComment = [namavariabel].concat(allComment);
+                    // this.setState({
+                    //     tweetData: newComment
+                    // });
+
+                   this.getTweetData();
+                }
+            })
         }
     }
+
 
     getTweetData() {
         axios.get('/api/tweet/tweets?perPage=5&page=1')
@@ -62,6 +72,7 @@ class Twitt_Container extends Component {
                         tweetData: res.data.docs,
                         totalLengthData: res.data.total,
                         lengthData: res.data.docs.length,
+                        isLoading: false
                     })
             });
     }
@@ -75,6 +86,7 @@ class Twitt_Container extends Component {
                     tweetCounter: res.data.length,
                     totalLengthData: res.data.total,
                     lengthData: res.data.docs.length,
+                    isLoading: false
                 })
                 // get berapa banyak data tweet nya
                 this.props.tweetCounter(res.data.total)
@@ -123,19 +135,10 @@ class Twitt_Container extends Component {
         }
     }
 
-    // checkCommentColor(tweet){
-    //     // console.log(tweet.comments.length);
-    //     for( let x = 0 ; x < tweet.comments.length ; x++){
-    //         // console.log(tweet.comments[x].userId);
-    //         if(tweet.comments[x].userId.includes(this.props.userId)){
-    //             this.setState({
-    //                 commentColor: "blueColor"
-    //             })
-    //         }
-    //     }
-    // }
-
     render() {
+        if (this.state.isLoading) {
+            return null
+        }
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
                 <InfiniteScroll
@@ -148,6 +151,7 @@ class Twitt_Container extends Component {
                                         lengthData={this.state.length}
                                         history={this.props.history}
                                         userId={this.props.userId}
+                                        tweetUserId={this.props.TweetUserId}
                                         profilePicture={this.props.profilePicture}
                                         username={this.props.username}
                                         located="home"

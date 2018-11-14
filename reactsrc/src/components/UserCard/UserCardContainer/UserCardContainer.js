@@ -1,5 +1,6 @@
 import axios from "axios/index";
 import React, {Component} from "react";
+import equal from 'fast-deep-equal'
 
 import UserCardComponent from '../UserCardComponent/UserCardComponent'
 
@@ -21,14 +22,6 @@ class UserCardContainer extends Component {
                userData: this.props.userSearch
            });
        }
-       else {
-           axios.get('/api/users/profile/')
-               .then(res => {
-                   this.setState({
-                       userData: res.data
-                   });
-               });
-       }
    }
 
    componentDidMount(){
@@ -44,12 +37,32 @@ class UserCardContainer extends Component {
         }
    }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.followingData){
+            if(!equal(nextProps.followingData, this.state.userData)){
+                this.setState({
+                    userData: nextProps.followingData
+                });
+            }
+        }
+
+        else if(nextProps.followersData){
+            if(!equal(nextProps.followersData, this.state.userData)){
+                this.setState({
+                    userData: nextProps.followersData
+                });
+            }
+        }
+
+    }
+
 
    render() {
-       return (
+      return (
            <div className="peopleCards">
                {this.state.userData.map(user =>
                    <UserCardComponent
+                       located = {this.props.located}
                        userLoginFollowingData = {this.props.userLoginFollowingData}
                        userData = {user}
                        history = {this.props.history}

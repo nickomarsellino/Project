@@ -7,7 +7,7 @@ import axios from 'axios';
 //Load another component
 import SearchBar from "../Search_Bar/Search_Bar";
 import TweetResult from "../Search_Result/Tweet_Result/Tweet_Result_Container";
-import UserCardContainer from '../UserCardContainer/UserCardContainer'
+import UserCardContainer from '../../UserCard/UserCardContainer/UserCardContainer'
 
 class Search_Page extends Component {
     constructor(props) {
@@ -20,7 +20,8 @@ class Search_Page extends Component {
             isSearch: false,
             searchValue: '',
             isTweetSearch: '',
-            isUserSearch: ''
+            isUserSearch: '',
+            userLoginFollowingData: ''
         };
         this.searchTweetsData = this.searchTweetsData.bind(this);
         this.isSearched = this.isSearched.bind(this);
@@ -73,7 +74,6 @@ class Search_Page extends Component {
 
     handleItemClicked(item) {
         if (item === "Tweets") {
-            //console.log(this.state.tweetSearch);
             this.props.history.replace({
                 pathname: '/home/search/',
                 search: this.state.searchValue.replace(' ', '-'),
@@ -88,7 +88,6 @@ class Search_Page extends Component {
             })
         }
         else if (item === "Peoples") {
-            //console.log(this.state.userSearch);
             this.props.history.replace({
                 pathname: '/home/search/',
                 search: this.state.searchValue.replace(' ', '-'),
@@ -230,6 +229,7 @@ class Search_Page extends Component {
                                 </div>
 
                                 <UserCardContainer
+                                    located="inSearchPage"
                                     userSearch={this.state.userSearch}
                                     history={this.props.history}
                                 />

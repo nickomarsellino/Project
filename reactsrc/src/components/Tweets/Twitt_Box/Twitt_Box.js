@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Card, CardBody, Button} from "mdbreact"
 import {Form, TextArea, Image, Icon} from 'semantic-ui-react'
-import profile from '../../daniel.jpg';
+import profile from '../../../daniel.jpg';
 import './Twiit_Box.css'
 import axios from "axios/index";
 import CircularProgressbar from "react-circular-progressbar";
@@ -37,8 +37,6 @@ class Twitt_Box extends Component {
     }
 
     componentWillMount() {
-        this.getTweetDataForFixLike();
-
         const userId = this.props.userId;
         const username = this.props.username;
 
@@ -83,19 +81,6 @@ class Twitt_Box extends Component {
         });
     }
 
-    getTweetDataForFixLike() {
-        axios.get('/api/tweet/tweets?perPage=5&page=1')
-            .then(res => {
-                this.setState(
-                    {
-                        tweetData: res.data.docs,
-                        totalLengthData: res.data.total,
-                        lengthData: res.data.docs.length,
-                    })
-                    console.log(this.state.tweetData);
-            });
-    }
-
     handleSubmit(e) {
 
         e.preventDefault();
@@ -114,22 +99,17 @@ class Twitt_Box extends Component {
             data: tweetData
         })
             .then((response) => {
-                console.log("POST RESPONSE ",response);
-                // if(this.props.isHome){
-                //     this.getTweetDataForFixLike();
-                // }
-
                 this.setState({
                     userTweet: '',
-                    charCounter: 160,
-                    tweetId: response.data._id
+                    charCounter: 160
                 });
-                console.log(this.state.tweetId);
                 //Upload Image ke table tweet
                 let formData = new FormData();
-                formData.append('tweetPicture', this.state.selectedFile);
-                axios.put('/api/tweet/postingImage/'+response.data._id, formData).then((result) => {
 
+                formData.append('tweetPicture', this.state.selectedFile);
+
+                axios.put('/api/tweet/postingImage/'+response.data._id, formData)
+                    .then((result) => {
                         // const tweetDataAndImage ={
                         //     tweetText: this.state.userTweet,
                         //     username: this.state.username,
@@ -180,7 +160,7 @@ class Twitt_Box extends Component {
         let imagedisplay
 
         if(imageUrl){
-            imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
+            imagedisplay = <img alt=" " src={require(`../../../uploads/${imageUrl}`)} className="float-right" />
         }
         else{
             imagedisplay = <img alt=" "  src={profile} />
