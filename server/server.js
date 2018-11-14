@@ -7,10 +7,10 @@ const helmet = require('helmet');
 const http = require('http');
 const app = express();
 
-
 const userRoutes = require('./routes/userRouter');
 const authenticationRoutes = require('./routes/authenticationRouter');
 const tweetsRoutes = require('./routes/tweetsRouter');
+const messageRouter = require('./routes/messageRouter');
 
 app.use(logger('dev'));
 app.use(helmet());
@@ -27,7 +27,8 @@ const db = mongoose.connection;
 
 app.use('/api/authentication', authenticationRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/tweet', tweetsRoutes)
+app.use('/api/tweet', tweetsRoutes);
+app.use('/api/inbox', messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,6 +59,7 @@ io.on('connection', (socket) => {
   console.log('a new user connected, with Id:', socket.id);
   // Memastikan emit tsb telah terkirim dari client (front end)
   socket.on('sendTheData', (data) => {
+    console.log("GETDATA CUY ",data);
     socket.broadcast.emit('getData', data)
     socket.emit('getData', data);
     // io.sockets.emit('bebas1', data);

@@ -8,7 +8,7 @@ import axios from "axios/index";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Comments_Box extends Component {
 
@@ -21,11 +21,20 @@ class Comments_Box extends Component {
             username: this.props.username,
             commentText: '',
             profilePicture: this.props.profilePicture,
-            timstamp: '',
             allComments: this.props.tweet.comments,
             tweetImage: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.comment = this.comment.bind(this);
+        this.enterPressKey = this.enterPressKey.bind(this);
+    }
+
+    componentDidMount(){
+        document.addEventListener("keydown", this.enterPressKey, false)
+    }
+
+    componentWillUnmount(){
+      document.removeEventListener("keydown", this.enterPressKey, false)
     }
 
     componentWillMount() {
@@ -36,7 +45,12 @@ class Comments_Box extends Component {
             username: username,
             commentId: []
         });
+    }
 
+    enterPressKey (event) {
+        if(event.keyCode == 13 && event.shiftKey == false) {
+            this.comment();
+        }
     }
 
     handleInputChange(e) {
@@ -88,7 +102,7 @@ class Comments_Box extends Component {
         }
     }
 
-    comment() {
+    comment () {
         console.log(this.props.username);
 
         const commentData = {
@@ -107,10 +121,10 @@ class Comments_Box extends Component {
           .then(res => {
 
               if(this.props.isHome){
-                  this.props.getTweetData();
+                  // this.props.getTweetData();
               }
               else if(this.props.isProfile){
-                  this.props.showUserProfileFromTweets(localStorage.getItem("myThings"));
+                  this.props.showUserProfileFromTweets(this.props.tweet.userId);
               }
 
               this.setState({
@@ -137,13 +151,8 @@ class Comments_Box extends Component {
                     placeholder="Write A Comment..."
                     style={{maxHeight: "60px", minHeight: "50px", marginBottom: "10px"}}
                     name="commentText"
-
+                    onSubmit= {this.enterPressKey}
                     onChange={this.handleInputChange}
-                    onKeyPress={event => {
-                        if (event.key === "Enter") {
-                            this.comment();
-                        }
-                    }}
                 />
 
                 <div className="buttonCommentBox">

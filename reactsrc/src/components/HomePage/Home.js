@@ -15,8 +15,7 @@ import TwittContainer from "../Twitt_Container/Twitt_Container";
 import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
-import SearchPage from '../Search_Page/Search_Page'
-
+import SearchPage from '../Search_Page/Search_Page';
 
 class Home extends Component {
 
@@ -26,7 +25,10 @@ class Home extends Component {
             userId: '',
             username: '',
             profilePicture: '',
-            isLoading:true
+            isLoading:true,
+            tweetData:'',
+            totalLengthData:'',
+            lengthData:''
         };
     }
 
@@ -47,7 +49,6 @@ class Home extends Component {
                 })
             });
     }
-
 
     verify() {
         axios.get('/api/authentication/verify', {
@@ -87,6 +88,7 @@ class Home extends Component {
                 <TwittBox username={this.state.username}
                           userId={this.state.userId}
                           profilePicture={this.state.profilePicture}
+                          isHome="home"
                 />
                 <TwittContainer userId={this.state.userId}
                                 located="home"

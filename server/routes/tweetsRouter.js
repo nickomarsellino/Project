@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
     // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
         cb(null, true);
     } else {
         cb(null, false);
@@ -71,6 +71,7 @@ router.post('/posting', (req, res, next) => {
             timestamp: new Date(),
             checkLikes: result.checkLikes,
             likes:result.likes,
+            comments: result.comments,
             message: 'Tweet posted successfully..!',
             profilePicture: result.profilePicture
         });
@@ -130,17 +131,26 @@ router.delete('/tweet/:id', (req, res, next) => {
 
 // get all tweets
 router.get('/tweets', (req, res, next) => {
-    const query = Tweet.find({}).sort(
-      {timestamp: 'descending'}
-    );
-    const { page, perPage } = req.query;
-    const options = {
-        page: parseInt(page, 10),
-        limit: parseInt(perPage, 10),
-    };
 
-    Tweet.paginate(query, options).then(function(result) {
-        res.send(result);
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    User.find({_id: userData.userId}).then((result) => {
+      // console.log("RESULT ",result[0]);
+        const query = Tweet.find({userId: { $in : result[0].following.concat(userData.userId) }})
+        .sort({timestamp: 'descending'});
+        // console.log(userData);
+        const { page, perPage } = req.query;
+        const options = {
+            page: parseInt(page, 10),
+            limit: parseInt(perPage, 10),
+        };
+
+        Tweet.paginate(query, options).then(function(result) {
+            res.send(result);
+        });
     });
 });
 
@@ -191,22 +201,32 @@ router.get('/tweet/:id', (req, res) => {
 
 // Buat Like kasih id kita
 router.put('/likeTweet/:id', (req,res) => {
-    Tweet.findByIdAndUpdate( {_id: req.params.id}, {$push: {likes: req.body.userId}}, {new: true}, function (err, user) {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    Tweet.findByIdAndUpdate( {_id: req.params.id}, {$push: {likes: userData.userId}}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)
       };
       res.json(user);
     });
-  })
+})
 
 router.put('/unlikeTweet/:id', (req,res) => {
-    Tweet.findByIdAndUpdate( {_id: req.params.id}, {$pull: {likes: req.body.userId}}, {new: true}, function (err, user) {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    Tweet.findByIdAndUpdate( {_id: req.params.id}, {$pull: {likes: userData.userId}}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)
       };
       res.json(user);
     });
-  })
+})
 
 router.put('/commentTweet/:id', (req,res) => {
     Tweet.findByIdAndUpdate( {_id: req.params.id},
@@ -237,8 +257,13 @@ router.put('/commentTweet/:id', (req,res) => {
 })
 
 router.put('/deleteCommentTweet/:id', (req,res) => {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
     Tweet.findByIdAndUpdate( {_id: req.params.id},
-      {$pull: {comments:  { _id: req.body._id} }}, {new: true}, function (err, user) {
+      {$pull: {comments:  { _id: req.body._id, userId: userData.userId} }}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)
       };
@@ -250,6 +275,7 @@ router.get('/getComment/:id', (req,res) => {
     Tweet.findById({ _id : req.params.id})
     .then((result) => {
         res.send(result);
+        console.log("RESULT", result.comments);
     })
 })
 

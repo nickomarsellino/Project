@@ -343,5 +343,59 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
+router.put('/follow/:id', (req,res) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+    console.log("USERDATA ",userData);
+    User.findByIdAndUpdate( {_id: req.params.id},
+        {$push:
+            {followers: userData.userId}
+        }, {new: true}, function (err, user) {
+        if (err) {
+            return res.send(err)
+        };
+        res.json(user);
+    });
+    User.updateMany({_id: userData.userId},
+        {$push: {following: req.params.id}}
+    ).exec();
+})
+
+router.put('/unfollow/:id', (req,res) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    User.findByIdAndUpdate( {_id: req.params.id},
+        {$pull:
+            {followers: userData.userId}
+        }, {new: true}, function (err, user) {
+        if (err) {
+            return res.send(err)
+        };
+        res.json(user);
+    });
+    User.updateMany({_id: userData.userId},
+        {$pull: {following: req.params.id}}
+    ).exec();
+})
+
+
+router.get('/followingData/:id', (req,res) => {
+    User.findById({ _id : req.params.id}).then((result) => {
+        res.json({result});
+    });
+})
+
+router.get('/followersData/:id', (req,res) => {
+    User.findById({ _id : req.params.id}).then((result) => {
+        res.json(result);
+    });
+})
 
 module.exports = router;
