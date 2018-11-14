@@ -31,6 +31,7 @@ router.post('/message', (req, res, next) => {
             profileReceiverPicture: result.profileReceiverPicture
         });
     });
+    console.log(data);
 });
 
 // id didapat ketika dia pencet inbox kebuat gitu
@@ -84,7 +85,12 @@ router.get('/chatDetail/:id', (req, res, next) => {
 
 // Get detail namanya kayak lagi chat sama siapa
 router.get('/listContactInbox', (req, res, next) => {
-    Message.find({userSenderId: '1234'}).then((result) => {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    Message.find({userId: userData.userId}).then((result) => {
         res.send(result);
     });
 });
