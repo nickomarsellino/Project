@@ -4,9 +4,9 @@ import {Card, CardBody} from "mdbreact"
 import {Icon} from 'semantic-ui-react'
 import axios from 'axios';
 
-import InboxProfile from '../Inbox_Profile_Container/Inbox_Profile_Container'
-import InboxBoxArea from '../Inbox_BoxArea/Inbox_BoxArea'
-import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container'
+import InboxProfile from '../Inbox_Profile_Container/Inbox_Profile_Container.js'
+import InboxBoxArea from '../Inbox_BoxArea/Inbox_BoxArea.js'
+import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container.js'
 
 import './Inbox_Page.css';
 
@@ -14,8 +14,17 @@ class Inbox_Page extends Component {
     constructor(){
         super();
         this.state = {
-            inboxPeopleList: ''
+            inboxPeopleList: '',
+            chatMessageDetail: []
         };
+        this.sendTheMessageDetail = this.sendTheMessageDetail.bind(this);
+    }
+
+    // Function untuk terima data dari anaknya si inbox_profile_container
+    sendTheMessageDetail(messagesData){
+        this.setState({
+            chatMessageDetail: messagesData
+        });
     }
 
     render() {
@@ -34,7 +43,9 @@ class Inbox_Page extends Component {
                                 </div>
 
                                 <div id="inboxProfileContainer">
-                                    <InboxProfile userLoginId={this.props.userId}
+                                    <InboxProfile
+                                    sendTheMessageDetail={this.sendTheMessageDetail}
+                                    userLoginId={this.props.userId}
                                     />
                                 </div>
                             </div>
@@ -42,7 +53,9 @@ class Inbox_Page extends Component {
                             <div id="inboxCardContainerLeft">
                                 <div id="inboxMessageContainer">
                                     <div id="inboxChatContainer">
-                                        <InboxChatContainer/>
+                                        <InboxChatContainer
+                                        chatMessageDetail={this.state.chatMessageDetail}
+                                        />
                                     </div>
 
                                     <div id="inboxBoxAreaContainer">
