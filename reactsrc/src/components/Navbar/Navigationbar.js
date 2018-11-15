@@ -19,8 +19,6 @@ import profile from '../../daniel.jpg';
 import {Button, Image} from 'semantic-ui-react'
 import './Navbar.css'
 
-import NotificationContainer from '../Inbox/Inbox_Chat_Container/Inbox_Chat_Container';
-
 class Navigationbar extends Component {
 
     constructor(props) {
@@ -176,7 +174,7 @@ class Navigationbar extends Component {
                         <img src={logo} alt="" height="30px"/>
                         {' '}
                     </NavbarBrand>
-                    <p id="namaFitur">WomanLounge</p>
+                    <p id="namaFiturDiHome">WomanLounge</p>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>

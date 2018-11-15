@@ -53,6 +53,13 @@ class Inbox_Chat_Container extends Component {
                         <p>{this.props.chatMessageDetail.userReceiverName}</p>
                     </span>
                 </div>
+                <div id="chatContainer">
+                    {/*{this.state.chatMessageDetail.map((chatData) =>*/}
+                        {/*<InboxChatComponent*/}
+                        {/*chatData = {chatData}*/}
+                        {/*/>*/}
+                    {/*)}*/}
+                </div>
             </div>
         )
     }

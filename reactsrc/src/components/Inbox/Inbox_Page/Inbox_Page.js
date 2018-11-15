@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import FadeIn from 'react-fade-in';
+import emptyChat from '../../../emptyChat.png'
 import {Card, CardBody} from "mdbreact"
 import {Icon} from 'semantic-ui-react'
-import axios from 'axios';
-
+import ReactDOM from 'react-dom';
 import InboxProfile from '../Inbox_Profile_Container/Inbox_Profile_Container.js'
 import InboxBoxArea from '../Inbox_BoxArea/Inbox_BoxArea.js'
 import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container.js'
@@ -15,7 +15,8 @@ class Inbox_Page extends Component {
         super();
         this.state = {
             inboxPeopleList: '',
-            chatMessageDetail: []
+            chatMessageDetail: [],
+            isChatOpened: false
         };
         this.sendTheMessageDetail = this.sendTheMessageDetail.bind(this);
     }
@@ -23,8 +24,37 @@ class Inbox_Page extends Component {
     // Function untuk terima data dari anaknya si inbox_profile_container
     sendTheMessageDetail(messagesData){
         this.setState({
-            chatMessageDetail: messagesData
+            chatMessageDetail: messagesData,
+            isChatOpened: true
         });
+    }
+
+    isChatOpened(){
+        if(this.state.isChatOpened){
+            return(
+                <div id="inboxMessageContainer">
+                    <div id="inboxChatContainer">
+                        <InboxChatContainer
+                            chatMessageDetail={this.state.chatMessageDetail}
+                        />
+                    </div>
+
+                    <div id="inboxBoxAreaContainer">
+                        <InboxBoxArea
+                            chatMessageDetail={this.state.chatMessageDetail}
+                        />
+                    </div>
+                </div>
+                )
+        }
+        else{
+            return(
+                <div id="isEmptyChat">
+                    <p>Let's Chat With Your Friend's</p>
+                    {/*<img src={emptyChat} alt=""/>*/}
+                </div>
+            )
+        }
     }
 
     render() {
@@ -49,21 +79,8 @@ class Inbox_Page extends Component {
                                     />
                                 </div>
                             </div>
-
                             <div id="inboxCardContainerLeft">
-                                <div id="inboxMessageContainer">
-                                    <div id="inboxChatContainer">
-                                        <InboxChatContainer
-                                        chatMessageDetail={this.state.chatMessageDetail}
-                                        />
-                                    </div>
-
-                                    <div id="inboxBoxAreaContainer">
-                                        <InboxBoxArea
-                                        chatMessageDetail={this.state.chatMessageDetail}
-                                        />
-                                    </div>
-                                </div>
+                                {this.isChatOpened()}
                             </div>
                         </div>
                     </CardBody>
