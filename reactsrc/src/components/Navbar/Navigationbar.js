@@ -171,7 +171,7 @@ class Navigationbar extends Component {
 
         if (this.props.success) {
             return (
-                <Navbar light={true} color="cyan" expand="md" dark={true} scrolling={true}>
+                <Navbar light={true} color="white" expand="md" dark={true} scrolling={true}>
                     <NavbarBrand href="/home" id="logoText">
                         <img src={logo} alt="" height="30px"/>
                         {' '}
@@ -194,7 +194,7 @@ class Navigationbar extends Component {
                                 </Link>
 
                                 <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                    <DropdownToggle nav={true} caret={true}/>
+                                    <DropdownToggle nav={true} caret={true} id="caretColor"/>
                                     <DropdownMenu id="navProfileContainer">
 
                                         <DropdownItem>
@@ -220,10 +220,11 @@ class Navigationbar extends Component {
                 </Navbar>);
         }
         else {
-            return (<Navbar light={true} color="teal lighten-2" dark={true} expand="md" scrolling={true}>
+            return (<Navbar light={true} color="white" dark={true} expand="md" scrolling={true}>
                 <NavbarBrand href="/home">
                     <img src={logo} alt="" height="40px"/>
                 </NavbarBrand>
+                <p id="namaFitur">WomanLounge</p>
                 {!this.state.isWideEnough && <NavbarToggler dark="dark" onClick={this.onClick}/>}
                 <Collapse isOpen={this.state.collapse} navbar={true}>
                     <NavbarNav right={true}>

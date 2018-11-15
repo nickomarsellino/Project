@@ -40,7 +40,7 @@ class Inbox_Profile_Container extends Component {
         if (imageUrl) {
             return (
                 <img alt=" "
-                     id="profileImage"
+                     id="profileAvatar"
                      src={require(`../../../uploads/${imageUrl}`)}
                      className="float-right"
                 />
@@ -50,7 +50,7 @@ class Inbox_Profile_Container extends Component {
             return (
                 <img alt=" "
                      src={profile}
-                     id="profileImage"
+                     id="profileAvatar"
                 />
             );
         }
@@ -64,7 +64,6 @@ class Inbox_Profile_Container extends Component {
                 });
             });
         alert("Berhasil di delete...!!")
-        console.log(chatId);
     }
 
     getChatDetailMessage(conversationId){
