@@ -12,10 +12,13 @@ class Inbox_Profile_Container extends Component {
 
         this.state = {
             activeItem: 'home',
-            inboxPeopleList: []
+            inboxPeopleList: [],
+            chatDetailMessage:[]
         };
 
         this.endChatMessage = this.endChatMessage.bind(this);
+        this.getChatDetailMessage =
+        this.getChatDetailMessage.bind(this)
     }
 
     componentDidMount(){
@@ -40,14 +43,15 @@ class Inbox_Profile_Container extends Component {
                      id="profileImage"
                      src={require(`../../../uploads/${imageUrl}`)}
                      className="float-right"
-                     onClick={() => this.openProfilePicture()}/>);
+                />
+            );
         }
         else {
             return (
                 <img alt=" "
                      src={profile}
                      id="profileImage"
-                     onClick={() => this.openProfilePicture()}/>
+                />
             );
         }
     }
@@ -63,17 +67,30 @@ class Inbox_Profile_Container extends Component {
         console.log(chatId);
     }
 
+    getChatDetailMessage(conversationId){
+        axios.get('/api/inbox/chatDetailMessage/' + conversationId)
+            .then(res => {
+                this.setState({
+                    chatDetailMessage: res.data
+                });
+                this.props.sendTheMessageDetail(res.data)
+                // Fungsi kirim ke parent inbox page
+            });
+     }
+
     render() {
-        console.log(this.props.userLoginId);
         return (
             <List id="listProfileContainer">
                 {this.state.inboxPeopleList.map(people =>
                   <List.Item id="listItemProfile">
-                      <Image avatar id="avatarItemContainer">
+                      <Image avatar id="avatarItemContainer"
+                              onClick={()=>this.getChatDetailMessage(people._id)}
+                      >
                           {this.setProfileImage(people.profileReceiverPicture)}
                       </Image>
                       <List.Content id="contentItemContainer">
-                          <List.Header id="profileNameBox">{people.userReceiverName}</List.Header>
+                          <List.Header id="profileNameBox"
+                          onClick={()=>this.getChatDetailMessage(people._id)}>{people.userReceiverName}</List.Header>
                           <Icon name='cancel'
                                 size='large'
                                 id="closeButton"

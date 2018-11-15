@@ -79,9 +79,9 @@ router.delete('/endChatMessage/:id', (req, res, next) => {
 });
 
 // Get isi chat nya, id ini diambil dari yang sudah terbuat di atas ketika post pas klik Inbox pada FE
-router.get('/chatDetail/:id', (req, res, next) => {
+router.get('/chatDetailMessage/:id', (req, res, next) => {
     Message.findById({_id: req.params.id}).then((result) => {
-        res.send(result.messages);
+        res.send(result);
     })
 })
 
