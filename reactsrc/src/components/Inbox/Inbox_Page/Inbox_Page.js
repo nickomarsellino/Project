@@ -32,27 +32,33 @@ class Inbox_Page extends Component {
     isChatOpened(){
         if(this.state.isChatOpened){
             return(
-                <div id="inboxMessageContainer">
-                    <div id="inboxChatContainer">
-                        <InboxChatContainer
-                            chatMessageDetail={this.state.chatMessageDetail}
-                        />
-                    </div>
+                <FadeIn>
+                    <div id="inboxMessageContainer">
+                        <div id="inboxChatContainer">
+                            <InboxChatContainer
+                                chatMessageDetail={this.state.chatMessageDetail}
+                            />
+                        </div>
 
-                    <div id="inboxBoxAreaContainer">
-                        <InboxBoxArea
-                            chatMessageDetail={this.state.chatMessageDetail}
-                        />
+                        <div id="inboxBoxAreaContainer">
+                            <InboxBoxArea
+                                chatMessageDetail={this.state.chatMessageDetail}
+                            />
+                        </div>
                     </div>
-                </div>
+                </FadeIn>
+
                 )
         }
         else{
             return(
-                <div id="isEmptyChat">
-                    <p>Let's Chat With Your Friend's</p>
-                    {/*<img src={emptyChat} alt=""/>*/}
-                </div>
+                <FadeIn>
+                    <div id="isEmptyChat">
+                        <p>Let's Chat With Your Friend's</p>
+                        {/*<img src={emptyChat} alt=""/>*/}
+                    </div>
+                </FadeIn>
+
             )
         }
     }

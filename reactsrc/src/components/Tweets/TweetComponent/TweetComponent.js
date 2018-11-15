@@ -3,6 +3,7 @@ import {Card, CardBody} from "mdbreact"
 import {Feed, Icon, Image} from 'semantic-ui-react';
 import profile from '../../../daniel.jpg';
 import axios from 'axios';
+import FadeIn from 'react-fade-in';
 import './TweetComponent.css';
 
 
