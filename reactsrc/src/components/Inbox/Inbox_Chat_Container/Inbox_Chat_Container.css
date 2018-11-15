@@ -1,17 +1,34 @@
-.inboxChatContainer{
-
+.inboxChatContainer {
+    height: 100%;
 }
 
 #avatarProfileUserContainer{
+    height: 50px;
     display: flex;
+    -webkit-box-shadow: 0 3px 6px -6px black;
+    -moz-box-shadow: 0 3px 6px -6px black;
+    box-shadow: 0 3px 6px -6px black;
+    padding-bottom: 8px;
+}
+
+#avatarProfileUserContainer p{
+    margin-top: 5px;
+    margin-left: 8px;
+    font-size: 20px;
 }
 
 #avatarProfileUser {
-    height: 55px;
-    width: 55px;
+    height: 40px;
+    width: 43px;
 }
 
 #avatarProfileUser img{
     width: 100%;
     height: 100%;
+}
+
+#chatContainer{
+    height: 365px;
+    margin-top: 30px;
+    overflow-y: auto;
 }
