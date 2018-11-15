@@ -6,8 +6,8 @@ import './Inbox_BoxArea.css'
 
 class Inbox_BoxArea extends Component {
 
-
     render() {
+        console.log(this.props.chatMessageDetail);
         return (
             <div id="inboxBoxContainer">
                 <Form.Field
@@ -15,7 +15,7 @@ class Inbox_BoxArea extends Component {
                     id="inboxBox"
                     maxLength="100"
                     control={TextArea}
-                    placeholder="Write Your Message..."
+                    placeholder={"Say hi to " + this.props.chatMessageDetail.userReceiverName}
                     style={{maxHeight: "60px", minHeight: "50px", width: "836px"}}
                 />
 

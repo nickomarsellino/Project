@@ -176,6 +176,7 @@ class Navigationbar extends Component {
                         <img src={logo} alt="" height="30px"/>
                         {' '}
                     </NavbarBrand>
+                    <p id="namaFitur">WomanLounge</p>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>
