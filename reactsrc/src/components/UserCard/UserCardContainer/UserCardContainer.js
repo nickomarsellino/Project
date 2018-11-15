@@ -1,4 +1,3 @@
-import axios from "axios/index";
 import React, {Component} from "react";
 import equal from 'fast-deep-equal'
 

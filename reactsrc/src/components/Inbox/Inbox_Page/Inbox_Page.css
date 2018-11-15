@@ -69,3 +69,23 @@
 #inboxBoxAreaContainer {
     margin-left: 10px;
 }
+
+#isEmptyChat{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+/*#isEmptyChat img{*/
+    /*margin-top: 150px;*/
+    /*width: 560px;*/
+/*}*/
+
+#isEmptyChat p{
+    color: #9AD6D0;
+    font-size: 50px;
+    font-family: 'myText', sans-serif;
+    font-style: italic;
+    margin-top: 210px;
+    text-align: center;
+}

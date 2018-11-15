@@ -7,7 +7,6 @@ import TwittContainer from "../Tweets/Twitt_Container/Twitt_Container";
 import UserCardContainer from '../UserCard/UserCardContainer/UserCardContainer'
 
 import FadeIn from 'react-fade-in';
-import ReactDOM from "react-dom";
 
 import ModalProfilePicture from '../Modal/Modal_ProfilePicture/Modal_ProfilePicture';
 
