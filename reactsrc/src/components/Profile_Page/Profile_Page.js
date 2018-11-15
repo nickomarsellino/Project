@@ -337,7 +337,27 @@ class Edit_Profile extends Component {
     }
 
     inboxClicked(){
-      console.log("asdf");
+        axios.get('/api/inbox/listContactInbox')
+            .then(res => {
+                if(res.data.length === 0){
+                    this.goToInboxPage();
+                }
+                else{
+                    for(let i=0; i<res.data.length; i++){
+                        if(res.data[i].userReceiverId === this.props.userIdProfile.userId){
+                            this.props.history.push({
+                                pathname: `/home/inbox`
+                            })
+                        }
+                        else{
+                            this.goToInboxPage();
+                        }
+                    }
+                }
+            });
+    }
+
+    goToInboxPage(){
         const userReceiverInformation = {
             userId: this.props.userLoginId,
             username: this.props.username,
@@ -353,7 +373,9 @@ class Edit_Profile extends Component {
             data: userReceiverInformation
         })
         .then((response) => {
-            console.log("BErhasil!");
+            this.props.history.push({
+                pathname: `/home/inbox`
+            })
         });
     }
 

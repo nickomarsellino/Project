@@ -11,7 +11,7 @@ import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container.js'
 import './Inbox_Page.css';
 
 class Inbox_Page extends Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             inboxPeopleList: '',
@@ -22,16 +22,16 @@ class Inbox_Page extends Component {
     }
 
     // Function untuk terima data dari anaknya si inbox_profile_container
-    sendTheMessageDetail(messagesData){
+    sendTheMessageDetail(messagesData) {
         this.setState({
             chatMessageDetail: messagesData,
             isChatOpened: true
         });
     }
 
-    isChatOpened(){
-        if(this.state.isChatOpened){
-            return(
+    isChatOpened() {
+        if (this.state.isChatOpened) {
+            return (
                 <FadeIn>
                     <div id="inboxMessageContainer">
                         <div id="inboxChatContainer">
@@ -48,10 +48,10 @@ class Inbox_Page extends Component {
                     </div>
                 </FadeIn>
 
-                )
+            )
         }
-        else{
-            return(
+        else {
+            return (
                 <FadeIn>
                     <div id="isEmptyChat">
                         <p>Let's Chat With Your Friend's</p>
@@ -80,8 +80,9 @@ class Inbox_Page extends Component {
 
                                 <div id="inboxProfileContainer">
                                     <InboxProfile
-                                    sendTheMessageDetail={this.sendTheMessageDetail}
-                                    userLoginId={this.props.userId}
+                                        history={this.props.history}
+                                        sendTheMessageDetail={this.sendTheMessageDetail}
+                                        userLoginId={this.props.userId}
                                     />
                                 </div>
                             </div>

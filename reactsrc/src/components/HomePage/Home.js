@@ -130,6 +130,7 @@ class Home extends Component {
 
         const inbox = () => (
           <InboxPage userId={this.state.userId}
+                     history={this.props.history}
           />
         );
 
