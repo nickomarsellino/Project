@@ -128,7 +128,7 @@
 
 #inboxButtonContainer{
     display: inline-block;
-    background: rgb(125, 173, 241);
+    background: rgb(59, 89, 152);
     margin-top: 5px;
     margin-left: 20px;
     margin-right: 20px;
@@ -142,7 +142,7 @@
 #inboxButtonContainer:hover{
     display: inline-block;
     cursor: pointer;
-    background: rgb(125, 173, 241);
+    background: rgb(67, 104, 175);
     margin-top: 5px;
     margin-left: 20px;
     margin-right: 20px;

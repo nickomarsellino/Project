@@ -1,7 +1,7 @@
 @font-face {
 
   font-family: 'myText' ;
-  src: url('GOODDC__.TTF');
+  src: url('Shink Font by Rifki (7NTypes).otf');
 
 }
 
@@ -133,4 +133,13 @@
 #notificationIcon:active {
   position: relative;
   top: 1px;
+}
+
+#namaFitur{
+  color: #6E6E6E;
+  font-family: 'myText', sans-serif;
+  text-align: center;
+  width: 1090px;
+  font-size: 35px;
+  margin-bottom: 0;
 }
