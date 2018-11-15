@@ -1,19 +1,48 @@
 import React, {Component} from "react";
 import { Image } from 'semantic-ui-react'
 
+
 import './Inbox_Chat_Container.css'
+import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
+
 
 class Inbox_Chat_Container extends Component {
 
-
     render() {
+
+        const theData = [
+            {
+                id: '14045'
+            },
+
+            {
+                id: '14045'
+            },
+
+            {
+                id: '14045'
+            },
+            {
+                id: '14045'
+            }
+        ]
+
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
                     <Image avatar id="avatarProfileUser">
                         <img src="https://react.semantic-ui.com/images/avatar/small/helen.jpg" alt=""/>
                     </Image>
-                    <span><p>Rachel</p></span>
+                    <span>
+                        <p>Rachel</p>
+                    </span>
+                </div>
+
+                <div id="chatContainer">
+                    <InboxChatComponent/>
+                    {/*{theData.map(user =>*/}
+                        {/*<InboxChatComponent/>*/}
+                    {/*)}*/}
                 </div>
             </div>
         )

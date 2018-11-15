@@ -38,7 +38,7 @@
 #closeButton{
     float: right;
     margin-top: 5%;
-    color: #ff7986;
+    color: rgba(255, 121, 134, 0.29);
     opacity: 0.5;
     cursor: pointer;
 }
@@ -47,7 +47,7 @@
 #closeButton:hover{
     float: right;
     margin-top: 5%;
-    color: #ff7986;
+    color: rgba(255, 121, 134, 0.61);
     opacity: 0.8;
     cursor: pointer;
 }
