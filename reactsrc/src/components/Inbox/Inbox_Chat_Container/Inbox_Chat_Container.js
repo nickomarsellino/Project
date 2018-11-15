@@ -42,7 +42,7 @@ class Inbox_Chat_Container extends Component {
     }
 
     render() {
-        console.log(this.state.chatMessageDetail);
+        console.log(this.props.chatMessageDetail);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
@@ -53,7 +53,6 @@ class Inbox_Chat_Container extends Component {
                         <p>{this.props.chatMessageDetail.userReceiverName}</p>
                     </span>
                 </div>
-
                 <div id="chatContainer">
                     {/*{this.state.chatMessageDetail.map((chatData) =>*/}
                         {/*<InboxChatComponent*/}

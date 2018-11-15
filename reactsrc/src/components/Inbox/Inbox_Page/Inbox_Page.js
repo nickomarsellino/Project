@@ -40,7 +40,9 @@ class Inbox_Page extends Component {
                     </div>
 
                     <div id="inboxBoxAreaContainer">
-                        <InboxBoxArea/>
+                        <InboxBoxArea
+                            chatMessageDetail={this.state.chatMessageDetail}
+                        />
                     </div>
                 </div>
                 )
@@ -77,8 +79,6 @@ class Inbox_Page extends Component {
                                     />
                                 </div>
                             </div>
-
-
                             <div id="inboxCardContainerLeft">
                                 {this.isChatOpened()}
                             </div>
