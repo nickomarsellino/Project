@@ -37,7 +37,7 @@ class Inbox_Profile_Container extends Component {
         if (imageUrl) {
             return (
                 <img alt=" "
-                     id="profileImage"
+                     id="profileAvatar"
                      src={require(`../../../uploads/${imageUrl}`)}
                      className="float-right"
                      onClick={() => this.openProfilePicture()}/>);
@@ -46,7 +46,7 @@ class Inbox_Profile_Container extends Component {
             return (
                 <img alt=" "
                      src={profile}
-                     id="profileImage"
+                     id="profileAvatar"
                      onClick={() => this.openProfilePicture()}/>
             );
         }
@@ -60,11 +60,9 @@ class Inbox_Profile_Container extends Component {
                 });
             });
         alert("Berhasil di delete...!!")
-        console.log(chatId);
     }
 
     render() {
-        console.log(this.props.userLoginId);
         return (
             <List id="listProfileContainer">
                 {this.state.inboxPeopleList.map(people =>
