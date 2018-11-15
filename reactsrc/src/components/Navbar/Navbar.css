@@ -58,6 +58,10 @@
   color: white;
 }
 
+.teal.lighten-2 {
+    background-color: grey;
+}
+
 .App-title {
   font-size: 1.5em;
 }
@@ -126,6 +130,3 @@
   position: relative;
   top: 1px;
 }
-
-
-

@@ -129,7 +129,8 @@ class Home extends Component {
         );
 
         const inbox = () => (
-          <InboxPage />
+          <InboxPage userId={this.state.userId}
+          />
         );
 
         if(this.state.isLoading){

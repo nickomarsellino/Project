@@ -52,10 +52,10 @@ class Edit_Profile extends Component {
         this.onButtonClicked = this.onButtonClicked.bind(this);
         this.followButton = this.followButton.bind(this);
         this.buttonInbox = this.buttonInbox.bind(this);
+        this.inboxClicked = this.inboxClicked.bind(this);
     }
 
     componentWillMount() {
-
         if(this.props.tabClicked){
             if(this.props.tabClicked.tweetsTabClicked){
                 this.setState({
@@ -322,6 +322,7 @@ class Edit_Profile extends Component {
             return (
                 <div
                     id="inboxButtonContainer"
+                    onClick={() => this.inboxClicked()}
                 >
                     <center>
                         <Icon
@@ -336,8 +337,28 @@ class Edit_Profile extends Component {
         }
     }
 
-    render() {
+    inboxClicked(){
+      console.log("asdf");
+        const userReceiverInformation = {
+            userId: this.props.userLoginId,
+            username: this.props.username,
+            profilePicture: this.props.profilePicture,
+            userReceiverId: this.props.userIdProfile.userId,
+            userReceiverName: this.state.username,
+            profileReceiverPicture: this.state.profilePicture
+        };
+        axios({
+            method: 'post',
+            responseType: 'json',
+            url: `http://localhost:3001/api/inbox/message`,
+            data: userReceiverInformation
+        })
+        .then((response) => {
+            console.log("BErhasil!");
+        });
+    }
 
+    render() {
         let content;
 
         if (this.state.tweetsTabClicked) {
