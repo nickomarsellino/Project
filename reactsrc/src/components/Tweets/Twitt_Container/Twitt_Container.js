@@ -11,6 +11,7 @@ import openSocket from 'socket.io-client';
 // Ini yang nge buat dia connect sama si backend nya
 const socket = openSocket('http://10.183.28.155:8000');
 
+
 class Twitt_Container extends Component {
 
     constructor() {
@@ -28,7 +29,7 @@ class Twitt_Container extends Component {
             hasMore: true,
             lengthData: '',
             totalLengthData: '',
-            pagesData: 1
+            pagesData: 1,
         };
         this.getTweetData = this.getTweetData.bind(this);
         this.showUserProfileFromTweets = this.showUserProfileFromTweets.bind(this);
@@ -36,7 +37,6 @@ class Twitt_Container extends Component {
     }
 
     componentWillMount() {
-        this.getTweetData();
         if (this.props.TweetUserId) {
             this.showUserProfileFromTweets(this.props.TweetUserId);
         }
@@ -57,12 +57,22 @@ class Twitt_Container extends Component {
                     //     tweetData: newComment
                     // });
 
-                   this.getTweetData();
+                    this.getTweetData();
                 }
             })
         }
     }
 
+
+    // componentWillUpdate(nextProps, nextState) {
+    //     if(nextState.tweetData !== this.state.tweetData){
+    //         this.setState({
+    //             tweetData: nextState.tweetData
+    //         });
+    //     }
+    //     console.log(nextState.tweetData); //will show the new state
+    //     console.log(this.state.tweetData); //will show the previous state
+    // }
 
     getTweetData() {
         axios.get('/api/tweet/tweets?perPage=5&page=1')
