@@ -59,7 +59,9 @@ class Inbox_Page extends Component {
                                     </div>
 
                                     <div id="inboxBoxAreaContainer">
-                                        <InboxBoxArea/>
+                                        <InboxBoxArea
+                                        chatMessageDetail={this.state.chatMessageDetail}
+                                        />
                                     </div>
                                 </div>
                             </div>
