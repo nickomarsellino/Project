@@ -31,6 +31,7 @@ router.post('/message', (req, res, next) => {
             profileReceiverPicture: result.profileReceiverPicture
         });
     });
+    console.log(data);
 });
 
 // id didapat ketika dia pencet inbox kebuat gitu
@@ -56,7 +57,7 @@ router.put('/sendMessage/:id', (req, res) => {
     });
 });
 
-router.put('/deleteMyMessage/:id', (req,res) => {
+router.put('/unSendMessage/:id', (req,res) => {
     // const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
     // const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
@@ -72,19 +73,26 @@ router.put('/deleteMyMessage/:id', (req,res) => {
 })
 
 router.delete('/endChatMessage/:id', (req, res, next) => {
-    Message.findByIdAndRemove({_id: req.params.id })
+    Message.findByIdAndRemove({_id: req.params.id }).then((reuslt) => {
+        res.send(result);
+    })
 });
 
 // Get isi chat nya, id ini diambil dari yang sudah terbuat di atas ketika post pas klik Inbox pada FE
-router.get('/chatDetail/:id', (req, res, next) => {
+router.get('/chatDetailMessage/:id', (req, res, next) => {
     Message.findById({_id: req.params.id}).then((result) => {
-        res.send(result.messages);
+        res.send(result);
     })
 })
 
 // Get detail namanya kayak lagi chat sama siapa
 router.get('/listContactInbox', (req, res, next) => {
-    Message.find({userSenderId: '1234'}).then((result) => {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    Message.find({userId: userData.userId}).then((result) => {
         res.send(result);
     });
 });

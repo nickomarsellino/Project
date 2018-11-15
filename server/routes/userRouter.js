@@ -398,4 +398,19 @@ router.get('/followersData/:id', (req,res) => {
     });
 })
 
+router.get('/logout', (req, res, next) => {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    UserSession.updateMany({userId: userData.userId}, {$set: {isLogout: true}}).exec();
+
+    res.clearCookie('tokenId');
+
+    res.send(
+        {success: true, message: 'Valid sign out'}
+    );
+});
+
 module.exports = router;

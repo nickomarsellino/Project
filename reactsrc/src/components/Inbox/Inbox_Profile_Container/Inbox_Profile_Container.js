@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { List, Image } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
 import {Icon} from 'semantic-ui-react'
+import axios from 'axios';
 
 import './Inbox_Profile_Container.css';
 
@@ -10,110 +11,95 @@ class Inbox_Profile_Container extends Component {
         super(props);
 
         this.state = {
-            activeItem: 'home'
+            activeItem: 'home',
+            inboxPeopleList: [],
+            chatDetailMessage:[]
         };
+
+        this.endChatMessage = this.endChatMessage.bind(this);
+        this.getChatDetailMessage =
+        this.getChatDetailMessage.bind(this)
     }
+
+    componentDidMount(){
+        this.getListContactInbox();
+    }
+
+    getListContactInbox(){
+        axios.get('/api/inbox/listContactInbox')
+            .then(res => {
+                this.setState({
+                    inboxPeopleList: res.data
+                });
+                console.log("res ", res.data);
+            });
+    }
+
+    setProfileImage(profilePicture) {
+        let imageUrl = profilePicture;
+        if (imageUrl) {
+            return (
+                <img alt=" "
+                     id="profileAvatar"
+                     src={require(`../../../uploads/${imageUrl}`)}
+                     className="float-right"
+                />
+            );
+        }
+        else {
+            return (
+                <img alt=" "
+                     src={profile}
+                     id="profileAvatar"
+                />
+            );
+        }
+    }
+
+    endChatMessage(chatId){
+        axios.delete('/api/inbox/endChatMessage/' + chatId)
+            .then(res => {
+                this.setState({
+                    inboxPeopleList: res.data
+                });
+            });
+        alert("Berhasil di delete...!!")
+    }
+
+    getChatDetailMessage(conversationId){
+        axios.get('/api/inbox/chatDetailMessage/' + conversationId)
+            .then(res => {
+                this.setState({
+                    chatDetailMessage: res.data
+                });
+                this.props.sendTheMessageDetail(res.data)
+                // Fungsi kirim ke parent inbox page
+            });
+     }
 
     render() {
         return (
             <List id="listProfileContainer">
-                <List.Item id="listItemProfile">
-                    <Image avatar id="avatarItemContainer">
-                        <img src="https://react.semantic-ui.com/images/avatar/small/helen.jpg" alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content id="contentItemContainer">
-                        <List.Header id="profileNameBox">Rachel</List.Header>
-                        <Icon name='cancel'
-                              size='large'
-                              id="closeButton"/>
-                        <br/>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-                <List.Item id="listItemProfile">
-                    <Image avatar id="avatarItemContainer">
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content id="contentItemContainer">
-                        <List.Header id="profileNameBox">Rachel</List.Header>
-                        <Icon name='cancel'
-                              size='large'
-                              id="closeButton"/>
-                        <br/>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-                <List.Item id="listItemProfile">
-                    <Image avatar id="avatarItemContainer">
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content id="contentItemContainer">
-                        <List.Header id="profileNameBox">Rachel</List.Header>
-                        <Icon name='cancel'
-                              size='large'
-                              id="closeButton"/>
-                        <br/>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-                <List.Item id="listItemProfile">
-                    <Image avatar id="avatarItemContainer">
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content id="contentItemContainer">
-                        <List.Header id="profileNameBox">Rachel</List.Header>
-                        <Icon name='cancel'
-                              size='large'
-                              id="closeButton"/>
-                        <br/>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-                <List.Item id="listItemProfile">
-                    <Image avatar id="avatarItemContainer">
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content id="contentItemContainer">
-                        <List.Header id="profileNameBox">Rachel</List.Header>
-                        <Icon name='cancel'
-                              size='large'
-                              id="closeButton"/>
-                        <br/>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-                <List.Item id="listItemProfile">
-                    <Image avatar id="avatarItemContainer">
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content id="contentItemContainer">
-                        <List.Header id="profileNameBox">Rachel</List.Header>
-                        <Icon name='cancel'
-                              size='large'
-                              id="closeButton"/>
-                        <br/>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
-
-                <List.Item id="listItemProfile">
-                    <Image avatar id="avatarItemContainer">
-                        <img src={profile} alt="" id="avatarItemProfile"/>
-                    </Image>
-                    <List.Content id="contentItemContainer">
-                        <List.Header id="profileNameBox">Rachel</List.Header>
-                        <Icon name='cancel'
-                              size='large'
-                              id="closeButton"/>
-                        <br/>
-                    </List.Content>
-                    <hr/>
-                </List.Item>
+                {this.state.inboxPeopleList.map(people =>
+                  <List.Item id="listItemProfile">
+                      <Image avatar id="avatarItemContainer"
+                              onClick={()=>this.getChatDetailMessage(people._id)}
+                      >
+                          {this.setProfileImage(people.profileReceiverPicture)}
+                      </Image>
+                      <List.Content id="contentItemContainer">
+                          <List.Header id="profileNameBox"
+                          onClick={()=>this.getChatDetailMessage(people._id)}>{people.userReceiverName}</List.Header>
+                          <Icon name='cancel'
+                                size='large'
+                                id="closeButton"
+                                onClick={() => this.endChatMessage(people._id)}
+                          />
+                          <br/>
+                      </List.Content>
+                      <hr/>
+                  </List.Item>
+                )}
             </List>
         )
     }
