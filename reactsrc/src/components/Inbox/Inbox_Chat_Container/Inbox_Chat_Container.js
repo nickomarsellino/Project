@@ -55,11 +55,11 @@ class Inbox_Chat_Container extends Component {
                 </div>
 
                 <div id="chatContainer">
-                    {this.state.chatMessageDetail.map((chatData) =>
-                        <InboxChatComponent
-                        chatData = {chatData}
-                        />
-                    )}
+                    {/*{this.state.chatMessageDetail.map((chatData) =>*/}
+                        {/*<InboxChatComponent*/}
+                        {/*chatData = {chatData}*/}
+                        {/*/>*/}
+                    {/*)}*/}
                 </div>
             </div>
         )
