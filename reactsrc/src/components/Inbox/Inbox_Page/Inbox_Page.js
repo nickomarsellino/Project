@@ -11,7 +11,7 @@ import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container.js'
 import './Inbox_Page.css';
 
 class Inbox_Page extends Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             inboxPeopleList: '',
@@ -22,35 +22,43 @@ class Inbox_Page extends Component {
     }
 
     // Function untuk terima data dari anaknya si inbox_profile_container
-    sendTheMessageDetail(messagesData){
+    sendTheMessageDetail(messagesData) {
         this.setState({
             chatMessageDetail: messagesData,
             isChatOpened: true
         });
     }
 
-    isChatOpened(){
-        if(this.state.isChatOpened){
-            return(
-                <div id="inboxMessageContainer">
-                    <div id="inboxChatContainer">
-                        <InboxChatContainer
-                            chatMessageDetail={this.state.chatMessageDetail}
-                        />
-                    </div>
+    isChatOpened() {
+        if (this.state.isChatOpened) {
+            return (
+                <FadeIn>
+                    <div id="inboxMessageContainer">
+                        <div id="inboxChatContainer">
+                            <InboxChatContainer
+                                chatMessageDetail={this.state.chatMessageDetail}
+                            />
+                        </div>
 
-                    <div id="inboxBoxAreaContainer">
-                        <InboxBoxArea/>
+                        <div id="inboxBoxAreaContainer">
+                            <InboxBoxArea
+                                chatMessageDetail={this.state.chatMessageDetail}
+                            />
+                        </div>
                     </div>
-                </div>
-                )
+                </FadeIn>
+
+            )
         }
-        else{
-            return(
-                <div id="isEmptyChat">
-                    <p>Let's Chat With Your Friend's</p>
-                    {/*<img src={emptyChat} alt=""/>*/}
-                </div>
+        else {
+            return (
+                <FadeIn>
+                    <div id="isEmptyChat">
+                        <p>Let's Chat With Your Friend's</p>
+                        {/*<img src={emptyChat} alt=""/>*/}
+                    </div>
+                </FadeIn>
+
             )
         }
     }
@@ -72,13 +80,12 @@ class Inbox_Page extends Component {
 
                                 <div id="inboxProfileContainer">
                                     <InboxProfile
-                                    sendTheMessageDetail={this.sendTheMessageDetail}
-                                    userLoginId={this.props.userId}
+                                        history={this.props.history}
+                                        sendTheMessageDetail={this.sendTheMessageDetail}
+                                        userLoginId={this.props.userId}
                                     />
                                 </div>
                             </div>
-
-
                             <div id="inboxCardContainerLeft">
                                 {this.isChatOpened()}
                             </div>

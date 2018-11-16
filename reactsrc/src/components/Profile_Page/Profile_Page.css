@@ -3,6 +3,14 @@
   border-radius: 100px;
 }
 
+.header{
+    font-family: 'myTextFontMedium', sans-serif;
+}
+
+.description{
+    font-family: 'myTextFont', sans-serif;
+}
+
 .profile{
   margin: 3%;
     margin-right: 8%;
@@ -65,6 +73,7 @@
 
 
 #followButtonProfile{
+    font-family: 'myTextFontMedium', sans-serif;
     display: inline-block;
     border-style: solid;
     border-width: 1.2px;
@@ -97,6 +106,7 @@
 
 
 #followedButtonProfile{
+    font-family: 'myTextFontMedium', sans-serif;
     display: inline-block;
     border-style: solid;
     border-width: 1.2px;
@@ -127,6 +137,7 @@
 
 
 #inboxButtonContainer{
+    font-family: 'myTextFontMedium', sans-serif;
     display: inline-block;
     background: rgb(59, 89, 152);
     margin-top: 5px;

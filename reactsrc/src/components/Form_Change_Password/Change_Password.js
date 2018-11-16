@@ -6,6 +6,7 @@ import {Form} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import ReactDOM from "react-dom";
 
+import './Change_Password.css'
 
 class Change_Password extends Component {
 
@@ -110,12 +111,12 @@ class Change_Password extends Component {
                         <Card className="Card_Container">
                             <CardBody>
                                 <center>
-                                    <h1>Change Password</h1>
+                                    <h1 id="headerChangePasssword">Change Password</h1>
                                 </center>
                                 <br/>
                                 <Row>
                                     <Col md="12">
-                                        <Form onSubmit={this.handleSubmit}>
+                                        <Form id="formChangePassword" onSubmit={this.handleSubmit}>
                                             <Form.Input required type="password" fluid label='Current Password'
                                                         placeholder="Enter your current password.."
                                                         className={this.state.formStatus}

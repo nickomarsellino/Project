@@ -84,7 +84,7 @@
 #isEmptyChat p{
     color: #9AD6D0;
     font-size: 50px;
-    font-family: 'myText', sans-serif;
+    font-family: 'myHeaderFont', sans-serif;
     font-style: italic;
     margin-top: 210px;
     text-align: center;

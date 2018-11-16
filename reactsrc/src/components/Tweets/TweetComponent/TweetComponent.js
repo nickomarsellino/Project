@@ -18,6 +18,7 @@ const socket = openSocket('http://10.183.28.155:8000');
 const Timestamp = require('react-timestamp');
 
 class TweetComponent extends Component {
+
     constructor() {
         super();
         this.state = {
@@ -336,11 +337,11 @@ class TweetComponent extends Component {
 
     getAllComment(){
         axios.get('/api/tweet/getComment/' + this.props.tweet._id)
-        .then(res => {
-            this.setState({
-                commentLength: res.data.comments.length
+            .then(res => {
+                this.setState({
+                    commentLength: res.data.comments.length
+                })
             })
-        })
     }
 
 

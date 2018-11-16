@@ -87,13 +87,14 @@ class SignIn extends Component {
                     <Container className="col-md-4 col-md-offset-2">
                         <Card className="Card_container">
                             <CardBody>
-                                <center><h1>Sign In</h1>
+                                <center><h1 id="headerSignIn">Sign In</h1>
                                 </center>
                                 <Row>
                                     <Col md="12">
-                                        <Form onSubmit={this.handleSubmit}>
+                                        <Form id="formSignIn" onSubmit={this.handleSubmit}>
                                             <Form.Input required type="email" fluid label='Email'
                                                         placeholder='Email'
+                                                        id="emailInputForm"
                                                         name="email"
                                                         className={this.state.formStatus}
                                                         onChange={this.handleInputChange}
