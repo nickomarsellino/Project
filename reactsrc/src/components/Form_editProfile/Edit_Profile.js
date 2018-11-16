@@ -183,6 +183,7 @@ class Edit_Profile extends Component {
                                     <Col md="12">
                                         <Form id="formEditProfile" onSubmit={this.handleSubmit} encType="multipart/form-data">
                                             <Form.Input required type="text" fluid label='Username'
+                                                        id="usernameInputForm"
                                                         placeholder={this.state.username}
                                                         value={this.state.username}
                                                         className={this.state.formStatus}
@@ -191,6 +192,7 @@ class Edit_Profile extends Component {
                                             />
 
                                             <Form.Input required type="email" fluid label='Email'
+                                                        id="emailInputForm"
                                                         placeholder={this.state.email}
                                                         value={this.state.email}
                                                         className={this.state.formStatus}
@@ -200,6 +202,7 @@ class Edit_Profile extends Component {
                                             />
 
                                             <Form.Input required type="number" fluid label='Phone Number'
+                                                        id="phoneInputForm"
                                                         placeholder={this.state.phone}
                                                         value={this.state.phone}
                                                         className={this.state.formStatus}
