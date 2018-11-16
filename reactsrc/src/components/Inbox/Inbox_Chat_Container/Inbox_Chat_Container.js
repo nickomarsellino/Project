@@ -14,7 +14,7 @@ class Inbox_Chat_Container extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })

@@ -12,7 +12,12 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
 router.post('/message', (req, res, next) => {
-    const data = {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+    console.log("userData ", userData);
+    const firstData = {
         userId: req.body.userId,
         username: req.body.username,
         profilePicture: req.body.profilePicture,
@@ -20,7 +25,15 @@ router.post('/message', (req, res, next) => {
         userReceiverName: req.body.userReceiverName,
         profileReceiverPicture: req.body.profileReceiverPicture
     };
-    Message.create(data).then(function (result) {
+    const secondData = {
+        userId: req.body.userReceiverId,
+        username: req.body.userReceiverName,
+        profilePicture: req.body.profileReceiverPicture,
+        userReceiverId: req.body.userId,
+        userReceiverName: req.body.username,
+        profileReceiverPicture: req.body.profilePicture
+    }
+    Message.create(firstData).then(function (result) {
         return res.send({
             _id : result._id,
             userId: result.userId,
@@ -30,8 +43,18 @@ router.post('/message', (req, res, next) => {
             userReceiverName: result.userReceiverName,
             profileReceiverPicture: result.profileReceiverPicture
         });
+        Message.create(secondData).then(function (result) {
+            return res.send({
+                _id : result._id,
+                userId: result.userId,
+                username: result.username,
+                profilePicture: result.profilePicture,
+                userReceiverId: result.userReceiverId,
+                userReceiverName: result.userReceiverName,
+                profileReceiverPicture: result.profileReceiverPicture
+            });
+        });
     });
-    console.log(data);
 });
 
 // id didapat ketika dia pencet inbox kebuat gitu
@@ -40,7 +63,7 @@ router.put('/sendMessage/:id', (req, res) => {
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
-    
+
     Message.findByIdAndUpdate({_id: req.params.id},
         {$push: {
             messages:{
