@@ -6,7 +6,7 @@ class Inbox_Chat_Component extends Component {
     render() {
         const chatData = this.props.chatData;
         return (
-            <div className="chat">
+            <div className="chat" key={chatData._id}>
                 <div id="receiverChatContainer">
                     {chatData.messageText}
                 </div>

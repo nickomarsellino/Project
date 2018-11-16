@@ -36,10 +36,15 @@ router.post('/message', (req, res, next) => {
 
 // id didapat ketika dia pencet inbox kebuat gitu
 router.put('/sendMessage/:id', (req, res) => {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+    
     Message.findByIdAndUpdate({_id: req.params.id},
         {$push: {
             messages:{
-              'userId' : req.body.userId,
+              'userId' : userData.userId,
               'messageText' : req.body.messageText,
               'messageTimestamp': Date.now()
             }
@@ -47,9 +52,7 @@ router.put('/sendMessage/:id', (req, res) => {
         if (err) {
           return res.send(err)
         };
-        let temp = user.messages.length - 1
         res.json({
-          _id : user.messages[temp]._id,
           userId: req.body.userId,
           messageText: req.body.messageText,
           messageTimestamp: new Date()
