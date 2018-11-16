@@ -18,7 +18,7 @@
     top: 57%;
     right: 4%;
     transform: translateY(-55%);
-    font-family: "Roboto", sans-serif;
+    font-family: 'myTextFontMedium', sans-serif;
 }
 
 #boxComment {

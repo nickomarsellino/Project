@@ -241,8 +241,8 @@ class Modal_Twitt extends Component {
                         {this.viewTweetPicture(this.state.tweet.tweetPicture)}
                     </ModalBody>
 
-                    <ModalBody className="text-Timestamp">
-                        <Timestamp time={this.state.tweet.timestamp} format='full' includeDay/>
+                    <ModalBody className="contentModalTweet">
+                        <Timestamp style={{fontSize: "13px", opacity: "0.5"}} time={this.state.tweet.timestamp} format='full' includeDay/>
 
                         <div className="buttonGroup">
                             <Icon.Group className={this.state.black} id="likesIcon"

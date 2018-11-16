@@ -16,6 +16,7 @@
 }
 
 #tweetText {
+    font-family: 'myTextFont', sans-serif;
     white-space: pre-line;
     word-wrap: break-word;
     max-width: 840px;
@@ -46,6 +47,7 @@
 }
 
 .Tweet-Content {
+    font-family: 'myTextFontMedium', sans-serif;
     display: inline-block;
     word-wrap: break-word;
     width: 72%;
@@ -84,6 +86,7 @@
 /*Button DI Container*/
 
 .buttonGroup{
+    font-family: 'myTextFont', sans-serif;
     margin-top: 10px;
     opacity: 0.6;
 }

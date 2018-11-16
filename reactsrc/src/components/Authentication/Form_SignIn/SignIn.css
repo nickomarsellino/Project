@@ -5,3 +5,15 @@
 .Submit_Button {
     margin-top: 3%;
 }
+
+#headerSignIn{
+    font-family: 'myTextFontMedium', sans-serif;
+}
+
+#formSignIn{
+    font-family: 'myTextFont', sans-serif;
+}
+
+#emailInputForm{
+    font-family: 'myTextFont', sans-serif;
+}

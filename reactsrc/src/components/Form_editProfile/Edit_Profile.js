@@ -169,7 +169,7 @@ class Edit_Profile extends Component {
                         <Card className="Card_Container">
                             <CardBody>
                                 <center>
-                                    <h1>Profile</h1>
+                                    <h1 id="headerEditProfile">Profile</h1>
                                     <Image id="cover" src={profile} size='small' circular>
                                         {imagedisplay}
                                     </Image>
@@ -181,7 +181,7 @@ class Edit_Profile extends Component {
                                 <br/>
                                 <Row>
                                     <Col md="12">
-                                        <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
+                                        <Form id="formEditProfile" onSubmit={this.handleSubmit} encType="multipart/form-data">
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder={this.state.username}
                                                         value={this.state.username}

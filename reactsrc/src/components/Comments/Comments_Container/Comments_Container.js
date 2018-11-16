@@ -104,9 +104,9 @@ class Comments_Container extends Component {
                 <Comment id="commentsContainer">
                     <Comment.Avatar as='a' src={this.setProfileImage(comment.profilePicture)} id="commentAvatar"/>
                     <Comment.Content>
-                        <Comment.Author as='a'>{comment.username}</Comment.Author>
+                        <Comment.Author as='a' id="commentUsername">{comment.username}</Comment.Author>
                         <Comment.Metadata>
-                            <span>{<Timestamp time={comment.commentTimestamp} format='full'/>}</span>
+                            <span>{<Timestamp id="commentTimestamp" time={comment.commentTimestamp} format='full'/>}</span>
                         </Comment.Metadata>
                          <Comment.Text id="commentText">{comment.commentText}</Comment.Text>
                     </Comment.Content>

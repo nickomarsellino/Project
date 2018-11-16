@@ -1,11 +1,12 @@
 .text-warp{
+    font-family: 'myTextFont', sans-serif;
     word-wrap: break-word;
 }
 
-.text-Timestamp{
+
+.contentModalTweet{
+    font-family: 'myTextFont', sans-serif;
     font-style: italic;
-    size: 18px;
-    opacity: 0.9;
 }
 
 #nameBox{
