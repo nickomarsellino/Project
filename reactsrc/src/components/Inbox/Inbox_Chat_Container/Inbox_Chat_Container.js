@@ -10,15 +10,16 @@ class Inbox_Chat_Container extends Component {
     constructor(props){
         super(props);
         this.state = {
-            chatMessageDetail: ''
+            chatMessageDetail: []
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidMount() {
         this.setState({
-            chatMessageDetail: nextProps.chatMessageDetail.messages
-        });
+            chatMessageDetail: this.props.chatMessageDetail.messages
+        })
     }
+
 
     setProfileImage(profilePicture) {
         let imageUrl = profilePicture;
@@ -42,7 +43,7 @@ class Inbox_Chat_Container extends Component {
     }
 
     render() {
-        console.log(this.props.chatMessageDetail);
+        console.log(this.state.chatMessageDetail);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
@@ -54,11 +55,13 @@ class Inbox_Chat_Container extends Component {
                     </span>
                 </div>
                 <div id="chatContainer">
-                    {/*{this.state.chatMessageDetail.map((chatData) =>*/}
-                        {/*<InboxChatComponent*/}
-                        {/*chatData = {chatData}*/}
-                        {/*/>*/}
-                    {/*)}*/}
+                    {this.state.chatMessageDetail.map(chatData =>
+                        <InboxChatComponent
+                        chatData={chatData}
+                        userChatData={this.props.chatMessageDetail}
+                        >
+                        </InboxChatComponent>
+                    )}
                 </div>
             </div>
         )

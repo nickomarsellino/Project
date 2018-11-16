@@ -3,14 +3,48 @@ import {Form, TextArea} from 'semantic-ui-react'
 import {Button} from "mdbreact"
 
 import './Inbox_BoxArea.css'
+import axios from "axios/index";
 
 class Inbox_BoxArea extends Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            messageText: ''
+        }
+        this.sendTextMessage = this.sendTextMessage.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange(e) {
+        this.setState({
+            messageText: e.target.value
+        });
+    }
+
+    sendTextMessage(){
+        const messageData = {
+            messageText: this.state.messageText,
+            messageTimestamp: new Date()
+        };
+        axios({
+            method: 'PUT',
+            url: `http://localhost:3001/api/inbox/sendMessage/` + this.props.chatMessageDetail._id,
+            data: messageData
+        })
+        .then(res => {
+            this.setState({
+                messageText: ''
+            })
+        })
+    }
+
     render() {
-        console.log(this.props.chatMessageDetail);
         return (
             <div id="inboxBoxContainer">
                 <Form.Field
+                    value= {this.state.messageText}
+                    onChange={this.handleInputChange}
                     type="text"
                     id="inboxBox"
                     maxLength="100"
@@ -23,6 +57,7 @@ class Inbox_BoxArea extends Component {
                         size="md"
                         type="submit"
                         id="inboxButton"
+                        onClick={this.sendTextMessage}
                 >Send</Button>
             </div>
         )
