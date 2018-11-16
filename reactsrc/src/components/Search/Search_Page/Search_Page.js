@@ -120,7 +120,7 @@ class Search_Page extends Component {
                                 </a>
                             </div>
                             <br/>
-                            <h1>TWEET NOT FOUND BRO ...</h1>
+                            <h1>TWEET NOT FOUND ...</h1>
                             <h2>"{this.state.searchValue}"</h2>
                         </FadeIn>
                     );
@@ -139,7 +139,7 @@ class Search_Page extends Component {
                                 </a>
                             </div>
                             <br/>
-                            <h1>USERS NOT FOUND BRO ...</h1>
+                            <h1>USERS NOT FOUND ...</h1>
                             <h2>"{this.state.searchValue}"</h2>
                         </FadeIn>
                     );
@@ -162,7 +162,7 @@ class Search_Page extends Component {
                                     </a>
                                 </div>
                                 <br/>
-                                <h1>TWEET NOT FOUND BRO ...</h1>
+                                <h1>TWEET NOT FOUND ...</h1>
                                 <h2>"{this.state.searchValue}"</h2>
                             </FadeIn>
                         );

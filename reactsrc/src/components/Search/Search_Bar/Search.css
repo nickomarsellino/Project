@@ -54,5 +54,6 @@ img {
 }
 
 #SearchBoxContainer{
+    font-family: 'myTextFontMedium', sans-serif;
     margin-left: 20px;
 }
