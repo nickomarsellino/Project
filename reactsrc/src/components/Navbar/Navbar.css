@@ -1,6 +1,6 @@
 @font-face {
 
-  font-family: 'myText' ;
+  font-family: 'myHeaderFont' ;
   src: url('Shink Font by Rifki (7NTypes).otf');
 
 }
@@ -8,17 +8,18 @@
 #logoText{
   margin: -5px;
   font-size: 30px;
-  font-family: 'myText', sans-serif;
+  font-family: 'myHeaderFont', sans-serif;
 }
 
 .navProfile {
   display: inline-block;
   font-size: 15px;
   color: #2b2b2b;
-  font-family: "Roboto", sans-serif;
+  font-family: 'myTextFont', sans-serif;
 }
 
 #navProfileContainer{
+  font-family: 'myTextFontMedium', sans-serif;
   margin-top: 8px;
 }
 
@@ -42,7 +43,7 @@
 
 #ProfileName:hover {
   color: black;
-  font-size: 16px;
+  font-size: 15px;
   text-shadow: 0.7px 0.7px rgba(60, 60, 60, 0.75);
 }
 
@@ -137,7 +138,7 @@
 
 #namaFitur{
   color: #6E6E6E;
-  font-family: 'myText', sans-serif;
+  font-family: 'myHeaderFont', sans-serif;
   text-align: center;
   width: 1090px;
   font-size: 35px;
@@ -147,7 +148,7 @@
 #namaFiturDiHome{
   margin-left: 475px;
   color: #6E6E6E;
-  font-family: 'myText', sans-serif;
+  font-family: 'myHeaderFont', sans-serif;
   text-align: center;
   font-size: 35px;
   margin-bottom: 0;

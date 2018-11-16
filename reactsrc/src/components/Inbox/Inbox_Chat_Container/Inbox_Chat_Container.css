@@ -3,6 +3,7 @@
 }
 
 #avatarProfileUserContainer{
+    font-family: 'myTextFontMedium', sans-serif;
     height: 50px;
     display: flex;
     -webkit-box-shadow: 0 3px 6px -6px black;

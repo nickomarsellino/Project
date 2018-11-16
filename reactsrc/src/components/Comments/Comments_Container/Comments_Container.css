@@ -16,6 +16,14 @@
     white-space: pre-wrap;
 }
 
+#commentUsername{
+    font-family: 'myTextFontMedium', sans-serif;
+}
+
+#commentTimestamp{
+    font-family: 'myTextFont', sans-serif;
+}
+
 #trashIcon {
     float: right;
     cursor: pointer;
