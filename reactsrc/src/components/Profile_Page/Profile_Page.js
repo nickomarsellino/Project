@@ -358,7 +358,7 @@ class Edit_Profile extends Component {
     }
 
     goToInboxPage(){
-        const userReceiverInformation = {
+        const firstUserReceiverInformation = {
             userId: this.props.userLoginId,
             username: this.props.username,
             profilePicture: this.props.profilePicture,
@@ -366,12 +366,26 @@ class Edit_Profile extends Component {
             userReceiverName: this.state.username,
             profileReceiverPicture: this.state.profilePicture
         };
+        const secondUserReceiverInformation = {
+            userId: this.props.userIdProfile.userId,
+            username: this.state.username,
+            profilePicture: this.state.profilePicture,
+            userReceiverId: this.props.userLoginId,
+            userReceiverName: this.props.username,
+            profileReceiverPicture: this.props.profilePicture
+        };
         axios({
             method: 'post',
             responseType: 'json',
             url: `http://localhost:3001/api/inbox/message`,
-            data: userReceiverInformation
+            data: firstUserReceiverInformation
         })
+        .then(axios({
+            method: 'post',
+            responseType: 'json',
+            url: `http://localhost:3001/api/inbox/message`,
+            data: secondUserReceiverInformation
+        }))
         .then((response) => {
             this.props.history.push({
                 pathname: `/home/inbox`

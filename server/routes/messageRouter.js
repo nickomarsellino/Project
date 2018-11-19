@@ -17,7 +17,7 @@ router.post('/message', (req, res, next) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
     console.log("userData ", userData);
-    const firstData = {
+    const inboxInformationData = {
         userId: req.body.userId,
         username: req.body.username,
         profilePicture: req.body.profilePicture,
@@ -25,15 +25,7 @@ router.post('/message', (req, res, next) => {
         userReceiverName: req.body.userReceiverName,
         profileReceiverPicture: req.body.profileReceiverPicture
     };
-    const secondData = {
-        userId: req.body.userReceiverId,
-        username: req.body.userReceiverName,
-        profilePicture: req.body.profileReceiverPicture,
-        userReceiverId: req.body.userId,
-        userReceiverName: req.body.username,
-        profileReceiverPicture: req.body.profilePicture
-    }
-    Message.create(firstData).then(function (result) {
+    Message.create(inboxInformationData).then(function (result) {
         return res.send({
             _id : result._id,
             userId: result.userId,
@@ -42,17 +34,6 @@ router.post('/message', (req, res, next) => {
             userReceiverId: result.userReceiverId,
             userReceiverName: result.userReceiverName,
             profileReceiverPicture: result.profileReceiverPicture
-        });
-        Message.create(secondData).then(function (result) {
-            return res.send({
-                _id : result._id,
-                userId: result.userId,
-                username: result.username,
-                profilePicture: result.profilePicture,
-                userReceiverId: result.userReceiverId,
-                userReceiverName: result.userReceiverName,
-                profileReceiverPicture: result.profileReceiverPicture
-            });
         });
     });
 });

@@ -78,7 +78,6 @@ class Inbox_Profile_Container extends Component {
      }
 
     render() {
-        console.log(this.props.history);
         return (
             <List id="listProfileContainer">
                 {this.state.inboxPeopleList.map(people =>
