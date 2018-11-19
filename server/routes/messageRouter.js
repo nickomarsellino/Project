@@ -23,7 +23,8 @@ router.post('/message', (req, res, next) => {
         profilePicture: req.body.profilePicture,
         userReceiverId: req.body.userReceiverId,
         userReceiverName: req.body.userReceiverName,
-        profileReceiverPicture: req.body.profileReceiverPicture
+        profileReceiverPicture: req.body.profileReceiverPicture,
+        roomMessagesId: req.body.roomMessagesId
     };
     Message.create(inboxInformationData).then(function (result) {
         return res.send({
@@ -33,7 +34,8 @@ router.post('/message', (req, res, next) => {
             profilePicture: result.profilePicture,
             userReceiverId: result.userReceiverId,
             userReceiverName: result.userReceiverName,
-            profileReceiverPicture: result.profileReceiverPicture
+            profileReceiverPicture: result.profileReceiverPicture,
+            roomMessagesId: result.roomMessagesId
         });
     });
 });
@@ -45,7 +47,7 @@ router.put('/sendMessage/:id', (req, res) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    Message.findByIdAndUpdate({_id: req.params.id},
+    Message.updateMany({roomMessagesId: req.params.id},
         {$push: {
             messages:{
               'userId' : userData.userId,
@@ -70,7 +72,7 @@ router.put('/unSendMessage/:id', (req,res) => {
     // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     // const userData = JSON.parse(plaintext);
 
-    Message.findByIdAndUpdate( {_id: req.params.id},
+    Message.findByIdAndUpdate( {roomMessagesId: req.params.id},
       {$pull: {messages:  { _id: req.body._id, userId: req.body.userId} }}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)

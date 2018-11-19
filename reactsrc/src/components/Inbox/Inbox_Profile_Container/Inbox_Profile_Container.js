@@ -78,6 +78,7 @@ class Inbox_Profile_Container extends Component {
      }
 
     render() {
+        console.log(this.state.chatDetailMessage);
         return (
             <List id="listProfileContainer">
                 {this.state.inboxPeopleList.map(people =>

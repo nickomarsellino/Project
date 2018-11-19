@@ -29,7 +29,7 @@ class Inbox_BoxArea extends Component {
         };
         axios({
             method: 'PUT',
-            url: `http://localhost:3001/api/inbox/sendMessage/` + this.props.chatMessageDetail._id,
+            url: `http://localhost:3001/api/inbox/sendMessage/` + this.props.chatMessageDetail.roomMessagesId,
             data: messageData
         })
         .then(res => {
