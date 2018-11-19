@@ -66,15 +66,6 @@ class Inbox_Profile_Container extends Component {
     }
 
     getChatDetailMessage(_id){
-
-        // this.props.history.replace({
-        //     pathname: '/home/inbox',
-        //     // state: {
-        //     //     userId: this.props.userIdProfile.userId,
-        //     //     tweetsTabClicked: true
-        //     // }
-        // })
-
         axios.get('/api/inbox/chatDetailMessage/' + _id)
             .then(res => {
                 this.setState({
