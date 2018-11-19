@@ -31,7 +31,6 @@ class Inbox_Profile_Container extends Component {
                 this.setState({
                     inboxPeopleList: res.data
                 });
-                console.log(res.data);
             });
     }
 
@@ -66,8 +65,17 @@ class Inbox_Profile_Container extends Component {
         alert("Berhasil di delete...!!")
     }
 
-    getChatDetailMessage(conversationId){
-        axios.get('/api/inbox/chatDetailMessage/' + conversationId)
+    getChatDetailMessage(_id){
+
+        // this.props.history.replace({
+        //     pathname: '/home/inbox',
+        //     // state: {
+        //     //     userId: this.props.userIdProfile.userId,
+        //     //     tweetsTabClicked: true
+        //     // }
+        // })
+
+        axios.get('/api/inbox/chatDetailMessage/' + _id)
             .then(res => {
                 this.setState({
                     chatDetailMessage: res.data

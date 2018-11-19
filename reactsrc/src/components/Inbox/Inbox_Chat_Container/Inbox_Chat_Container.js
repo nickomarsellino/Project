@@ -20,6 +20,12 @@ class Inbox_Chat_Container extends Component {
         })
     }
 
+    componentWillReceiveProps(props) {
+        this.setState({
+            chatMessageDetail: props.chatMessageDetail.messages
+        })
+    }
+
 
     setProfileImage(profilePicture) {
         let imageUrl = profilePicture;
