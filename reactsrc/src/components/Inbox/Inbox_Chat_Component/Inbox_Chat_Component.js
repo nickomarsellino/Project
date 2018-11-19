@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import './Inbox_Chat_Component.css'
 
+const Timestamp = require('react-timestamp');
+
 class Inbox_Chat_Component extends Component {
     constructor(){
         super();
@@ -11,12 +13,12 @@ class Inbox_Chat_Component extends Component {
         const chatData = this.props.chatData;
         const chatUserId = this.props.chatData.userId;
         const userLoginId = this.props.userChatData.userId;
-        // Cek Chat userId nya, sama userLoginId
         if(chatUserId !== userLoginId){
             return(
               <div className="chat" key={chatData._id}>
                       <div id="receiverChatContainer">
-                          {chatData.messageText}
+                          {chatData.messageText} <br/>
+                          <Timestamp time={chatData.messageTimestamp} format="time" />
                       </div>
               </div>
             )
@@ -25,7 +27,8 @@ class Inbox_Chat_Component extends Component {
             return(
                 <div className="chat" key={chatData._id}>
                         <div id="senderChatContainer">
-                            {chatData.messageText}
+                            {chatData.messageText} <br/>
+                            <Timestamp time={chatData.messageTimestamp} format="time" />
                         </div>
                 </div>
             )

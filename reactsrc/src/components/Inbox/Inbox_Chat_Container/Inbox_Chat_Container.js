@@ -4,7 +4,7 @@ import profile from '../../../daniel.jpg';
 
 import './Inbox_Chat_Container.css'
 import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
-
+import LoadingGif from '../../../LoadingGif.gif';
 
 class Inbox_Chat_Container extends Component {
     constructor(props){
@@ -14,7 +14,7 @@ class Inbox_Chat_Container extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })

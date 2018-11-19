@@ -31,6 +31,7 @@ class Inbox_Profile_Container extends Component {
                 this.setState({
                     inboxPeopleList: res.data
                 });
+                console.log(res.data);
             });
     }
 
