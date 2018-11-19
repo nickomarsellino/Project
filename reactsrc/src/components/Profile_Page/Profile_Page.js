@@ -11,7 +11,7 @@ import FadeIn from 'react-fade-in';
 import ModalProfilePicture from '../Modal/Modal_ProfilePicture/Modal_ProfilePicture';
 
 const Timestamp = require('react-timestamp');
-
+const crypto = require('crypto');
 
 class Edit_Profile extends Component {
 
@@ -39,7 +39,8 @@ class Edit_Profile extends Component {
             followerTabClicked: false,
             buttonFollowText: "Follow",
             butttonFollowCondition: "followButtonProfile",
-            userLoginFollowingData: ''
+            userLoginFollowingData: '',
+            roomMessagesId: ''
         };
 
         this.getTweetCounter = this.getTweetCounter.bind(this);
@@ -55,6 +56,9 @@ class Edit_Profile extends Component {
     }
 
     componentWillMount() {
+        this.setState({
+            roomMessagesId: crypto.randomBytes(20).toString('hex')+Date.now()
+        })
         if(this.props.tabClicked){
             if(this.props.tabClicked.tweetsTabClicked){
                 this.setState({
@@ -364,7 +368,8 @@ class Edit_Profile extends Component {
             profilePicture: this.props.profilePicture,
             userReceiverId: this.props.userIdProfile.userId,
             userReceiverName: this.state.username,
-            profileReceiverPicture: this.state.profilePicture
+            profileReceiverPicture: this.state.profilePicture,
+            roomMessagesId: this.state.roomMessagesId
         };
         const secondUserReceiverInformation = {
             userId: this.props.userIdProfile.userId,
@@ -372,7 +377,8 @@ class Edit_Profile extends Component {
             profilePicture: this.state.profilePicture,
             userReceiverId: this.props.userLoginId,
             userReceiverName: this.props.username,
-            profileReceiverPicture: this.props.profilePicture
+            profileReceiverPicture: this.props.profilePicture,
+            roomMessagesId: this.state.roomMessagesId
         };
         axios({
             method: 'post',
@@ -394,6 +400,7 @@ class Edit_Profile extends Component {
     }
 
     render() {
+        console.log(this.state.roomMessagesId);
         let content;
 
         if (this.state.tweetsTabClicked) {
