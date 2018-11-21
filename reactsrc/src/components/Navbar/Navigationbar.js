@@ -120,7 +120,7 @@ class Navigationbar extends Component {
         if (window.location.href === "http://localhost:3001/home/inbox") {
             if (this.state.isInbox) {
                 return (
-                    <Link to={'/home'}>
+                    <Link to={'/home/inbox'}>
                         <Icon name='envelope open outline'
                               size='large'
                               id="notificationIcon"

@@ -6,6 +6,7 @@ import './Home.css';
 import {Container} from "mdbreact"
 import LoadingGif from '../../LoadingGif.gif';
 
+
 //load another component
 import Navbar from "../Navbar/Navigationbar";
 import Profile from '../Form_editProfile/Edit_Profile'
@@ -17,7 +18,9 @@ import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
 import SearchPage from '../Search/Search_Page/Search_Page'
 import InboxPage from '../Inbox/Inbox_Page/Inbox_Page'
+import openSocket from "socket.io-client";
 
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Home extends Component {
 
@@ -32,6 +35,8 @@ class Home extends Component {
             totalLengthData:'',
             lengthData:''
         };
+
+        this.getTweetDatainHome = this.getTweetDatainHome.bind(this);
     }
 
     getData() {
@@ -69,13 +74,35 @@ class Home extends Component {
 
     componentWillMount() {
         this.verify();
+
+        this.getTweetDatainHome();
+
+        socket.on('getData', namavariabel => {
+            this.getTweetDatainHome();
+        })
     }
 
     componentDidMount() {
         this.getData();
     }
 
+
+    getTweetDatainHome() {
+        axios.get('/api/tweet/tweets?perPage=5&page=1')
+            .then(res => {
+                this.setState(
+                    {
+                        tweetData: res.data.docs,
+                        totalLengthData: res.data.total,
+                        lengthData: res.data.docs.length
+                    })
+            });
+    }
+
     render() {
+
+        console.log(this.state.tweetData);
+
         const editProfile = () => (
             <Profile userId={this.state.userId}/>
         );
@@ -98,6 +125,7 @@ class Home extends Component {
                                     history={this.props.history}
                                     profilePicture={this.state.profilePicture}
                                     username={this.state.username}
+                                    tweetData={this.state.tweetData}
                     />
                 </Container>
             </FadeIn>

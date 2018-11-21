@@ -11,7 +11,7 @@ import FadeIn from 'react-fade-in';
 import ModalProfilePicture from '../Modal/Modal_ProfilePicture/Modal_ProfilePicture';
 
 const Timestamp = require('react-timestamp');
-
+const crypto = require('crypto');
 
 class Edit_Profile extends Component {
 
@@ -39,7 +39,8 @@ class Edit_Profile extends Component {
             followerTabClicked: false,
             buttonFollowText: "Follow",
             butttonFollowCondition: "followButtonProfile",
-            userLoginFollowingData: ''
+            userLoginFollowingData: '',
+            roomMessagesId: ''
         };
 
         this.getTweetCounter = this.getTweetCounter.bind(this);
@@ -55,6 +56,9 @@ class Edit_Profile extends Component {
     }
 
     componentWillMount() {
+        this.setState({
+            roomMessagesId: crypto.randomBytes(20).toString('hex')+Date.now()
+        })
         if(this.props.tabClicked){
             if(this.props.tabClicked.tweetsTabClicked){
                 this.setState({
@@ -137,6 +141,9 @@ class Edit_Profile extends Component {
             //buat bandingin udh pernah follow atau belum
             axios.get('/api/users/profile/' + this.props.userLoginId).then(res => {
                 const user = res.data[0];
+                console.log(user.following);
+                console.log(this.props.userIdProfile.userId);
+
                 if (user.following.includes(this.props.userIdProfile.userId)) {
                     this.setState({
                         isFollow: true,
@@ -343,35 +350,59 @@ class Edit_Profile extends Component {
                     this.goToInboxPage();
                 }
                 else{
+
+                    let listContactInbox = []
+
                     for(let i=0; i<res.data.length; i++){
-                        if(res.data[i].userReceiverId === this.props.userIdProfile.userId){
-                            this.props.history.push({
-                                pathname: `/home/inbox`
-                            })
-                        }
-                        else{
-                            this.goToInboxPage();
-                        }
+                        listContactInbox.push(res.data[i].userReceiverId)
                     }
+
+                    //Untuk Ngecek apakah dia sudah pernah dm atau belum
+                    if (listContactInbox.includes(this.props.userIdProfile.userId)) {
+                        this.props.history.push({
+                            pathname: `/home/inbox`
+                        })
+                    }
+                    else{
+                        this.goToInboxPage();
+                    }
+
+
                 }
             });
     }
 
     goToInboxPage(){
-        const userReceiverInformation = {
+        const firstUserReceiverInformation = {
             userId: this.props.userLoginId,
             username: this.props.username,
             profilePicture: this.props.profilePicture,
             userReceiverId: this.props.userIdProfile.userId,
             userReceiverName: this.state.username,
-            profileReceiverPicture: this.state.profilePicture
+            profileReceiverPicture: this.state.profilePicture,
+            roomMessagesId: this.state.roomMessagesId
+        };
+        const secondUserReceiverInformation = {
+            userId: this.props.userIdProfile.userId,
+            username: this.state.username,
+            profilePicture: this.state.profilePicture,
+            userReceiverId: this.props.userLoginId,
+            userReceiverName: this.props.username,
+            profileReceiverPicture: this.props.profilePicture,
+            roomMessagesId: this.state.roomMessagesId
         };
         axios({
             method: 'post',
             responseType: 'json',
             url: `http://localhost:3001/api/inbox/message`,
-            data: userReceiverInformation
+            data: firstUserReceiverInformation
         })
+        .then(axios({
+            method: 'post',
+            responseType: 'json',
+            url: `http://localhost:3001/api/inbox/message`,
+            data: secondUserReceiverInformation
+        }))
         .then((response) => {
             this.props.history.push({
                 pathname: `/home/inbox`

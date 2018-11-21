@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+ import React, {Component} from "react";
 import axios from 'axios';
 import './Twiit_Container.css';
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -42,27 +42,13 @@ class Twitt_Container extends Component {
         }
         else {
             this.getTweetData();
-            socket.on('getData', namavariabel => {
-                if (namavariabel.tweetPicture) {
-
-                }
-                else {
-                    // this.setState({
-                    //     isLoading: true
-                    // });
-
-                    // const allComment = this.state.tweetData;
-                    // const newComment = [namavariabel].concat(allComment);
-                    // this.setState({
-                    //     tweetData: newComment
-                    // });
-
-                    this.getTweetData();
-                }
-            })
         }
     }
 
+
+    componentWillReceiveProps(props) {
+        console.log("INI PROPS: ", props)
+    }
 
     // componentWillUpdate(nextProps, nextState) {
     //     if(nextState.tweetData !== this.state.tweetData){

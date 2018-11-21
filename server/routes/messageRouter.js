@@ -12,15 +12,21 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 
 router.post('/message', (req, res, next) => {
-    const data = {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+    console.log("userData ", userData);
+    const inboxInformationData = {
         userId: req.body.userId,
         username: req.body.username,
         profilePicture: req.body.profilePicture,
         userReceiverId: req.body.userReceiverId,
         userReceiverName: req.body.userReceiverName,
-        profileReceiverPicture: req.body.profileReceiverPicture
+        profileReceiverPicture: req.body.profileReceiverPicture,
+        roomMessagesId: req.body.roomMessagesId
     };
-    Message.create(data).then(function (result) {
+    Message.create(inboxInformationData).then(function (result) {
         return res.send({
             _id : result._id,
             userId: result.userId,
@@ -28,18 +34,23 @@ router.post('/message', (req, res, next) => {
             profilePicture: result.profilePicture,
             userReceiverId: result.userReceiverId,
             userReceiverName: result.userReceiverName,
-            profileReceiverPicture: result.profileReceiverPicture
+            profileReceiverPicture: result.profileReceiverPicture,
+            roomMessagesId: result.roomMessagesId
         });
     });
-    console.log(data);
 });
 
 // id didapat ketika dia pencet inbox kebuat gitu
 router.put('/sendMessage/:id', (req, res) => {
-    Message.findByIdAndUpdate({_id: req.params.id},
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    Message.updateMany({roomMessagesId: req.params.id},
         {$push: {
             messages:{
-              'userId' : req.body.userId,
+              'userId' : userData.userId,
               'messageText' : req.body.messageText,
               'messageTimestamp': Date.now()
             }
@@ -47,9 +58,7 @@ router.put('/sendMessage/:id', (req, res) => {
         if (err) {
           return res.send(err)
         };
-        let temp = user.messages.length - 1
         res.json({
-          _id : user.messages[temp]._id,
           userId: req.body.userId,
           messageText: req.body.messageText,
           messageTimestamp: new Date()
@@ -63,7 +72,7 @@ router.put('/unSendMessage/:id', (req,res) => {
     // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     // const userData = JSON.parse(plaintext);
 
-    Message.findByIdAndUpdate( {_id: req.params.id},
+    Message.findByIdAndUpdate( {roomMessagesId: req.params.id},
       {$pull: {messages:  { _id: req.body._id, userId: req.body.userId} }}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)

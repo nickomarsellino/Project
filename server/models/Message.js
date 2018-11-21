@@ -23,6 +23,9 @@ const MessageSchema = Schema({
     profileReceiverPicture:{
       type: String
     },
+    roomMessagesId:{
+      type: String
+    },
     messages:[{
       userId:{
         type: Schema.ObjectId,

@@ -65,8 +65,8 @@ class Inbox_Profile_Container extends Component {
         alert("Berhasil di delete...!!")
     }
 
-    getChatDetailMessage(conversationId){
-        axios.get('/api/inbox/chatDetailMessage/' + conversationId)
+    getChatDetailMessage(_id){
+        axios.get('/api/inbox/chatDetailMessage/' + _id)
             .then(res => {
                 this.setState({
                     chatDetailMessage: res.data
@@ -77,6 +77,7 @@ class Inbox_Profile_Container extends Component {
      }
 
     render() {
+        console.log(this.state.chatDetailMessage);
         return (
             <List id="listProfileContainer">
                 {this.state.inboxPeopleList.map(people =>
