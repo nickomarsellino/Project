@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
+const Message = require('../models/Message.js');
 const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
 const btoa = require('btoa');
@@ -61,6 +62,11 @@ router.put('/editProfile', (req, res) => {
                 .then((result) => {
                     //Update data di Tweet
                     Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
+
+                    //Update Data di Message
+                    Message.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
+                    Message.updateMany({userReceiverId: userData.userId}, {$set: {userReceiverName: req.body.username}}).exec();
+
 
                     //Update Data di Comments
                     Tweet.find({'comments.userId': userData.userId}).then((result) => {
@@ -244,6 +250,11 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
             profilePicture: req.file.filename
         }
         }).exec();
+
+    //Update Data di Message
+    Message.updateMany({userId: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
+    Message.updateMany({userReceiverId: req.params.id}, {$set: {profileReceiverPicture: req.file.filename}}).exec();
+
 
 
     Tweet.find({'comments.userId': req.params.id}).then((result) => {
