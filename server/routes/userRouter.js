@@ -53,11 +53,39 @@ router.put('/editProfile', (req, res) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
+    console.log(req.body);
+
     User.findByIdAndUpdate({_id: userData.userId}, req.body).then(() => {
         User.findOne({_id: userData.userId}).then((user) => {
             user.save()
                 .then((result) => {
+                    //Update data di Tweet
                     Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
+
+                    //Update Data di Comments
+                    Tweet.find({'comments.userId': userData.userId}).then((result) => {
+
+                        for (var i = 0; i < result.length; ++i) {
+                            for (var j = 0; j < result[i].comments.length; j++){
+                                let comments = []
+                                let userId = userData.userId
+
+                                comments = result[i].comments[j]
+
+                                if(comments.userId == userId){
+                                    let query = 'comments.'+[j]+'.username'
+                                    let condition = 'comments'+'.userId'
+
+                                    Tweet.updateMany({[condition]: userData.userId}, {
+                                        $set: {
+                                            [query]: req.body.username
+                                        }
+                                    }).exec();
+                                }
+                            }
+                        }
+                    });
+
                     res.json({
                         success: true,
                         msg: `Successfully edited..!`,
