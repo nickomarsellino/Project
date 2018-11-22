@@ -32,7 +32,6 @@ class Inbox_Chat_Container extends Component {
         if (imageUrl) {
             return (
                 <img alt=" "
-                     id="profileImage"
                      src={require(`../../../uploads/${imageUrl}`)}
                      className="float-right"
                 />
@@ -42,7 +41,6 @@ class Inbox_Chat_Container extends Component {
             return (
                 <img alt=" "
                      src={profile}
-                     id="profileImage"
                 />
             );
         }
