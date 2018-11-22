@@ -78,7 +78,22 @@ class Home extends Component {
         this.getTweetDatainHome();
 
         socket.on('getData', namavariabel => {
-            this.getTweetDatainHome();
+
+            // this.getTweetDatainHome();
+
+            // console.log(this.state.lengthData)
+            // console.log(this.state.totalLengthData)
+            // console.log(this.state.tweetData)
+            // console.log(namavariabel);
+            // const allTweets = this.state.tweetData;
+            // const newTweets = [namavariabel].concat(allTweets);
+            //
+            // console.log(newTweets)
+            //
+            // this.setState(function(state) {
+            //     return {receivedElements: [namavariabel].concat(state.tweetData)};
+            // });
+
         })
     }
 
