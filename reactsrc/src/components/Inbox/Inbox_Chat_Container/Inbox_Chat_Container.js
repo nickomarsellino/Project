@@ -4,7 +4,9 @@ import profile from '../../../daniel.jpg';
 
 import './Inbox_Chat_Container.css'
 import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
-import LoadingGif from '../../../LoadingGif.gif';
+import openSocket from 'socket.io-client';
+
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Inbox_Chat_Container extends Component {
     constructor(props){
@@ -14,25 +16,33 @@ class Inbox_Chat_Container extends Component {
         };
     }
 
-    componentWillMount() {
+    // Pertama render iniiii
+    componentDidMount() {
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })
+        console.log("DI WILLMOUNT ",this.state.chatMessageDetail);
+
+        socket.on(this.props.chatMessageDetail.roomMessagesId + 'getMessage', bebasnamavariabel => {
+            const allInboxMessage = this.state.chatMessageDetail;
+            const newMessage = [bebasnamavariabel];
+            this.setState({
+                chatMessageDetail: (allInboxMessage.concat(newMessage))
+            });
+        });
     }
 
     componentWillReceiveProps(props) {
-        this.setState({
-            chatMessageDetail: props.chatMessageDetail.messages
-        })
+            this.setState({
+                chatMessageDetail: props.chatMessageDetail.messages
+            });
     }
-
 
     setProfileImage(profilePicture) {
         let imageUrl = profilePicture;
         if (imageUrl) {
             return (
                 <img alt=" "
-                     id="profileImage"
                      src={require(`../../../uploads/${imageUrl}`)}
                      className="float-right"
                 />
@@ -42,14 +52,13 @@ class Inbox_Chat_Container extends Component {
             return (
                 <img alt=" "
                      src={profile}
-                     id="profileImage"
                 />
             );
         }
     }
 
     render() {
-        console.log(this.state.chatMessageDetail);
+        console.log(this.props.chatMessageDetail);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">

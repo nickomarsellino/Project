@@ -3,7 +3,6 @@ import React, {Component} from "react";
 import {Card, Icon, Image} from 'semantic-ui-react';
 import './UserCardComponent.css';
 import profile from '../../../daniel.jpg';
-import equal from "fast-deep-equal";
 
 class UserCardComponent extends Component {
 

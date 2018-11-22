@@ -13,7 +13,7 @@ import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 const Timestamp = require('react-timestamp');
 
@@ -45,8 +45,7 @@ class TweetComponent extends Component {
     }
 
 
-    componentDidMount() {
-
+    componentWillMount() {
         this.setState({
             tweet: this.props.tweet,
             likes: this.props.tweet.likes,
@@ -305,7 +304,6 @@ class TweetComponent extends Component {
         }
     }
 
-
     likeIkonColor() {
         if (this.state.likes === null) {
             if (this.props.tweet.likes.includes(this.props.userId)) {
@@ -344,8 +342,8 @@ class TweetComponent extends Component {
             })
     }
 
-
     render() {
+        console.log("Di TW COMPONEN: ", this.props.tweet);
         const tweet = this.props.tweet;
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
@@ -375,10 +373,7 @@ class TweetComponent extends Component {
                                                     onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
                                         >
                                             <Icon name='like'/>
-                                            {!this.state.likes ?
-                                                tweet.likes.length + " Likes"
-                                                :
-                                                this.state.likes.length + " Likes"
+                                            {this.props.tweet.likes.length + " Likes"
                                             }
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">

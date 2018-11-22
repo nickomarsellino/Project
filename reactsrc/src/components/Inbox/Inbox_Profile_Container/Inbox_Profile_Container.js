@@ -55,26 +55,26 @@ class Inbox_Profile_Container extends Component {
         }
     }
 
-    endChatMessage(chatId){
-        axios.delete('/api/inbox/endChatMessage/' + chatId)
-            .then(res => {
-                this.setState({
-                    inboxPeopleList: res.data
-                });
-            });
-        alert("Berhasil di delete...!!")
+    endChatMessage(roomMessagesId, userId, _id){
+        console.log(roomMessagesId);
+        console.log(userId);
+        console.log(_id);
+        const pullChatData = {
+            roomMessagesId: roomMessagesId,
+        };
+        axios({
+            method: 'PUT',
+            responseType: 'json',
+            url: `http://localhost:3001/api/inbox/unSendMessage/` + _id,
+            data: pullChatData
+        })
+        this.setState({
+            chatDetailMessage : pullChatData
+        })
+        console.log("SAAT END CHAT",this.state.chatDetailMessage);
     }
 
     getChatDetailMessage(_id){
-
-        // this.props.history.replace({
-        //     pathname: '/home/inbox',
-        //     // state: {
-        //     //     userId: this.props.userIdProfile.userId,
-        //     //     tweetsTabClicked: true
-        //     // }
-        // })
-
         axios.get('/api/inbox/chatDetailMessage/' + _id)
             .then(res => {
                 this.setState({
@@ -102,7 +102,7 @@ class Inbox_Profile_Container extends Component {
                           <Icon name='cancel'
                                 size='large'
                                 id="closeButton"
-                                onClick={() => this.endChatMessage(people._id)}
+                                onClick={() => this.endChatMessage(people.roomMessagesId, people.userId, people._id)}
                           />
                           <br/>
                       </List.Content>

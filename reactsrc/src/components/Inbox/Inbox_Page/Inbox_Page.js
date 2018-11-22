@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import FadeIn from 'react-fade-in';
-import emptyChat from '../../../emptyChat.png'
 import {Card, CardBody} from "mdbreact"
 import {Icon} from 'semantic-ui-react'
-import ReactDOM from 'react-dom';
 import InboxProfile from '../Inbox_Profile_Container/Inbox_Profile_Container.js'
 import InboxBoxArea from '../Inbox_BoxArea/Inbox_BoxArea.js'
 import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container.js'

@@ -51,6 +51,7 @@ router.put('/sendMessage/:id', (req, res) => {
         {$push: {
             messages:{
               'userId' : userData.userId,
+              'roomMessagesId' : req.body.roomMessagesId,
               'messageText' : req.body.messageText,
               'messageTimestamp': Date.now()
             }
@@ -61,19 +62,15 @@ router.put('/sendMessage/:id', (req, res) => {
         res.json({
           userId: req.body.userId,
           messageText: req.body.messageText,
+          roomMessagesId: req.body.roomMessagesId,
           messageTimestamp: new Date()
         });
     });
 });
 
 router.put('/unSendMessage/:id', (req,res) => {
-    // const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-    // const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
-    // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    // const userData = JSON.parse(plaintext);
-
-    Message.findByIdAndUpdate( {roomMessagesId: req.params.id},
-      {$pull: {messages:  { _id: req.body._id, userId: req.body.userId} }}, {new: true}, function (err, user) {
+    Message.findByIdAndUpdate( {_id: req.params.id},
+      {$pull: {messages:  { roomMessagesId: req.body.roomMessagesId} }}, {new: true}, function (err, user) {
       if (err) {
         return res.send(err)
       };
