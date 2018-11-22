@@ -79,7 +79,7 @@ class Home extends Component {
 
         socket.on('getData', namavariabel => {
 
-            // this.getTweetDatainHome();
+            this.getTweetDatainHome();
 
             // console.log(this.state.lengthData)
             // console.log(this.state.totalLengthData)
@@ -171,9 +171,11 @@ class Home extends Component {
           />
         );
 
+
         const inbox = () => (
           <InboxPage userId={this.state.userId}
                      history={this.props.history}
+                     onUserClicked = {this.props.location.state}
           />
         );
 

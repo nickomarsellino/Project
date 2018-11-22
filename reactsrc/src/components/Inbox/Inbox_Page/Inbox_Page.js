@@ -19,6 +19,15 @@ class Inbox_Page extends Component {
         this.sendTheMessageDetail = this.sendTheMessageDetail.bind(this);
     }
 
+    componentWillMount(){
+        if(this.props.onUserClicked){
+            this.setState({
+                chatMessageDetail: this.props.onUserClicked.chatDetailMessage,
+                isChatOpened: true
+            });
+        }
+    }
+
     // Function untuk terima data dari anaknya si inbox_profile_container
     sendTheMessageDetail(messagesData) {
         this.setState({
@@ -62,7 +71,7 @@ class Inbox_Page extends Component {
     }
 
     render() {
-        console.log('ASSADASDASAS',this.state.chatMessageDetail);
+
         return (
             <FadeIn id="InboxPage">
                 <Card className="inboxCard">
