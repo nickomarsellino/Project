@@ -93,6 +93,7 @@ io.on('connection', (socket) => {
   socket.on('sendMessage', (data) => {
     console.log("DATAAAAA ",data);
     socket.broadcast.emit(data.roomMessagesId+'getMessage', data)
+    socket.emit(data.roomMessagesId+'getMessage', data);
   });
 
 });

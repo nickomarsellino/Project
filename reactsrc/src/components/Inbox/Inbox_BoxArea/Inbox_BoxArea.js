@@ -29,7 +29,7 @@ class Inbox_BoxArea extends Component {
 
     sendTextMessage(){
         const messageData = {
-            roomMessagesId: this.state.roomMessagesId,
+            roomMessagesId: this.props.chatMessageDetail.roomMessagesId,
             userId: this.state.userId,
             messageText: this.state.messageText,
             messageTimestamp: new Date()
@@ -41,14 +41,15 @@ class Inbox_BoxArea extends Component {
         })
         .then(res => {
             this.setState({
-                messageText: ''
+                messageText: '',
+                roomMessagesId: ''
             })
             socket.emit("sendMessage", res.data)
         })
     }
 
     render() {
-        console.log( this.props.chatMessageDetail.userId);
+        console.log( this.props.chatMessageDetail.roomMessagesId);
         return (
             <div id="inboxBoxContainer">
                 <Form.Field

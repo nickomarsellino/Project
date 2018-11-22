@@ -71,7 +71,6 @@ class Inbox_Profile_Container extends Component {
         this.setState({
             chatDetailMessage : pullChatData
         })
-        console.log("SAAT END CHAT",this.state.chatDetailMessage);
     }
 
     getChatDetailMessage(_id){

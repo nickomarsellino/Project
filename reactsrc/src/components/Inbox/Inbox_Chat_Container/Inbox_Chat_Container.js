@@ -12,18 +12,18 @@ class Inbox_Chat_Container extends Component {
     constructor(props){
         super(props);
         this.state = {
-            chatMessageDetail: []
+            chatMessageDetail: [],
+            roomMessagesId: this.props.chatMessageDetail.roomMessagesId
         };
     }
 
     // Pertama render iniiii
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })
-        console.log("DI WILLMOUNT ",this.state.chatMessageDetail);
 
-        socket.on(this.props.chatMessageDetail.roomMessagesId + 'getMessage', bebasnamavariabel => {
+        socket.on(this.state.roomMessagesId + 'getMessage', bebasnamavariabel => {
             const allInboxMessage = this.state.chatMessageDetail;
             const newMessage = [bebasnamavariabel];
             this.setState({
@@ -33,9 +33,9 @@ class Inbox_Chat_Container extends Component {
     }
 
     componentWillReceiveProps(props) {
-            this.setState({
-                chatMessageDetail: props.chatMessageDetail.messages
-            });
+        this.setState({
+            chatMessageDetail: props.chatMessageDetail.messages
+        });
     }
 
     setProfileImage(profilePicture) {
