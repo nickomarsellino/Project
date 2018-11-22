@@ -34,6 +34,9 @@ const MessageSchema = Schema({
       messageText:{
         type: String
       },
+      roomMessagesId:{
+          type: String
+      },
       messageTimestamp:{
         type: Date,
         default: Date.now()

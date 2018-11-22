@@ -157,9 +157,9 @@ class Edit_Profile extends Component {
       if(imageUrl){
           imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} style={{width: '200px', height: '200px',marginTop:'-0.1rem'}} className="float-right" />
       }
-      else{
-        <h2 className="lead">No Image</h2>
-      }
+      // else{
+      //   <h2 className="lead">No Image</h2>
+      // }
 
         return (
 
