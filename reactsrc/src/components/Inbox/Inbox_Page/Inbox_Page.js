@@ -62,7 +62,7 @@ class Inbox_Page extends Component {
     }
 
     render() {
-        console.log(this.state.chatMessageDetail);
+        console.log('ASSADASDASAS',this.state.chatMessageDetail);
         return (
             <FadeIn id="InboxPage">
                 <Card className="inboxCard">

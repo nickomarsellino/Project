@@ -14,7 +14,7 @@ class Inbox_BoxArea extends Component {
         super(props);
         this.state = {
             messageText: '',
-            roomMessagesId: this.props.chatMessageDetail.roomMessagesId,
+            roomMessagesId: '',
             userId: this.props.chatMessageDetail.userId
         }
         this.sendTextMessage = this.sendTextMessage.bind(this);
@@ -41,8 +41,7 @@ class Inbox_BoxArea extends Component {
         })
         .then(res => {
             this.setState({
-                messageText: '',
-                roomMessagesId: ''
+                messageText: ''
             })
             socket.emit("sendMessage", res.data)
         })
