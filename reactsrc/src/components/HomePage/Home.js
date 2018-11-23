@@ -128,9 +128,12 @@ class Home extends Component {
           />
         );
 
+        console.log(this.props.location.state);
         const inbox = () => (
           <InboxPage userId={this.state.userId}
                      history={this.props.history}
+                     onUserClicked={this.props.location.state}
+
           />
         );
 

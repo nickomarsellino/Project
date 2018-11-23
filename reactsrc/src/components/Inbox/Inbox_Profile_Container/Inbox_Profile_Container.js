@@ -5,6 +5,9 @@ import {Icon} from 'semantic-ui-react'
 import axios from 'axios';
 
 import './Inbox_Profile_Container.css';
+import openSocket from 'socket.io-client';
+
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Inbox_Profile_Container extends Component {
     constructor(props) {
@@ -79,6 +82,12 @@ class Inbox_Profile_Container extends Component {
                 this.setState({
                     chatDetailMessage: res.data
                 });
+                this.props.history.replace({
+                    pathname: '/home/inbox',
+                    state: {
+                        chatDetailMessage: res.data
+                    }
+                })
                 this.props.sendTheMessageDetail(res.data)
                 // Fungsi kirim ke parent inbox page
             });
