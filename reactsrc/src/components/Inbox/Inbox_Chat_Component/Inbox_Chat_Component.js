@@ -3,7 +3,7 @@ import './Inbox_Chat_Component.css'
 import openSocket from 'socket.io-client';
 
 const Timestamp = require('react-timestamp');
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Inbox_Chat_Component extends Component {
     constructor(){
@@ -20,7 +20,9 @@ class Inbox_Chat_Component extends Component {
               <div className="chat" key={chatData._id}>
                       <div id="receiverChatContainer">
                           {chatData.messageText} <br/>
-                          <Timestamp time={chatData.messageTimestamp} format="time" />
+                          <div id="timeChatReceiver">
+                              <Timestamp time={chatData.messageTimestamp} format="time" />
+                          </div>
                       </div>
               </div>
             )
@@ -29,8 +31,10 @@ class Inbox_Chat_Component extends Component {
             return(
                 <div className="chat" key={chatData._id}>
                         <div id="senderChatContainer">
-                            {chatData.messageText} <br/>
-                            <Timestamp time={chatData.messageTimestamp} format="time" />
+                            <div id="timeChatSender">
+                                <Timestamp time={chatData.messageTimestamp} format="time" />
+                            </div>
+                            {chatData.messageText}
                         </div>
                 </div>
             )

@@ -141,6 +141,9 @@ class Edit_Profile extends Component {
             //buat bandingin udh pernah follow atau belum
             axios.get('/api/users/profile/' + this.props.userLoginId).then(res => {
                 const user = res.data[0];
+                console.log(user.following);
+                console.log(this.props.userIdProfile.userId);
+
                 if (user.following.includes(this.props.userIdProfile.userId)) {
                     this.setState({
                         isFollow: true,
@@ -347,16 +350,24 @@ class Edit_Profile extends Component {
                     this.goToInboxPage();
                 }
                 else{
+
+                    let listContactInbox = []
+
                     for(let i=0; i<res.data.length; i++){
-                        if(res.data[i].userReceiverId === this.props.userIdProfile.userId){
-                            this.props.history.push({
-                                pathname: `/home/inbox`
-                            })
-                        }
-                        else{
-                            this.goToInboxPage();
-                        }
+                        listContactInbox.push(res.data[i].userReceiverId)
                     }
+
+                    //Untuk Ngecek apakah dia sudah pernah dm atau belum
+                    if (listContactInbox.includes(this.props.userIdProfile.userId)) {
+                        this.props.history.push({
+                            pathname: `/home/inbox`
+                        })
+                    }
+                    else{
+                        this.goToInboxPage();
+                    }
+
+
                 }
             });
     }
@@ -400,7 +411,6 @@ class Edit_Profile extends Component {
     }
 
     render() {
-        console.log(this.state.roomMessagesId);
         let content;
 
         if (this.state.tweetsTabClicked) {

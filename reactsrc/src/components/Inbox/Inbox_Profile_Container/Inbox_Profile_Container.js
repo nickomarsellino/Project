@@ -59,9 +59,6 @@ class Inbox_Profile_Container extends Component {
     }
 
     endChatMessage(roomMessagesId, userId, _id){
-        console.log(roomMessagesId);
-        console.log(userId);
-        console.log(_id);
         const pullChatData = {
             roomMessagesId: roomMessagesId,
         };
@@ -90,6 +87,13 @@ class Inbox_Profile_Container extends Component {
                 })
                 this.props.sendTheMessageDetail(res.data)
                 // Fungsi kirim ke parent inbox page
+
+                this.props.history.replace({
+                    pathname: '/home/inbox',
+                    state: {
+                        chatDetailMessage: res.data
+                    }
+                })
             });
      }
 
