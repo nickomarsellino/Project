@@ -1,0 +1,20 @@
+/*button{*/
+  /*background-color: transparent;*/
+  /*border: none;*/
+  /*text-decoration: underline;*/
+  /*font-weight: bold;*/
+  /*color: #7f6f69;*/
+  /*-webkit-box-shadow: none;*/
+/*}*/
+
+#navSearchDetail{
+    font-family: 'myTextFontMedium', sans-serif;
+    width: 80%;
+    text-align: center;
+}
+.ui.menu.three.item .itemNav {
+    width: 50%;
+}
+
+
+

@@ -6,17 +6,21 @@ import './Home.css';
 import {Container} from "mdbreact"
 import LoadingGif from '../../LoadingGif.gif';
 
+
 //load another component
 import Navbar from "../Navbar/Navigationbar";
 import Profile from '../Form_editProfile/Edit_Profile'
 import ChangePassword from '../Form_Change_Password/Change_Password'
-import TwittBox from "../Twitt_Box/Twitt_Box";
-import TwittContainer from "../Twitt_Container/Twitt_Container";
+import TwittBox from "../Tweets/Twitt_Box/Twitt_Box";
+import TwittContainer from "../Tweets/Twitt_Container/Twitt_Container";
 import axios from "axios/index";
 import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
-import SearchPage from '../Search_Page/Search_Page'
+import SearchPage from '../Search/Search_Page/Search_Page'
+import InboxPage from '../Inbox/Inbox_Page/Inbox_Page'
+import openSocket from "socket.io-client";
 
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Home extends Component {
 
@@ -26,8 +30,13 @@ class Home extends Component {
             userId: '',
             username: '',
             profilePicture: '',
-            isLoading:true
+            isLoading:true,
+            tweetData:'',
+            totalLengthData:'',
+            lengthData:''
         };
+
+        this.getTweetDatainHome = this.getTweetDatainHome.bind(this);
     }
 
     getData() {
@@ -48,7 +57,6 @@ class Home extends Component {
             });
     }
 
-
     verify() {
         axios.get('/api/authentication/verify', {
             credentials: 'include',
@@ -66,13 +74,50 @@ class Home extends Component {
 
     componentWillMount() {
         this.verify();
+
+        this.getTweetDatainHome();
+
+        socket.on('getData', namavariabel => {
+
+            this.getTweetDatainHome();
+
+            // console.log(this.state.lengthData)
+            // console.log(this.state.totalLengthData)
+            // console.log(this.state.tweetData)
+            // console.log(namavariabel);
+            // const allTweets = this.state.tweetData;
+            // const newTweets = [namavariabel].concat(allTweets);
+            //
+            // console.log(newTweets)
+            //
+            // this.setState(function(state) {
+            //     return {receivedElements: [namavariabel].concat(state.tweetData)};
+            // });
+
+        })
     }
 
     componentDidMount() {
         this.getData();
     }
 
+
+    getTweetDatainHome() {
+        axios.get('/api/tweet/tweets?perPage=5&page=1')
+            .then(res => {
+                this.setState(
+                    {
+                        tweetData: res.data.docs,
+                        totalLengthData: res.data.total,
+                        lengthData: res.data.docs.length
+                    })
+            });
+    }
+
     render() {
+
+        console.log(this.state.tweetData);
+
         const editProfile = () => (
             <Profile userId={this.state.userId}/>
         );
@@ -83,23 +128,27 @@ class Home extends Component {
         );
 
         const home = () => (
-            <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
-                <TwittBox username={this.state.username}
-                          userId={this.state.userId}
-                          profilePicture={this.state.profilePicture}
-                />
-                <TwittContainer userId={this.state.userId}
-                                located="home"
-                                isHome="home"
-                                history={this.props.history}
-                                profilePicture={this.state.profilePicture}
-                                username={this.state.username}
-                />
-            </Container>
+            <FadeIn>
+                <Container className="col-lg-6 col-lg-offset-2" style={{marginBottom: "5%"}}>
+                    <TwittBox username={this.state.username}
+                              userId={this.state.userId}
+                              profilePicture={this.state.profilePicture}
+                    />
+                    <TwittContainer userId={this.state.userId}
+                                    located="home"
+                                    isHome="home"
+                                    history={this.props.history}
+                                    profilePicture={this.state.profilePicture}
+                                    username={this.state.username}
+                                    tweetData={this.state.tweetData}
+                    />
+                </Container>
+            </FadeIn>
         );
 
         const profile = () => (
             <ProfilePage userIdProfile={this.props.location.state}
+                         tabClicked={this.props.location.state}
                          userLoginId={localStorage.getItem("myThings")}
                          username={this.state.username}
                          history={this.props.history}
@@ -109,6 +158,7 @@ class Home extends Component {
 
         const myProfile = () => (
             <MyProfilePage userId={localStorage.getItem("myThings")}
+                           tabClicked={this.props.location.state}
                            history={this.props.history}
                            profilePicture={this.state.profilePicture}
             />
@@ -118,6 +168,14 @@ class Home extends Component {
           <SearchPage userId={this.state.userId}
                       history={this.props.history}
                       searchData={this.props.location.state}
+          />
+        );
+
+
+        const inbox = () => (
+          <InboxPage userId={this.state.userId}
+                     history={this.props.history}
+                     onUserClicked = {this.props.location.state}
           />
         );
 
@@ -151,6 +209,9 @@ class Home extends Component {
                         <Route path={this.props.match.url + '/profile'} component={profile}/>
 
                         <Route path={this.props.match.url + '/search'} component={search}/>
+
+                        <Route path={this.props.match.url + '/inbox'} component={inbox}/>
+
 
                     </div>
                 </FadeIn>
