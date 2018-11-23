@@ -38,23 +38,6 @@
     width: 78%;
 }
 
-#closeButton{
-    margin-top: 12px;
-  float: right;
-  color: red;
-  opacity: 0.2;
-  cursor: pointer;
-}
-
-
-#closeButton:hover{
-
-  float: right;
-  color: red;
-  opacity: 1;
-  cursor: pointer;
-}
-
 #profileAvatar{
     margin: 1px;
     width: 100%;

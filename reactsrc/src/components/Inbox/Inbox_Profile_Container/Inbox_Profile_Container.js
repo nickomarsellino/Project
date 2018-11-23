@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import { List, Image } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
-import {Icon} from 'semantic-ui-react'
 import axios from 'axios';
 
 import './Inbox_Profile_Container.css';
@@ -18,8 +17,6 @@ class Inbox_Profile_Container extends Component {
             inboxPeopleList: [],
             chatDetailMessage:[]
         };
-
-        this.endChatMessage = this.endChatMessage.bind(this);
         this.getChatDetailMessage =
         this.getChatDetailMessage.bind(this)
     }
@@ -56,21 +53,6 @@ class Inbox_Profile_Container extends Component {
                 />
             );
         }
-    }
-
-    endChatMessage(roomMessagesId, userId, _id){
-        const pullChatData = {
-            roomMessagesId: roomMessagesId,
-        };
-        axios({
-            method: 'PUT',
-            responseType: 'json',
-            url: `http://localhost:3001/api/inbox/unSendMessage/` + _id,
-            data: pullChatData
-        })
-        this.setState({
-            chatDetailMessage : pullChatData
-        })
     }
 
     getChatDetailMessage(_id){
@@ -111,11 +93,6 @@ class Inbox_Profile_Container extends Component {
                       <List.Content id="contentItemContainer">
                           <List.Header id="profileNameBox"
                           onClick={()=>this.getChatDetailMessage(people._id)}>{people.userReceiverName}</List.Header>
-                          <Icon name='cancel'
-                                size='large'
-                                id="closeButton"
-                                onClick={() => this.endChatMessage(people.roomMessagesId, people.userId, people._id)}
-                          />
                           <br/>
                       </List.Content>
                       <hr/>

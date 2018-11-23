@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Image } from 'semantic-ui-react'
+import { Image, Icon } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
 import {
     Navbar,
@@ -17,14 +17,14 @@ import './Inbox_Chat_Container.css'
 import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Inbox_Chat_Container extends Component {
     constructor(props){
         super(props);
         this.state = {
             chatMessageDetail: [],
-            roomMessagesId: '',
+            roomMessagesId: this.props.chatMessageDetail.roomMessagesId,
             dropdownOpen: false,
         };
         this.toggle = this.toggle.bind(this);
@@ -75,6 +75,21 @@ class Inbox_Chat_Container extends Component {
             dropdownOpen: !this.state.dropdownOpen
         });
     }
+    // 
+    // endChatMessage(roomMessagesId, userId, _id){
+    //     const pullChatData = {
+    //         roomMessagesId: roomMessagesId,
+    //     };
+    //     axios({
+    //         method: 'PUT',
+    //         responseType: 'json',
+    //         url: `http://localhost:3001/api/inbox/unSendMessage/` + _id,
+    //         data: pullChatData
+    //     })
+    //     this.setState({
+    //         chatDetailMessage : pullChatData
+    //     })
+    // }
 
     render() {
         return (
@@ -86,15 +101,7 @@ class Inbox_Chat_Container extends Component {
                     <span>
                         <p>{this.props.chatMessageDetail.userReceiverName}</p>
                     </span>
-
-                    <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                        <DropdownToggle nav={true} caret={true} id="caretColor"/>
-                        <DropdownMenu id="navProfileContainer">
-                            <DropdownItem>
-                                   Clear Chat History
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
+                    <div className="ABCD"><span className="X">Clear chat history</span></div>
                 </div>
                 <div id="chatContainer">
                     {this.state.chatMessageDetail.map(chatData =>
