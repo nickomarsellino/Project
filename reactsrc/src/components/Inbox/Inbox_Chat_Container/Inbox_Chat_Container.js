@@ -1,20 +1,33 @@
 import React, {Component} from "react";
 import { Image } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
-
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarNav,
+    NavbarToggler,
+    Collapse,
+    NavItem,
+    DropdownItem,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu
+} from 'mdbreact';
 import './Inbox_Chat_Container.css'
 import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Inbox_Chat_Container extends Component {
     constructor(props){
         super(props);
         this.state = {
             chatMessageDetail: [],
-            roomMessagesId: this.props.chatMessageDetail.roomMessagesId
+            roomMessagesId: '',
+            dropdownOpen: false,
         };
+        this.toggle = this.toggle.bind(this);
     }
 
     // Pertama render iniiii
@@ -57,8 +70,13 @@ class Inbox_Chat_Container extends Component {
         }
     }
 
+    toggle() {
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
+    }
+
     render() {
-        console.log(this.props.chatMessageDetail);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
@@ -68,6 +86,15 @@ class Inbox_Chat_Container extends Component {
                     <span>
                         <p>{this.props.chatMessageDetail.userReceiverName}</p>
                     </span>
+
+                    <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <DropdownToggle nav={true} caret={true} id="caretColor"/>
+                        <DropdownMenu id="navProfileContainer">
+                            <DropdownItem>
+                                   Clear Chat History
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
                 </div>
                 <div id="chatContainer">
                     {this.state.chatMessageDetail.map(chatData =>
