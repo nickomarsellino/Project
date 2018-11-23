@@ -39,7 +39,7 @@
 }
 
 #notificationChat{
-    margin-top: 5px;
+   margin-top: 5px;
   float: right;
   opacity: 0.5;
   cursor: pointer;
@@ -55,6 +55,7 @@
 #notificationChatCounter{
     margin: -2px;
     font-family: 'myTextFontMedium', sans-serif;
+    color: black;
 }
 
 #profileAvatar{

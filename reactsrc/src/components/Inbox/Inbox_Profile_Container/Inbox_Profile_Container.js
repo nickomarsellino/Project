@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import { List, Image } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
-    import {Icon} from 'semantic-ui-react'
 import axios from 'axios';
 
 import './Inbox_Profile_Container.css';
@@ -20,6 +19,8 @@ class Inbox_Profile_Container extends Component {
             chatDetailMessage:[],
             messagesUnRead: ''
         };
+        this.getChatDetailMessage =
+        this.getChatDetailMessage.bind(this)
     }
 
     componentWillMount(){
@@ -35,12 +36,11 @@ class Inbox_Profile_Container extends Component {
             });
     }
 
-
     render() {
         return (
             <List id="listProfileContainer">
                 {this.state.inboxPeopleList.map(people =>
-                    <InboxProfileComponent
+                       <InboxProfileComponent
                         history={this.props.history}
                         people={people}
                         sendTheMessageDetail = {this.props.sendTheMessageDetail}
