@@ -38,6 +38,26 @@
     width: 78%;
 }
 
+#notificationChat{
+   margin-top: 5px;
+  float: right;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+
+#notificationChat:hover{
+  float: right;
+  opacity: 1;
+  cursor: pointer;
+}
+
+#notificationChatCounter{
+    margin: -2px;
+    font-family: 'myTextFontMedium', sans-serif;
+    color: black;
+}
+
 #profileAvatar{
     margin: 1px;
     width: 100%;

@@ -62,7 +62,6 @@ class Inbox_Page extends Component {
                 <FadeIn>
                     <div id="isEmptyChat">
                         <p>Let's Chat With Your Friend's</p>
-                        {/*<img src={emptyChat} alt=""/>*/}
                     </div>
                 </FadeIn>
 
