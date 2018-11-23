@@ -28,7 +28,7 @@ router.post('/message', (req, res, next) => {
     };
     Message.create(inboxInformationData).then(function (result) {
         return res.send({
-            _id : result._id,
+            _id: result._id,
             userId: result.userId,
             username: result.username,
             profilePicture: result.profilePicture,
@@ -48,38 +48,43 @@ router.put('/sendMessage/:id', (req, res) => {
     const userData = JSON.parse(plaintext);
 
     Message.updateMany({roomMessagesId: req.params.id},
-        {$push: {
-            messages:{
-              'userId' : userData.userId,
-              'roomMessagesId' : req.body.roomMessagesId,
-              'messageText' : req.body.messageText,
-              'messageTimestamp': Date.now()
+        {
+            $push: {
+                messages: {
+                    'userId': userData.userId,
+                    'roomMessagesId': req.body.roomMessagesId,
+                    'messageText': req.body.messageText,
+                    'messageTimestamp': Date.now(),
+                    'messageIsRead': false
+                }
             }
-        }}, {new: true}, function (err, user) {
-        if (err) {
-          return res.send(err)
-        };
-        res.json({
-          userId: req.body.userId,
-          messageText: req.body.messageText,
-          roomMessagesId: req.body.roomMessagesId,
-          messageTimestamp: new Date()
+        }, {new: true}, function (err, user) {
+            if (err) {
+                return res.send(err)
+            }
+            ;
+            res.json({
+                userId: req.body.userId,
+                messageText: req.body.messageText,
+                roomMessagesId: req.body.roomMessagesId,
+                messageTimestamp: new Date()
+            });
         });
-    });
 });
 
-router.put('/unSendMessage/:id', (req,res) => {
-    Message.findByIdAndUpdate( {_id: req.params.id},
-      {$pull: {messages:  { roomMessagesId: req.body.roomMessagesId} }}, {new: true}, function (err, user) {
-      if (err) {
-        return res.send(err)
-      };
-      res.json(user);
-    });
+router.put('/unSendMessage/:id', (req, res) => {
+    Message.findByIdAndUpdate({_id: req.params.id},
+        {$pull: {messages: {roomMessagesId: req.body.roomMessagesId}}}, {new: true}, function (err, user) {
+            if (err) {
+                return res.send(err)
+            }
+            ;
+            res.json(user);
+        });
 })
 
 router.delete('/endChatMessage/:id', (req, res, next) => {
-    Message.findByIdAndRemove({_id: req.params.id }).then((reuslt) => {
+    Message.findByIdAndRemove({_id: req.params.id}).then((reuslt) => {
         res.send(result);
     })
 });

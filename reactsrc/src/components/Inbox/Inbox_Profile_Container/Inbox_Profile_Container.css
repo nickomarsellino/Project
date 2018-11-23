@@ -38,21 +38,23 @@
     width: 78%;
 }
 
-#closeButton{
-    margin-top: 12px;
+#notificationChat{
+    margin-top: 5px;
   float: right;
-  color: red;
-  opacity: 0.2;
+  opacity: 0.5;
   cursor: pointer;
 }
 
 
-#closeButton:hover{
-
+#notificationChat:hover{
   float: right;
-  color: red;
   opacity: 1;
   cursor: pointer;
+}
+
+#notificationChatCounter{
+    margin: -2px;
+    font-family: 'myTextFontMedium', sans-serif;
 }
 
 #profileAvatar{
