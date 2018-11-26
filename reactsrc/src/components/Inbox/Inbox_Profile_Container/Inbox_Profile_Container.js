@@ -19,8 +19,6 @@ class Inbox_Profile_Container extends Component {
             chatDetailMessage:[],
             messagesUnRead: ''
         };
-        this.getChatDetailMessage =
-        this.getChatDetailMessage.bind(this)
     }
 
     componentWillMount(){

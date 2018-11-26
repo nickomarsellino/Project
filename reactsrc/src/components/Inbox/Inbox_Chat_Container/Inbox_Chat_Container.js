@@ -16,6 +16,7 @@ import {
 import './Inbox_Chat_Container.css'
 import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
 import openSocket from 'socket.io-client';
+import axios from 'axios';
 
 const socket = openSocket('http://10.183.28.153:8000');
 
@@ -24,8 +25,7 @@ class Inbox_Chat_Container extends Component {
         super(props);
         this.state = {
             chatMessageDetail: [],
-            roomMessagesId: this.props.chatMessageDetail.roomMessagesId,
-            dropdownOpen: false,
+            roomMessagesId: this.props.chatMessageDetail.roomMessagesId
         };
         this.toggle = this.toggle.bind(this);
     }
@@ -75,23 +75,32 @@ class Inbox_Chat_Container extends Component {
             dropdownOpen: !this.state.dropdownOpen
         });
     }
-    // 
-    // endChatMessage(roomMessagesId, userId, _id){
-    //     const pullChatData = {
-    //         roomMessagesId: roomMessagesId,
-    //     };
-    //     axios({
-    //         method: 'PUT',
-    //         responseType: 'json',
-    //         url: `http://localhost:3001/api/inbox/unSendMessage/` + _id,
-    //         data: pullChatData
-    //     })
-    //     this.setState({
-    //         chatDetailMessage : pullChatData
-    //     })
-    // }
+
+    clearChatHistoy(roomMessagesId){
+        const pullChatData = {
+            roomMessagesId: roomMessagesId,
+        };
+        axios({
+            method: 'PUT',
+            responseType: 'json',
+            url: `http://localhost:3001/api/inbox/unSendMessage/` + this.props.chatMessageDetail._id,
+            data: pullChatData
+        })
+        this.setState({
+            chatDetailMessage : pullChatData
+        })
+        this.props.history.replace({
+            pathname: '/home/inbox',
+            state: {
+                chatDetailMessage: this.props.chatMessageDetail
+            }
+        })
+    }
 
     render() {
+        console.log(this.state.roomMessagesId);
+        console.log(this.props.chatMessageDetail.roomMessagesId);
+        console.log(this.props.chatMessageDetail._id);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
@@ -101,7 +110,8 @@ class Inbox_Chat_Container extends Component {
                     <span>
                         <p>{this.props.chatMessageDetail.userReceiverName}</p>
                     </span>
-                    <div className="ABCD"><span className="X">Clear chat history</span></div>
+                    <div onClick={ () => this.clearChatHistoy(this.props.chatMessageDetail.roomMessagesId)}
+                    className="clearHistory"><span className="X">Clear chat history</span></div>
                 </div>
                 <div id="chatContainer">
                     {this.state.chatMessageDetail.map(chatData =>

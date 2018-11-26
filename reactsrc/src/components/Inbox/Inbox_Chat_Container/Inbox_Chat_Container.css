@@ -2,7 +2,7 @@
     height: 100%;
 }
 
-.ABCD {
+.clearHistory {
   margin-top: 9px;
   border: none;
   padding: 0;
@@ -13,13 +13,13 @@
   width: 150px;
 }
 
-.ABCD:hover span {
+.clearHistory:hover span {
   display:none;
   cursor: pointer;
   width: 70px;
 }
 
-.ABCD:hover:before {
+.clearHistory:hover:before {
   content:"Are you sure?";
   cursor: pointer;
   color: red;

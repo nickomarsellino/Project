@@ -43,6 +43,7 @@ class Inbox_Page extends Component {
                     <div id="inboxMessageContainer">
                         <div id="inboxChatContainer">
                             <InboxChatContainer
+                                history={this.props.history}
                                 chatMessageDetail={this.state.chatMessageDetail}
                             />
                         </div>

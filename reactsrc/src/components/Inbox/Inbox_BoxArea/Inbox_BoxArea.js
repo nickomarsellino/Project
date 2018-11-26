@@ -47,6 +47,10 @@ class Inbox_BoxArea extends Component {
         })
     }
 
+    handleRef = (c) => {
+        this.inputRef = c
+    }
+
     render() {
         console.log( this.props.chatMessageDetail.roomMessagesId);
         return (
@@ -60,6 +64,7 @@ class Inbox_BoxArea extends Component {
                     control={TextArea}
                     placeholder={"Say hi to " + this.props.chatMessageDetail.userReceiverName}
                     style={{maxHeight: "60px", minHeight: "50px", width: "836px"}}
+                    ref={this.handleRef}
                 />
 
                 <Button color="default"
