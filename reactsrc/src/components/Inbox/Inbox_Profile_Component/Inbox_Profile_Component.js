@@ -64,29 +64,33 @@ class Inbox_Profile_Component extends Component {
         })
     }
 
-    getChatDetailMessage(_id) {
-        axios.get('/api/inbox/chatDetailMessage/' + _id)
+    getChatDetailMessage() {
+
+        console.log(this.props.people)
+
+        this.setState({
+            chatDetailMessage: this.props.people
+        });
+        this.props.history.replace({
+            pathname: '/home/inbox',
+            state: {
+                chatDetailMessage: this.props.people
+            }
+        })
+
+        // Fungsi kirim ke parent inbox page
+        this.props.sendTheMessageDetail(this.props.people)
+
+        this.props.history.replace({
+            pathname: '/home/inbox',
+            state: {
+                chatDetailMessage: this.props.people
+            }
+        })
+
+        axios.get('/api/inbox/changeUnReadMessage/' + this.props.people._id)
             .then(res => {
-                this.setState({
-                    chatDetailMessage: res.data
-                });
-                this.props.history.replace({
-                    pathname: '/home/inbox',
-                    state: {
-                        chatDetailMessage: res.data
-                    }
-                })
 
-                // Fungsi kirim ke parent inbox page
-                this.props.sendTheMessageDetail(res.data)
-
-
-                this.props.history.replace({
-                    pathname: '/home/inbox',
-                    state: {
-                        chatDetailMessage: res.data
-                    }
-                })
             });
     }
 
@@ -120,16 +124,17 @@ class Inbox_Profile_Component extends Component {
     }
 
     render() {
+
         return (
             <List.Item id="listItemProfile">
                 <Image avatar id="avatarItemContainer"
-                       onClick={() => this.getChatDetailMessage(this.props.people._id)}
+                       onClick={() => this.getChatDetailMessage()}
                 >
                     {this.setProfileImage(this.props.people.profileReceiverPicture)}
                 </Image>
                 <List.Content id="contentItemContainer">
                     <List.Header id="profileNameBox"
-                                 onClick={() => this.getChatDetailMessage(this.props.people._id)}>{this.props.people.userReceiverName}</List.Header>
+                                 onClick={() => this.getChatDetailMessage()}>{this.props.people.userReceiverName}</List.Header>
                     {this.showUnReadMessages()}
                     <br/>
                 </List.Content>
