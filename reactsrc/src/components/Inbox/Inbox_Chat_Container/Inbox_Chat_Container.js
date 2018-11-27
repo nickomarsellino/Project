@@ -18,16 +18,17 @@ import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
 import openSocket from 'socket.io-client';
 import axios from 'axios';
 
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://localhost:8000');
 
 class Inbox_Chat_Container extends Component {
     constructor(props){
         super(props);
         this.state = {
             chatMessageDetail: [],
-            roomMessagesId: this.props.chatMessageDetail.roomMessagesId
+            roomMessagesId: ''
         };
         this.toggle = this.toggle.bind(this);
+        this.clearChatHistoy = this.clearChatHistoy.bind(this);
     }
 
     // Pertama render iniiii
@@ -36,7 +37,7 @@ class Inbox_Chat_Container extends Component {
             chatMessageDetail: this.props.chatMessageDetail.messages
         })
 
-        socket.on(this.state.roomMessagesId + 'getMessage', bebasnamavariabel => {
+        socket.on(this.props.chatMessageDetail.roomMessagesId + 'getMessage', bebasnamavariabel => {
             const allInboxMessage = this.state.chatMessageDetail;
             const newMessage = [bebasnamavariabel];
             this.setState({
@@ -92,7 +93,7 @@ class Inbox_Chat_Container extends Component {
         this.props.history.replace({
             pathname: '/home/inbox',
             state: {
-                chatDetailMessage: this.props.chatMessageDetail
+                chatMessageDetail: this.props.chatMessageDetail.messages
             }
         })
     }
@@ -100,7 +101,6 @@ class Inbox_Chat_Container extends Component {
     render() {
         console.log(this.state.roomMessagesId);
         console.log(this.props.chatMessageDetail.roomMessagesId);
-        console.log(this.props.chatMessageDetail._id);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
