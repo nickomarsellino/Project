@@ -97,13 +97,16 @@ router.post('/signin', (req, res) => {
         userSession.password = user.password;
         // One day after login
         userSession.expiredTime = Date.now() + 1 * 24 * 60 * 60 * 1000;
+
         //set 1 day
         //set 30 second + 30 * 1000;
+
         userSession.save((err, doc) => {
             if (err) {
                 res.status(403).json({success: false, msg: 'Server Eror'});
                 return;
             }
+
             const auth = JSON.stringify({
                 tokenId: doc._id,
                 userId: doc.userId,

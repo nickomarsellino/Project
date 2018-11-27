@@ -3,14 +3,6 @@
   border-radius: 100px;
 }
 
-.header{
-    font-family: 'myTextFontMedium', sans-serif;
-}
-
-.description{
-    font-family: 'myTextFont', sans-serif;
-}
-
 .profile{
   margin: 3%;
     margin-right: 8%;
@@ -70,101 +62,4 @@
       width: 100%;
     }
  }
-
-
-#followButtonProfile{
-    font-family: 'myTextFontMedium', sans-serif;
-    display: inline-block;
-    border-style: solid;
-    border-width: 1.2px;
-    border-color: rgb(77, 182, 172);
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: rgb(77, 182, 172);
-}
-
-#followButtonProfile:hover{
-    display: inline-block;
-    background: rgba(77, 182, 172, 0.11);
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    border-radius: 5px;
-    opacity: 1;
-}
-
-
-
-#followedButtonProfile{
-    font-family: 'myTextFontMedium', sans-serif;
-    display: inline-block;
-    border-style: solid;
-    border-width: 1.2px;
-    background: rgb(77, 182, 172);
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: rgb(242, 242, 242);
-}
-
-#followedButtonProfile:hover{
-    display: inline-block;
-    background: rgb(204, 118, 122);
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    border-radius: 5px;
-    opacity: 1;
-}
-
-
-#inboxButtonContainer{
-    font-family: 'myTextFontMedium', sans-serif;
-    display: inline-block;
-    background: rgb(59, 89, 152);
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    opacity: 1;
-    color: rgb(242, 242, 242);
-}
-
-#inboxButtonContainer:hover{
-    display: inline-block;
-    cursor: pointer;
-    background: rgb(67, 104, 175);
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    opacity: 1;
-    color: rgb(242, 242, 242);
-}
-
-#iconInbox{
-    color: rgb(242, 242, 242);
-}
 
