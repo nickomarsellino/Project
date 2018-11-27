@@ -1,12 +1,11 @@
 .text-warp{
-    font-family: 'myTextFont', sans-serif;
     word-wrap: break-word;
 }
 
-
-.contentModalTweet{
-    font-family: 'myTextFont', sans-serif;
+.text-Timestamp{
     font-style: italic;
+    size: 18px;
+    opacity: 0.9;
 }
 
 #nameBox{
@@ -15,7 +14,7 @@
 }
 
 .blueColor{
-  color: #0064ae;
+  color: #008ef7;
 }
 
 .blackColor{

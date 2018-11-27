@@ -1,26 +1,7 @@
-@font-face {
-
-  font-family: 'myHeaderFont' ;
-  src: url('Shink Font by Rifki (7NTypes).otf');
-
-}
-
-#logoText{
-  margin: -5px;
-  font-size: 30px;
-  font-family: 'myHeaderFont', sans-serif;
-}
-
 .navProfile {
   display: inline-block;
-  font-size: 15px;
-  color: #2b2b2b;
-  font-family: 'myTextFont', sans-serif;
-}
-
-#navProfileContainer{
-  font-family: 'myTextFontMedium', sans-serif;
-  margin-top: 8px;
+  color: white;
+  font-family: "Roboto", sans-serif;
 }
 
 #ProfilePicture{
@@ -33,18 +14,12 @@
   height: 2.5em;
 }
 
-#profileContainer{
-  padding-top: 7px;
-}
-
-#caretColor{
-  color: #6f6f6f;
-}
 
 #ProfileName:hover {
   color: black;
+  font-weight: bold;
   font-size: 15px;
-  text-shadow: 0.7px 0.7px rgba(60, 60, 60, 0.75);
+  text-shadow: 1px 1px rgba(0, 255, 157, 0.75);
 }
 
 .App {
@@ -60,11 +35,7 @@
   background-color: #222;
   height: 150px;
   padding: 20px;
-  color: #2b2b2b;
-}
-
-.teal.lighten-2 {
-    background-color: grey;
+  color: white;
 }
 
 .App-title {
@@ -85,17 +56,17 @@
 }
 
 .buttonContainer{
-  margin-top: 13px;
+  padding: 7px;
 }
 
 #cancelIcon{
-  color: #6f6f6f;
+  color: white;
   opacity: 0.9;
 
 }
 
 #cancelIcon:hover{
-  color: #2b2b2b;
+  color: #ebebeb;
 }
 
 #cancelIcon:active {
@@ -104,13 +75,13 @@
 }
 
 #searchIcon{
-  color: #6f6f6f;
+  color: white;
   opacity: 0.9;
 
 }
 
 #searchIcon:hover{
-  color: #2b2b2b;
+  color: #ebebeb;
 }
 
 #searchIcon:active {
@@ -119,37 +90,3 @@
 }
 
 
-#notificationIcon{
-  color: #6f6f6f;
-  opacity: 0.9;
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-#notificationIcon:hover{
-  color: #2b2b2b;
-  cursor: pointer;
-}
-
-#notificationIcon:active {
-  position: relative;
-  top: 1px;
-}
-
-#namaFitur{
-  color: #6E6E6E;
-  font-family: 'myHeaderFont', sans-serif;
-  text-align: center;
-  width: 1090px;
-  font-size: 35px;
-  margin-bottom: 0;
-}
-
-#namaFiturDiHome{
-  margin-left: 475px;
-  color: #6E6E6E;
-  font-family: 'myHeaderFont', sans-serif;
-  text-align: center;
-  font-size: 35px;
-  margin-bottom: 0;
-}
