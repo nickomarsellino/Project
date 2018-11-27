@@ -38,7 +38,6 @@ class SignIn extends Component {
             email: this.state.email,
             password: this.state.password
         };
-
         axios({
             method: 'post',
             responseType: 'json',
@@ -78,6 +77,8 @@ class SignIn extends Component {
     }
 
     render() {
+        console.log(this.state.email);
+        console.log(this.state.password);
         return (
             <div>
                 <div id="navbar">

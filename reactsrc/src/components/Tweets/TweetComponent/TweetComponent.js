@@ -13,7 +13,7 @@ import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://localhost:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 const Timestamp = require('react-timestamp');
 

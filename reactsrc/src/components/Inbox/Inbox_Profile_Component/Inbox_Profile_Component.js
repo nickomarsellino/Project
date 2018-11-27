@@ -7,7 +7,7 @@ import axios from 'axios';
 import './Inbox_Profile_Component.css';
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Inbox_Profile_Component extends Component {
     constructor(props) {
