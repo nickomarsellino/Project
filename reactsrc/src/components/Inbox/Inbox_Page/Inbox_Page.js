@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import FadeIn from 'react-fade-in';
-import emptyChat from '../../../emptyChat.png'
 import {Card, CardBody} from "mdbreact"
 import {Icon} from 'semantic-ui-react'
-import ReactDOM from 'react-dom';
 import InboxProfile from '../Inbox_Profile_Container/Inbox_Profile_Container.js'
 import InboxBoxArea from '../Inbox_BoxArea/Inbox_BoxArea.js'
 import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container.js'
@@ -21,6 +19,15 @@ class Inbox_Page extends Component {
         this.sendTheMessageDetail = this.sendTheMessageDetail.bind(this);
     }
 
+    componentWillMount(){
+        if(this.props.onUserClicked){
+            this.setState({
+                chatMessageDetail: this.props.onUserClicked.chatDetailMessage,
+                isChatOpened: true
+            });
+        }
+    }
+
     // Function untuk terima data dari anaknya si inbox_profile_container
     sendTheMessageDetail(messagesData) {
         this.setState({
@@ -36,6 +43,7 @@ class Inbox_Page extends Component {
                     <div id="inboxMessageContainer">
                         <div id="inboxChatContainer">
                             <InboxChatContainer
+                                history={this.props.history}
                                 chatMessageDetail={this.state.chatMessageDetail}
                             />
                         </div>
@@ -55,7 +63,6 @@ class Inbox_Page extends Component {
                 <FadeIn>
                     <div id="isEmptyChat">
                         <p>Let's Chat With Your Friend's</p>
-                        {/*<img src={emptyChat} alt=""/>*/}
                     </div>
                 </FadeIn>
 
@@ -64,7 +71,7 @@ class Inbox_Page extends Component {
     }
 
     render() {
-        console.log(this.state.chatMessageDetail);
+
         return (
             <FadeIn id="InboxPage">
                 <Card className="inboxCard">

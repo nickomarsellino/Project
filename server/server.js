@@ -59,13 +59,13 @@ io.on('connection', (socket) => {
   console.log('a new user connected, with Id:', socket.id);
   // Memastikan emit tsb telah terkirim dari client (front end)
   socket.on('sendTheData', (data) => {
-    console.log("GETDATA CUY ",data);
     socket.broadcast.emit('getData', data)
     socket.emit('getData', data);
     // io.sockets.emit('bebas1', data);
   });
 
   socket.on('sendLike', (data) => {
+    console.log("data like", data);
     socket.broadcast.emit(data.tweetId+'like', data)
     socket.emit(data.tweetId+'like', data);
   });
@@ -76,6 +76,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sendComment', (data) => {
+    console.log(data);
     socket.broadcast.emit('getComment', data)
       socket.broadcast.emit(data.tweetId+"getCommentLength", data)
     socket.emit('getComment', data);
@@ -88,6 +89,20 @@ io.on('connection', (socket) => {
     socket.emit("deleteComment", data);
       socket.emit(data.tweetId+"deleteCommentLength", data);
   });
+
+  socket.on('sendMessage', (data) => {
+    console.log("DATAAAAA ",data);
+    socket.broadcast.emit(data.roomMessagesId+'getMessage', data)
+    socket.emit(data.roomMessagesId+'getMessage', data);
+  });
+
+  // socket.on('openSocketMessage', (data) => {
+  //   console.log("OpenSOCKET:",data);
+  // });
+  //
+  // socket.on('closeSocketMessage', (data) => {
+  //   console.log("CloseSOCKET: ",data);
+  // });
 
 });
 

@@ -1,31 +1,55 @@
 import React, {Component} from "react";
-import { Image } from 'semantic-ui-react'
+import { Image, Icon } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
-
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarNav,
+    NavbarToggler,
+    Collapse,
+    NavItem,
+    DropdownItem,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu
+} from 'mdbreact';
 import './Inbox_Chat_Container.css'
 import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
-import LoadingGif from '../../../LoadingGif.gif';
+import openSocket from 'socket.io-client';
+import axios from 'axios';
+
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Inbox_Chat_Container extends Component {
     constructor(props){
         super(props);
         this.state = {
-            chatMessageDetail: []
+            chatMessageDetail: [],
+            roomMessagesId: this.props.chatMessageDetail.roomMessagesId
         };
+        this.toggle = this.toggle.bind(this);
     }
 
+    // Pertama render iniiii
     componentWillMount() {
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })
+
+        socket.on(this.state.roomMessagesId + 'getMessage', bebasnamavariabel => {
+            const allInboxMessage = this.state.chatMessageDetail;
+            const newMessage = [bebasnamavariabel];
+            this.setState({
+                chatMessageDetail: (allInboxMessage.concat(newMessage))
+            });
+        });
     }
 
     componentWillReceiveProps(props) {
         this.setState({
             chatMessageDetail: props.chatMessageDetail.messages
-        })
+        });
     }
-
 
     setProfileImage(profilePicture) {
         let imageUrl = profilePicture;
@@ -46,8 +70,37 @@ class Inbox_Chat_Container extends Component {
         }
     }
 
+    toggle() {
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
+    }
+
+    clearChatHistoy(roomMessagesId){
+        const pullChatData = {
+            roomMessagesId: roomMessagesId,
+        };
+        axios({
+            method: 'PUT',
+            responseType: 'json',
+            url: `http://localhost:3001/api/inbox/unSendMessage/` + this.props.chatMessageDetail._id,
+            data: pullChatData
+        })
+        this.setState({
+            chatDetailMessage : pullChatData
+        })
+        this.props.history.replace({
+            pathname: '/home/inbox',
+            state: {
+                chatDetailMessage: this.props.chatMessageDetail
+            }
+        })
+    }
+
     render() {
-        console.log(this.state.chatMessageDetail);
+        console.log(this.state.roomMessagesId);
+        console.log(this.props.chatMessageDetail.roomMessagesId);
+        console.log(this.props.chatMessageDetail._id);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
@@ -57,6 +110,8 @@ class Inbox_Chat_Container extends Component {
                     <span>
                         <p>{this.props.chatMessageDetail.userReceiverName}</p>
                     </span>
+                    <div onClick={ () => this.clearChatHistoy(this.props.chatMessageDetail.roomMessagesId)}
+                    className="clearHistory"><span className="X">Clear chat history</span></div>
                 </div>
                 <div id="chatContainer">
                     {this.state.chatMessageDetail.map(chatData =>

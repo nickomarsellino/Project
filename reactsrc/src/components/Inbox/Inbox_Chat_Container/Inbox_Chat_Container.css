@@ -2,6 +2,61 @@
     height: 100%;
 }
 
+.clearHistory {
+  margin-top: 9px;
+  border: none;
+  padding: 0;
+  background: none;
+  margin-left: 60%;
+  font-size: 16px;
+  color: red;
+  width: 150px;
+}
+
+.clearHistory:hover span {
+  display:none;
+  cursor: pointer;
+  width: 70px;
+}
+
+.clearHistory:hover:before {
+  content:"Are you sure?";
+  cursor: pointer;
+  color: red;
+  width: 70px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+
+/* .mydiv{
+    margin-left: 75%;
+    margin-top: 9px;
+    font-size: 24px;
+    color: red;
+    cursor: pointer;
+}
+
+.mydiv:hover{
+  transition: all 500ms ease-in-out;
+}
+
+.mydiv:hover .title span{
+  display: none;
+}
+
+.my_div:hover .title:after {
+  content: "Clear chat history?";
+} */
+
+/* .mydiv:hover #closeButton{
+    display: none;
+}
+
+.mydiv:hover #closeButton:after{
+    content: "Clear chat history?";
+} */
+
 #avatarProfileUserContainer{
     font-family: 'myTextFontMedium', sans-serif;
     height: 50px;

@@ -28,7 +28,7 @@ router.post('/message', (req, res, next) => {
     };
     Message.create(inboxInformationData).then(function (result) {
         return res.send({
-            _id : result._id,
+            _id: result._id,
             userId: result.userId,
             username: result.username,
             profilePicture: result.profilePicture,
@@ -48,41 +48,43 @@ router.put('/sendMessage/:id', (req, res) => {
     const userData = JSON.parse(plaintext);
 
     Message.updateMany({roomMessagesId: req.params.id},
-        {$push: {
-            messages:{
-              'userId' : userData.userId,
-              'messageText' : req.body.messageText,
-              'messageTimestamp': Date.now()
+        {
+            $push: {
+                messages: {
+                    'userId': userData.userId,
+                    'roomMessagesId': req.body.roomMessagesId,
+                    'messageText': req.body.messageText,
+                    'messageTimestamp': Date.now(),
+                    'messageIsRead': false
+                }
             }
-        }}, {new: true}, function (err, user) {
-        if (err) {
-          return res.send(err)
-        };
-        res.json({
-          userId: req.body.userId,
-          messageText: req.body.messageText,
-          messageTimestamp: new Date()
+        }, {new: true}, function (err, user) {
+            if (err) {
+                return res.send(err)
+            }
+            ;
+            res.json({
+                userId: req.body.userId,
+                messageText: req.body.messageText,
+                roomMessagesId: req.body.roomMessagesId,
+                messageTimestamp: new Date()
+            });
         });
-    });
 });
 
-router.put('/unSendMessage/:id', (req,res) => {
-    // const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-    // const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
-    // const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    // const userData = JSON.parse(plaintext);
-
-    Message.findByIdAndUpdate( {roomMessagesId: req.params.id},
-      {$pull: {messages:  { _id: req.body._id, userId: req.body.userId} }}, {new: true}, function (err, user) {
-      if (err) {
-        return res.send(err)
-      };
-      res.json(user);
-    });
+router.put('/unSendMessage/:id', (req, res) => {
+    Message.findByIdAndUpdate({_id: req.params.id},
+        {$pull: {messages: {roomMessagesId: req.body.roomMessagesId}}}, {new: true}, function (err, user) {
+            if (err) {
+                return res.send(err)
+            }
+            ;
+            res.json(user);
+        });
 })
 
 router.delete('/endChatMessage/:id', (req, res, next) => {
-    Message.findByIdAndRemove({_id: req.params.id }).then((reuslt) => {
+    Message.findByIdAndRemove({_id: req.params.id}).then((reuslt) => {
         res.send(result);
     })
 });
@@ -93,6 +95,37 @@ router.get('/chatDetailMessage/:id', (req, res, next) => {
         res.send(result);
     })
 })
+
+router.get('/changeUnReadMessage/:id', (req, res, next) => {
+    Message.findById({_id: req.params.id}).then((result) => {
+        for(let i=0; i<result.messages.length; i++){
+
+            let messages =[];
+
+            if(String(result.userReceiverId) === String(result.messages[i].userId)){
+                console.log("SAMA BANG")
+
+                messages = result.messages[i]
+
+                console.log("INI ID RICIVER: ",result.userReceiverId)
+                console.log("INI ID PENGIRIM CHATNYA: ",messages.userId);
+                console.log("INI PENGIRIM CHATNYA: ",messages.messageIsRead);
+
+                let query = 'messages.'+[i]+'.messageIsRead'
+                let condition = 'messages.'+[i]+'.userId'
+
+                Message.updateMany({_id: req.params.id, [condition]: result.userReceiverId}, {
+                    $set: {
+                        [query]: true
+                    }
+                }).exec();
+            }
+
+
+        }
+    })
+})
+
 
 // Get detail namanya kayak lagi chat sama siapa
 router.get('/listContactInbox', (req, res, next) => {
