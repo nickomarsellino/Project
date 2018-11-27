@@ -96,6 +96,14 @@ io.on('connection', (socket) => {
     socket.emit(data.roomMessagesId+'getMessage', data);
   });
 
+  // socket.on('openSocketMessage', (data) => {
+  //   console.log("OpenSOCKET:",data);
+  // });
+  //
+  // socket.on('closeSocketMessage', (data) => {
+  //   console.log("CloseSOCKET: ",data);
+  // });
+
 });
 
 io.listen(8000);
