@@ -66,8 +66,6 @@ class Inbox_Profile_Component extends Component {
 
     getChatDetailMessage() {
 
-        console.log(this.props.people)
-
         this.setState({
             chatDetailMessage: this.props.people
         });
@@ -95,14 +93,18 @@ class Inbox_Profile_Component extends Component {
     }
 
     getChatDetailUnReadMessage(_id) {
-
         axios.get('/api/inbox/chatDetailMessage/' + _id)
             .then(res => {
                 for(let i=0; i<res.data.messages.length; i++){
                     if(res.data.messages[i].userId !== localStorage.getItem("myThings")){
-                        this.setState({
-                            messagesUnRead: this.state.messagesUnRead + 1
-                        });
+                        if(res.data.messages[i].messageIsRead === 'true'){
+
+                        }
+                        else{
+                            this.setState({
+                                messagesUnRead: this.state.messagesUnRead + 1
+                            });
+                        }
                     }
                 }
             });
