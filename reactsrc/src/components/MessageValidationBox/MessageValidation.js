@@ -7,7 +7,7 @@ class MessageValidation extends Component {
     render() {
         return (
             <Alert bsStyle={this.props.form}>
-                <strong><h3>{this.props.formStatus}</h3></strong>{this.props.formMessage}
+                <strong><h2>{this.props.formStatus}</h2></strong>{this.props.formMessage}
             </Alert>
         );
     }
