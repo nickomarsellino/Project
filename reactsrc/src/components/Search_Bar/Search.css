@@ -1,0 +1,58 @@
+.ui.input {
+    width: 150%;
+    font-size: 1em;
+}
+
+.ui.search .prompt {
+    border-radius: 10px;
+}
+
+.ui.search {
+    margin-right: 35%;
+}
+
+.ui.search>.results {
+    width: 150%;
+}
+
+.ui.search>.results .result .image {
+    float: left;
+}
+
+.ui.search>.results .result .image+.content {
+    margin: 6px 0px 2px;
+}
+
+.ui.search>.results .result .image {
+    float: right;
+    overflow: hidden;
+    background: 0 0;
+    width: 6em;
+    height: 5em;
+}
+
+.ui.search>.results .result .image {
+    vertical-align: middle;
+    float: left;
+}
+
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.ui.search>.results .result .image img {
+    display: block;
+    width: 70px;
+    height: 65px;
+    border-radius: 50%;
+}
+
+.ui.icon.input>input {
+    box-shadow: 0px 2px 13px -2px #d0d0d0;
+}
+
+#SearchBoxContainer{
+    margin-left: 20px;
+}

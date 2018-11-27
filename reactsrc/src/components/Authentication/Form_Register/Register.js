@@ -137,17 +137,16 @@ class Register extends Component {
                     <Container className="col-lg-4 col-lg-offset-2" id="Card_Container">
                         <Card>
                             <CardBody>
-                                <center><h1 id="headerRegister">Register</h1></center>
+                                <center><h1>Register</h1></center>
                                 <Row>
                                     <Col md="12">
-                                        <Form id="formRegister" onSubmit={this.handleSubmit}>
+                                        <Form onSubmit={this.handleSubmit}>
 
                                             <Form.Input required type="text" fluid label='Username'
                                                         placeholder='Username'
                                                         className={this.state.formStatus}
                                                         onChange={this.handleInputChange}
                                                         name="username"
-                                                        id="usernameInputForm"
                                             />
 
                                             <Form.Input required type="email" fluid label='Email'
@@ -155,7 +154,6 @@ class Register extends Component {
                                                         className={this.state.formStatus}
                                                         onChange={this.handleInputChange}
                                                         name="email"
-                                                        id="emailInputForm"
                                             />
 
                                             <Form.Group unstackable widths={2}>
@@ -180,12 +178,10 @@ class Register extends Component {
                                                         className={this.state.formStatus}
                                                         onChange={this.handleInputChange}
                                                         name="phone"
-                                                        id="phoneInputForm"
                                             />
 
 
                                             <Form.Checkbox label='I agree to the Terms and Conditions'
-                                                           id="agreementInputForm"
                                                            onClick={this.isClicked}
                                                            checked={this.state.isChecked}/>
 

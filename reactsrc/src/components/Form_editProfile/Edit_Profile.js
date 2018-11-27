@@ -112,6 +112,10 @@ class Edit_Profile extends Component {
                 let formData = new FormData();
                 formData.append('profilePicture', this.state.selectedFile);
 
+                // console.log("PAS CLICK SUBMIT: ", this.state.selectedFile);
+
+                // console.log("PAS CLICK SUBMIT: ", formData);
+
                 axios.put('/api/users/editProfilePicture/'+this.state.userId, formData)
                     .then((result) => {
 
@@ -157,9 +161,9 @@ class Edit_Profile extends Component {
       if(imageUrl){
           imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} style={{width: '200px', height: '200px',marginTop:'-0.1rem'}} className="float-right" />
       }
-      // else{
-      //   <h2 className="lead">No Image</h2>
-      // }
+      else{
+        <h2 className="lead">No Image</h2>
+      }
 
         return (
 
@@ -169,7 +173,7 @@ class Edit_Profile extends Component {
                         <Card className="Card_Container">
                             <CardBody>
                                 <center>
-                                    <h1 id="headerEditProfile">Profile</h1>
+                                    <h1>Profile</h1>
                                     <Image id="cover" src={profile} size='small' circular>
                                         {imagedisplay}
                                     </Image>
@@ -181,9 +185,8 @@ class Edit_Profile extends Component {
                                 <br/>
                                 <Row>
                                     <Col md="12">
-                                        <Form id="formEditProfile" onSubmit={this.handleSubmit} encType="multipart/form-data">
+                                        <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
                                             <Form.Input required type="text" fluid label='Username'
-                                                        id="usernameInputForm"
                                                         placeholder={this.state.username}
                                                         value={this.state.username}
                                                         className={this.state.formStatus}
@@ -192,7 +195,6 @@ class Edit_Profile extends Component {
                                             />
 
                                             <Form.Input required type="email" fluid label='Email'
-                                                        id="emailInputForm"
                                                         placeholder={this.state.email}
                                                         value={this.state.email}
                                                         className={this.state.formStatus}
@@ -202,7 +204,6 @@ class Edit_Profile extends Component {
                                             />
 
                                             <Form.Input required type="number" fluid label='Phone Number'
-                                                        id="phoneInputForm"
                                                         placeholder={this.state.phone}
                                                         value={this.state.phone}
                                                         className={this.state.formStatus}

@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
-const Message = require('../models/Message.js');
 const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
 const btoa = require('btoa');
@@ -54,44 +53,11 @@ router.put('/editProfile', (req, res) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    console.log(req.body);
-
     User.findByIdAndUpdate({_id: userData.userId}, req.body).then(() => {
         User.findOne({_id: userData.userId}).then((user) => {
             user.save()
                 .then((result) => {
-                    //Update data di Tweet
                     Tweet.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
-
-                    //Update Data di Message
-                    Message.updateMany({userId: userData.userId}, {$set: {username: req.body.username}}).exec();
-                    Message.updateMany({userReceiverId: userData.userId}, {$set: {userReceiverName: req.body.username}}).exec();
-
-
-                    //Update Data di Comments
-                    Tweet.find({'comments.userId': userData.userId}).then((result) => {
-
-                        for (var i = 0; i < result.length; ++i) {
-                            for (var j = 0; j < result[i].comments.length; j++){
-                                let comments = []
-                                let userId = userData.userId
-
-                                comments = result[i].comments[j]
-
-                                if(comments.userId == userId){
-                                    let query = 'comments.'+[j]+'.username'
-                                    let condition = 'comments'+'.userId'
-
-                                    Tweet.updateMany({[condition]: userData.userId}, {
-                                        $set: {
-                                            [query]: req.body.username
-                                        }
-                                    }).exec();
-                                }
-                            }
-                        }
-                    });
-
                     res.json({
                         success: true,
                         msg: `Successfully edited..!`,
@@ -251,11 +217,6 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
         }
         }).exec();
 
-    //Update Data di Message
-    Message.updateMany({userId: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
-    Message.updateMany({userReceiverId: req.params.id}, {$set: {profileReceiverPicture: req.file.filename}}).exec();
-
-
 
     Tweet.find({'comments.userId': req.params.id}).then((result) => {
         for (var i = 0; i < result.length; ++i) {
@@ -382,74 +343,5 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
-router.put('/follow/:id', (req,res) => {
-
-    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
-    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    const userData = JSON.parse(plaintext);
-    console.log("USERDATA ",userData);
-    User.findByIdAndUpdate( {_id: req.params.id},
-        {$push:
-            {followers: userData.userId}
-        }, {new: true}, function (err, user) {
-        if (err) {
-            return res.send(err)
-        };
-        res.json(user);
-    });
-    User.updateMany({_id: userData.userId},
-        {$push: {following: req.params.id}}
-    ).exec();
-})
-
-router.put('/unfollow/:id', (req,res) => {
-
-    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
-    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    const userData = JSON.parse(plaintext);
-
-    User.findByIdAndUpdate( {_id: req.params.id},
-        {$pull:
-            {followers: userData.userId}
-        }, {new: true}, function (err, user) {
-        if (err) {
-            return res.send(err)
-        };
-        res.json(user);
-    });
-    User.updateMany({_id: userData.userId},
-        {$pull: {following: req.params.id}}
-    ).exec();
-})
-
-
-router.get('/followingData/:id', (req,res) => {
-    User.findById({ _id : req.params.id}).then((result) => {
-        res.json({result});
-    });
-})
-
-router.get('/followersData/:id', (req,res) => {
-    User.findById({ _id : req.params.id}).then((result) => {
-        res.json(result);
-    });
-})
-
-router.get('/logout', (req, res, next) => {
-    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
-    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
-    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    const userData = JSON.parse(plaintext);
-
-    UserSession.updateMany({userId: userData.userId}, {$set: {isLogout: true}}).exec();
-
-    res.clearCookie('tokenId');
-
-    res.send(
-        {success: true, message: 'Valid sign out'}
-    );
-});
 
 module.exports = router;

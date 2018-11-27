@@ -41,8 +41,9 @@ class Modal_Delete extends Component {
             <Container>
                 <Modal isOpen={this.props.isOpen} toggle={this.openModal} centered>
                     <ModalHeader className="modalHeader" toggle={this.openModal}>Delete Post ?</ModalHeader>
-                    <ModalBody id="contentModalDelete">
+                    <ModalBody>
                         Are you sure want to delete this tweet
+
                         <br/>
                         <div className={"buttonModal"}>
                             <a onClick={this.openModal} id="myButtonNo">No</a>{' '}
