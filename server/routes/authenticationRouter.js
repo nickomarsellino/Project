@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
-const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
 const btoa = require('btoa');
 const atob = require('atob');
@@ -115,7 +114,6 @@ router.post('/signin', (req, res) => {
             // Encrypt
             const ciphertext = CryptoJS.AES.encrypt(auth, secretKey);
             const token = btoa(ciphertext);
-
 
             res.setHeader('Set-Cookie', cookie.serialize('tokenId', token, {
                 expires: doc.expiredTime,

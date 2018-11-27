@@ -35,7 +35,6 @@ class Home extends Component {
             totalLengthData:'',
             lengthData:''
         };
-
         this.getTweetDatainHome = this.getTweetDatainHome.bind(this);
     }
 
