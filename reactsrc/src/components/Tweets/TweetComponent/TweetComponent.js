@@ -343,10 +343,9 @@ class TweetComponent extends Component {
     }
 
     render() {
-        console.log("Di TW COMPONEN: ", this.props.tweet);
         const tweet = this.props.tweet;
         return (
-            <div id="scrollableDiv" style={{overflow: "auto"}}>
+            <div id="scrollableDiv" style={{overflow: "auto"}} >
                 <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
                     <CardBody className="Tweet">
                         <Feed>

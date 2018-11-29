@@ -1,18 +1,6 @@
 import React, {Component} from "react";
-import { Image, Icon } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
-import {
-    Navbar,
-    NavbarBrand,
-    NavbarNav,
-    NavbarToggler,
-    Collapse,
-    NavItem,
-    DropdownItem,
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu
-} from 'mdbreact';
 import './Inbox_Chat_Container.css'
 import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
 import openSocket from 'socket.io-client';
