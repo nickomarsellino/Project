@@ -116,8 +116,6 @@ class Home extends Component {
 
     render() {
 
-        console.log(this.state.tweetData);
-
         const editProfile = () => (
             <Profile userId={this.state.userId}/>
         );
@@ -171,7 +169,6 @@ class Home extends Component {
           />
         );
 
-        console.log(this.props.location.state);
         const inbox = () => (
           <InboxPage userId={this.state.userId}
                      history={this.props.history}

@@ -34,6 +34,7 @@ class Modal_Twitt extends Component {
     }
 
     componentDidMount() {
+
         this.setState({
             userLoginId: localStorage.getItem("myThings"),
             tweet: this.props.tweet,
@@ -118,10 +119,6 @@ class Modal_Twitt extends Component {
                 data: likeData
             })
                 .then(res => {
-                    if(this.props.isHome){
-                        this.props.getTweetData();
-                        console.log("UNNNNNNNNN");
-                    }
                     this.setState({
                         checkLikes: false,
                     });
@@ -136,10 +133,6 @@ class Modal_Twitt extends Component {
                 data: likeData
             })
                 .then(res => {
-                    if(this.props.isHome){
-                        this.props.getTweetData();
-                        console.log("LIIIIII");
-                    }
                     this.setState({
                         checkLikes: true,
                     });
@@ -249,7 +242,11 @@ class Modal_Twitt extends Component {
                                         onClick={() => this.clickLikeButton(this.state.userLoginId, this.props.tweetId)}
                             >
                                 <Icon name='like'/>
-                                {this.props.tweet.likes.length} Likes
+                                {!this.state.likes ?
+                                    this.props.tweet.likes.length + " Likes"
+                                    :
+                                    this.state.likes.length + " Likes"
+                                }
                             </Icon.Group>
                             <Icon.Group className={this.state.commentColor} id="commentsIcon">
                                 <Icon name='comments'/>

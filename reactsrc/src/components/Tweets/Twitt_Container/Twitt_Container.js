@@ -132,7 +132,6 @@ class Twitt_Container extends Component {
     }
 
     render() {
-        console.log("Tweet CONTAINER: ", this.state.tweetData);
         if (this.state.isLoading) {
             return null
         }
@@ -152,6 +151,7 @@ class Twitt_Container extends Component {
                                         profilePicture={this.props.profilePicture}
                                         username={this.props.username}
                                         located="home"
+                                        key={tweet}
                                         isHome={this.props.isHome}
                                         isProfile={this.props.isProfile}
                                         getTweetData={this.getTweetData}
