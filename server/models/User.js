@@ -42,11 +42,13 @@ const UserSchema = new mongoose.Schema({
         type    : Date
     },
     following: [{
-        type: Schema.ObjectId,
-        ref: 'User'
+      type : Schema.ObjectId,
+      username : String,
+      ref: 'User'
     }],
     followers: [{
-      type: Schema.ObjectId,
+      type : Schema.ObjectId,
+      username : String,
       ref: 'User'
     }]
 });

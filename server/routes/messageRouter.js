@@ -3,7 +3,6 @@ const router = express.Router();
 const Message = require('../models/Message.js');
 const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
-const btoa = require('btoa');
 const atob = require('atob');
 const cookie = require('cookie');
 const secretKey = 'Lil-Uzi-Vert=XO-Tour-LIF3'
@@ -93,36 +92,6 @@ router.delete('/endChatMessage/:id', (req, res, next) => {
 router.get('/chatDetailMessage/:id', (req, res, next) => {
     Message.findById({_id: req.params.id}).then((result) => {
         res.send(result);
-    })
-})
-
-router.get('/changeUnReadMessage/:id', (req, res, next) => {
-    Message.findById({_id: req.params.id}).then((result) => {
-        for(let i=0; i<result.messages.length; i++){
-
-            let messages =[];
-
-            if(String(result.userReceiverId) === String(result.messages[i].userId)){
-                console.log("SAMA BANG")
-
-                messages = result.messages[i]
-
-                console.log("INI ID RICIVER: ",result.userReceiverId)
-                console.log("INI ID PENGIRIM CHATNYA: ",messages.userId);
-                console.log("INI PENGIRIM CHATNYA: ",messages.messageIsRead);
-
-                let query = 'messages.'+[i]+'.messageIsRead'
-                let condition = 'messages.'+[i]+'.userId'
-
-                Message.updateMany({_id: req.params.id, [condition]: result.userReceiverId}, {
-                    $set: {
-                        [query]: true
-                    }
-                }).exec();
-            }
-
-
-        }
     })
 })
 

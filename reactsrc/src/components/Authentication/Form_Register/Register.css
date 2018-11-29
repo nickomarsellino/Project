@@ -2,30 +2,6 @@
     margin-top: 2%;
 }
 
-#messageValidation{
-    width: 100%;
-}
-
 .Submit_Button {
     margin-top: 3%;
-}
-
-#headerRegister{
-    font-family: 'myTextFontMedium', sans-serif;
-}
-
-#formRegister{
-    font-family: 'myTextFont', sans-serif;
-}
-
-#agreementInputForm{
-    font-family: 'myTextFont', sans-serif;
-}
-
-#phoneInputForm{
-    font-family: 'myTextFont', sans-serif;
-}
-
-#usernameInputForm{
-    font-family: 'myTextFont', sans-serif;
 }

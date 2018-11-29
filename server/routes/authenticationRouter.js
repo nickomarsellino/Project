@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/User.js');
 const UserSession = require('../models/User_Session');
 const Tweet = require('../models/Tweet');
-const bcrypt = require('bcrypt');
 const CryptoJS = require("crypto-js");
 const btoa = require('btoa');
 const atob = require('atob');
@@ -97,13 +96,16 @@ router.post('/signin', (req, res) => {
         userSession.password = user.password;
         // One day after login
         userSession.expiredTime = Date.now() + 1 * 24 * 60 * 60 * 1000;
+
         //set 1 day
         //set 30 second + 30 * 1000;
+
         userSession.save((err, doc) => {
             if (err) {
                 res.status(403).json({success: false, msg: 'Server Eror'});
                 return;
             }
+
             const auth = JSON.stringify({
                 tokenId: doc._id,
                 userId: doc.userId,
@@ -115,7 +117,6 @@ router.post('/signin', (req, res) => {
             // Encrypt
             const ciphertext = CryptoJS.AES.encrypt(auth, secretKey);
             const token = btoa(ciphertext);
-
 
             res.setHeader('Set-Cookie', cookie.serialize('tokenId', token, {
                 expires: doc.expiredTime,

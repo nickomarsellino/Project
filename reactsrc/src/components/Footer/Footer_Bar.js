@@ -5,7 +5,7 @@ import './footer.css';
 class Footer_Bar extends React.Component {
     render() {
         return (
-            <Footer id="footer" className="page-footer font-small pt-4 mt-4">
+            <Footer color="stylish-color" className="page-footer font-small pt-4 mt-4">
                 <div className="text-center">
                     <ul className="list-unstyled list-inline">
                         <li className="list-inline-item"><a className="btn-floating btn-sm btn-fb mx-1"><i
@@ -20,7 +20,7 @@ class Footer_Bar extends React.Component {
                             className="fa fa-dribbble"> </i></a></li>
                     </ul>
                     <Container fluid>
-                        &copy; {(new Date().getFullYear())} Copyright: Lil Uzi Vert
+                        &copy; {(new Date().getFullYear())} Copyright: <a href=""> Lil Uzi Vert </a>
                     </Container>
                 </div>
             </Footer>

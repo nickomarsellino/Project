@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import {Card, CardBody} from "mdbreact"
 import {Feed, Icon, Image} from 'semantic-ui-react';
-import profile from '../../../daniel.jpg';
+import profile from '../../daniel.jpg';
 import axios from 'axios';
 import './TweetComponent.css';
 
 
 //load another component
-import ModalTwitt from '../../Modal/Modal_Detail_Twitt/Modal_Twitt';
-import ModalDelete from '../../Modal/Modal_Delete/Modal_Delete';
+import ModalTwitt from '../Modal/Modal_Detail_Twitt/Modal_Twitt';
+import ModalDelete from '../Modal/Modal_Delete/Modal_Delete';
 
 import openSocket from 'socket.io-client';
 
@@ -23,7 +23,6 @@ class TweetComponent extends Component {
         super();
         this.state = {
             likes: null,
-            comments: null,
             tweet: [],
             tweetCounter: '',
             userId: '',
@@ -32,7 +31,7 @@ class TweetComponent extends Component {
             modalDelete: false,
             checkLikes: false,
             black: "blackColor",
-            commentColor: ""
+            commentColor: "blackColor"
         };
         this.openModalDelete = this.openModalDelete.bind(this);
         this.setProfileImage = this.setProfileImage.bind(this);
@@ -44,15 +43,20 @@ class TweetComponent extends Component {
         this.onClickedImage = this.onClickedImage.bind(this);
     }
 
+    // componentWillReceiveProps(newProps){
+    //     if( newProps.tweet.comments.length !== this.props.tweet.comments.length ){
+    //         this.commentIkonColor();
+    //     }
+    // }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setState({
             tweet: this.props.tweet,
-            likes: this.props.tweet.likes,
-            comments: this.props.tweet.comments.length
+            likes: this.props.tweet.likes
         })
 
         this.getAllComment();
+
         this.likeIkonColor();
 
         // Untuk Like
@@ -62,15 +66,6 @@ class TweetComponent extends Component {
             });
             this.likeIkonColor();
         });
-
-        //Untuk Comments
-        socket.on(this.props.tweet._id + 'getCommentLength', bebas => {
-            const comments = this.state.comments + 1;
-            this.setState({
-                comments: comments
-            });
-        });
-
 
         //  Untuk UNLIKE
         socket.on(this.props.tweet._id + "unlike", bebas => {
@@ -87,13 +82,6 @@ class TweetComponent extends Component {
         });
 
 
-        //Untuk UnComments
-        socket.on(this.props.tweet._id + 'deleteCommentLength', bebas => {
-            const comments = this.state.comments - 1;
-            this.setState({
-                comments: comments
-            });
-        });
     }
 
     onClickedImage(userId, username) {
@@ -124,7 +112,7 @@ class TweetComponent extends Component {
         if (imageUrl) {
             return (
                 <img alt=" "
-                     src={require(`../../../uploads/${imageUrl}`)}
+                     src={require(`../../uploads/${imageUrl}`)}
                      id="profilePictureTweet"
                      onClick={() => this.onClickedImage(userId, username)}
                 />
@@ -175,7 +163,7 @@ class TweetComponent extends Component {
             if (tweetPicture) {
                 return (
                     <center>
-                        <Image src={require(`../../../../src/tweetImage/${tweetPicture}`)}
+                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
                                id="tweetImage"
                                onClick={() => this.openModalTweet(userId)}
                         />
@@ -188,7 +176,7 @@ class TweetComponent extends Component {
             if (tweetPicture) {
                 return (
                     <center>
-                        <Image src={require(`../../../../src/tweetImage/${tweetPicture}`)}
+                        <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
                                id="tweetImage"
                                onClick={() => this.openModalTweet(userId)}
                         />
@@ -199,7 +187,7 @@ class TweetComponent extends Component {
         else {
             if (tweetPicture) {
                 return (
-                    <Image src={require(`../../../../src/tweetImage/${tweetPicture}`)}
+                    <Image src={require(`../../../src/tweetImage/${tweetPicture}`)}
                            fluid
                            style={{marginBottom: "20px", cursor: "pointer"}}
                            onClick={() => this.openModalTweet(userId)}
@@ -267,7 +255,7 @@ class TweetComponent extends Component {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
         // Udabener ini
         if (checkValidID) {
-            console.log("1111");
+            console.log('UNLIKE');
             axios({
                 method: 'PUT',
                 responseType: 'json',
@@ -282,7 +270,7 @@ class TweetComponent extends Component {
                 })
         }
         else {
-            console.log("222222");
+            console.log('LIKE');
             axios({
                 method: 'PUT',
                 responseType: 'json',
@@ -290,14 +278,6 @@ class TweetComponent extends Component {
                 data: likeData
             })
                 .then(res => {
-                    // if(this.props.isHome){
-                    //     this.props.getTweetData();
-                    // }
-                    // else if(this.props.isProfile){
-                    //     if(this.props.tweetUserId){
-                    //         this.props.showUserProfileFromTweets(this.props.tweetUserId)
-                    //     }
-                    // }
                     this.setState({
                         checkLikes: true,
                     });
@@ -337,15 +317,28 @@ class TweetComponent extends Component {
 
     getAllComment(){
         axios.get('/api/tweet/getComment/' + this.props.tweet._id)
-            .then(res => {
-                this.setState({
-                    commentLength: res.data.comments.length
-                })
+        .then(res => {
+            this.setState({
+                commentLength: res.data.comments.length
             })
+        })
+    }
+
+    getTweetDataForCheckCommentsColor() {
+        axios.get('/api/tweet/tweets' + '?perPage=5&page=1')
+            .then(res => {
+                this.setState(
+                    {
+                        tweetData: res.data.docs,
+                        totalLengthData: res.data.total,
+                        lengthData: res.data.docs.length,
+                        isLoading: false
+                    })
+            });
+            this.commentIkonColor();
     }
 
     render() {
-        console.log("Di TW COMPONEN: ", this.props.tweet);
         const tweet = this.props.tweet;
         return (
             <div id="scrollableDiv" style={{overflow: "auto"}}>
@@ -375,16 +368,15 @@ class TweetComponent extends Component {
                                                     onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
                                         >
                                             <Icon name='like'/>
-                                            {this.props.tweet.likes.length} Likes
+                                        {!this.state.likes ?
+                                          tweet.likes.length + " Likes"
+                                          :
+                                          this.state.likes.length + " Likes"
+                                        }
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
                                             <Icon name='comments'/>
-                                            {!this.state.comments ?
-                                                tweet.comments.length + " Comments"
-                                                :
-                                                this.state.comments + " Comments"
-                                            }
-
+                                            {this.props.tweet.comments.length} Comments
                                         </Icon.Group>
                                     </div>
 
