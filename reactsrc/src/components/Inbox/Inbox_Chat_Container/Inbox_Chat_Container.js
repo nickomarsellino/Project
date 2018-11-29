@@ -18,7 +18,7 @@ import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
 import openSocket from 'socket.io-client';
 import axios from 'axios';
 
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Inbox_Chat_Container extends Component {
     constructor(props){
