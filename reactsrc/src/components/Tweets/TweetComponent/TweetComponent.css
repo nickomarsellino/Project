@@ -138,3 +138,8 @@
     height: 35px;
     width: 35px;
 }
+
+.mark, mark {
+    padding: .2em;
+    background-color: #ffe350;
+}

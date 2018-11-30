@@ -20,8 +20,6 @@ class Inbox_Chat_Container extends Component {
     // Pertama render iniiii
     componentWillMount() {
 
-        console.log("Ini isi chatnya: ",this.props.chatMessageDetail.messages)
-
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })
