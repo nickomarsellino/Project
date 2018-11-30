@@ -14,6 +14,7 @@ class Inbox_Page extends Component {
         this.state = {
             inboxPeopleList: '',
             chatMessageDetail: [],
+            isClearMessage: '',
             isChatOpened: false
         };
         this.sendTheMessageDetail = this.sendTheMessageDetail.bind(this);
@@ -25,11 +26,17 @@ class Inbox_Page extends Component {
                 chatMessageDetail: this.props.onUserClicked.chatDetailMessage,
                 isChatOpened: true
             });
+            if(this.props.onUserClicked.isClearMessage){
+                this.setState({
+                    isClearMessage: this.props.onUserClicked.isClearMessage
+                });
+            }
         }
     }
 
     // Function untuk terima data dari anaknya si inbox_profile_container
     sendTheMessageDetail(messagesData) {
+        console.log(messagesData)
         this.setState({
             chatMessageDetail: messagesData,
             isChatOpened: true
@@ -45,6 +52,7 @@ class Inbox_Page extends Component {
                             <InboxChatContainer
                                 history={this.props.history}
                                 chatMessageDetail={this.state.chatMessageDetail}
+                                isClearMessage={this.state.isClearMessage}
                             />
                         </div>
 
