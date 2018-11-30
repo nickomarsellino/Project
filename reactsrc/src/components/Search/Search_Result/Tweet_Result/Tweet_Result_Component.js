@@ -307,6 +307,7 @@ class Tweet_Result_Component extends Component {
 
     render() {
         console.log(this.props.searchValue);
+        console.log(this.props.resultData.comments)
         return (
             <Card className="Tweet_Result" id="text-warp" key={this.state.resultData._id}>
                 <CardBody className="Tweet">
