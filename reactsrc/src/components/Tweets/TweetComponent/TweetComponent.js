@@ -343,10 +343,9 @@ class TweetComponent extends Component {
     }
 
     render() {
-        console.log("Di TW COMPONEN: ", this.props.tweet);
         const tweet = this.props.tweet;
         return (
-            <div id="scrollableDiv" style={{overflow: "auto"}}>
+            <div id="scrollableDiv" style={{overflow: "auto"}} >
                 <Card className="Tweet_Container" id="text-warp" key={tweet._id}>
                     <CardBody className="Tweet">
                         <Feed>
@@ -373,7 +372,11 @@ class TweetComponent extends Component {
                                                     onClick={() => this.clickLikeButton(this.props.userId, this.props.tweetId)}
                                         >
                                             <Icon name='like'/>
-                                            {this.props.tweet.likes.length} Likes
+                                            {!this.state.likes ?
+                                                tweet.likes.length + " Likes"
+                                                :
+                                                this.state.likes.length + " Likes"
+                                            }
                                         </Icon.Group>
                                         <Icon.Group className={this.state.commentColor} onClick={() => this.openModalTweet(tweet._id)} id="commentsIcon">
                                             <Icon name='comments'/>

@@ -7,7 +7,6 @@ import axios from 'axios';
 import './Inbox_Profile_Component.css';
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://10.183.28.155:8000');
 
 class Inbox_Profile_Component extends Component {
     constructor(props) {
@@ -76,15 +75,15 @@ class Inbox_Profile_Component extends Component {
             }
         })
 
-        // Fungsi kirim ke parent inbox page
-        this.props.sendTheMessageDetail(this.props.people)
-
-        this.props.history.replace({
-            pathname: '/home/inbox',
-            state: {
-                chatDetailMessage: this.props.people
-            }
-        })
+        // // Fungsi kirim ke parent inbox page
+        // this.props.sendTheMessageDetail(this.props.people)
+        //
+        // this.props.history.replace({
+        //     pathname: '/home/inbox',
+        //     state: {
+        //         chatDetailMessage: this.props.people
+        //     }
+        // })
 
         axios.get('/api/inbox/changeUnReadMessage/' + this.props.people._id)
             .then(res => {

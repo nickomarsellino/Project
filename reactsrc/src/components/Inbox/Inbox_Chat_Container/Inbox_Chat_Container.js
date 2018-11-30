@@ -1,18 +1,6 @@
 import React, {Component} from "react";
-import { Image, Icon } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 import profile from '../../../daniel.jpg';
-import {
-    Navbar,
-    NavbarBrand,
-    NavbarNav,
-    NavbarToggler,
-    Collapse,
-    NavItem,
-    DropdownItem,
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu
-} from 'mdbreact';
 import './Inbox_Chat_Container.css'
 import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
 import openSocket from 'socket.io-client';
@@ -31,9 +19,17 @@ class Inbox_Chat_Container extends Component {
 
     // Pertama render iniiii
     componentWillMount() {
+
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })
+
+        if(this.props.isClearMessage){
+            this.setState({
+                chatMessageDetail: []
+            })
+        }
+
 
         socket.on(this.state.roomMessagesId + 'getMessage', bebasnamavariabel => {
             const allInboxMessage = this.state.chatMessageDetail;
@@ -85,13 +81,15 @@ class Inbox_Chat_Container extends Component {
         this.props.history.replace({
             pathname: '/home/inbox',
             state: {
-                chatDetailMessage: this.props.chatMessageDetail
+                chatDetailMessage: this.props.chatMessageDetail,
+
+                //Ini Untuk Menandakan dia menekan Clear Chat.
+                isClearMessage: true
             }
         })
     }
 
     render() {
-        console.log(this.props.history);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">

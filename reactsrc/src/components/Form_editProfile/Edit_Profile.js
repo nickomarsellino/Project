@@ -3,7 +3,7 @@ import axios from "axios/index";
 import './Edit_Profile.css';
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
-import {Form, Image} from 'semantic-ui-react';
+import {Form, Image, Dimmer, Loader} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import profile from '../../daniel.jpg';
 import ReactDOM from "react-dom";
@@ -26,7 +26,7 @@ class Edit_Profile extends Component {
             file:"",
             imageId:'',
             status: false,
-            isLoading: true
+            isLoading: false
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -94,7 +94,8 @@ class Edit_Profile extends Component {
 
         this.setState({
             isLoading: true
-        })
+        });
+
 
         const user = {
             username: this.state.username,
@@ -183,6 +184,9 @@ class Edit_Profile extends Component {
                 <div>
                     <Container className="col-lg-4 col-lg-offset-2">
                         <Card className="Card_Container">
+                            <Dimmer active={this.state.isLoading} inverted>
+                                <Loader size='large'>Loading</Loader>
+                            </Dimmer>
                             <CardBody>
                                 <center>
                                     <h1 id="headerEditProfile">Profile</h1>
