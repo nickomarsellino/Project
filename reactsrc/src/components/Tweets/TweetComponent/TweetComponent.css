@@ -139,7 +139,7 @@
     width: 35px;
 }
 
-.mark, mark {
+.highlight{
     padding: .2em;
     background-color: #ffe350;
 }
