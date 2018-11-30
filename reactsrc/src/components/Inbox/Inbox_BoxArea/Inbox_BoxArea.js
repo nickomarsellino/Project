@@ -52,7 +52,6 @@ class Inbox_BoxArea extends Component {
     }
 
     render() {
-        console.log( this.props.chatMessageDetail.roomMessagesId);
         return (
             <div id="inboxBoxContainer">
                 <Form.Field

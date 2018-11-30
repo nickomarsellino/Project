@@ -27,7 +27,6 @@ class Inbox_Chat_Container extends Component {
             chatMessageDetail: [],
             roomMessagesId: this.props.chatMessageDetail.roomMessagesId
         };
-        this.toggle = this.toggle.bind(this);
     }
 
     // Pertama render iniiii
@@ -70,12 +69,6 @@ class Inbox_Chat_Container extends Component {
         }
     }
 
-    toggle() {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        });
-    }
-
     clearChatHistoy(roomMessagesId){
         const pullChatData = {
             roomMessagesId: roomMessagesId,
@@ -98,9 +91,7 @@ class Inbox_Chat_Container extends Component {
     }
 
     render() {
-        console.log(this.state.roomMessagesId);
-        console.log(this.props.chatMessageDetail.roomMessagesId);
-        console.log(this.props.chatMessageDetail._id);
+        console.log(this.props.history);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
