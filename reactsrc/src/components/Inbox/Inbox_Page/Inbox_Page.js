@@ -79,7 +79,7 @@ class Inbox_Page extends Component {
     }
 
     render() {
-
+        console.log(this.props.history);
         return (
             <FadeIn id="InboxPage">
                 <Card className="inboxCard">

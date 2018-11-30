@@ -37,7 +37,6 @@ class Search_Bar extends Component {
         this.props.ParentSearchTweetsData(this.state.value)
     }
 
-
     render() {
         return (
             <div>

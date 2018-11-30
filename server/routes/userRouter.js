@@ -346,7 +346,9 @@ router.put('/changePassword/:id', (req, res) => {
 // SEARCH FILTER BY USER, get all of the username yang mengandung kata yang di input
 router.get('/searchByUser/:username', (req, res, next) => {
     const searchUserQuery = req.params.username;
-    User.find({username: new RegExp(searchUserQuery, "i")}, 'username profilePicture').then((result) => {
+    console.log("searchUserQuery: ", searchUserQuery);
+    User.findOne({username: new RegExp('^'+searchUserQuery+'$', "i")}, 'username profilePicture').then((result) => {
+    // User.find({username: new RegExp(searchUserQuery, "i")}, 'username profilePicture').then((result) => {
         res.send(result);
     });
 });

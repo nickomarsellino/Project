@@ -115,7 +115,6 @@ class Home extends Component {
     }
 
     render() {
-
         const editProfile = () => (
             <Profile userId={this.state.userId}/>
         );
