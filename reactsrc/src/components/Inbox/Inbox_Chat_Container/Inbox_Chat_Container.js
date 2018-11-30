@@ -15,14 +15,23 @@ class Inbox_Chat_Container extends Component {
             chatMessageDetail: [],
             roomMessagesId: this.props.chatMessageDetail.roomMessagesId
         };
-        this.toggle = this.toggle.bind(this);
     }
 
     // Pertama render iniiii
     componentWillMount() {
+
+        console.log("Ini isi chatnya: ",this.props.chatMessageDetail.messages)
+
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })
+
+        if(this.props.isClearMessage){
+            this.setState({
+                chatMessageDetail: []
+            })
+        }
+
 
         socket.on(this.state.roomMessagesId + 'getMessage', bebasnamavariabel => {
             const allInboxMessage = this.state.chatMessageDetail;
@@ -58,11 +67,6 @@ class Inbox_Chat_Container extends Component {
         }
     }
 
-    toggle() {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        });
-    }
 
     clearChatHistoy(roomMessagesId){
         const pullChatData = {
@@ -80,15 +84,15 @@ class Inbox_Chat_Container extends Component {
         this.props.history.replace({
             pathname: '/home/inbox',
             state: {
-                chatDetailMessage: this.props.chatMessageDetail
+                chatDetailMessage: this.props.chatMessageDetail,
+
+                //Ini Untuk Menandakan dia menekan Clear Chat.
+                isClearMessage: true
             }
         })
     }
 
     render() {
-        console.log(this.state.roomMessagesId);
-        console.log(this.props.chatMessageDetail.roomMessagesId);
-        console.log(this.props.chatMessageDetail._id);
         return (
             <div className="inboxChatContainer">
                 <div id="avatarProfileUserContainer">
