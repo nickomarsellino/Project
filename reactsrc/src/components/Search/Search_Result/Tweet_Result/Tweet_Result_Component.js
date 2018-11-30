@@ -5,10 +5,12 @@ import {Feed, Icon, Image} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import profile from '../../../../../src/daniel.jpg';
 import ModalDelete from '../../../Modal/Modal_Delete/Modal_Delete';
+
 import openSocket from "socket.io-client";
 
 const Timestamp = require('react-timestamp');
 const socket = openSocket('http://10.183.28.155:8000');
+const Highlight = require('react-highlighter');
 
 class Tweet_Result_Component extends Component {
     constructor() {
@@ -316,7 +318,9 @@ class Tweet_Result_Component extends Component {
 
                                 {this.viewUserProfile(this.state.resultData.username, this.state.resultData.userId)}
 
-                                <Feed.Extra id="tweetText" text content={this.state.resultData.tweetText}/> <br/>
+                                <Feed.Extra id="tweetText" text >
+                                    <Highlight search={this.props.searchValue}>{this.state.resultData.tweetText}</Highlight>
+                                </Feed.Extra> <br/>
 
                                 {this.viewTweetPicture(this.state.resultData.tweetPicture, this.state.resultData._id)}
 
