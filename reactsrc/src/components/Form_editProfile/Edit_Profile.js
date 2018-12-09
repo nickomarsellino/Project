@@ -169,15 +169,15 @@ class Edit_Profile extends Component {
       //   <h2 className="lead">No Image</h2>
       // }
 
-        if(this.state.isLoading){
-            return(
-                <center>
-                    <div className="LoadingGif">
-                        <img className="LoadingGif" src={LoadingGif} alt={" "}/>
-                    </div>
-                </center>
-            )
-        }
+        // if(this.state.isLoading){
+        //     return(
+        //         <center>
+        //             <div className="LoadingGif">
+        //                 <img className="LoadingGif" src={LoadingGif} alt={" "}/>
+        //             </div>
+        //         </center>
+        //     )
+        // }
 
         return (
             <FadeIn>
