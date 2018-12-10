@@ -7,7 +7,7 @@ import {Form, Image, Dimmer, Loader} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import profile from '../../daniel.jpg';
 import ReactDOM from "react-dom";
-
+import LoadingGif from '../../LoadingGif.gif';
 
 class Edit_Profile extends Component {
 
@@ -42,7 +42,8 @@ class Edit_Profile extends Component {
                     username: res.data.username,
                     email: res.data.email,
                     phone: res.data.phone,
-                    selectedFile: res.data
+                    selectedFile: res.data,
+                    isLoading: false
                 });
             });
     }
@@ -88,6 +89,7 @@ class Edit_Profile extends Component {
     }
 
     handleSubmit(e) {
+        console.log(this.state.isLoading);
         e.preventDefault();
 
         this.setState({
@@ -167,8 +169,17 @@ class Edit_Profile extends Component {
       //   <h2 className="lead">No Image</h2>
       // }
 
-        return (
+        // if(this.state.isLoading){
+        //     return(
+        //         <center>
+        //             <div className="LoadingGif">
+        //                 <img className="LoadingGif" src={LoadingGif} alt={" "}/>
+        //             </div>
+        //         </center>
+        //     )
+        // }
 
+        return (
             <FadeIn>
                 <div>
                     <Container className="col-lg-4 col-lg-offset-2">

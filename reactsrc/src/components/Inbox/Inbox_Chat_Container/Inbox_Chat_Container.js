@@ -65,7 +65,6 @@ class Inbox_Chat_Container extends Component {
         }
     }
 
-
     clearChatHistoy(roomMessagesId){
         const pullChatData = {
             roomMessagesId: roomMessagesId,
