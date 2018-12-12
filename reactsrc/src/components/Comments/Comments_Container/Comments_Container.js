@@ -6,7 +6,7 @@ import axios from "axios/index";
 import openSocket from 'socket.io-client';
 
 // Ini yang nge buat dia connect sama si backend nya
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 const Timestamp = require('react-timestamp');
 
 class Comments_Container extends Component {
@@ -23,11 +23,12 @@ class Comments_Container extends Component {
         this.getAllComment();
         socket.on('getComment', bebasnamavariabel => {
             const allComment = this.state.commentData;
-            const newComment = [bebasnamavariabel].concat(allComment);
+            const newComment =[bebasnamavariabel];
             this.setState({
-                commentData: newComment
+                commentData: (allComment.concat(newComment))
             });
         });
+
         socket.on("deleteComment", bebasnamavariabel => {
             let newCommentList = [];
             for( var deleteComment in this.state.commentData){
@@ -100,7 +101,7 @@ class Comments_Container extends Component {
     render() {
         return (
           <Comment.Group size='small'>
-              {this.state.commentData.map(comment =>
+              {this.state.commentData.slice(0).reverse().map(comment =>
                 <Comment id="commentsContainer">
                     <Comment.Avatar as='a' src={this.setProfileImage(comment.profilePicture)} id="commentAvatar"/>
                     <Comment.Content>

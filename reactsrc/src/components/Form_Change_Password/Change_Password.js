@@ -43,15 +43,7 @@ class Change_Password extends Component {
                 formMessage="New Password doesn't match....!"
             />, document.getElementById('messageValidation'));
         }
-        //
-        // else if (this.state.currentPassword !== this.state.password) {
-        //     //Render Validation box message
-        //     ReactDOM.render(<MessageValidation
-        //         form="danger"
-        //         formStatus="Error"
-        //         formMessage="Failed to change Password......!"
-        //     />, document.getElementById('messageValidation'));
-        // }
+        
         else {
             const password = {
                 currentPassword: this.state.currentPassword,

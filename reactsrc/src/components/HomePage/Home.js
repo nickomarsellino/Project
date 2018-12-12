@@ -20,7 +20,7 @@ import SearchPage from '../Search/Search_Page/Search_Page'
 import InboxPage from '../Inbox/Inbox_Page/Inbox_Page'
 import openSocket from "socket.io-client";
 
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Home extends Component {
 

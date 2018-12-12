@@ -347,8 +347,8 @@ router.put('/changePassword/:id', (req, res) => {
 router.get('/searchByUser/:username', (req, res, next) => {
     const searchUserQuery = req.params.username;
     console.log("searchUserQuery: ", searchUserQuery);
-    User.findOne({username: new RegExp('^'+searchUserQuery+'$', "i")}, 'username profilePicture').then((result) => {
-    // User.find({username: new RegExp(searchUserQuery, "i")}, 'username profilePicture').then((result) => {
+    // User.findOne({username: new RegExp('^'+searchUserQuery+'$', "i")}, 'username profilePicture').then((result) => {
+    User.find({username: new RegExp(searchUserQuery, "i")}, 'username profilePicture').then((result) => {
         res.send(result);
     });
 });

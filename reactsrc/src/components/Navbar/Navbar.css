@@ -132,7 +132,7 @@
 }
 
 #notificationIcon:active {
-  position: relative;
+  position: absolute;
   top: 1px;
 }
 
