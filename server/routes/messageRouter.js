@@ -103,25 +103,21 @@ router.get('/changeUnReadMessage/:id', (req, res, next) => {
             let messages =[];
 
             if(String(result.userReceiverId) === String(result.messages[i].userId)){
-                console.log("SAMA BANG")
-
                 messages = result.messages[i]
 
-                console.log("INI ID RICIVER: ",result.userReceiverId)
-                console.log("INI ID PENGIRIM CHATNYA: ",messages.userId);
-                console.log("INI PENGIRIM CHATNYA: ",messages.messageIsRead);
+                if(messages.messageIsRead.toString() === "false"){
+                    console.log(messages.messageIsRead)
 
-                let query = 'messages.'+[i]+'.messageIsRead'
-                let condition = 'messages.'+[i]+'.userId'
+                    let query = 'messages.'+[i]+'.messageIsRead'
+                    let condition = 'messages.'+[i]+'.userId'
 
-                Message.updateMany({_id: req.params.id, [condition]: result.userReceiverId}, {
-                    $set: {
-                        [query]: true
-                    }
-                }).exec();
+                    Message.updateMany({_id: req.params.id, [condition]: result.userReceiverId}, {
+                        $set: {
+                            [query]: true
+                        }
+                    }).exec();
+                }
             }
-
-
         }
     })
 })
