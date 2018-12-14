@@ -20,6 +20,12 @@ class Inbox_Chat_Container extends Component {
     // Pertama render iniiii
     componentWillMount() {
 
+
+        axios.get('/api/inbox/changeUnReadMessage/' + this.props.chatMessageDetail._id)
+            .then(res => {
+
+            });
+
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })
@@ -30,13 +36,17 @@ class Inbox_Chat_Container extends Component {
             })
         }
 
-
         socket.on(this.state.roomMessagesId + 'getMessage', bebasnamavariabel => {
             const allInboxMessage = this.state.chatMessageDetail;
             const newMessage = [bebasnamavariabel];
             this.setState({
                 chatMessageDetail: (allInboxMessage.concat(newMessage))
             });
+
+            // axios.get('/api/inbox/changeUnReadMessage/' + this.props.chatMessageDetail._id)
+            //     .then(res => {
+            //
+            //     });
         });
     }
 

@@ -121,22 +121,24 @@ class Navigationbar extends Component {
             if (this.state.isInbox) {
                 return (
                     <Link to={'/home/inbox'}>
-                        <Icon name='envelope open outline'
-                              size='large'
-                              id="notificationIcon"
-                              onClick={this.inboxClicked}
-                        />
+                        <Icon.Group size='large'
+                                    id="notificationIcon"
+                                    onClick={this.inboxClicked}>
+                            <Icon name='envelope open outline' />
+                            <Icon corner name='certificate' id="dotIcon"/>
+                        </Icon.Group>
                     </Link>
                 );
             }
             else {
                 return (
                     <Link to={'/home/inbox'}>
-                        <Icon name='envelope open outline'
-                              size='large'
-                              id="notificationIcon"
-                              onClick={this.inboxClicked}
-                        />
+                        <Icon.Group size='large'
+                                    id="notificationIcon"
+                                    onClick={this.inboxClicked}>
+                            <Icon name='envelope open outline' />
+                            <Icon corner name='certificate' id="dotIcon"/>
+                        </Icon.Group>
                     </Link>
                 );
             }
@@ -144,11 +146,12 @@ class Navigationbar extends Component {
         else {
             return (
                 <Link to={'/home/inbox'}>
-                    <Icon name='envelope open outline'
-                          size='large'
-                          id="notificationIcon"
-                          onClick={this.inboxClicked}
-                    />
+                    <Icon.Group size='large'
+                                id="notificationIcon"
+                                onClick={this.inboxClicked}>
+                        <Icon name='envelope open outline' />
+                        <Icon corner name='certificate' id="dotIcon"/>
+                    </Icon.Group>
                 </Link>
             );
         }

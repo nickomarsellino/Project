@@ -85,10 +85,10 @@ class Inbox_Profile_Component extends Component {
         //     }
         // })
 
-        axios.get('/api/inbox/changeUnReadMessage/' + this.props.people._id)
-            .then(res => {
-
-            });
+        // axios.get('/api/inbox/changeUnReadMessage/' + this.props.people._id)
+        //     .then(res => {
+        //
+        //     });
     }
 
     getChatDetailUnReadMessage(_id) {
