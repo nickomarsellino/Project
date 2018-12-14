@@ -16,3 +16,11 @@ input{
     height: 200px;
     width: 200px;
 }
+
+#headerEditProfile{
+    font-family: 'myTextFontMedium', sans-serif;
+}
+
+#formEditProfile{
+    font-family: 'myTextFont', sans-serif;
+}

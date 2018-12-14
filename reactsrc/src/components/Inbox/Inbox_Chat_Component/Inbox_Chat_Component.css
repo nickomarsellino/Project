@@ -1,0 +1,80 @@
+.chat{
+    width: 100%;
+}
+
+#senderChatContainer{
+    float: right;
+    border-radius: 3px;
+    background:#ddd;
+    padding:10px;
+    text-align:right;
+    color: #2b2b2b;
+    margin:5px;
+    width: 45%;
+    clear: both;
+    margin-right: 30px;
+}
+
+#timeChatSender{
+    margin-bottom: 10px;
+    opacity: 0.8;
+    font-size: 13px;
+    text-align: left;
+}
+
+#senderChatContainer:after {
+    width: 0;
+    height: 0;
+    content: "";
+    top: -15px;
+    /* left: 50px; */
+    left: 30px;
+    position: relative;
+    border-style: solid;
+    border-width: 20px 20px 00px 0px;
+    border-color: #ddd transparent transparent transparent;
+}
+
+
+#receiverChatContainer{
+    border-radius: 3px;
+    background:#4DB6AC;
+    padding:10px;
+    margin:5px;
+    color:#fff;
+    width: 45%;
+    float: left;
+    clear: both;
+    margin-left: 30px;
+}
+
+#timeChatReceiver{
+    margin-top: 10px;
+    opacity: 0.8;
+    font-size: 13px;
+    text-align: right;
+}
+
+#receiverChatContainer:before {
+    width: 0;
+    height: 0;
+    content: "";
+    top: 15px;
+    left: -28px;
+    position: relative;
+    border-style: solid;
+    border-width: 20px 0px 0px 20px;
+    border-color: #4DB6AC transparent transparent transparent;
+
+}
+
+
+#deleteChatButton{
+    color: rgba(255, 121, 134, 0.75);
+    opacity: 0.5;
+}
+
+#deleteChatButton:hover{
+    color: rgba(255, 121, 134, 0.91);
+    opacity: 0.8;
+}

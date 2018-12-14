@@ -4,8 +4,8 @@ body {
     height: 100%;
     width: 100%;
     font-family: sans-serif;
-    background-image: url("../../01ft-01.jpg");
-    background-size: 22%;
+    background-image: url("../../login-bg.png");
+    background-size: 100%;
 }
 
 .navbarFixed{
@@ -20,6 +20,6 @@ body {
 }
 
 img.LoadingGif{
-    height: 400px;
-    width: 500px;
+    height: 300px;
+    width: 350px;
 }

@@ -1,0 +1,74 @@
+.card-body {
+    border-radius: 24px;
+}
+
+.Tweet-Container {
+    margin-top: 4%;
+    margin-bottom: 2%;
+}
+
+#Form_Container {
+    font-family: 'myTextFont', sans-serif;
+    margin-top: 1%;
+}
+
+.profileBox {
+    display: inline-block;
+}
+
+#addImageButton {
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#postButton {
+    position: absolute;
+    top: 85%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+#limiter-Tweet{
+    margin-right: 38px;
+    position: absolute;
+    top: 60%;
+    right: 0%;
+    transform: translateY(-55%);
+    font-family: 'myTextFontMedium', sans-serif;
+}
+
+#limiter-Tweet-Circular{
+    width: 22px;
+    position: absolute;
+    top: 62%;
+    right: 2%;
+    transform: translateY(-55%);
+    font-family: "Roboto", sans-serif;
+}
+
+#nameBox {
+    font-family: 'myTextFontMedium', sans-serif;
+    display: inline-block;
+}
+
+#avatarBox{
+    width: 2.5em;
+    height: 2.5em;
+}
+
+#cancelPicture{
+    vertical-align: text-top;
+}
+
+#avatarBox img{
+    width: 2.5em;
+    height: 2.5em;
+}
+
+#imageName{
+    font-style: italic;
+    font-size: 12px;
+    font-family: "Roboto", sans-serif;
+    display: inline-block;
+}
