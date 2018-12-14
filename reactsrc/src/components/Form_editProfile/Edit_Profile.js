@@ -122,7 +122,9 @@ class Edit_Profile extends Component {
 
                 axios.put('/api/users/editProfilePicture/'+this.state.userId, formData)
                     .then((result) => {
-
+                        this.setState({
+                            isLoading: false
+                        })
                     })
                     .catch(() => {
                         //Render Validation box message
