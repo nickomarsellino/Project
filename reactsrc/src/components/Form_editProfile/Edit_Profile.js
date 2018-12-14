@@ -3,11 +3,11 @@ import axios from "axios/index";
 import './Edit_Profile.css';
 import {Container, Row, Col, Card, CardBody, Button} from 'mdbreact';
 import MessageValidation from '../MessageValidationBox/MessageValidation'
-import {Form, Image} from 'semantic-ui-react';
+import {Form, Image, Dimmer, Loader} from 'semantic-ui-react';
 import FadeIn from 'react-fade-in';
 import profile from '../../daniel.jpg';
 import ReactDOM from "react-dom";
-
+import LoadingGif from '../../LoadingGif.gif';
 
 class Edit_Profile extends Component {
 
@@ -25,7 +25,8 @@ class Edit_Profile extends Component {
             selectedFile: [],
             file:"",
             imageId:'',
-            status: false
+            status: false,
+            isLoading: false
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -41,7 +42,8 @@ class Edit_Profile extends Component {
                     username: res.data.username,
                     email: res.data.email,
                     phone: res.data.phone,
-                    selectedFile: res.data
+                    selectedFile: res.data,
+                    isLoading: false
                 });
             });
     }
@@ -87,7 +89,13 @@ class Edit_Profile extends Component {
     }
 
     handleSubmit(e) {
+        console.log(this.state.isLoading);
         e.preventDefault();
+
+        this.setState({
+            isLoading: true
+        });
+
 
         const user = {
             username: this.state.username,
@@ -112,13 +120,11 @@ class Edit_Profile extends Component {
                 let formData = new FormData();
                 formData.append('profilePicture', this.state.selectedFile);
 
-                // console.log("PAS CLICK SUBMIT: ", this.state.selectedFile);
-
-                // console.log("PAS CLICK SUBMIT: ", formData);
-
                 axios.put('/api/users/editProfilePicture/'+this.state.userId, formData)
                     .then((result) => {
-
+                        this.setState({
+                            isLoading: false
+                        })
                     })
                     .catch(() => {
                         //Render Validation box message
@@ -161,19 +167,31 @@ class Edit_Profile extends Component {
       if(imageUrl){
           imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} style={{width: '200px', height: '200px',marginTop:'-0.1rem'}} className="float-right" />
       }
-      else{
-        <h2 className="lead">No Image</h2>
-      }
+      // else{
+      //   <h2 className="lead">No Image</h2>
+      // }
+
+        // if(this.state.isLoading){
+        //     return(
+        //         <center>
+        //             <div className="LoadingGif">
+        //                 <img className="LoadingGif" src={LoadingGif} alt={" "}/>
+        //             </div>
+        //         </center>
+        //     )
+        // }
 
         return (
-
             <FadeIn>
                 <div>
                     <Container className="col-lg-4 col-lg-offset-2">
                         <Card className="Card_Container">
+                            <Dimmer active={this.state.isLoading} inverted>
+                                <Loader size='large'>Loading</Loader>
+                            </Dimmer>
                             <CardBody>
                                 <center>
-                                    <h1>Profile</h1>
+                                    <h1 id="headerEditProfile">Profile</h1>
                                     <Image id="cover" src={profile} size='small' circular>
                                         {imagedisplay}
                                     </Image>
@@ -185,8 +203,9 @@ class Edit_Profile extends Component {
                                 <br/>
                                 <Row>
                                     <Col md="12">
-                                        <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
+                                        <Form id="formEditProfile" onSubmit={this.handleSubmit} encType="multipart/form-data">
                                             <Form.Input required type="text" fluid label='Username'
+                                                        id="usernameInputForm"
                                                         placeholder={this.state.username}
                                                         value={this.state.username}
                                                         className={this.state.formStatus}
@@ -195,6 +214,7 @@ class Edit_Profile extends Component {
                                             />
 
                                             <Form.Input required type="email" fluid label='Email'
+                                                        id="emailInputForm"
                                                         placeholder={this.state.email}
                                                         value={this.state.email}
                                                         className={this.state.formStatus}
@@ -204,6 +224,7 @@ class Edit_Profile extends Component {
                                             />
 
                                             <Form.Input required type="number" fluid label='Phone Number'
+                                                        id="phoneInputForm"
                                                         placeholder={this.state.phone}
                                                         value={this.state.phone}
                                                         className={this.state.formStatus}
