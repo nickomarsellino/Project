@@ -13,6 +13,7 @@ class Inbox_Chat_Container extends Component {
         super(props);
         this.state = {
             chatMessageDetail: [],
+            chatMessageId: '',
             roomMessagesId: this.props.chatMessageDetail.roomMessagesId
         };
     }
@@ -20,11 +21,6 @@ class Inbox_Chat_Container extends Component {
     // Pertama render iniiii
     componentWillMount() {
 
-
-        axios.get('/api/inbox/changeUnReadMessage/' + this.props.chatMessageDetail._id)
-            .then(res => {
-
-            });
 
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
@@ -51,6 +47,7 @@ class Inbox_Chat_Container extends Component {
     }
 
     componentWillReceiveProps(props) {
+
         this.setState({
             chatMessageDetail: props.chatMessageDetail.messages
         });
