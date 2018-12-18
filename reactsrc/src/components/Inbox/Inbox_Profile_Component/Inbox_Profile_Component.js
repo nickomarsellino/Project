@@ -125,7 +125,6 @@ class Inbox_Profile_Component extends Component {
     }
 
     render() {
-
         return (
             <List.Item id="listItemProfile">
                 <Image avatar id="avatarItemContainer"

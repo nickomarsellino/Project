@@ -26,6 +26,9 @@ const MessageSchema = Schema({
     roomMessagesId: {
         type: String
     },
+    lastMessageTimestamp: {
+        type: Date
+    },
     messages: [{
         userId: {
             type: Schema.ObjectId,
