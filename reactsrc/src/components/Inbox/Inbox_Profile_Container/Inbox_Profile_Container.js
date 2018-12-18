@@ -34,7 +34,7 @@ class Inbox_Profile_Container extends Component {
     render() {
         return (
             <List id="listProfileContainer">
-                {this.state.inboxPeopleList.map(people =>
+                {this.state.inboxPeopleList.slice(0).reverse().map(people =>
                        <InboxProfileComponent
                         history={this.props.history}
                         people={people}

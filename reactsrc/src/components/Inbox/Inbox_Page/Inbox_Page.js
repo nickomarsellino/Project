@@ -13,6 +13,7 @@ class Inbox_Page extends Component {
         super();
         this.state = {
             inboxPeopleList: '',
+            dataLama: '',
             chatMessageDetail: [],
             isClearMessage: '',
             isChatOpened: false
@@ -22,10 +23,13 @@ class Inbox_Page extends Component {
 
     componentWillMount(){
         if(this.props.onUserClicked){
-            this.setState({
+            this.setState((prevState) => ({
                 chatMessageDetail: this.props.onUserClicked.chatDetailMessage,
-                isChatOpened: true
-            });
+                isChatOpened: true,
+                dataLama: prevState.chatMessageDetail
+            }));
+            console.log("NEW DATA ",this.props.onUserClicked.chatDetailMessage);
+            console.log("DATALAMA ", this.state.datalama);
             if(this.props.onUserClicked.isClearMessage){
                 this.setState({
                     isClearMessage: this.props.onUserClicked.isClearMessage
@@ -33,6 +37,7 @@ class Inbox_Page extends Component {
             }
         }
     }
+
 
     // Function untuk terima data dari anaknya si inbox_profile_container
     sendTheMessageDetail(messagesData) {
