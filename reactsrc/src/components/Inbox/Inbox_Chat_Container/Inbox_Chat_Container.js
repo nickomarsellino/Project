@@ -6,13 +6,14 @@ import InboxChatComponent from '../Inbox_Chat_Component/Inbox_Chat_Component'
 import openSocket from 'socket.io-client';
 import axios from 'axios';
 
-const socket = openSocket('http://10.183.28.155:8000');
+const socket = openSocket('http://10.183.28.153:8000');
 
 class Inbox_Chat_Container extends Component {
     constructor(props){
         super(props);
         this.state = {
             chatMessageDetail: [],
+            chatMessageId: '',
             roomMessagesId: this.props.chatMessageDetail.roomMessagesId
         };
     }
@@ -20,11 +21,6 @@ class Inbox_Chat_Container extends Component {
     // Pertama render iniiii
     componentWillMount() {
 
-
-        axios.get('/api/inbox/changeUnReadMessage/' + this.props.chatMessageDetail._id)
-            .then(res => {
-
-            });
 
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
@@ -51,9 +47,22 @@ class Inbox_Chat_Container extends Component {
     }
 
     componentWillReceiveProps(props) {
+
         this.setState({
             chatMessageDetail: props.chatMessageDetail.messages
         });
+    }
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
     }
 
     setProfileImage(profilePicture) {
@@ -120,7 +129,11 @@ class Inbox_Chat_Container extends Component {
                         >
                         </InboxChatComponent>
                     )}
+                    <div style={{ float:"left", clear: "both" }}
+                         ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
                 </div>
+
             </div>
         )
     }

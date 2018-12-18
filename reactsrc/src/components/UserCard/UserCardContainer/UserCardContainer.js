@@ -57,6 +57,7 @@ class UserCardContainer extends Component {
 
 
    render() {
+      console.log(this.state.userData);
       return (
            <div className="peopleCards">
                {this.state.userData.map(user =>
