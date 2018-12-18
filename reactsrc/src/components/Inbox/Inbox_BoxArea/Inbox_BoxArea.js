@@ -32,7 +32,8 @@ class Inbox_BoxArea extends Component {
             roomMessagesId: this.props.chatMessageDetail.roomMessagesId,
             userId: this.state.userId,
             messageText: this.state.messageText,
-            messageTimestamp: new Date()
+            messageTimestamp: new Date(),
+            isReceiverOpenedChat: this.props.chatMessageDetail.isReceiverOpenedChat
         };
         axios({
             method: 'PUT',

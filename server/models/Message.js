@@ -30,6 +30,9 @@ const MessageSchema = Schema({
         type: Date,
         default: Date.now()
     },
+    isReceiverOpenedChat: {
+        type: String
+    },
     messages: [{
         userId: {
             type: Schema.ObjectId,
