@@ -16,7 +16,7 @@ router.post('/message', (req, res, next) => {
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
-    console.log("userData ", userData);
+
     const inboxInformationData = {
         userId: req.body.userId,
         username: req.body.username,
@@ -70,6 +70,11 @@ router.put('/sendMessage/:id', (req, res) => {
                 messageTimestamp: new Date()
             });
         });
+
+
+    Message.updateMany({roomMessagesId: req.params.id}, {
+        $set: {roomMessageTimestamp: Date.now()}
+    }).exec();
 });
 
 router.put('/unSendMessage/:id', (req, res) => {
@@ -130,7 +135,7 @@ router.get('/listContactInbox', (req, res, next) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    Message.find({userId: userData.userId}).then((result) => {
+    Message.find({userId: userData.userId}).sort({roomMessageTimestamp: 'descending'}).then((result) => {
         res.send(result);
     });
 });
