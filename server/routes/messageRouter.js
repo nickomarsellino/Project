@@ -130,7 +130,7 @@ router.get('/chatDetailMessage/:id', (req, res, next) => {
     })
 })
 
-// Get isi chat nya, id ini diambil dari yang sudah terbuat di atas ketika post pas klik Inbox pada FE
+// Ini untuk menandakan bahwa ia sedang buka chat dengan siapa dan ini brdampak ke "send messagenya"
 router.get('/isOpenMessage/:id', (req, res, next) => {
 
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
@@ -152,6 +152,23 @@ router.get('/isOpenMessage/:id', (req, res, next) => {
     });
 
 })
+
+router.get('/isCloseMessage', (req, res, next) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+
+
+    Message.updateMany({userReceiverId: userData.userId}, {
+        $set: {
+            isReceiverOpenedChat: false
+        }
+    }).exec();
+})
+
 
 router.get('/changeUnReadMessage/:id', (req, res, next) => {
     Message.findById({_id: req.params.id}).then((result) => {

@@ -7,6 +7,7 @@ import InboxBoxArea from '../Inbox_BoxArea/Inbox_BoxArea.js'
 import InboxChatContainer from '../Inbox_Chat_Container/Inbox_Chat_Container.js'
 
 import './Inbox_Page.css';
+import axios from "axios/index";
 
 class Inbox_Page extends Component {
     constructor() {
@@ -31,6 +32,13 @@ class Inbox_Page extends Component {
                     isClearMessage: this.props.onUserClicked.isClearMessage
                 });
             }
+        }
+        //dia membuat semua isChatOpenednya ,=menjadi "false"
+        else{
+            axios.get('/api/inbox/isCloseMessage')
+                .then(res => {
+
+                });
         }
     }
 
