@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Icon} from 'semantic-ui-react'
-import logo from '../../logo.png';
+import logo from '../../womantalk_logo.png';
 import {Link} from 'react-router-dom';
 import {
     Navbar,
@@ -24,7 +24,8 @@ class Navigationbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isSearch : false,
+            isSearch: false,
+            isInbox: false,
             userName: "",
             userId: "",
             collapse: false,
@@ -36,6 +37,7 @@ class Navigationbar extends Component {
         this.toggle = this.toggle.bind(this);
         this.logout = this.logout.bind(this);
         this.searchClicked = this.searchClicked.bind(this);
+        this.inboxClicked = this.inboxClicked.bind(this);
     }
 
     getProfilePicture() {
@@ -71,17 +73,15 @@ class Navigationbar extends Component {
         axios.get('/api/users/logout');
     }
 
-    searchClicked(){
-        this.setState({ isSearch: !this.state.isSearch });
+    searchClicked() {
+        this.setState({isSearch: !this.state.isSearch});
     }
 
-    isSearch(){
-
-
-        if(window.location.href === "http://localhost:3001/home/search/"){
+    isSearch() {
+        if (window.location.href === "http://localhost:3001/home/search/") {
             if (this.state.isSearch) {
                 return (
-                    <Link to={'/home'} >
+                    <Link to={'/home'}>
                         <Icon name='cancel'
                               size='large'
                               id="cancelIcon"
@@ -89,9 +89,9 @@ class Navigationbar extends Component {
                     </Link>
                 );
             }
-            else{
+            else {
                 return (
-                    <Link to={'/home/search/'} >
+                    <Link to={'/home/search/'}>
                         <Icon name='search'
                               size='large'
                               id="searchIcon"
@@ -100,9 +100,9 @@ class Navigationbar extends Component {
                 );
             }
         }
-        else{
+        else {
             return (
-                <Link to={'/home/search/'} >
+                <Link to={'/home/search/'}>
                     <Icon name='search'
                           size='large'
                           id="searchIcon"
@@ -112,35 +112,82 @@ class Navigationbar extends Component {
         }
     }
 
+    inboxClicked() {
+        this.setState({isInbox: !this.state.isInbox});
+    }
+
+    isInbox() {
+        if (window.location.href === "http://localhost:3001/home/inbox") {
+            if (this.state.isInbox) {
+                return (
+                    <Link to={'/home/inbox'}>
+                        <Icon.Group size='large'
+                                    id="notificationIcon"
+                                    onClick={this.inboxClicked}>
+                            <Icon name='envelope open outline' />
+                            <Icon corner name='certificate' id="dotIcon"/>
+                        </Icon.Group>
+                    </Link>
+                );
+            }
+            else {
+                return (
+                    <Link to={'/home/inbox'}>
+                        <Icon.Group size='large'
+                                    id="notificationIcon"
+                                    onClick={this.inboxClicked}>
+                            <Icon name='envelope open outline' />
+                            <Icon corner name='certificate' id="dotIcon"/>
+                        </Icon.Group>
+                    </Link>
+                );
+            }
+        }
+        else {
+            return (
+                <Link to={'/home/inbox'}>
+                    <Icon.Group size='large'
+                                id="notificationIcon"
+                                onClick={this.inboxClicked}>
+                        <Icon name='envelope open outline' />
+                        <Icon corner name='certificate' id="dotIcon"/>
+                    </Icon.Group>
+                </Link>
+            );
+        }
+
+    }
 
     render() {
 
         let imageUrl = this.state.profilePicture;
-      let imagedisplay
+        let imagedisplay
 
-      if(imageUrl){
-          imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right" />
-      }
-      else{
-        imagedisplay = <img alt=" " src={profile} />
-      }
+        if (imageUrl) {
+            imagedisplay = <img alt=" " src={require(`../../uploads/${imageUrl}`)} className="float-right"/>
+        }
+        else {
+            imagedisplay = <img alt=" " src={profile}/>
+        }
 
         if (this.props.success) {
             return (
-                <Navbar light={true} color="teal lighten-2" expand="md" dark={true} scrolling={true}>
-                    <NavbarBrand href="/home">
+                <Navbar light={true} color="white" expand="md" dark={true} scrolling={true}>
+                    <NavbarBrand href="/home" id="logoText">
                         <img src={logo} alt="" height="30px"/>
-                        Media Social
+                        {' '}
                     </NavbarBrand>
+                    <p id="namaFiturDiHome">WomanLounge</p>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>
                                 <div className="buttonContainer">
                                     {this.isSearch(this.state.isSearch)}
+                                    {this.isInbox(this.state.isInbox)}
                                 </div>
                             </NavItem>
 
-                            <NavItem>
+                            <NavItem id="profileContainer">
                                 <Link to={'/home/myProfile/' + this.state.userName.replace(' ', '')}>
                                     <Image className="navProfile" id="ProfilePicture" src={profile} avatar={true}>
                                         {imagedisplay}
@@ -149,8 +196,8 @@ class Navigationbar extends Component {
                                 </Link>
 
                                 <Dropdown className="navProfile" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                    <DropdownToggle nav={true} caret={true}/>
-                                    <DropdownMenu>
+                                    <DropdownToggle nav={true} caret={true} id="caretColor"/>
+                                    <DropdownMenu id="navProfileContainer">
 
                                         <DropdownItem>
                                             <Link to={'/home/editProfile/' + this.state.userName.replace(' ', '')}>
@@ -175,11 +222,11 @@ class Navigationbar extends Component {
                 </Navbar>);
         }
         else {
-            return (<Navbar light={true} color="teal lighten-2" dark={true} expand="md" scrolling={true}>
+            return (<Navbar light={true} color="white" dark={true} expand="md" scrolling={true}>
                 <NavbarBrand href="/home">
                     <img src={logo} alt="" height="40px"/>
-                    Friend Zone ?
                 </NavbarBrand>
+                <p id="namaFitur">WomanLounge</p>
                 {!this.state.isWideEnough && <NavbarToggler dark="dark" onClick={this.onClick}/>}
                 <Collapse isOpen={this.state.collapse} navbar={true}>
                     <NavbarNav right={true}>
