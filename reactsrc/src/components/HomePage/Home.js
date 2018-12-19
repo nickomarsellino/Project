@@ -77,6 +77,8 @@ class Home extends Component {
 
         this.getTweetDatainHome();
 
+        this.isCloseMessage();
+
         socket.on('getData', namavariabel => {
 
             this.getTweetDatainHome();
@@ -111,6 +113,14 @@ class Home extends Component {
                         totalLengthData: res.data.total,
                         lengthData: res.data.docs.length
                     })
+            });
+    }
+
+
+    isCloseMessage(){
+        axios.get('/api/inbox/isCloseMessage')
+            .then(res => {
+
             });
     }
 
