@@ -48,58 +48,66 @@ router.put('/sendMessage/:id', (req, res) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    if(String(req.body.isReceiverOpenedChat) === 'true'){
-        Message.updateMany({roomMessagesId: req.params.id},
-            {
-                $push: {
-                    messages: {
-                        'userId': userData.userId,
-                        'roomMessagesId': req.body.roomMessagesId,
-                        'messageText': req.body.messageText,
-                        'messageTimestamp': Date.now(),
-                        'messageIsRead': true
+    Message.find({userId: userData.userId, userReceiverId: req.body.userReceiverId}).then((result) => {
+        //console.log(req.body.isReceiverOpenedChat+"   true");
+        console.log("INI HASIL YANG HARUS DIUBAH: ", result)
+        if(String(result[0].isReceiverOpenedChat) === 'true'){
+            //console.log("TRUE");
+            Message.updateMany({roomMessagesId: req.params.id},
+                {
+                    $push: {
+                        messages: {
+                            'userId': userData.userId,
+                            'roomMessagesId': req.body.roomMessagesId,
+                            'messageText': req.body.messageText,
+                            'messageTimestamp': Date.now(),
+                            'messageIsRead': true
+                        }
                     }
                 }
-            }
-            , {new: true}, function (err, user) {
-                if (err) {
-                    return res.send(err)
-                }
-                ;
-                res.json({
-                    userId: req.body.userId,
-                    messageText: req.body.messageText,
-                    roomMessagesId: req.body.roomMessagesId,
-                    messageTimestamp: new Date()
+                , {new: true}, function (err, user) {
+                    if (err) {
+                        return res.send(err)
+                    }
+                    ;
+                    res.json({
+                        userId: req.body.userId,
+                        messageText: req.body.messageText,
+                        roomMessagesId: req.body.roomMessagesId,
+                        messageTimestamp: new Date()
+                    });
                 });
-            });
-    }
-    else{
-        Message.updateMany({roomMessagesId: req.params.id},
-            {
-                $push: {
-                    messages: {
-                        'userId': userData.userId,
-                        'roomMessagesId': req.body.roomMessagesId,
-                        'messageText': req.body.messageText,
-                        'messageTimestamp': Date.now(),
-                        'messageIsRead': false
+        }
+        else{
+            console.log("FALSE");
+            Message.updateMany({roomMessagesId: req.params.id},
+                {
+                    $push: {
+                        messages: {
+                            'userId': userData.userId,
+                            'roomMessagesId': req.body.roomMessagesId,
+                            'messageText': req.body.messageText,
+                            'messageTimestamp': Date.now(),
+                            'messageIsRead': false
+                        }
                     }
                 }
-            }
-            , {new: true}, function (err, user) {
-                if (err) {
-                    return res.send(err)
-                }
-                ;
-                res.json({
-                    userId: req.body.userId,
-                    messageText: req.body.messageText,
-                    roomMessagesId: req.body.roomMessagesId,
-                    messageTimestamp: new Date()
+                , {new: true}, function (err, user) {
+                    if (err) {
+                        return res.send(err)
+                    }
+                    ;
+                    res.json({
+                        userId: req.body.userId,
+                        messageText: req.body.messageText,
+                        roomMessagesId: req.body.roomMessagesId,
+                        messageTimestamp: new Date()
+                    });
                 });
-            });
-    }
+        }
+    })
+
+
 
     Message.updateMany({roomMessagesId: req.params.id}, {
         $set: {roomMessageTimestamp: Date.now()}
@@ -160,6 +168,7 @@ router.get('/isCloseMessage', (req, res, next) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
+    console.log("userReceiverId: ", userData.userId)
 
 
     Message.updateMany({userReceiverId: userData.userId}, {

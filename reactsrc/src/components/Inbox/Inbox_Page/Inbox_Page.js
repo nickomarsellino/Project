@@ -33,6 +33,7 @@ class Inbox_Page extends Component {
                 });
             }
         }
+
         //dia membuat semua isChatOpenednya ,=menjadi "false"
         else{
             axios.get('/api/inbox/isCloseMessage')

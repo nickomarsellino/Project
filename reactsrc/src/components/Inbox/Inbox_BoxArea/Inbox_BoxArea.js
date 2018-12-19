@@ -6,7 +6,7 @@ import './Inbox_BoxArea.css'
 import axios from "axios/index";
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 
 class Inbox_BoxArea extends Component {
 
@@ -33,7 +33,7 @@ class Inbox_BoxArea extends Component {
             userId: this.state.userId,
             messageText: this.state.messageText,
             messageTimestamp: new Date(),
-            isReceiverOpenedChat: this.props.chatMessageDetail.isReceiverOpenedChat
+            userReceiverId: this.props.chatMessageDetail.userReceiverId
         };
         axios({
             method: 'PUT',
