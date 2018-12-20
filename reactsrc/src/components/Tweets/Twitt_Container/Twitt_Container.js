@@ -42,6 +42,10 @@ class Twitt_Container extends Component {
         }
         else {
             this.getTweetData();
+            // socket.on('getData', namavariabel => {
+            //     console.log("namavariabel ", namavariabel);
+            //     this.getTweetData();
+            // })
         }
     }
 
@@ -49,16 +53,6 @@ class Twitt_Container extends Component {
     componentWillReceiveProps(props) {
         console.log("INI PROPS: ", props)
     }
-
-    // componentWillUpdate(nextProps, nextState) {
-    //     if(nextState.tweetData !== this.state.tweetData){
-    //         this.setState({
-    //             tweetData: nextState.tweetData
-    //         });
-    //     }
-    //     console.log(nextState.tweetData); //will show the new state
-    //     console.log(this.state.tweetData); //will show the previous state
-    // }
 
     getTweetData() {
         axios.get('/api/tweet/tweets?perPage=5&page=1')

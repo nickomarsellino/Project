@@ -31,6 +31,7 @@ class Inbox_Profile_Container extends Component {
             });
     }
 
+
     render() {
         return (
             <List id="listProfileContainer">

@@ -58,11 +58,11 @@ const io = require('socket.io')();
 io.on('connection', (socket) => {
   console.log('a new user connected, with Id:', socket.id);
   // Memastikan emit tsb telah terkirim dari client (front end)
-  socket.on('sendTheData', (data) => {
-    socket.broadcast.emit('getData', data)
-    socket.emit('getData', data);
-    // io.sockets.emit('bebas1', data);
-  });
+    socket.on('sendTheData', (data) => {
+      socket.broadcast.emit('getData', data)
+      socket.emit(data.userId+'getData', data);
+      console.log(data);
+    });
 
   socket.on('sendLike', (data) => {
     console.log("data like", data);
