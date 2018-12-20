@@ -119,6 +119,7 @@ class Navigationbar extends Component {
     isInbox() {
         if (window.location.href === "http://localhost:3001/home/inbox") {
             if (this.state.isInbox) {
+
                 return (
                     <Link to={'/home/inbox'}>
                         <Icon.Group size='large'

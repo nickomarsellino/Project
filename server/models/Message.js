@@ -30,7 +30,7 @@ const MessageSchema = Schema({
         type: Date,
         default: Date.now()
     },
-    isReceiverOpenedChat: {
+    isOpenedChat: {
         type: String
     },
     messages: [{

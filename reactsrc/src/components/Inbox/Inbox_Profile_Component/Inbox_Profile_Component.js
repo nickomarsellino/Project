@@ -85,14 +85,13 @@ class Inbox_Profile_Component extends Component {
         //     }
         // })
 
-        console.log(this.props.people.userReceiverId)
 
         axios.get('/api/inbox/changeUnReadMessage/' + this.props.people._id)
             .then(res => {
 
             });
 
-        axios.get('/api/inbox/isOpenMessage/' + this.props.people.userReceiverId)
+        axios.get('/api/inbox/isOpenMessage/' + this.props.people._id)
             .then(res => {
 
             });

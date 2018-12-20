@@ -25,7 +25,7 @@ router.post('/message', (req, res, next) => {
         userReceiverName: req.body.userReceiverName,
         profileReceiverPicture: req.body.profileReceiverPicture,
         roomMessagesId: req.body.roomMessagesId,
-        isReceiverOpenedChat: false
+        isOpenedChat: false
     };
     Message.create(inboxInformationData).then(function (result) {
         return res.send({
@@ -48,11 +48,11 @@ router.put('/sendMessage/:id', (req, res) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    Message.find({userId: userData.userId, userReceiverId: req.body.userReceiverId}).then((result) => {
+    Message.find({userId: req.body.userReceiverId, userReceiverId: userData.userId}).then((result) => {
         //console.log(req.body.isReceiverOpenedChat+"   true");
         console.log("INI HASIL YANG HARUS DIUBAH: ", result)
-        if(String(result[0].isReceiverOpenedChat) === 'true'){
-            //console.log("TRUE");
+        if(String(result[0].isOpenedChat) === 'true'){
+            console.log("TRUE");
             Message.updateMany({roomMessagesId: req.params.id},
                 {
                     $push: {
@@ -147,14 +147,14 @@ router.get('/isOpenMessage/:id', (req, res, next) => {
     const userData = JSON.parse(plaintext);
 
 
-    Message.updateMany({userReceiverId: userData.userId}, {
+    Message.updateMany({userId: userData.userId}, {
         $set: {
-            isReceiverOpenedChat: false
+            isOpenedChat: false
         }
     }).then((result) => {
-        Message.updateMany({userId: req.params.id, userReceiverId: userData.userId}, {
+        Message.updateMany({_id: req.params.id, userId: userData.userId}, {
             $set: {
-                isReceiverOpenedChat: true
+                isOpenedChat: true
             }
         }).exec();
     });
@@ -168,12 +168,10 @@ router.get('/isCloseMessage', (req, res, next) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    console.log("userReceiverId: ", userData.userId)
 
-
-    Message.updateMany({userReceiverId: userData.userId}, {
+    Message.updateMany({userId: userData.userId}, {
         $set: {
-            isReceiverOpenedChat: false
+            isOpenedChat: false
         }
     }).exec();
 })
@@ -181,6 +179,9 @@ router.get('/isCloseMessage', (req, res, next) => {
 
 router.get('/changeUnReadMessage/:id', (req, res, next) => {
     Message.findById({_id: req.params.id}).then((result) => {
+
+        console.log("HASIL NYA: ",result)
+
         for(let i=0; i<result.messages.length; i++){
 
             let messages =[];
