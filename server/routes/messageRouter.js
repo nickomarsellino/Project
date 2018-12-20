@@ -50,9 +50,9 @@ router.put('/sendMessage/:id', (req, res) => {
 
     Message.find({userId: req.body.userReceiverId, userReceiverId: userData.userId}).then((result) => {
         //console.log(req.body.isReceiverOpenedChat+"   true");
-        console.log("INI HASIL YANG HARUS DIUBAH: ", result)
+        // console.log("INI HASIL YANG HARUS DIUBAH: ", result)
         if(String(result[0].isOpenedChat) === 'true'){
-            console.log("TRUE");
+            // console.log("TRUE");
             Message.updateMany({roomMessagesId: req.params.id},
                 {
                     $push: {
@@ -79,7 +79,7 @@ router.put('/sendMessage/:id', (req, res) => {
                 });
         }
         else{
-            console.log("FALSE");
+            // console.log("FALSE");
             Message.updateMany({roomMessagesId: req.params.id},
                 {
                     $push: {
