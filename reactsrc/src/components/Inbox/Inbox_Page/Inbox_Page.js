@@ -38,6 +38,12 @@ class Inbox_Page extends Component {
         }
     }
 
+    // unReadMessageForNotif(totalNotif){
+    //     console.log("totalNotif ", totalNotif);
+    //     this.setState({
+    //         cekAdaMessageOrTidak:totalNotif
+    //     })
+    // }
 
     // Function untuk terima data dari anaknya si inbox_profile_container
     sendTheMessageDetail(messagesData) {
@@ -84,7 +90,7 @@ class Inbox_Page extends Component {
     }
 
     render() {
-        console.log(this.props.history);
+        console.log(this.props.onUserClicked);
         return (
             <FadeIn id="InboxPage">
                 <Card className="inboxCard">

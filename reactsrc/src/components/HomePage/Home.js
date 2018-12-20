@@ -77,24 +77,11 @@ class Home extends Component {
 
         this.getTweetDatainHome();
 
-        socket.on('getData', namavariabel => {
+        socket.on(this.state.userId+'getData', namavariabel => {
 
-            this.getTweetDatainHome();
-
-            // console.log(this.state.lengthData)
-            // console.log(this.state.totalLengthData)
-            // console.log(this.state.tweetData)
-            // console.log(namavariabel);
-            // const allTweets = this.state.tweetData;
-            // const newTweets = [namavariabel].concat(allTweets);
-            //
-            // console.log(newTweets)
-            //
-            // this.setState(function(state) {
-            //     return {receivedElements: [namavariabel].concat(state.tweetData)};
-            // });
-
+            console.log("namavariabel ", namavariabel);
         })
+        console.log("userId di home",this.state.userId);
     }
 
     componentDidMount() {
@@ -168,6 +155,7 @@ class Home extends Component {
           />
         );
 
+        console.log(this.props.location.state);
         const inbox = () => (
           <InboxPage userId={this.state.userId}
                      history={this.props.history}

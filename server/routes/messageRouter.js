@@ -135,7 +135,7 @@ router.get('/listContactInbox', (req, res, next) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    Message.find({userId: userData.userId}).sort({roomMessageTimestamp: 'descending'}).then((result) => {
+    Message.find({userId: userData.userId}).sort({roomMessageTimestamp: 'ascending'}).then((result) => {
         res.send(result);
     });
 });

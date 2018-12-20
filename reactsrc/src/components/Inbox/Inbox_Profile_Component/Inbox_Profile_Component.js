@@ -111,20 +111,20 @@ class Inbox_Profile_Component extends Component {
 
     showUnReadMessages(){
         if(this.state.messagesUnRead > 0){
+            console.log("THIS.STATE.MESSAGEUNREAD : ADA");
             return(
                 <Icon
                     id="notificationChat"
                     circular inverted color='teal'
-                    //onClick={() => this.endChatMessage(people.roomMessagesId, people.userId, people._id)}
                 >
                     <p id="notificationChatCounter">{this.state.messagesUnRead}</p>
                 </Icon>
-
             );
         }
     }
 
     render() {
+        console.log("props people ", this.props.people);
         return (
             <List.Item id="listItemProfile">
                 <Image avatar id="avatarItemContainer"

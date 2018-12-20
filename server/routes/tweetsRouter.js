@@ -137,7 +137,6 @@ router.get('/tweets', (req, res, next) => {
     const userData = JSON.parse(plaintext);
 
     User.find({_id: userData.userId}).then((result) => {
-      // console.log("RESULT ",result[0]);
         const query = Tweet.find({userId: { $in : result[0].following.concat(userData.userId) }})
         .sort({timestamp: 'descending'});
         // console.log(userData);
