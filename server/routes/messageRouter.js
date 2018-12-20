@@ -25,7 +25,7 @@ router.post('/message', (req, res, next) => {
         userReceiverName: req.body.userReceiverName,
         profileReceiverPicture: req.body.profileReceiverPicture,
         roomMessagesId: req.body.roomMessagesId,
-        isReceiverOpenedChat: false
+        isOpenedChat: false
     };
     Message.create(inboxInformationData).then(function (result) {
         return res.send({
@@ -48,58 +48,66 @@ router.put('/sendMessage/:id', (req, res) => {
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     const userData = JSON.parse(plaintext);
 
-    if(String(req.body.isReceiverOpenedChat) === 'true'){
-        Message.updateMany({roomMessagesId: req.params.id},
-            {
-                $push: {
-                    messages: {
-                        'userId': userData.userId,
-                        'roomMessagesId': req.body.roomMessagesId,
-                        'messageText': req.body.messageText,
-                        'messageTimestamp': Date.now(),
-                        'messageIsRead': true
+    Message.find({userId: req.body.userReceiverId, userReceiverId: userData.userId}).then((result) => {
+        //console.log(req.body.isReceiverOpenedChat+"   true");
+        console.log("INI HASIL YANG HARUS DIUBAH: ", result)
+        if(String(result[0].isOpenedChat) === 'true'){
+            console.log("TRUE");
+            Message.updateMany({roomMessagesId: req.params.id},
+                {
+                    $push: {
+                        messages: {
+                            'userId': userData.userId,
+                            'roomMessagesId': req.body.roomMessagesId,
+                            'messageText': req.body.messageText,
+                            'messageTimestamp': Date.now(),
+                            'messageIsRead': true
+                        }
                     }
                 }
-            }
-            , {new: true}, function (err, user) {
-                if (err) {
-                    return res.send(err)
-                }
-                ;
-                res.json({
-                    userId: req.body.userId,
-                    messageText: req.body.messageText,
-                    roomMessagesId: req.body.roomMessagesId,
-                    messageTimestamp: new Date()
+                , {new: true}, function (err, user) {
+                    if (err) {
+                        return res.send(err)
+                    }
+                    ;
+                    res.json({
+                        userId: req.body.userId,
+                        messageText: req.body.messageText,
+                        roomMessagesId: req.body.roomMessagesId,
+                        messageTimestamp: new Date()
+                    });
                 });
-            });
-    }
-    else{
-        Message.updateMany({roomMessagesId: req.params.id},
-            {
-                $push: {
-                    messages: {
-                        'userId': userData.userId,
-                        'roomMessagesId': req.body.roomMessagesId,
-                        'messageText': req.body.messageText,
-                        'messageTimestamp': Date.now(),
-                        'messageIsRead': false
+        }
+        else{
+            console.log("FALSE");
+            Message.updateMany({roomMessagesId: req.params.id},
+                {
+                    $push: {
+                        messages: {
+                            'userId': userData.userId,
+                            'roomMessagesId': req.body.roomMessagesId,
+                            'messageText': req.body.messageText,
+                            'messageTimestamp': Date.now(),
+                            'messageIsRead': false
+                        }
                     }
                 }
-            }
-            , {new: true}, function (err, user) {
-                if (err) {
-                    return res.send(err)
-                }
-                ;
-                res.json({
-                    userId: req.body.userId,
-                    messageText: req.body.messageText,
-                    roomMessagesId: req.body.roomMessagesId,
-                    messageTimestamp: new Date()
+                , {new: true}, function (err, user) {
+                    if (err) {
+                        return res.send(err)
+                    }
+                    ;
+                    res.json({
+                        userId: req.body.userId,
+                        messageText: req.body.messageText,
+                        roomMessagesId: req.body.roomMessagesId,
+                        messageTimestamp: new Date()
+                    });
                 });
-            });
-    }
+        }
+    })
+
+
 
     Message.updateMany({roomMessagesId: req.params.id}, {
         $set: {roomMessageTimestamp: Date.now()}
@@ -139,14 +147,14 @@ router.get('/isOpenMessage/:id', (req, res, next) => {
     const userData = JSON.parse(plaintext);
 
 
-    Message.updateMany({userReceiverId: userData.userId}, {
+    Message.updateMany({userId: userData.userId}, {
         $set: {
-            isReceiverOpenedChat: false
+            isOpenedChat: false
         }
     }).then((result) => {
-        Message.updateMany({userId: req.params.id, userReceiverId: userData.userId}, {
+        Message.updateMany({_id: req.params.id, userId: userData.userId}, {
             $set: {
-                isReceiverOpenedChat: true
+                isOpenedChat: true
             }
         }).exec();
     });
@@ -161,10 +169,9 @@ router.get('/isCloseMessage', (req, res, next) => {
     const userData = JSON.parse(plaintext);
 
 
-
-    Message.updateMany({userReceiverId: userData.userId}, {
+    Message.updateMany({userId: userData.userId}, {
         $set: {
-            isReceiverOpenedChat: false
+            isOpenedChat: false
         }
     }).exec();
 })
@@ -172,6 +179,9 @@ router.get('/isCloseMessage', (req, res, next) => {
 
 router.get('/changeUnReadMessage/:id', (req, res, next) => {
     Message.findById({_id: req.params.id}).then((result) => {
+
+        console.log("HASIL NYA: ",result)
+
         for(let i=0; i<result.messages.length; i++){
 
             let messages =[];

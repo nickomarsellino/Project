@@ -33,13 +33,19 @@ class Inbox_Page extends Component {
                 });
             }
         }
+
         //dia membuat semua isChatOpenednya ,=menjadi "false"
         else{
-            axios.get('/api/inbox/isCloseMessage')
-                .then(res => {
-
-                });
+            console.log("INI DI WILL");
+            // axios.get('/api/inbox/isCloseMessage')
+            //     .then(res => {
+            //
+            //     });
         }
+    }
+
+    componentDidMount(){
+        console.log("INI DI Did");
     }
 
     // Function untuk terima data dari anaknya si inbox_profile_container
