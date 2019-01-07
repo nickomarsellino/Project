@@ -63,6 +63,7 @@ class Twitt_Container extends Component {
     getTweetData() {
         axios.get('/api/tweet/tweets?perPage=5&page=1')
             .then(res => {
+                console.log("INI DATANYA: ", res);
                 this.setState(
                     {
                         tweetData: res.data.docs,

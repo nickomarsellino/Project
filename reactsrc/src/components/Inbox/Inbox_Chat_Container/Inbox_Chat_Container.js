@@ -14,13 +14,21 @@ class Inbox_Chat_Container extends Component {
         this.state = {
             chatMessageDetail: [],
             chatMessageId: '',
-            roomMessagesId: this.props.chatMessageDetail.roomMessagesId
+            roomMessagesId: this.props.chatMessageDetail.roomMessagesId,
+            hasMoreChat: true,
+            lengthDataChat: '',
+            totalLengthDataChat: '',
+            pagesDataChat: 1
         };
     }
 
     // Pertama render iniiii
     componentWillMount() {
 
+        axios.get('/api/inbox/loadMoreMessages/' + this.props.chatMessageDetail._id+'?perPage=5&page=1')
+            .then(res => {
+
+            });
 
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
@@ -46,12 +54,7 @@ class Inbox_Chat_Container extends Component {
         });
     }
 
-    componentWillReceiveProps(props) {
 
-        this.setState({
-            chatMessageDetail: props.chatMessageDetail.messages
-        });
-    }
 
     scrollToBottom = () => {
         this.messagesEnd.scrollIntoView({ behavior: "smooth" });

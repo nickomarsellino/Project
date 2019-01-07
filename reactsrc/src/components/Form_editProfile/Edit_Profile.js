@@ -96,7 +96,6 @@ class Edit_Profile extends Component {
             isLoading: true
         });
 
-
         const user = {
             username: this.state.username,
             email: this.state.email,
@@ -114,19 +113,25 @@ class Edit_Profile extends Component {
             .then((response) => {
                 this.setState({
                     formStatus: 'success',
-                    formMessage: response.data.msg
+                    formMessage: response.data.msg,
+                    isLoading: false
                 });
 
                 let formData = new FormData();
                 formData.append('profilePicture', this.state.selectedFile);
 
+                this.setState({
+                    isLoading: true
+                })
+
                 axios.put('/api/users/editProfilePicture/'+this.state.userId, formData)
                     .then((result) => {
+
+                    })
+                    .catch(() => {
                         this.setState({
                             isLoading: false
                         })
-                    })
-                    .catch(() => {
                         //Render Validation box message
                         ReactDOM.render(<MessageValidation
                             form="success"

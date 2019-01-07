@@ -138,6 +138,38 @@ router.get('/chatDetailMessage/:id', (req, res, next) => {
     })
 })
 
+// get all tweets
+router.get('/loadMoreMessages/:id', (req, res, next) => {
+
+
+    const query = Message.findById({_id: req.params.id}, 'messages');
+    const { page, perPage } = req.query;
+    const options = {
+        page: parseInt(page, 10),
+        limit: parseInt(perPage, 10),
+    };
+
+    Message.paginate(query, options).then(function(result) {
+        console.log("HASILNYA Bor: ", result)
+    });
+
+    // Message.findById({_id: req.params.id}).then((result) => {
+    //     console.log("RESULT NYA BOR: ",result[0]);
+    //     // const query = Message.find({userId: { $in : result[0].following.concat(userData.userId) }})
+    //     //     .sort({timestamp: 'descending'});
+    //     // // console.log(userData);
+    //     // const { page, perPage } = req.query;
+    //     // const options = {
+    //     //     page: parseInt(page, 10),
+    //     //     limit: parseInt(perPage, 10),
+    //     // };
+    //     //
+    //     // Message.paginate(query, options).then(function(result) {
+    //     //     res.send(result);
+    //     // });
+    // });
+});
+
 // Ini untuk menandakan bahwa ia sedang buka chat dengan siapa dan ini brdampak ke "send messagenya"
 router.get('/isOpenMessage/:id', (req, res, next) => {
 
@@ -218,5 +250,8 @@ router.get('/listContactInbox', (req, res, next) => {
         res.send(result);
     });
 });
+
+
+
 
 module.exports = router;
