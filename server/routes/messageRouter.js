@@ -266,13 +266,33 @@ router.get('/listContactInbox', (req, res, next) => {
 
 
 router.get('/isReadNewMessage/:id', (req, res, next) => {
-
-    console.log("Apakah ini : ", req.params.id)
     Message.updateMany({_id: req.params.id}, {
         $set: {
             isHaveNewMessage: false
         }
     }).exec();
+});
+
+
+router.get('/isNewMessage', (req, res, next) => {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    Message.find({userId: userData.userId}).sort({roomMessageTimestamp: 'descending'}).then((result) => {
+        for(var i=0; i<result.length; i++){
+            if(result[i].isHaveNewMessage === "true"){
+                res.send({
+                    isHaveNewMessage: true
+                });
+                break;
+            }
+        }
+        res.send({
+            isHaveNewMessage: false
+        });
+    });
 });
 
 

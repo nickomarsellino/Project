@@ -31,7 +31,9 @@ class Navigationbar extends Component {
             collapse: false,
             isWideEnough: false,
             dropdownOpen: false,
-            profilePicture: ""
+            profilePicture: "",
+            messageData: "",
+            isHaveNewMessage: ""
         };
         this.onClick = this.onClick.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -53,8 +55,22 @@ class Navigationbar extends Component {
             });
     }
 
+    //Ini untuk notification Dot jika ada new Message
+    newMessagesNotification(){
+        axios.get('/api/inbox/isNewMessage')
+            .then(res => {
+                this.setState({
+                    isHaveNewMessage: res.data.isHaveNewMessage
+                });
+            });
+    }
+
     componentWillMount() {
         this.getProfilePicture();
+    }
+
+    componentDidMount() {
+        this.newMessagesNotification();
     }
 
     onClick() {
@@ -119,14 +135,65 @@ class Navigationbar extends Component {
     isInbox() {
         if (window.location.href === "http://localhost:3001/home/inbox") {
             if (this.state.isInbox) {
-
+                if(this.state.isHaveNewMessage){
+                    return (
+                        <Link to={'/home'}>
+                            <Icon.Group size='large'
+                                        id="notificationIcon"
+                                        onClick={this.inboxClicked}>
+                                <Icon name='envelope open outline' />
+                                <Icon corner name='certificate' id="dotIcon"/>
+                            </Icon.Group>
+                        </Link>
+                    );
+                }
+                else {
+                    return (
+                        <Link to={'/home'}>
+                            <Icon.Group size='large'
+                                        id="notificationIcon"
+                                        onClick={this.inboxClicked}>
+                                <Icon name='envelope open outline' />
+                            </Icon.Group>
+                        </Link>
+                    );
+                }
+            }
+            else {
+                if(this.state.isHaveNewMessage){
+                    return (
+                        <Link to={'/home/inbox'}>
+                            <Icon.Group size='large'
+                                        id="notificationIcon"
+                                        onClick={this.inboxClicked}>
+                                <Icon name='envelope open outline' />
+                                <Icon corner name='certificate' id="dotIcon"/>
+                            </Icon.Group>
+                        </Link>
+                    );
+                }
+                else {
+                    return (
+                        <Link to={'/home/inbox'}>
+                            <Icon.Group size='large'
+                                        id="notificationIcon"
+                                        onClick={this.inboxClicked}>
+                                <Icon name='envelope open outline' />
+                            </Icon.Group>
+                        </Link>
+                    );
+                }
+            }
+        }
+        else {
+            if(this.state.isHaveNewMessage){
                 return (
                     <Link to={'/home/inbox'}>
                         <Icon.Group size='large'
                                     id="notificationIcon"
                                     onClick={this.inboxClicked}>
                             <Icon name='envelope open outline' />
-                            {/*<Icon corner name='certificate' id="dotIcon"/>*/}
+                            <Icon corner name='certificate' id="dotIcon"/>
                         </Icon.Group>
                     </Link>
                 );
@@ -138,23 +205,10 @@ class Navigationbar extends Component {
                                     id="notificationIcon"
                                     onClick={this.inboxClicked}>
                             <Icon name='envelope open outline' />
-                            {/*<Icon corner name='certificate' id="dotIcon"/>*/}
                         </Icon.Group>
                     </Link>
                 );
             }
-        }
-        else {
-            return (
-                <Link to={'/home/inbox'}>
-                    <Icon.Group size='large'
-                                id="notificationIcon"
-                                onClick={this.inboxClicked}>
-                        <Icon name='envelope open outline' />
-                        <Icon corner name='certificate' id="dotIcon"/>
-                    </Icon.Group>
-                </Link>
-            );
         }
 
     }
