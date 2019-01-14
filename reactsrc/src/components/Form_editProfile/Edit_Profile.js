@@ -141,6 +141,9 @@ class Edit_Profile extends Component {
                         });
             })
             .catch((err) => {
+                this.setState({
+                    isLoading: false
+                })
                 if (err.response) {
                     this.setState({
                         formStatus: 'error',

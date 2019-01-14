@@ -25,7 +25,8 @@ router.post('/message', (req, res, next) => {
         userReceiverName: req.body.userReceiverName,
         profileReceiverPicture: req.body.profileReceiverPicture,
         roomMessagesId: req.body.roomMessagesId,
-        isOpenedChat: false
+        isOpenedChat: false,
+        isHaveNewMessage: false
     };
     Message.create(inboxInformationData).then(function (result) {
         return res.send({
@@ -79,7 +80,6 @@ router.put('/sendMessage/:id', (req, res) => {
                 });
         }
         else{
-            // console.log("FALSE");
             Message.updateMany({roomMessagesId: req.params.id},
                 {
                     $push: {
@@ -108,10 +108,16 @@ router.put('/sendMessage/:id', (req, res) => {
     })
 
 
-
     Message.updateMany({roomMessagesId: req.params.id}, {
         $set: {roomMessageTimestamp: Date.now()}
     }).exec();
+
+    Message.updateMany({roomMessagesId: req.params.id, userId: req.body.userReceiverId}, {
+        $set: {
+            isHaveNewMessage: true
+        }
+    }).exec();
+
 });
 
 router.put('/unSendMessage/:id', (req, res) => {
@@ -212,7 +218,14 @@ router.get('/isCloseMessage', (req, res, next) => {
 router.get('/changeUnReadMessage/:id', (req, res, next) => {
     Message.findById({_id: req.params.id}).then((result) => {
 
-        console.log("HASIL NYA: ",result)
+
+        // Message.updateMany({roomMessagesId: result.roomMessagesId, userId: result.userId}, {
+        //     $set: {
+        //         isHaveNewMessage: false
+        //     }
+        // }).exec();
+
+        //console.log("HASIL NYA: ",result)
 
         for(let i=0; i<result.messages.length; i++){
 
@@ -250,6 +263,19 @@ router.get('/listContactInbox', (req, res, next) => {
         res.send(result);
     });
 });
+
+
+router.get('/isReadNewMessage/:id', (req, res, next) => {
+
+    console.log("Apakah ini : ", req.params.id)
+    Message.updateMany({_id: req.params.id}, {
+        $set: {
+            isHaveNewMessage: false
+        }
+    }).exec();
+});
+
+
 
 
 

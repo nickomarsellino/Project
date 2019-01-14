@@ -25,11 +25,6 @@ class Inbox_Chat_Container extends Component {
     // Pertama render iniiii
     componentWillMount() {
 
-        axios.get('/api/inbox/loadMoreMessages/' + this.props.chatMessageDetail._id+'?perPage=5&page=1')
-            .then(res => {
-
-            });
-
         this.setState({
             chatMessageDetail: this.props.chatMessageDetail.messages
         })

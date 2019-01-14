@@ -33,6 +33,9 @@ const MessageSchema = Schema({
     isOpenedChat: {
         type: String
     },
+    isHaveNewMessage: {
+        type: String
+    },
     messages: [{
         userId: {
             type: Schema.ObjectId,

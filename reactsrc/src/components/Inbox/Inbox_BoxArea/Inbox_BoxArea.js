@@ -45,6 +45,12 @@ class Inbox_BoxArea extends Component {
                 messageText: ''
             })
             socket.emit("sendMessage", res.data)
+
+            // axios({
+            //     method: 'POST',
+            //     url: `http://localhost:3001/api/inbox/isHaveNewMessage/` + this.props.chatMessageDetail.roomMessagesId,
+            //     data: messageData
+            // })
         })
     }
 

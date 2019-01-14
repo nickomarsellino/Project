@@ -126,7 +126,7 @@ class Navigationbar extends Component {
                                     id="notificationIcon"
                                     onClick={this.inboxClicked}>
                             <Icon name='envelope open outline' />
-                            <Icon corner name='certificate' id="dotIcon"/>
+                            {/*<Icon corner name='certificate' id="dotIcon"/>*/}
                         </Icon.Group>
                     </Link>
                 );
@@ -138,7 +138,7 @@ class Navigationbar extends Component {
                                     id="notificationIcon"
                                     onClick={this.inboxClicked}>
                             <Icon name='envelope open outline' />
-                            <Icon corner name='certificate' id="dotIcon"/>
+                            {/*<Icon corner name='certificate' id="dotIcon"/>*/}
                         </Icon.Group>
                     </Link>
                 );

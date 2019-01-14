@@ -73,18 +73,13 @@ class Inbox_Profile_Component extends Component {
             state: {
                 chatDetailMessage: this.props.people
             }
-        })
+        });
 
-        // // Fungsi kirim ke parent inbox page
-        // this.props.sendTheMessageDetail(this.props.people)
-        //
-        // this.props.history.replace({
-        //     pathname: '/home/inbox',
-        //     state: {
-        //         chatDetailMessage: this.props.people
-        //     }
-        // })
 
+        axios.get('/api/inbox/isReadNewMessage/' + this.props.people._id)
+            .then(res => {
+
+            });
 
         axios.get('/api/inbox/changeUnReadMessage/' + this.props.people._id)
             .then(res => {
