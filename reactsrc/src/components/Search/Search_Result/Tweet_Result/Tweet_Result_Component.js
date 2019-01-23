@@ -9,7 +9,7 @@ import ModalDelete from '../../../Modal/Modal_Delete/Modal_Delete';
 import openSocket from "socket.io-client";
 
 const Timestamp = require('react-timestamp');
-const socket = openSocket('http://10.183.28.153:8000');
+const socket = openSocket('http://10.183.28.155:8000');
 const Highlight = require('react-highlighter');
 
 class Tweet_Result_Component extends Component {

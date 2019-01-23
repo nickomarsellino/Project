@@ -153,7 +153,7 @@ class Navigationbar extends Component {
                             <Icon.Group size='large'
                                         id="notificationIcon"
                                         onClick={this.inboxClicked}>
-                                <Icon name='envelope open outline' />
+                                <Icon name='envelope outline' />
                             </Icon.Group>
                         </Link>
                     );
@@ -178,7 +178,7 @@ class Navigationbar extends Component {
                             <Icon.Group size='large'
                                         id="notificationIcon"
                                         onClick={this.inboxClicked}>
-                                <Icon name='envelope open outline' />
+                                <Icon name='envelope outline' />
                             </Icon.Group>
                         </Link>
                     );
@@ -204,7 +204,7 @@ class Navigationbar extends Component {
                         <Icon.Group size='large'
                                     id="notificationIcon"
                                     onClick={this.inboxClicked}>
-                            <Icon name='envelope open outline' />
+                            <Icon name='envelope outline' />
                         </Icon.Group>
                     </Link>
                 );
