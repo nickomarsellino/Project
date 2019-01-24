@@ -15,6 +15,9 @@
 .ui.menu.three.item .itemNav {
     width: 50%;
 }
+.scrollContainer{
+    overflow: inherit;
+}
 
 
 
