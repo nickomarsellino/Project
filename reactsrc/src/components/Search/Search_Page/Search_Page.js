@@ -3,7 +3,6 @@ import FadeIn from 'react-fade-in';
 import {Container} from "mdbreact";
 import './Search_Page.css';
 import axios from 'axios';
-import HorizontalScroll from 'react-scroll-horizontal'
 
 //Load another component
 import SearchBar from "../Search_Bar/Search_Bar";
@@ -253,22 +252,11 @@ class Search_Page extends Component {
     }
 
     render() {
-        const child = { width: `30em`, height: `100%`}
         return (
             <FadeIn>
                 <Container className="col-lg-8 col-lg-offset-4" style={{marginBottom: "5%", marginTop: "5%"}}>
 
-                    <HorizontalScroll style={{overflow: "inherit"}}>
-                        <div style={child}>
-                            <Recomendation/>
-                        </div>
-                        <div style={child}>
-                            <Recomendation/>
-                        </div>
-                        <div style={child}>
-                            <Recomendation/>
-                        </div>
-                    </HorizontalScroll>
+                    <Recomendation/>
 
                     <div>
                         <SearchBar

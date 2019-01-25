@@ -1,0 +1,12 @@
+.RecomendationContainer {
+    min-width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    justify-content: normal;
+    align-items: center;
+}
+
+
+.RecomendationContainer::-webkit-scrollbar {
+    display: none;
+}

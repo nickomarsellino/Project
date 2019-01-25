@@ -1,0 +1,54 @@
+
+.RecomendationComponent{
+    background-color: #FFFFFF;
+    min-width: 200px;
+    border-radius: 8px;
+    font-family: 'myTextFont', sans-serif;
+    box-shadow: 0px 2px 13px -2px #d0d0d0;
+    text-align: center;
+}
+
+
+.ui.comments .comment .RecomendationPicture {
+    display: block;
+    width: 55px;
+    height: 55px;
+    float: left;
+    margin: 10px;
+    margin-left: 20px;
+}
+
+
+.ui.comments .comment>.avatar~.RecomendationUsername {
+    margin-left: -2px;
+}
+
+.RecomendationUsername{
+    font-size: 20px;
+    margin-top: 25px;
+    margin-right: 5px;
+    margin-bottom: 25px;
+}
+
+.RecomendationUsername .author{
+    text-align: left;
+}
+
+.ui.comments .comment>.avatar~.RecomendationButton {
+    margin-left: 100px;
+}
+
+.RecomendationButton{
+    border-style: solid;
+    border-width: 1.2px;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: rgb(77, 182, 172);
+    color: rgb(77, 182, 172);
+    font-size: 20px;
+    margin-right: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}

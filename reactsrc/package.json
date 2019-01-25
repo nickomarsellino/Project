@@ -25,6 +25,7 @@
     "react-dom": "^16.4.1",
     "react-fade-in": "^0.1.6",
     "react-highlighter": "^0.4.3",
+    "react-horizontal-scrolling-menu": "^0.4.5",
     "react-infinite-scroll-component": "^4.2.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",

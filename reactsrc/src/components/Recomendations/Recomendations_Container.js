@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import profile from '../../daniel.jpg';
 import axios from 'axios';
-
+import './Recomendations_Container.css'
+import RecomendationComponent from './Recomendation_Component'
 
 
 class Recomendations_Container extends Component {
@@ -24,13 +25,13 @@ class Recomendations_Container extends Component {
     render() {
 
         return (
-            <div>
-                <h2>Ini Rekomendasi</h2>
-                <h2>Ini Rekomendasi</h2>
-                <h2>Ini Rekomendasi</h2>
-                <h2>Ini Rekomendasi</h2>
-                <h2>Ini Rekomendasi</h2>
-            </div>
+            <section className="RecomendationContainer">
+               <RecomendationComponent/>
+                <RecomendationComponent/>
+                <RecomendationComponent/>
+                <RecomendationComponent/>
+                <RecomendationComponent/>
+            </section>
         );
     }
 }
