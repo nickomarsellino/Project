@@ -382,7 +382,9 @@ router.get('/allUsers', (req, res, next) => {
     User.find({}).sort({timestamp: 'descending'}).then((result) => {
         for (var i=0; i<result.length; i++){
           if(result[i].followers.indexOf(userData.userId.toString()).toString() === "-1"){
-              recomendation.push(result[i]);
+              if(new String(result[i]._id).valueOf() !== new String(userData.userId).valueOf()){
+                  recomendation.push(result[i]);
+              }
           }
         }
         res.json(recomendation);
