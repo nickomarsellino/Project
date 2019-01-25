@@ -31,7 +31,7 @@ class Recomendations_Component extends Component {
                         className="RecomendationPicture"
                     />
                     <Comment.Content className="RecomendationUsername">
-                        <Comment.Author>Elliot Fu</Comment.Author>
+                        <Comment.Author>{this.props.recomendation.username}</Comment.Author>
                     </Comment.Content>
 
                     <Comment.Content className="RecomendationButton">

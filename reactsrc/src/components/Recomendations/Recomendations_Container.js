@@ -10,7 +10,7 @@ class Recomendations_Container extends Component {
     constructor() {
         super();
         this.state = {
-
+            recomendationData: []
         };
     }
 
@@ -19,18 +19,22 @@ class Recomendations_Container extends Component {
     }
 
     componentWillMount() {
-
+        axios.get('/api/users/allUsers', {})
+            .then(res => {
+                this.setState({
+                    recomendationData: res.data
+                });
+            });
     }
 
     render() {
-
         return (
             <section className="RecomendationContainer">
-               <RecomendationComponent/>
-                <RecomendationComponent/>
-                <RecomendationComponent/>
-                <RecomendationComponent/>
-                <RecomendationComponent/>
+                {this.state.recomendationData.map(recomendation =>
+                    <RecomendationComponent
+                        recomendation={recomendation}
+                    />
+                )}
             </section>
         );
     }

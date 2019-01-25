@@ -24,6 +24,8 @@
 }
 
 .RecomendationUsername{
+    width: 170px;
+    float: left;
     font-size: 20px;
     margin-top: 25px;
     margin-right: 5px;
@@ -35,7 +37,8 @@
 }
 
 .ui.comments .comment>.avatar~.RecomendationButton {
-    margin-left: 100px;
+    margin-left: 25px;
+    margin-top: 15px;
 }
 
 .RecomendationButton{
