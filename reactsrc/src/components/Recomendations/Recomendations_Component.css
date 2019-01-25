@@ -52,3 +52,16 @@
     padding-top: 6px;
     padding-bottom: 6px;
 }
+
+.RecomendationButton:hover{
+    display: inline-block;
+    background: rgba(77, 182, 172, 0.11);
+    margin-top: 5px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    opacity: 1;
+}
