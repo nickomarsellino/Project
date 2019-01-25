@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import profile from '../../daniel.jpg';
 import axios from 'axios';
+import profile from '../../daniel.jpg';
 import {Comment, Icon} from 'semantic-ui-react'
 import './Recomendations_Component.css';
 
@@ -12,12 +12,33 @@ class Recomendations_Component extends Component {
         this.state = {};
     }
 
-    componentWillUpdate() {
-
-    }
 
     componentWillMount() {
 
+    }
+
+    setProfileImage(profilePicture) {
+
+        console.log(profilePicture);
+
+        let imageUrl = profilePicture;
+
+        if (imageUrl) {
+            return (
+                <Comment.Avatar
+                    alt=" " src={require(`../../uploads/${imageUrl}`)}
+                    className="RecomendationPicture"
+                />
+            );
+        }
+        else {
+            return (
+                <Comment.Avatar
+                    alt=" " src={profile}
+                    className="RecomendationPicture"
+                />
+            );
+        }
     }
 
     render() {
@@ -26,10 +47,7 @@ class Recomendations_Component extends Component {
             <Comment.Group className="RecomendationComponent"
                            style={{marginLeft: "15px", marginRight: "15px", marginBottom: "10px", minWidth: "450px"}}>
                 <Comment className="RecomendationGroup">
-                    <Comment.Avatar
-                        src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
-                        className="RecomendationPicture"
-                    />
+                        {this.setProfileImage(this.props.recomendation.profilePicture)}
                     <Comment.Content className="RecomendationUsername">
                         <Comment.Author>{this.props.recomendation.username}</Comment.Author>
                     </Comment.Content>
