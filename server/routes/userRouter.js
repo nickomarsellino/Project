@@ -371,8 +371,21 @@ router.get('/', (req, res) => {
 
 
 router.get('/allUsers', (req, res, next) => {
+
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    recomendation = [];
+
     User.find({}).sort({timestamp: 'descending'}).then((result) => {
-        res.send(result);
+        for (var i=0; i<result.length; i++){
+          if(result[i].followers.indexOf(userData.userId.toString()).toString() === "-1"){
+              recomendation.push(result[i]);
+          }
+        }
+        res.json(recomendation);
     });
 });
 

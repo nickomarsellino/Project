@@ -30,6 +30,12 @@ class Search_Page extends Component {
     }
 
     componentWillMount() {
+
+        axios.get('/api/users/allUsers', {})
+            .then(res => {
+                console.log("INI DATANYA: ",res.data);
+            });
+
         if (this.props.searchData) {
             this.setState({
                 tweetSearch: this.props.searchData.searchTweetsData,
