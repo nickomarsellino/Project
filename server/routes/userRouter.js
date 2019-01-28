@@ -383,7 +383,9 @@ router.get('/allUsers', (req, res, next) => {
         for (var i=0; i<result.length; i++){
           if(result[i].followers.indexOf(userData.userId.toString()).toString() === "-1"){
               if(new String(result[i]._id).valueOf() !== new String(userData.userId).valueOf()){
-                  recomendation.push(result[i]);
+                  if(result[i].followers.length <= 3){
+                      recomendation.push(result[i]);
+                  }
               }
           }
         }
