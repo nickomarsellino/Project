@@ -18,6 +18,10 @@
     margin-left: 20px;
 }
 
+.RecomendationPicture:hover{
+    cursor: pointer;
+}
+
 
 .ui.comments .comment>.avatar~.RecomendationUsername {
     margin-left: -2px;
@@ -30,6 +34,10 @@
     margin-top: 25px;
     margin-right: 5px;
     margin-bottom: 25px;
+}
+
+.RecomendationUsername:hover{
+    cursor: pointer;
 }
 
 .RecomendationUsername .author{

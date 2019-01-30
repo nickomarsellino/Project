@@ -26,6 +26,7 @@ class Recomendations_Component extends Component {
         if (imageUrl) {
             return (
                 <Comment.Avatar
+                    onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
                     alt=" " src={require(`../../uploads/${imageUrl}`)}
                     className="RecomendationPicture"
                 />
@@ -34,6 +35,7 @@ class Recomendations_Component extends Component {
         else {
             return (
                 <Comment.Avatar
+                    onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
                     alt=" " src={profile}
                     className="RecomendationPicture"
                 />
@@ -41,14 +43,32 @@ class Recomendations_Component extends Component {
         }
     }
 
-    render() {
+    viewUserProfile(username, userId) {
+        if (localStorage.getItem("myThings") === userId) {
+            this.props.history.push({
+                pathname: `/home/myProfile/${username}`.replace(' ', ''),
+            })
+        }
+        else {
+            this.props.history.push({
+                pathname: `/home/profile/${username}`.replace(' ', ''),
+                state: {
+                    userId: userId
+                }
+            })
+        }
+    }
 
+    render() {
+        console.log("INI DATANYA: ",this.props.recomendation)
         return (
             <Comment.Group className="RecomendationComponent"
                            style={{marginLeft: "15px", marginRight: "15px", marginBottom: "10px", minWidth: "450px"}}>
                 <Comment className="RecomendationGroup">
                         {this.setProfileImage(this.props.recomendation.profilePicture)}
-                    <Comment.Content className="RecomendationUsername">
+                    <Comment.Content className="RecomendationUsername"
+                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                    >
                         <Comment.Author>{this.props.recomendation.username}</Comment.Author>
                     </Comment.Content>
 

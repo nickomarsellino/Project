@@ -32,6 +32,7 @@ class Recomendations_Container extends Component {
             <section className="RecomendationContainer">
                 {this.state.recomendationData.map(recomendation =>
                     <RecomendationComponent
+                        history={this.props.history}
                         recomendation={recomendation}
                     />
                 )}

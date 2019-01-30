@@ -256,7 +256,9 @@ class Search_Page extends Component {
             <FadeIn>
                 <Container className="col-lg-8 col-lg-offset-4" style={{marginBottom: "5%", marginTop: "5%"}}>
 
-                    <Recomendation/>
+                    <Recomendation
+                        history={this.props.history}
+                    />
 
                     <div>
                         <SearchBar
