@@ -65,73 +65,338 @@ class Notification_Container extends Component {
                         <hr/>
 
                     <center>
-                        <Comment.Group className="NotificationComponent">
-                            <Comment className="NotificationGroup">
-                                {this.setProfileImage()}
-                                <Comment.Content className="NotificationUsername"
-                                                 onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
-                                >
-                                    <Comment.Author>Robert</Comment.Author>
-                                </Comment.Content>
 
-                                <Comment.Content className="NotificationAction">
-                                    <Comment.Author>
-                                        <Icon flipped='horizontally' name='thumbs up outline' /> Liked Your Post.
-                                    </Comment.Author>
-                                </Comment.Content>
+                        <div className="notificationBox">
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Robert</Comment.Author>
+                                    </Comment.Content>
 
-                                <Comment.Content className="NotificationTimestamp">
-                                    <Comment.Author>2 Days Ago.</Comment.Author>
-                                </Comment.Content>
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='thumbs up outline' /> Liked Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
 
-                            </Comment>
-                        </Comment.Group>
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>2 Days Ago.</Comment.Author>
+                                    </Comment.Content>
 
-                        <br/>
-                        <Comment.Group className="NotificationComponent">
-                            <Comment className="NotificationGroup">
-                                {this.setProfileImage()}
-                                <Comment.Content className="NotificationUsername"
-                                                 onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
-                                >
-                                    <Comment.Author>Otong</Comment.Author>
-                                </Comment.Content>
+                                </Comment>
+                            </Comment.Group>
 
-                                <Comment.Content className="NotificationAction">
-                                    <Comment.Author>
-                                        <Icon flipped='horizontally' name='edit outline' /> Commented Your Post.
-                                    </Comment.Author>
-                                </Comment.Content>
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Otong</Comment.Author>
+                                    </Comment.Content>
 
-                                <Comment.Content className="NotificationTimestamp">
-                                    <Comment.Author>1 Minutes Ago.</Comment.Author>
-                                </Comment.Content>
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='edit outline' /> Commented Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
 
-                            </Comment>
-                        </Comment.Group>
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>1 Minutes Ago.</Comment.Author>
+                                    </Comment.Content>
 
-                        <br/>
-                        <Comment.Group className="NotificationComponent">
-                            <Comment className="NotificationGroup">
-                                {this.setProfileImage()}
-                                <Comment.Content className="NotificationUsername"
-                                                 onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
-                                >
-                                    <Comment.Author>Lil Uzi Vert</Comment.Author>
-                                </Comment.Content>
+                                </Comment>
+                            </Comment.Group>
 
-                                <Comment.Content className="NotificationAction">
-                                    <Comment.Author>
-                                        <Icon flipped='horizontally' name='handshake outline' /> Started Following You.
-                                    </Comment.Author>
-                                </Comment.Content>
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Lil Uzi Vert</Comment.Author>
+                                    </Comment.Content>
 
-                                <Comment.Content className="NotificationTimestamp">
-                                    <Comment.Author>11 Seconds Ago.</Comment.Author>
-                                </Comment.Content>
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='handshake outline' /> Started Following You.
+                                        </Comment.Author>
+                                    </Comment.Content>
 
-                            </Comment>
-                        </Comment.Group>
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>11 Seconds Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Robert</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='thumbs up outline' /> Liked Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>2 Days Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Otong</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='edit outline' /> Commented Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>1 Minutes Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Lil Uzi Vert</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='handshake outline' /> Started Following You.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>11 Seconds Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Robert</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='thumbs up outline' /> Liked Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>2 Days Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Otong</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='edit outline' /> Commented Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>1 Minutes Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Lil Uzi Vert</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='handshake outline' /> Started Following You.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>11 Seconds Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Robert</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='thumbs up outline' /> Liked Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>2 Days Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Otong</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='edit outline' /> Commented Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>1 Minutes Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Lil Uzi Vert</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='handshake outline' /> Started Following You.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>11 Seconds Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Robert</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='thumbs up outline' /> Liked Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>2 Days Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Otong</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='edit outline' /> Commented Your Post.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>1 Minutes Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+
+                            <Comment.Group className="NotificationComponent" style={{marginBottom: "6px", marginTop: "6px"}}>
+                                <Comment className="NotificationGroup">
+                                    {this.setProfileImage()}
+                                    <Comment.Content className="NotificationUsername"
+                                                     onClick={() => this.viewUserProfile(this.props.recomendation.username, this.props.recomendation._id)}
+                                    >
+                                        <Comment.Author>Lil Uzi Vert</Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationAction">
+                                        <Comment.Author>
+                                            <Icon flipped='horizontally' name='handshake outline' /> Started Following You.
+                                        </Comment.Author>
+                                    </Comment.Content>
+
+                                    <Comment.Content className="NotificationTimestamp">
+                                        <Comment.Author>11 Seconds Ago.</Comment.Author>
+                                    </Comment.Content>
+
+                                </Comment>
+                            </Comment.Group>
+                        </div>
 
                     </center>
 

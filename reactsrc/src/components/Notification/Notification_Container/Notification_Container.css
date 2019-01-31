@@ -4,6 +4,13 @@
     font-family: 'myKeepCalm', sans-serif;
 }
 
+.notificationBox{
+    margin-top: 30px;
+    overflow-y: auto;
+    height: 488px;
+}
+
+
 .NotificationComponent{
     border-left: 6px solid #ff7986;
     background-color: #FFFFFF;
