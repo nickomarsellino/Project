@@ -18,6 +18,8 @@ import ProfilePage from '../Profile_Page/Profile_Page'
 import MyProfilePage from '../Profile_Page/Profile_Page'
 import SearchPage from '../Search/Search_Page/Search_Page'
 import InboxPage from '../Inbox/Inbox_Page/Inbox_Page'
+import NotificationPage from '../Notification/Notification_Container/Notification_Container'
+
 import openSocket from "socket.io-client";
 
 const socket = openSocket('http://10.183.28.155:8000');
@@ -30,10 +32,10 @@ class Home extends Component {
             userId: '',
             username: '',
             profilePicture: '',
-            isLoading:true,
-            tweetData:'',
-            totalLengthData:'',
-            lengthData:''
+            isLoading: true,
+            tweetData: '',
+            totalLengthData: '',
+            lengthData: ''
         };
 
         this.getTweetDatainHome = this.getTweetDatainHome.bind(this);
@@ -50,9 +52,9 @@ class Home extends Component {
                     userId: res.data._id,
                     profilePicture: res.data.profilePicture
                 });
-                localStorage.setItem("myThings",res.data._id);
+                localStorage.setItem("myThings", res.data._id);
                 this.setState({
-                  isLoading:false
+                    isLoading: false
                 })
             });
     }
@@ -103,7 +105,7 @@ class Home extends Component {
     }
 
 
-    isCloseMessage(){
+    isCloseMessage() {
         axios.get('/api/inbox/isCloseMessage')
             .then(res => {
 
@@ -158,27 +160,32 @@ class Home extends Component {
         );
 
         const search = () => (
-          <SearchPage userId={this.state.userId}
-                      history={this.props.history}
-                      searchData={this.props.location.state}
-          />
+            <SearchPage userId={this.state.userId}
+                        history={this.props.history}
+                        searchData={this.props.location.state}
+            />
         );
 
         const inbox = () => (
-          <InboxPage userId={this.state.userId}
-                     history={this.props.history}
-                     onUserClicked={this.props.location.state}
-          />
+            <InboxPage userId={this.state.userId}
+                       history={this.props.history}
+                       onUserClicked={this.props.location.state}
+            />
         );
 
-        if(this.state.isLoading){
-          return(
-            <center>
-                <div className="LoadingGif">
-                    <img className="LoadingGif" src={LoadingGif} alt={" "}/>
-                </div>
-            </center>
-          )
+        const notification = () => (
+            <NotificationPage/>
+        );
+
+
+        if (this.state.isLoading) {
+            return (
+                <center>
+                    <div className="LoadingGif">
+                        <img className="LoadingGif" src={LoadingGif} alt={" "}/>
+                    </div>
+                </center>
+            )
         }
 
         return (
@@ -204,6 +211,7 @@ class Home extends Component {
 
                         <Route path={this.props.match.url + '/inbox'} component={inbox}/>
 
+                        <Route path={this.props.match.url + '/notification'} component={notification}/>
 
                     </div>
                 </FadeIn>
