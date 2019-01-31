@@ -11,7 +11,7 @@
 }
 
 
-.NotificationComponent{
+.NotificationLikesComponent{
     border-left: 6px solid #ff7986;
     background-color: #FFFFFF;
     width: 100%;
@@ -23,7 +23,46 @@
     margin-left: 0px;
     margin-right: 0px;
 }
+.NotificationLikesComponent:hover {
+    cursor: pointer;
+}
 
+.NotificationCommentsComponent{
+    border-left: 6px solid #84cff7;
+    background-color: #FFFFFF;
+    width: 100%;
+    min-height: 65px;
+    border-radius: 8px;
+    font-family: 'myTextFont', sans-serif;
+    box-shadow: 0px 2px 13px -2px #d0d0d0;
+    text-align: center;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.NotificationCommentsComponent:hover {
+    cursor: pointer;
+}
+
+.NotificationFollowedComponent{
+    border-left: 6px solid #84efc0;
+    background-color: #FFFFFF;
+    width: 100%;
+    min-height: 65px;
+    border-radius: 8px;
+    font-family: 'myTextFont', sans-serif;
+    box-shadow: 0px 2px 13px -2px #d0d0d0;
+    text-align: center;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.NotificationFollowedComponent:hover {
+    cursor: pointer;
+}
+
+
+.NotificationComponent:hover {
+    cursor: pointer;
+}
 
 .ui.comments .comment .NotificationPicture {
     display: block;
@@ -70,6 +109,18 @@
     margin-top: 25px;
     margin-right: 5px;
     margin-bottom: 25px;
+}
+
+#likedNotification{
+    color: #ff353b
+}
+
+#commentsNotification {
+    color: #008ef7;
+}
+
+#followedNotification{
+    color: #19b69b;
 }
 
 .NotificationTimestamp{
