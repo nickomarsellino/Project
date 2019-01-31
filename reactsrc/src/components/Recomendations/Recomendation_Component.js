@@ -19,8 +19,6 @@ class Recomendations_Component extends Component {
 
     setProfileImage(profilePicture) {
 
-        console.log(profilePicture);
-
         let imageUrl = profilePicture;
 
         if (imageUrl) {

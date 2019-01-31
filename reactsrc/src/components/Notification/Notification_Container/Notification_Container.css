@@ -3,3 +3,109 @@
     opacity: 0.9;
     font-family: 'myKeepCalm', sans-serif;
 }
+
+.NotificationComponent{
+    border-left: 6px solid #ff7986;
+    background-color: #FFFFFF;
+    width: 100%;
+    min-height: 65px;
+    border-radius: 8px;
+    font-family: 'myTextFont', sans-serif;
+    box-shadow: 0px 2px 13px -2px #d0d0d0;
+    text-align: center;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+
+.ui.comments .comment .NotificationPicture {
+    display: block;
+    width: 45px;
+    height: 45px;
+    float: left;
+    margin: 10px;
+    margin-left: 15px;
+}
+
+.NotificationPicture:hover{
+    cursor: pointer;
+}
+
+
+.ui.comments .comment>.avatar~.NotificationUsername {
+    margin-left: 25px;
+}
+
+.NotificationUsername{
+    width: 140px;
+    float: left;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-right: 5px;
+    margin-bottom: 25px;
+}
+
+.NotificationUsername:hover{
+    cursor: pointer;
+}
+
+.NotificationUsername .author{
+    text-align: left;
+}
+
+
+.NotificationAction{
+    color: #6f6f6f;
+    opacity: 0.5;
+    width: 200px;
+    float: left;
+    font-size: 13px;
+    margin-top: 25px;
+    margin-right: 5px;
+    margin-bottom: 25px;
+}
+
+.NotificationTimestamp{
+    color: #6f6f6f;
+    opacity: 0.5;
+    width: 150px;
+    float: left;
+    font-style: italic;
+    font-size: 13px;
+    margin-top: 25px;
+    margin-right: 5px;
+    margin-bottom: 25px;
+}
+
+.ui.comments .comment>.avatar~.NotificationButton {
+    margin-left: 25px;
+    margin-top: 15px;
+}
+
+.NotificationButton{
+    border-style: solid;
+    border-width: 1.2px;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: rgb(77, 182, 172);
+    color: rgb(77, 182, 172);
+    font-size: 20px;
+    margin-right: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.NotificationButton:hover{
+    display: inline-block;
+    background: rgba(77, 182, 172, 0.11);
+    margin-top: 5px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    opacity: 1;
+}
