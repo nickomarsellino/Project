@@ -238,11 +238,17 @@ router.put('/editProfilePicture/:id', upload.single('profilePicture'), (req, res
 
 
     User.find({_id: req.params.id}, 'profilePicture').then((result) => {
+
+        if(result[0].profilePicture.length === 0 ){
+
+        }
+        else{
             fs.unlink('../reactsrc/src/uploads/'+result[0].profilePicture, function(error) {
                 if (error) {
                     throw error;
                 }
             });
+        }
     });
 
     User.updateMany({_id: req.params.id}, {$set: {profilePicture: req.file.filename}}).exec();
@@ -370,7 +376,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/allUsers', (req, res, next) => {
+router.get('/randomUsers', (req, res, next) => {
 
     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
@@ -379,19 +385,47 @@ router.get('/allUsers', (req, res, next) => {
 
     recomendation = [];
 
-    User.find({}).limit(4).sort({timestamp: 'descending'}).then((result) => {
-        for (var i=0; i<result.length; i++){
-          if(result[i].followers.indexOf(userData.userId.toString()).toString() === "-1"){
-              if(new String(result[i]._id).valueOf() !== new String(userData.userId).valueOf()){
-                  if(result[i].followers.length <= 3){
-                      recomendation.push(result[i]);
-                  }
-              }
-          }
-        }
-        res.json(recomendation);
-    });
+    User.count().exec(function (err, count) {
+        // Get a random entry
+        var random = Math.floor(Math.random() * count)
+        // Again query all users but only fetch one offset by our random #
+        User.find({}).skip(random).skip(random).limit(6).then((result) => {
+            for (var i=0; i<result.length; i++){
+                if(result[i].followers.indexOf(userData.userId.toString()).toString() === "-1"){
+                    if(new String(result[i]._id).valueOf() !== new String(userData.userId).valueOf()){
+                        if(result[i].followers.length <= 3){
+                            recomendation.push(result[i]);
+                        }
+                    }
+                }
+            }
+            res.json(recomendation);
+        });
+    })
 });
+
+// router.get('/allUsers', (req, res, next) => {
+//
+//     const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+//     const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+//     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+//     const userData = JSON.parse(plaintext);
+//
+//     recomendation = [];
+//
+//     User.find({}).limit(4).sort({timestamp: 'descending'}).then((result) => {
+//         for (var i=0; i<result.length; i++){
+//           if(result[i].followers.indexOf(userData.userId.toString()).toString() === "-1"){
+//               if(new String(result[i]._id).valueOf() !== new String(userData.userId).valueOf()){
+//                   if(result[i].followers.length <= 3){
+//                       recomendation.push(result[i]);
+//                   }
+//               }
+//           }
+//         }
+//         res.json(recomendation);
+//     });
+// });
 
 // Get data for profile page
 router.get('/profile/:id', (req, res) => {

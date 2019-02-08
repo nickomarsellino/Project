@@ -19,7 +19,7 @@ class Recomendations_Container extends Component {
     }
 
     componentWillMount() {
-        axios.get('/api/users/allUsers', {})
+        axios.get('/api/users/randomUsers', {})
             .then(res => {
                 this.setState({
                     recomendationData: res.data
