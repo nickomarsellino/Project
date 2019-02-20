@@ -389,7 +389,7 @@ router.get('/randomUsers', (req, res, next) => {
         // Get a random entry
         var random = Math.floor(Math.random() * count)
         // Again query all users but only fetch one offset by our random #
-        User.find({}).skip(random).skip(random).limit(6).then((result) => {
+        User.find({}).skip(random).skip(random).limit(3).then((result) => {
             for (var i=0; i<result.length; i++){
                 if(result[i].followers.indexOf(userData.userId.toString()).toString() === "-1"){
                     if(new String(result[i]._id).valueOf() !== new String(userData.userId).valueOf()){

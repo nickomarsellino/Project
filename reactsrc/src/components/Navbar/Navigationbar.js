@@ -246,7 +246,6 @@ class Navigationbar extends Component {
                         <img src={logo} alt="" height="30px"/>
                         {' '}
                     </NavbarBrand>
-                    <p id="namaFiturDiHome">WomanLounge</p>
                     {
                         !this.state.isWideEnough && <NavbarNav right={true}>
                             <NavItem>
@@ -296,7 +295,6 @@ class Navigationbar extends Component {
                 <NavbarBrand href="/home">
                     <img src={logo} alt="" height="40px"/>
                 </NavbarBrand>
-                <p id="namaFitur">WomanLounge</p>
                 {!this.state.isWideEnough && <NavbarToggler dark="dark" onClick={this.onClick}/>}
                 <Collapse isOpen={this.state.collapse} navbar={true}>
                     <NavbarNav right={true}>

@@ -301,6 +301,23 @@ class TweetComponent extends Component {
                     });
                     socket.emit('sendLike', likeData)
                 })
+
+
+            const notificationData = {
+                userId: this.state.tweet.userId,
+                profileUserAction: this.props.profilePicture,
+                notificationAction: "like"
+            };
+            //for push notification
+            axios({
+                method: 'POST',
+                responseType: 'json',
+                url: `/api/notification/pushNotificationAction/` + this.state.tweet._id,
+                data: notificationData
+            })
+                .then(res => {
+
+                })
         }
     }
 

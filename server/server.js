@@ -11,6 +11,7 @@ const userRoutes = require('./routes/userRouter');
 const authenticationRoutes = require('./routes/authenticationRouter');
 const tweetsRoutes = require('./routes/tweetsRouter');
 const messageRouter = require('./routes/messageRouter');
+const notificationRouter = require('./routes/notificationRouter');
 
 app.use(logger('dev'));
 app.use(helmet());
@@ -29,6 +30,7 @@ app.use('/api/authentication', authenticationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tweet', tweetsRoutes);
 app.use('/api/inbox', messageRouter);
+app.use('/api/notification', notificationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

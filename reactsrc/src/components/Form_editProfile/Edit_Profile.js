@@ -228,7 +228,6 @@ class Edit_Profile extends Component {
                                                         className={this.state.formStatus}
                                                         onChange={this.handleInputChange}
                                                         name="email"
-                                                        disabled
                                             />
 
                                             <Form.Input required type="number" fluid label='Phone Number'
