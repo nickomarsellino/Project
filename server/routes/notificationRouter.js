@@ -37,5 +37,17 @@ router.post('/pushNotificationAction/:id', (req, res) => {
     });
 });
 
+router.get('/getNotification', (req, res) => {
+    const tokenId = atob(req.headers.cookie.replace('tokenId=', ''));
+    const bytes = CryptoJS.AES.decrypt(tokenId.toString(), secretKey);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const userData = JSON.parse(plaintext);
+
+    Notification.find({userIdTarget: userData.userId}).then((result) => {
+        console.log(result)
+    }).catch((err) => {
+        res.status(404).json({success: false, msg: `No such user.`});
+    });
+});
 
 module.exports = router;

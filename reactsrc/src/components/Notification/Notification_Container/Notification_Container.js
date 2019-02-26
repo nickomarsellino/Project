@@ -17,6 +17,13 @@ class Notification_Container extends Component {
         };
     }
 
+    componentWillMount() {
+        axios.get('/api/notification/getNotification')
+            .then(res => {
+
+            });
+    }
+
     setProfileImage(profilePicture) {
 
         // let imageUrl = profilePicture;
